@@ -1,0 +1,1879 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#03111d" />
+<title>皇家海图室 · 3D 战舰</title>
+<style>
+
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #dcebf3;
+  background: #02070d;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #02070d; }
+body { min-width: 320px; }
+button, input { font: inherit; }
+button { color: inherit; }
+
+
+#boot-fallback {
+  position: fixed; inset: 0; z-index: 60; display: grid; place-content: center; gap: 10px; text-align: center;
+  background: radial-gradient(circle at 50% 34%, #0a2430, #02070d 58%); color: #b9d6df; letter-spacing: .08em;
+}
+#boot-fallback strong { color: #6ee7d3; font-size: 16px; }
+#boot-fallback span { max-width: 560px; padding: 0 24px; color: #678894; font-size: 11px; line-height: 1.6; letter-spacing: .03em; }
+
+#game {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  outline: none;
+  cursor: crosshair;
+  pointer-events: auto;
+}
+
+.app-shell { position: fixed; inset: 0; pointer-events: none; }
+.app-shell > *:not(#game):not(.scanlines):not(.board-label):not(.footer-strip) { pointer-events: auto; }
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .11;
+  background: repeating-linear-gradient(180deg, rgba(255,255,255,.07) 0, rgba(255,255,255,.07) 1px, transparent 1px, transparent 4px);
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+.glass-panel {
+  background: linear-gradient(135deg, rgba(5, 18, 29, .86), rgba(4, 13, 22, .72));
+  border: 1px solid rgba(116, 211, 227, .16);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter: blur(18px);
+}
+
+.hud {
+  position: fixed;
+  z-index: 10;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  min-height: 76px;
+  padding: 13px 16px 13px 18px;
+  display: grid;
+  grid-template-columns: minmax(220px, .85fr) minmax(300px, 1.6fr) minmax(250px, 1fr);
+  align-items: center;
+  gap: 18px;
+  border-radius: 12px;
+}
+
+.eyebrow { color: #59b9c8; font-size: 9px; letter-spacing: .28em; font-weight: 800; text-transform: uppercase; }
+.brand-block h1 { margin: 3px 0 0; font-size: 20px; line-height: 1; letter-spacing: .08em; font-weight: 700; color: #e9f7fb; }
+.brand-block h1 span { color: #5be1cf; font-weight: 500; }
+
+.hud-status { min-width: 0; display: flex; align-items: center; gap: 14px; }
+.turn-chip { flex: 0 0 auto; padding: 7px 10px; border: 1px solid rgba(92, 213, 199, .2); border-radius: 6px; color: #8ea8b4; font-size: 11px; letter-spacing: .12em; background: rgba(4, 27, 35, .75); }
+.turn-chip.active { color: #70f2db; border-color: rgba(92, 232, 210, .48); box-shadow: 0 0 20px rgba(72, 231, 206, .08); }
+.status-line { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #afc5ce; font-size: 12px; }
+.hud-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+.api-pill { max-width: 230px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 7px 9px; font-size: 10px; color: #809da9; border: 1px solid rgba(255,255,255,.06); border-radius: 6px; background: rgba(1,8,14,.5); }
+.dot { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #80909a; box-shadow: 0 0 8px #80909a; }
+.dot.online { background: #55e4cb; box-shadow: 0 0 9px #55e4cb; }
+
+.ghost-btn, .compact-btn, .secondary-btn, .primary-btn, .api-row button {
+  border: 1px solid rgba(109, 211, 226, .22);
+  background: rgba(7, 29, 41, .74);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: .18s ease;
+}
+.ghost-btn { padding: 8px 11px; font-size: 11px; color: #b9d1da; }
+.ghost-btn:hover, .compact-btn:hover, .secondary-btn:hover, .api-row button:hover { border-color: rgba(100, 233, 214, .52); color: #76f0dd; transform: translateY(-1px); }
+
+.side-panel {
+  position: fixed;
+  z-index: 8;
+  left: 18px;
+  top: 112px;
+  bottom: 42px;
+  width: 315px;
+  padding: 16px;
+  border-radius: 12px;
+  overflow: auto;
+  transition: transform .35s ease, opacity .25s ease;
+}
+.side-panel.collapsed { transform: translateX(calc(-100% - 28px)); opacity: 0; pointer-events: none; }
+.panel-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.panel-heading h2 { margin: 4px 0 0; font-size: 18px; font-weight: 600; letter-spacing: .04em; }
+.fleet-count { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #5ce7d2; font-size: 14px; border: 1px solid rgba(92,231,210,.26); padding: 6px 8px; border-radius: 6px; }
+.orientation-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 11px; margin-bottom: 12px; border-radius: 7px; background: rgba(8, 33, 44, .65); border: 1px solid rgba(95, 188, 203, .1); }
+.orientation-row small { display: block; color: #668690; font-size: 9px; text-transform: uppercase; letter-spacing: .16em; }
+.orientation-row strong { display: block; margin-top: 2px; font-size: 12px; color: #cde1e7; }
+.compact-btn { padding: 7px 10px; font-size: 10px; color: #8fb7c2; }
+
+.ship-list { display: grid; gap: 7px; }
+.ship-item {
+  width: 100%;
+  min-height: 56px;
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0 8px;
+  padding: 9px;
+  border: 1px solid rgba(99, 166, 180, .1);
+  border-radius: 7px;
+  background: rgba(5, 21, 30, .58);
+  text-align: left;
+  cursor: pointer;
+  transition: .18s ease;
+}
+.ship-item:hover { border-color: rgba(91, 208, 214, .34); background: rgba(8, 34, 44, .78); }
+.ship-item.selected { border-color: rgba(91, 226, 205, .55); box-shadow: inset 2px 0 #55dfca, 0 0 16px rgba(66, 221, 197, .07); }
+.ship-item.placed:not(.selected) { border-color: rgba(84, 170, 157, .24); }
+.ship-index { grid-row: 1 / 3; color: #486d78; font-family: ui-monospace, monospace; font-size: 10px; }
+.ship-name { display: flex; align-items: baseline; gap: 7px; }
+.ship-name strong { color: #c9dce3; font-size: 12px; font-weight: 600; }
+.ship-name small { color: #466d78; font-size: 8px; text-transform: uppercase; letter-spacing: .1em; }
+.ship-cells { display: flex; gap: 3px; justify-content: flex-end; }
+.ship-cells i { display: block; width: 8px; height: 4px; border-radius: 1px; background: #43707a; }
+.ship-item.selected .ship-cells i, .ship-item.placed .ship-cells i { background: #52cdbb; box-shadow: 0 0 5px rgba(82,205,187,.3); }
+.ship-state { color: #42636c; font-size: 7px; letter-spacing: .13em; }
+.ship-item.selected .ship-state { color: #5ee5d0; }
+.ship-item.placed .ship-state { color: #58a99d; }
+
+.placement-feedback { margin-top: 10px; min-height: 38px; padding: 9px 10px; color: #698b95; background: rgba(2, 12, 19, .5); border: 1px dashed rgba(107, 170, 181, .16); border-radius: 6px; font-size: 10px; display: flex; align-items: center; gap: 7px; }
+.placement-feedback span { font-family: ui-monospace, monospace; font-size: 8px; letter-spacing: .12em; }
+.placement-feedback.valid { color: #6ad9c7; border-color: rgba(83,219,198,.28); }
+.placement-feedback.invalid { color: #e98687; border-color: rgba(233,107,110,.28); }
+.panel-actions { display: grid; grid-template-columns: .75fr 1.25fr; gap: 8px; margin-top: 10px; }
+.secondary-btn, .primary-btn { padding: 10px 8px; font-size: 10px; letter-spacing: .04em; }
+.secondary-btn { color: #91abb4; }
+.primary-btn { border-color: rgba(81, 225, 203, .45); background: linear-gradient(180deg, rgba(30, 117, 112, .88), rgba(18, 81, 82, .88)); color: #dffff9; box-shadow: inset 0 1px rgba(255,255,255,.08), 0 8px 25px rgba(29, 190, 170, .12); }
+.primary-btn:hover:not(:disabled) { border-color: #66e4d0; transform: translateY(-1px); box-shadow: 0 9px 28px rgba(29,190,170,.18); }
+.primary-btn:disabled { opacity: .34; cursor: not-allowed; filter: saturate(.45); }
+.hint { margin-top: 9px; color: #4c6f79; font-size: 9px; line-height: 1.45; }
+
+.intel-panel {
+  position: fixed;
+  z-index: 8;
+  right: 18px;
+  top: 112px;
+  width: 276px;
+  padding: 14px;
+  border-radius: 12px;
+}
+.intel-section + .intel-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.055); }
+.intel-title { margin-bottom: 8px; color: #7394a0; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; }
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.score-grid div { padding: 8px; border-radius: 6px; background: rgba(2, 13, 20, .55); border: 1px solid rgba(113,183,196,.08); }
+.score-grid small { display: block; color: #53737e; font-size: 8px; }
+.score-grid strong { display: block; margin-top: 2px; color: #c8dce3; font: 500 16px/1 ui-monospace, SFMono-Regular, monospace; }
+.action-card { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; padding: 9px 10px; background: rgba(5, 20, 29, .66); border-radius: 6px; border: 1px solid rgba(94, 158, 170, .1); }
+.action-card span { color: #52737e; font-size: 8px; }
+.action-card strong { color: #e0edf0; font: 600 15px/1 ui-monospace, monospace; }
+.action-card em { font-style: normal; font-size: 8px; letter-spacing: .1em; color: #dbeaf0; }
+.action-card.hit, .action-card.sunk { border-color: rgba(255,93,89,.28); }
+.action-card.hit em, .action-card.sunk em { color: #ff7874; }
+.empty-action { color: #486872; font-size: 10px; padding: 8px 0; }
+.ai-config p { margin: 0 0 8px; color: #577680; font-size: 9px; line-height: 1.5; }
+.ai-config code { color: #72cfc4; font-size: 8px; }
+.api-row { display: grid; grid-template-columns: 1fr auto; gap: 5px; }
+.api-row input { width: 100%; min-width: 0; padding: 7px 8px; border: 1px solid rgba(108,185,197,.14); border-radius: 5px; outline: none; background: rgba(1,8,13,.62); color: #bcd2d9; font-size: 9px; }
+.api-row input:focus { border-color: rgba(85,220,200,.43); }
+.api-row button { padding: 6px 9px; font-size: 9px; color: #8eb5bd; }
+.controls-help { display: grid; gap: 5px; }
+.controls-help div { display: flex; align-items: center; gap: 8px; color: #587883; font-size: 9px; }
+kbd { min-width: 38px; text-align: center; padding: 3px 5px; border-radius: 4px; color: #95afb7; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07); font: 8px ui-monospace, monospace; }
+
+.board-label { position: fixed; z-index: 4; bottom: 48px; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 8px; align-items: center; pointer-events: none; text-shadow: 0 2px 10px #000; }
+.board-label span { grid-row: 1/3; color: rgba(85,214,199,.38); font: 500 24px/1 ui-monospace, monospace; }
+.board-label strong { color: rgba(205,233,238,.66); font-size: 11px; letter-spacing: .12em; }
+.board-label small { color: rgba(87,132,142,.7); font-size: 8px; letter-spacing: .08em; }
+.player-label { left: 39%; transform: translateX(-50%); }
+.enemy-label { left: 64%; transform: translateX(-50%); }
+
+.footer-strip { position: fixed; z-index: 5; left: 18px; right: 18px; bottom: 12px; display: flex; justify-content: space-between; color: rgba(87,133,143,.52); font: 8px ui-monospace, monospace; letter-spacing: .12em; pointer-events: none; }
+
+.modal-backdrop { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; background: rgba(0,5,8,.66); opacity: 0; visibility: hidden; transition: .28s ease; }
+.modal-backdrop.show { opacity: 1; visibility: visible; }
+.game-over-card { width: min(460px, calc(100vw - 32px)); padding: 28px; border-radius: 14px; text-align: center; transform: translateY(10px) scale(.98); transition: .28s ease; }
+.modal-backdrop.show .game-over-card { transform: none; }
+.modal-kicker { color: #5ee4cf; font-size: 9px; letter-spacing: .25em; }
+.game-over-card h2 { margin: 7px 0 6px; color: #e6f2f5; font-size: 24px; font-weight: 600; }
+.game-over-card p { margin: 0; color: #718f99; font-size: 12px; }
+.result-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin: 20px 0; }
+.result-stats div { padding: 11px; background: rgba(1,10,16,.52); border: 1px solid rgba(95,173,184,.1); border-radius: 7px; }
+.result-stats small { display: block; color: #55747e; font-size: 8px; }
+.result-stats strong { display: block; margin-top: 2px; color: #d4e5e9; font: 18px ui-monospace, monospace; }
+.game-over-card .primary-btn { width: 100%; }
+
+.fatal-screen { position: fixed; z-index: 50; inset: 0; display: grid; place-items: center; background: radial-gradient(circle at 50% 30%, #0d2730, #02070d 60%); }
+.fatal-card { width: min(520px, calc(100vw - 32px)); padding: 26px; border-radius: 12px; }
+.fatal-card h2 { margin: 6px 0 10px; }
+.fatal-card p { color: #78949e; font-size: 12px; line-height: 1.55; }
+
+@media (max-width: 1050px) {
+  .hud { grid-template-columns: auto 1fr auto; }
+  .brand-block .eyebrow, .brand-block h1 span, .api-pill { display: none; }
+  .brand-block h1 { font-size: 14px; }
+  .side-panel { width: 285px; }
+  .intel-panel { width: 240px; }
+}
+
+@media (max-width: 760px) {
+  .hud { top: 8px; left: 8px; right: 8px; min-height: 60px; grid-template-columns: auto 1fr; gap: 10px; padding: 9px 10px; }
+  .hud-actions { grid-column: 1 / 3; position: fixed; top: 75px; right: 8px; }
+  .hud-status { justify-content: flex-end; }
+  .status-line { max-width: 48vw; }
+  .side-panel { left: 8px; top: 75px; bottom: 32px; width: min(290px, calc(100vw - 16px)); }
+  .intel-panel { display: none; }
+  .board-label { display: none; }
+  .footer-strip { left: 8px; right: 8px; bottom: 7px; }
+  .footer-strip span:nth-child(2) { display: none; }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+<div id="root"><div id="boot-fallback"><strong>ADMIRALTY CHARTROOM</strong><span>正在加载 3D 战术系统… 如长时间无响应，请检查 CDN / WebGL 后重新加载。</span></div></div>
+<script type="module">import React, { useCallback, useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@19.1.1';
+import { createRoot } from 'https://esm.sh/react-dom@19.1.1/client';
+const BOARD_SIZE = 10;
+const ROWS = 'ABCDEFGHIJ';
+const FLEET_SPEC = [
+    { id: 'carrier', type: 'carrier', name: '航空母舰', length: 5 },
+    { id: 'battleship', type: 'battleship', name: '战列舰', length: 4 },
+    { id: 'cruiser', type: 'cruiser', name: '巡洋舰', length: 3 },
+    { id: 'submarine', type: 'submarine', name: '潜艇', length: 3 },
+    { id: 'destroyer', type: 'destroyer', name: '驱逐舰', length: 2 },
+];
+const OPENROUTER_MODEL = 'openrouter/horizon-beta';
+const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+// Replace this placeholder for direct browser API calls. Browser-exposed keys are not secure for production use.
+const OPENROUTER_API_KEY = 'your-openrouter-api-key-here';
+class Ship {
+    constructor(spec) {
+        this.orientation = null;
+        this.start = null;
+        this.cells = [];
+        this.hits = new Set();
+        this.confirmed = false;
+        this.revealed = false;
+        this.mesh = null;
+        this.id = spec.id;
+        this.type = spec.type;
+        this.name = spec.name;
+        this.length = spec.length;
+    }
+    place(row, col, orientation, cells) {
+        this.start = { row, col };
+        this.orientation = orientation;
+        this.cells = cells.map((c) => ({ ...c }));
+        this.confirmed = true;
+    }
+    clearPlacement() {
+        this.orientation = null;
+        this.start = null;
+        this.cells = [];
+        this.hits.clear();
+        this.confirmed = false;
+        this.revealed = false;
+        this.mesh = null;
+    }
+    registerHit(row, col) {
+        this.hits.add(`${row},${col}`);
+    }
+    get sunk() {
+        return this.confirmed && this.cells.length > 0 && this.hits.size >= this.length;
+    }
+}
+class GameBoard {
+    constructor(owner, origin, cellSize = 0.82) {
+        this.size = BOARD_SIZE;
+        this.attackHistory = [];
+        this.group = null;
+        this.owner = owner;
+        this.origin = origin;
+        this.cellSize = cellSize;
+        this.ships = FLEET_SPEC.map((s) => new Ship({ ...s }));
+        this.cells = this.makeCells();
+    }
+    makeCells() {
+        return Array.from({ length: this.size }, (_, row) => Array.from({ length: this.size }, (_, col) => ({
+            row,
+            col,
+            shipId: null,
+            attacked: false,
+            result: null,
+            markerObjectId: null,
+        })));
+    }
+    reset() {
+        this.cells = this.makeCells();
+        this.attackHistory = [];
+        this.ships.forEach((s) => s.clearPlacement());
+    }
+    getShip(id) {
+        return this.ships.find((s) => s.id === id) ?? null;
+    }
+    computeCells(row, col, length, orientation) {
+        const out = [];
+        for (let i = 0; i < length; i += 1) {
+            const r = row + (orientation === 'vertical' ? i : 0);
+            const c = col + (orientation === 'horizontal' ? i : 0);
+            out.push({ row: r, col: c });
+        }
+        return out;
+    }
+    validatePlacement(shipId, row, col, orientation) {
+        const ship = this.getShip(shipId);
+        if (!ship)
+            return { valid: false, reason: '未知舰船', cells: [] };
+        const cells = this.computeCells(row, col, ship.length, orientation);
+        if (cells.some((c) => c.row < 0 || c.row >= this.size || c.col < 0 || c.col >= this.size)) {
+            return { valid: false, reason: '超出棋盘边界', cells };
+        }
+        for (const pos of cells) {
+            const occupied = this.cells[pos.row][pos.col].shipId;
+            if (occupied && occupied !== shipId)
+                return { valid: false, reason: '与其他舰船重叠', cells };
+        }
+        return { valid: true, reason: null, cells };
+    }
+    removeShip(shipId) {
+        const ship = this.getShip(shipId);
+        if (!ship)
+            return;
+        for (const c of ship.cells) {
+            const cell = this.cells[c.row]?.[c.col];
+            if (cell?.shipId === shipId)
+                cell.shipId = null;
+        }
+        ship.orientation = null;
+        ship.start = null;
+        ship.cells = [];
+        ship.confirmed = false;
+    }
+    placeShip(shipId, row, col, orientation) {
+        const validation = this.validatePlacement(shipId, row, col, orientation);
+        if (!validation.valid)
+            return validation;
+        const ship = this.getShip(shipId);
+        this.removeShip(shipId);
+        for (const pos of validation.cells)
+            this.cells[pos.row][pos.col].shipId = shipId;
+        ship.place(row, col, orientation, validation.cells);
+        return validation;
+    }
+    randomizeFleet() {
+        this.reset();
+        for (const ship of this.ships) {
+            let placed = false;
+            for (let tries = 0; tries < 1000 && !placed; tries += 1) {
+                const orientation = Math.random() > 0.5 ? 'horizontal' : 'vertical';
+                const row = Math.floor(Math.random() * this.size);
+                const col = Math.floor(Math.random() * this.size);
+                const result = this.placeShip(ship.id, row, col, orientation);
+                placed = result.valid;
+            }
+            if (!placed)
+                throw new Error(`无法放置舰船: ${ship.id}`);
+        }
+    }
+    attack(row, col) {
+        if (row < 0 || row >= this.size || col < 0 || col >= this.size) {
+            return { ok: false, reason: '坐标越界' };
+        }
+        const cell = this.cells[row][col];
+        if (cell.attacked)
+            return { ok: false, reason: '该坐标已攻击' };
+        cell.attacked = true;
+        const ship = cell.shipId ? this.getShip(cell.shipId) : null;
+        let result = 'miss';
+        if (ship) {
+            ship.registerHit(row, col);
+            result = ship.sunk ? 'sunk' : 'hit';
+            if (ship.sunk)
+                ship.revealed = true;
+        }
+        cell.result = result;
+        const coordinate = toCoordinate(row, col);
+        this.attackHistory.push({ row, col, coordinate, result, shipId: ship?.id ?? null });
+        return { ok: true, row, col, coordinate, result, shipId: ship?.id ?? null, ship };
+    }
+    setMarkerObjectId(row, col, objectId) {
+        this.cells[row][col].markerObjectId = objectId;
+    }
+    allSunk() {
+        return this.ships.every((s) => s.sunk);
+    }
+    get shipsRemaining() {
+        return this.ships.filter((s) => !s.sunk).length;
+    }
+    get totalHits() {
+        return this.cells.flat().filter((c) => c.attacked && c.shipId).length;
+    }
+    get occupiedCellCount() {
+        return this.cells.flat().filter((c) => c.shipId).length;
+    }
+    getState() {
+        const fog = this.owner === 'enemy';
+        const ships = this.ships.map((ship, index) => {
+            const reveal = !fog || ship.sunk;
+            const state = {
+                id: reveal ? ship.id : `enemy-unknown-${index}`,
+                type: reveal ? ship.type : 'unknown',
+                name: reveal ? ship.name : '未知舰',
+                length: reveal ? ship.length : null,
+                orientation: reveal ? ship.orientation : null,
+                start: reveal && ship.start ? { ...ship.start } : null,
+                cells: reveal ? ship.cells.map((c) => ({ ...c })) : [],
+                hits: reveal ? [...ship.hits].map(parseCellKey) : [],
+                sunk: ship.sunk,
+                confirmed: reveal ? ship.confirmed : false,
+                revealed: reveal,
+                meshVisible: Boolean(ship.mesh?.visible),
+                meshObjectId: reveal && ship.mesh ? ship.mesh.id : null,
+            };
+            return state;
+        });
+        const sunkIds = new Set(this.ships.filter((s) => s.sunk).map((s) => s.id));
+        const cells = this.cells.flat().map((cell) => ({
+            row: cell.row,
+            col: cell.col,
+            shipId: !fog ? cell.shipId : cell.shipId && sunkIds.has(cell.shipId) ? cell.shipId : null,
+            attacked: cell.attacked,
+            result: cell.attacked ? cell.result : null,
+            markerObjectId: cell.attacked ? cell.markerObjectId : null,
+        }));
+        const attackHistory = this.attackHistory.map((h) => ({
+            ...h,
+            shipId: !fog || h.result === 'sunk' ? h.shipId : null,
+        }));
+        return {
+            owner: this.owner,
+            size: this.size,
+            origin: { ...this.origin },
+            cellSize: this.cellSize,
+            ships,
+            cells,
+            attackHistory,
+            shipsRemaining: this.shipsRemaining,
+            totalHits: this.totalHits,
+            occupiedCellCount: fog ? (this.ships.filter((s) => s.sunk).reduce((n, s) => n + s.length, 0)) : this.occupiedCellCount,
+        };
+    }
+}
+function toCoordinate(row, col) {
+    return `${ROWS[row]}${col + 1}`;
+}
+function fromCoordinate(input) {
+    const match = input.toUpperCase().match(/\b([A-J])\s*(10|[1-9])\b/);
+    if (!match)
+        return null;
+    return { row: ROWS.indexOf(match[1]), col: Number(match[2]) - 1, coordinate: `${match[1]}${match[2]}` };
+}
+function parseCellKey(key) {
+    const [row, col] = key.split(',').map(Number);
+    return { row, col };
+}
+class AIPlayer {
+    constructor() {
+        this.mode = 'hunt';
+        this.knownHits = [];
+        this.knownMisses = [];
+        this.sunkShips = [];
+        this.targetQueue = [];
+        this.attackHistory = [];
+        this.knowledgeBoard = Array.from({ length: 10 }, () => Array(10).fill('unknown'));
+        this.lastPrompt = '';
+        this.lastRawResponse = null;
+        this.lastChosenCoordinate = null;
+        this.lastDecisionSource = null;
+        this.lastError = null;
+        this.fallbackCount = 0;
+        this.apiConfigured = OPENROUTER_API_KEY !== 'your-openrouter-api-key-here' && OPENROUTER_API_KEY.trim().length > 10;
+        this.requestTimeoutMs = 8000;
+        this.pendingRequestCount = 0;
+        this.activeSessionId = 0;
+        this.runtimeApiKey = OPENROUTER_API_KEY;
+    }
+    reset(sessionId) {
+        this.mode = 'hunt';
+        this.knownHits = [];
+        this.knownMisses = [];
+        this.sunkShips = [];
+        this.targetQueue = [];
+        this.attackHistory = [];
+        this.knowledgeBoard = Array.from({ length: 10 }, () => Array(10).fill('unknown'));
+        this.lastPrompt = '';
+        this.lastRawResponse = null;
+        this.lastChosenCoordinate = null;
+        this.lastDecisionSource = null;
+        this.lastError = null;
+        this.pendingRequestCount = 0;
+        this.activeSessionId = sessionId;
+    }
+    setApiKey(key) {
+        this.runtimeApiKey = key.trim();
+        this.apiConfigured = this.runtimeApiKey.length > 10 && this.runtimeApiKey !== 'your-openrouter-api-key-here';
+    }
+    observeAttack(coordinate, result, sunkShipName) {
+        if (!this.attackHistory.includes(coordinate))
+            this.attackHistory.push(coordinate);
+        const parsed = fromCoordinate(coordinate);
+        if (parsed)
+            this.knowledgeBoard[parsed.row][parsed.col] = result;
+        if (result === 'miss') {
+            if (!this.knownMisses.includes(coordinate))
+                this.knownMisses.push(coordinate);
+        }
+        else {
+            if (!this.knownHits.includes(coordinate))
+                this.knownHits.push(coordinate);
+            this.enqueueNeighbors(coordinate);
+        }
+        if (result === 'sunk' && sunkShipName) {
+            if (!this.sunkShips.includes(sunkShipName))
+                this.sunkShips.push(sunkShipName);
+            this.targetQueue = this.targetQueue.filter((c) => !this.attackHistory.includes(c));
+        }
+        this.mode = this.targetQueue.length ? (this.knownHits.length >= 2 ? 'kill' : 'target') : 'hunt';
+    }
+    enqueueNeighbors(coordinate) {
+        const parsed = fromCoordinate(coordinate);
+        if (!parsed)
+            return;
+        const candidates = [
+            [parsed.row - 1, parsed.col],
+            [parsed.row + 1, parsed.col],
+            [parsed.row, parsed.col - 1],
+            [parsed.row, parsed.col + 1],
+        ];
+        for (const [row, col] of candidates) {
+            if (row < 0 || row >= 10 || col < 0 || col >= 10)
+                continue;
+            const coord = toCoordinate(row, col);
+            if (!this.attackHistory.includes(coord) && !this.targetQueue.includes(coord))
+                this.targetQueue.push(coord);
+        }
+    }
+    buildPrompt() {
+        return [
+            '你是公平的战舰AI。棋盘10x10，行A-J，列1-10。只依据真实攻击历史，绝不猜测或读取隐藏舰位。',
+            `模式: ${this.mode}`,
+            `已命中: ${this.knownHits.join(', ') || '无'}`,
+            `已未命中: ${this.knownMisses.join(', ') || '无'}`,
+            `已击沉: ${this.sunkShips.join(', ') || '无'}`,
+            `已攻击: ${this.attackHistory.join(', ') || '无'}`,
+            '请选择一个尚未攻击的坐标。命中后优先攻击相邻格；狩猎阶段优先使用棋盘奇偶搜索。',
+            '只需在简短理由中明确给出一个坐标，例如 A5。',
+        ].join('\n');
+    }
+    chooseFallback() {
+        this.targetQueue = this.targetQueue.filter((c) => !this.attackHistory.includes(c));
+        if (this.targetQueue.length) {
+            this.mode = this.knownHits.length >= 2 ? 'kill' : 'target';
+            return this.targetQueue.shift();
+        }
+        this.mode = 'hunt';
+        const parity = [];
+        const rest = [];
+        for (let r = 0; r < 10; r += 1) {
+            for (let c = 0; c < 10; c += 1) {
+                const coord = toCoordinate(r, c);
+                if (this.attackHistory.includes(coord))
+                    continue;
+                ((r + c) % 2 === 0 ? parity : rest).push(coord);
+            }
+        }
+        const pool = parity.length ? parity : rest;
+        return pool[Math.floor(Math.random() * pool.length)] || null;
+    }
+    async decideMove(sessionId) {
+        this.activeSessionId = sessionId;
+        this.lastPrompt = this.buildPrompt();
+        this.lastError = null;
+        if (this.apiConfigured) {
+            this.pendingRequestCount += 1;
+            const controller = new AbortController();
+            const timer = window.setTimeout(() => controller.abort(), this.requestTimeoutMs);
+            try {
+                const response = await fetch(OPENROUTER_URL, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${this.runtimeApiKey}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: OPENROUTER_MODEL,
+                        messages: [{ role: 'user', content: this.lastPrompt }],
+                        temperature: 0.2,
+                        max_tokens: 120,
+                    }),
+                    signal: controller.signal,
+                });
+                if (!response.ok)
+                    throw new Error(`OpenRouter HTTP ${response.status}`);
+                const data = await response.json();
+                const text = String(data?.choices?.[0]?.message?.content ?? '');
+                this.lastRawResponse = text;
+                const parsed = fromCoordinate(text);
+                if (parsed && !this.attackHistory.includes(parsed.coordinate)) {
+                    this.lastChosenCoordinate = parsed.coordinate;
+                    this.lastDecisionSource = 'openrouter';
+                    return parsed.coordinate;
+                }
+                throw new Error('OpenRouter 返回的坐标无效或已使用');
+            }
+            catch (error) {
+                this.lastError = error?.name === 'AbortError' ? 'OpenRouter 请求超时' : String(error?.message ?? error);
+                console.warn('[AI] OpenRouter failed, using fair local fallback:', this.lastError);
+            }
+            finally {
+                window.clearTimeout(timer);
+                this.pendingRequestCount = Math.max(0, this.pendingRequestCount - 1);
+            }
+        }
+        this.fallbackCount += 1;
+        const coord = this.chooseFallback();
+        this.lastChosenCoordinate = coord;
+        this.lastDecisionSource = 'local-fallback';
+        return coord;
+    }
+    getState() {
+        return {
+            mode: this.mode,
+            knownHits: [...this.knownHits],
+            knownMisses: [...this.knownMisses],
+            sunkShips: [...this.sunkShips],
+            targetQueue: [...this.targetQueue],
+            attackHistory: [...this.attackHistory],
+            knowledgeBoard: this.knowledgeBoard.map((row) => [...row]),
+            lastPrompt: this.lastPrompt,
+            lastRawResponse: this.lastRawResponse,
+            lastChosenCoordinate: this.lastChosenCoordinate,
+            lastDecisionSource: this.lastDecisionSource,
+            lastError: this.lastError,
+            fallbackCount: this.fallbackCount,
+            apiConfigured: this.apiConfigured,
+            requestTimeoutMs: this.requestTimeoutMs,
+            pendingRequestCount: this.pendingRequestCount,
+            activeSessionId: this.activeSessionId,
+        };
+    }
+}
+class ThreeBattlefield {
+    constructor(canvas, playerBoard, enemyBoard) {
+        this.hitPlanes = [];
+        this.waterMaterials = [];
+        this.lights = [];
+        this.frameCount = 0;
+        this.activeEffects = [];
+        this.markers = [];
+        this.sinkAnimations = [];
+        this.endEffects = [];
+        this.previewMesh = null;
+        this.previewShipId = null;
+        this.previewValid = false;
+        this.disposed = false;
+        this.resizeObserver = null;
+        this.raf = 0;
+        this.animate = () => {
+            if (this.disposed)
+                return;
+            const now = performance.now() / 1000;
+            const prev = this._lastTime ?? now;
+            this._lastTime = now;
+            const dt = Math.min(0.05, now - prev);
+            this.frameCount += 1;
+            this.update(dt, now);
+            this.renderer.render(this.scene, this.camera);
+            this.onFrame?.(this.frameCount);
+            this.raf = requestAnimationFrame(this.animate);
+        };
+        this.handleResize = () => {
+            const w = Math.max(1, this.canvas.clientWidth || window.innerWidth);
+            const h = Math.max(1, this.canvas.clientHeight || window.innerHeight);
+            this.camera.aspect = w / h;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(w, h, false);
+        };
+        if (!window.THREE)
+            throw new Error('Three.js 未加载。请检查网络连接并重新加载。');
+        if (!window.THREE.OrbitControls)
+            throw new Error('OrbitControls 未加载。请检查 CDN 后重新加载。');
+        this.THREE = window.THREE;
+        this.canvas = canvas;
+        this.playerBoard = playerBoard;
+        this.enemyBoard = enemyBoard;
+        this.scene = new this.THREE.Scene();
+        this.scene.background = new this.THREE.Color(0x02070d);
+        this.scene.fog = new this.THREE.FogExp2(0x02070d, 0.026);
+        this.camera = new this.THREE.PerspectiveCamera(45, 1, 0.1, 100);
+        this.camera.position.set(0, 11.8, 17.8);
+        this.renderer = new this.THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        this.renderer.outputEncoding = this.THREE.sRGBEncoding;
+        this.renderer.toneMapping = this.THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.1;
+        this.controls = new this.THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.07;
+        this.controls.target.set(0, 0, 0.4);
+        this.controls.minDistance = 10;
+        this.controls.maxDistance = 30;
+        this.controls.maxPolarAngle = Math.PI * 0.48;
+        this.controls.minPolarAngle = Math.PI * 0.17;
+        this.raycaster = new this.THREE.Raycaster();
+        this.pointer = new this.THREE.Vector2();
+        this.boardGroups = { player: new this.THREE.Group(), enemy: new this.THREE.Group() };
+        this.setupLights();
+        this.setupWorld();
+        this.createBoard(this.playerBoard);
+        this.createBoard(this.enemyBoard);
+        this.createStars();
+        this.handleResize();
+        window.addEventListener('resize', this.handleResize);
+        this.animate();
+        window.__scene = this.scene;
+        window.__camera = this.camera;
+        window.__renderer = this.renderer;
+    }
+    setupLights() {
+        const ambient = new this.THREE.AmbientLight(0x4b6d83, 1.25);
+        const key = new this.THREE.DirectionalLight(0x9bd6ff, 2.1);
+        key.position.set(-5, 10, 7);
+        const rim = new this.THREE.DirectionalLight(0x2cf2d0, 0.9);
+        rim.position.set(8, 4, -8);
+        this.scene.add(ambient, key, rim);
+        this.lights.push(ambient, key, rim);
+    }
+    setupWorld() {
+        const THREE = this.THREE;
+        const floorGeo = new THREE.PlaneGeometry(42, 28, 1, 1);
+        const floorMat = new THREE.MeshStandardMaterial({ color: 0x04101b, roughness: 0.96, metalness: 0.15 });
+        const floor = new THREE.Mesh(floorGeo, floorMat);
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.y = -0.16;
+        this.scene.add(floor);
+        const dividerGeo = new THREE.BoxGeometry(0.06, 0.03, 10.5);
+        const dividerMat = new THREE.MeshBasicMaterial({ color: 0x2bc1d6, transparent: true, opacity: 0.28 });
+        const divider = new THREE.Mesh(dividerGeo, dividerMat);
+        divider.position.set(0, 0.08, 0);
+        this.scene.add(divider);
+    }
+    createStars() {
+        const THREE = this.THREE;
+        const pts = [];
+        for (let i = 0; i < 260; i += 1) {
+            pts.push((Math.random() - 0.5) * 54, Math.random() * 18 + 2, (Math.random() - 0.5) * 42);
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+        const mat = new THREE.PointsMaterial({ color: 0x7ad7ff, size: 0.035, transparent: true, opacity: 0.45 });
+        this.scene.add(new THREE.Points(geo, mat));
+    }
+    createBoard(board) {
+        const THREE = this.THREE;
+        const group = this.boardGroups[board.owner];
+        group.position.set(board.origin.x, board.origin.y, board.origin.z);
+        group.userData.boardOwner = board.owner;
+        board.group = group;
+        this.scene.add(group);
+        const boardW = board.size * board.cellSize;
+        const waterGeo = new THREE.PlaneGeometry(boardW, boardW, 42, 42);
+        const waterMat = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms: {
+                uTime: { value: 0 },
+                uTint: { value: new THREE.Color(board.owner === 'player' ? 0x063b55 : 0x073449) },
+            },
+            vertexShader: `
+        uniform float uTime;
+        varying float vWave;
+        void main() {
+          vec3 p = position;
+          float wave = sin((p.x + uTime * 0.65) * 2.1) * 0.035 + cos((p.y - uTime * 0.48) * 2.7) * 0.025;
+          p.z += wave;
+          vWave = wave;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+        }
+      `,
+            fragmentShader: `
+        uniform vec3 uTint;
+        varying float vWave;
+        void main() {
+          vec3 c = uTint + vec3(vWave * 1.2);
+          gl_FragColor = vec4(c, 0.94);
+        }
+      `,
+            side: THREE.DoubleSide,
+        });
+        const water = new THREE.Mesh(waterGeo, waterMat);
+        water.rotation.x = -Math.PI / 2;
+        water.position.y = 0;
+        group.add(water);
+        this.waterMaterials.push(waterMat);
+        const hitPlane = new THREE.Mesh(new THREE.PlaneGeometry(boardW, boardW), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.001, side: THREE.DoubleSide }));
+        hitPlane.rotation.x = -Math.PI / 2;
+        hitPlane.position.y = 0.09;
+        hitPlane.userData.board = board;
+        group.add(hitPlane);
+        this.hitPlanes.push(hitPlane);
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x4bc6d8, transparent: true, opacity: 0.28 });
+        const vertices = [];
+        for (let i = 0; i <= board.size; i += 1) {
+            const p = (i - board.size / 2) * board.cellSize;
+            vertices.push(-boardW / 2, 0.065, p, boardW / 2, 0.065, p);
+            vertices.push(p, 0.065, -boardW / 2, p, 0.065, boardW / 2);
+        }
+        const gridGeo = new THREE.BufferGeometry();
+        gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        group.add(new THREE.LineSegments(gridGeo, lineMat));
+        const rimGeo = new THREE.BoxGeometry(boardW + 0.24, 0.12, boardW + 0.24);
+        const rimMat = new THREE.MeshStandardMaterial({ color: 0x112a36, metalness: 0.82, roughness: 0.32, emissive: 0x052531 });
+        const rim = new THREE.Mesh(rimGeo, rimMat);
+        rim.position.y = -0.1;
+        group.add(rim);
+        const innerGeo = new THREE.BoxGeometry(boardW, 0.16, boardW);
+        const inner = new THREE.Mesh(innerGeo, new THREE.MeshBasicMaterial({ color: 0x031522 }));
+        inner.position.y = -0.075;
+        group.add(inner);
+        group.add(water);
+    }
+    cellToWorld(board, row, col, y = 0.18) {
+        const localX = (col - (board.size - 1) / 2) * board.cellSize;
+        const localZ = (row - (board.size - 1) / 2) * board.cellSize;
+        return new this.THREE.Vector3(board.origin.x + localX, board.origin.y + y, board.origin.z + localZ);
+    }
+    worldToCell(board, point) {
+        const localX = point.x - board.origin.x;
+        const localZ = point.z - board.origin.z;
+        const col = Math.floor(localX / board.cellSize + board.size / 2);
+        const row = Math.floor(localZ / board.cellSize + board.size / 2);
+        if (row < 0 || row >= 10 || col < 0 || col >= 10)
+            return null;
+        return { row, col };
+    }
+    pickBoardCell(clientX, clientY) {
+        const rect = this.canvas.getBoundingClientRect();
+        this.pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        this.pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+        this.raycaster.setFromCamera(this.pointer, this.camera);
+        const hits = this.raycaster.intersectObjects(this.hitPlanes, false);
+        for (const hit of hits) {
+            const board = hit.object.userData.board;
+            const cell = this.worldToCell(board, hit.point);
+            if (cell)
+                return { board, ...cell, coordinate: toCoordinate(cell.row, cell.col) };
+        }
+        return null;
+    }
+    clearShips(board) {
+        for (const ship of board.ships) {
+            if (ship.mesh) {
+                board.group.remove(ship.mesh);
+                this.disposeObject(ship.mesh);
+                ship.mesh = null;
+            }
+        }
+    }
+    syncFleet(board) {
+        for (const ship of board.ships) {
+            const hiddenEnemy = board.owner === 'enemy' && !ship.revealed;
+            if (!ship.confirmed || !ship.start || !ship.orientation || hiddenEnemy) {
+                // Do not even instantiate unrevealed enemy ship meshes. This keeps fog-of-war
+                // truthful across both the public state interface and the exposed Three.js scene.
+                if (ship.mesh) {
+                    board.group.remove(ship.mesh);
+                    this.disposeObject(ship.mesh);
+                    ship.mesh = null;
+                }
+                continue;
+            }
+            if (!ship.mesh) {
+                ship.mesh = this.buildShipMesh(ship.length, board.owner === 'player');
+                ship.mesh.userData.shipId = ship.id;
+                board.group.add(ship.mesh);
+            }
+            const start = ship.start;
+            const centerOffset = (ship.length - 1) / 2;
+            const centerRow = start.row + (ship.orientation === 'vertical' ? centerOffset : 0);
+            const centerCol = start.col + (ship.orientation === 'horizontal' ? centerOffset : 0);
+            ship.mesh.position.set((centerCol - 4.5) * board.cellSize, 0.28, (centerRow - 4.5) * board.cellSize);
+            ship.mesh.rotation.y = ship.orientation === 'vertical' ? Math.PI / 2 : 0;
+            ship.mesh.visible = board.owner === 'player' || ship.revealed;
+        }
+    }
+    buildShipMesh(length, friendly) {
+        const THREE = this.THREE;
+        const group = new THREE.Group();
+        const hullLength = length * this.playerBoard.cellSize * 0.91;
+        const mat = new THREE.MeshStandardMaterial({
+            color: friendly ? 0x7f98a5 : 0x874b45,
+            roughness: 0.38,
+            metalness: 0.68,
+            emissive: friendly ? 0x07161b : 0x1b0707,
+        });
+        const hull = new THREE.Mesh(new THREE.BoxGeometry(hullLength, 0.26, this.playerBoard.cellSize * 0.52), mat);
+        hull.position.y = 0;
+        group.add(hull);
+        const deck = new THREE.Mesh(new THREE.BoxGeometry(hullLength * 0.58, 0.17, this.playerBoard.cellSize * 0.32), mat.clone());
+        deck.position.y = 0.18;
+        group.add(deck);
+        const tower = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.25, 0.28), mat.clone());
+        tower.position.set(-hullLength * 0.08, 0.36, 0);
+        group.add(tower);
+        const bow = new THREE.Mesh(new THREE.ConeGeometry(this.playerBoard.cellSize * 0.26, this.playerBoard.cellSize * 0.46, 4), mat.clone());
+        bow.rotation.z = -Math.PI / 2;
+        bow.rotation.y = Math.PI / 4;
+        bow.position.set(hullLength / 2 + 0.08, 0, 0);
+        group.add(bow);
+        return group;
+    }
+    showPlacementPreview(board, shipId, row, col, orientation, valid) {
+        this.hidePlacementPreview();
+        if (!shipId)
+            return;
+        const ship = board.getShip(shipId);
+        if (!ship)
+            return;
+        const mesh = this.buildShipMesh(ship.length, true);
+        const centerOffset = (ship.length - 1) / 2;
+        const centerRow = row + (orientation === 'vertical' ? centerOffset : 0);
+        const centerCol = col + (orientation === 'horizontal' ? centerOffset : 0);
+        mesh.position.set((centerCol - 4.5) * board.cellSize, 0.34, (centerRow - 4.5) * board.cellSize);
+        mesh.rotation.y = orientation === 'vertical' ? Math.PI / 2 : 0;
+        mesh.traverse((obj) => {
+            if (obj.material) {
+                obj.material = obj.material.clone();
+                obj.material.transparent = true;
+                obj.material.opacity = 0.55;
+                obj.material.color.set(valid ? 0x45e4c6 : 0xff5964);
+            }
+        });
+        board.group.add(mesh);
+        this.previewMesh = mesh;
+        this.previewShipId = shipId;
+        this.previewValid = valid;
+    }
+    hidePlacementPreview() {
+        if (this.previewMesh) {
+            this.playerBoard.group.remove(this.previewMesh);
+            this.disposeObject(this.previewMesh);
+            this.previewMesh = null;
+            this.previewShipId = null;
+        }
+    }
+    addMarker(board, row, col, result) {
+        const THREE = this.THREE;
+        const world = this.cellToWorld(board, row, col, 0.23);
+        const local = board.group.worldToLocal(world.clone());
+        let mesh;
+        if (result === 'miss') {
+            mesh = new THREE.Mesh(new THREE.RingGeometry(0.11, 0.17, 24), new THREE.MeshBasicMaterial({ color: 0xdcecff, transparent: true, opacity: 0.95, side: THREE.DoubleSide }));
+            mesh.rotation.x = -Math.PI / 2;
+            mesh.position.copy(local);
+            mesh.position.y = 0.16;
+            board.group.add(mesh);
+            this.spawnRipple(world, 0xe6f7ff);
+            this.playTone(210, 0.1, 0.035);
+        }
+        else {
+            mesh = new THREE.Mesh(new THREE.SphereGeometry(0.13, 14, 10), new THREE.MeshStandardMaterial({ color: 0xff493f, emissive: 0xa41410, emissiveIntensity: 1.8, roughness: 0.3 }));
+            mesh.position.copy(local);
+            mesh.position.y = 0.28;
+            board.group.add(mesh);
+            this.spawnExplosion(world);
+            this.playTone(result === 'sunk' ? 92 : 118, result === 'sunk' ? 0.24 : 0.12, 0.055);
+        }
+        board.setMarkerObjectId(row, col, mesh.id);
+        this.markers.push({ objectId: mesh.id, owner: board.owner, row, col, coordinate: toCoordinate(row, col), result });
+        return mesh.id;
+    }
+    spawnRipple(world, color = 0xb9efff) {
+        const THREE = this.THREE;
+        const ring = new THREE.Mesh(new THREE.RingGeometry(0.12, 0.15, 32), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8, side: THREE.DoubleSide }));
+        ring.rotation.x = -Math.PI / 2;
+        ring.position.copy(world);
+        ring.position.y = 0.22;
+        this.scene.add(ring);
+        this.activeEffects.push({ id: ring.id, type: 'ripple', object: ring, age: 0, duration: 1.05 });
+    }
+    spawnExplosion(world) {
+        const THREE = this.THREE;
+        const count = 34;
+        const positions = [];
+        const velocities = [];
+        for (let i = 0; i < count; i += 1) {
+            positions.push(world.x, world.y + 0.12, world.z);
+            const v = new THREE.Vector3((Math.random() - 0.5) * 1.8, Math.random() * 2.1 + 0.3, (Math.random() - 0.5) * 1.8);
+            velocities.push(v);
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        const points = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xff7b37, size: 0.13, transparent: true, opacity: 1, depthWrite: false }));
+        this.scene.add(points);
+        this.activeEffects.push({ id: points.id, type: 'explosion', object: points, age: 0, duration: 0.9, velocities });
+    }
+    animateSink(board, shipId) {
+        const ship = board.getShip(shipId);
+        if (!ship?.mesh)
+            return;
+        ship.mesh.visible = true;
+        ship.revealed = true;
+        const rec = { objectId: ship.mesh.id, shipId, owner: board.owner, object: ship.mesh, age: 0, duration: 1.9, startY: ship.mesh.position.y };
+        this.sinkAnimations.push(rec);
+    }
+    victoryBurst(winner) {
+        const THREE = this.THREE;
+        for (let j = 0; j < 5; j += 1) {
+            const center = new THREE.Vector3((Math.random() - 0.5) * 11, 4 + Math.random() * 4, (Math.random() - 0.5) * 5);
+            const count = 52;
+            const positions = [];
+            const velocities = [];
+            for (let i = 0; i < count; i += 1) {
+                positions.push(center.x, center.y, center.z);
+                const v = new THREE.Vector3((Math.random() - 0.5) * 3, (Math.random() - 0.2) * 2.4, (Math.random() - 0.5) * 3);
+                velocities.push(v);
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            const pts = new THREE.Points(geo, new THREE.PointsMaterial({ color: winner === 'human' ? 0x58ffe2 : 0xff6b6b, size: 0.11, transparent: true, opacity: 0.95 }));
+            this.scene.add(pts);
+            const rec = { id: pts.id, type: 'firework', object: pts, age: -j * 0.12, duration: 2.2, velocities };
+            this.activeEffects.push(rec);
+            this.endEffects.push({ objectId: pts.id, winner });
+        }
+    }
+    playTone(freq, duration, volume) {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx)
+                return;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            gain.gain.value = volume;
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            osc.connect(gain).connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + duration);
+            osc.onended = () => ctx.close();
+        }
+        catch {
+            // Audio is non-essential and may be blocked before user gesture.
+        }
+    }
+    updateEffects(dt) {
+        const keep = [];
+        for (const effect of this.activeEffects) {
+            effect.age += dt;
+            if (effect.age < 0) {
+                keep.push(effect);
+                continue;
+            }
+            const t = Math.min(1, effect.age / effect.duration);
+            if (effect.type === 'ripple') {
+                effect.object.scale.setScalar(1 + t * 4.4);
+                effect.object.material.opacity = 0.8 * (1 - t);
+            }
+            else if (effect.velocities) {
+                const pos = effect.object.geometry.attributes.position;
+                for (let i = 0; i < pos.count; i += 1) {
+                    const v = effect.velocities[i];
+                    pos.array[i * 3] += v.x * dt;
+                    pos.array[i * 3 + 1] += v.y * dt;
+                    pos.array[i * 3 + 2] += v.z * dt;
+                    v.y -= 1.35 * dt;
+                }
+                pos.needsUpdate = true;
+                effect.object.material.opacity = Math.max(0, 1 - t);
+            }
+            if (effect.age < effect.duration)
+                keep.push(effect);
+            else {
+                this.scene.remove(effect.object);
+                this.disposeObject(effect.object);
+            }
+        }
+        this.activeEffects = keep;
+        this.sinkAnimations = this.sinkAnimations.filter((rec) => {
+            rec.age += dt;
+            const t = Math.min(1, rec.age / rec.duration);
+            rec.object.position.y = rec.startY - t * 0.65;
+            rec.object.rotation.z = Math.sin(t * Math.PI) * 0.28;
+            rec.object.rotation.x = -t * 0.12;
+            if (t >= 1) {
+                rec.object.visible = false;
+                return false;
+            }
+            return true;
+        });
+    }
+    resetVisuals() {
+        this.hidePlacementPreview();
+        for (const marker of [...this.markers]) {
+            const obj = this.scene.getObjectById(marker.objectId) || this.playerBoard.group.getObjectById(marker.objectId) || this.enemyBoard.group.getObjectById(marker.objectId);
+            if (obj?.parent)
+                obj.parent.remove(obj);
+            if (obj)
+                this.disposeObject(obj);
+        }
+        this.markers = [];
+        for (const effect of this.activeEffects) {
+            if (effect.object?.parent)
+                effect.object.parent.remove(effect.object);
+            this.disposeObject(effect.object);
+        }
+        this.activeEffects = [];
+        this.sinkAnimations = [];
+        this.endEffects = [];
+        this.clearShips(this.playerBoard);
+        this.clearShips(this.enemyBoard);
+    }
+    update(dt, elapsed) {
+        for (const mat of this.waterMaterials)
+            mat.uniforms.uTime.value = elapsed;
+        this.updateEffects(dt);
+        this.controls.update();
+    }
+    disposeObject(obj) {
+        obj?.traverse?.((child) => {
+            child.geometry?.dispose?.();
+            if (Array.isArray(child.material))
+                child.material.forEach((m) => m.dispose?.());
+            else
+                child.material?.dispose?.();
+        });
+    }
+    getEffectsState() {
+        return {
+            activeEffects: this.activeEffects.map((e) => ({ objectId: e.id, type: e.type, age: e.age, duration: e.duration })),
+            markers: this.markers.map((m) => ({ ...m })),
+            sinkAnimations: this.sinkAnimations.map((s) => ({ objectId: s.objectId, shipId: s.shipId, owner: s.owner, age: s.age, duration: s.duration })),
+            endEffects: this.endEffects.map((e) => ({ ...e })),
+        };
+    }
+    getThreeState() {
+        let objectCount = 0;
+        this.scene.traverse(() => { objectCount += 1; });
+        return {
+            frameCount: this.frameCount,
+            canvas: { id: this.canvas.id, width: this.canvas.width, height: this.canvas.height },
+            camera: {
+                objectId: this.camera.id,
+                position: { x: this.camera.position.x, y: this.camera.position.y, z: this.camera.position.z },
+                fov: this.camera.fov,
+            },
+            controls: {
+                enabled: this.controls.enabled,
+                target: { x: this.controls.target.x, y: this.controls.target.y, z: this.controls.target.z },
+            },
+            boardGroups: {
+                player: this.playerBoard.group?.id ?? null,
+                enemy: this.enemyBoard.group?.id ?? null,
+            },
+            lights: this.lights.map((l) => l.id),
+            objectCount,
+        };
+    }
+    dispose() {
+        this.disposed = true;
+        cancelAnimationFrame(this.raf);
+        window.removeEventListener('resize', this.handleResize);
+        this.controls?.dispose?.();
+        this.renderer?.dispose?.();
+    }
+}
+const initialSessionId = () => `session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+function App() {
+    const playerBoard = useMemo(() => new GameBoard('player', { x: -4.8, y: 0, z: 0 }), []);
+    const enemyBoard = useMemo(() => new GameBoard('enemy', { x: 4.8, y: 0, z: 0 }), []);
+    const aiPlayer = useMemo(() => new AIPlayer(), []);
+    const sceneRef = useRef(null);
+    const [ready, setReady] = useState(false);
+    const [fatalError, setFatalError] = useState(null);
+    const [phase, setPhase] = useState('setup');
+    const [turn, setTurn] = useState(null);
+    const [inputLocked, setInputLocked] = useState(false);
+    const [winner, setWinner] = useState(null);
+    const [sessionId, setSessionId] = useState(initialSessionId);
+    const [statusMessage, setStatusMessage] = useState('部署舰队：选择舰船，在左侧海域点击放置。按 R 旋转。');
+    const [lastAction, setLastAction] = useState(null);
+    const [apiStatus, setApiStatus] = useState('未配置 · 公平本地战术AI');
+    const [selectedShipId, setSelectedShipId] = useState(FLEET_SPEC[0].id);
+    const [orientation, setOrientation] = useState('horizontal');
+    const [draggingShipId, setDraggingShipId] = useState(null);
+    const [previewCells, setPreviewCells] = useState([]);
+    const [previewValid, setPreviewValid] = useState(false);
+    const [invalidReason, setInvalidReason] = useState(null);
+    const [lastPlacementResult, setLastPlacementResult] = useState(null);
+    const [uiTick, setUiTick] = useState(0);
+    const [apiKeyInput, setApiKeyInput] = useState('');
+    const liveRef = useRef({
+        ready,
+        phase,
+        turn,
+        inputLocked,
+        winner,
+        sessionId,
+        statusMessage,
+        lastAction,
+        apiStatus,
+        selectedShipId,
+        orientation,
+        draggingShipId,
+        previewCells,
+        previewValid,
+        invalidReason,
+        lastPlacementResult,
+    });
+    useEffect(() => {
+        liveRef.current = {
+            ready,
+            phase,
+            turn,
+            inputLocked,
+            winner,
+            sessionId,
+            statusMessage,
+            lastAction,
+            apiStatus,
+            selectedShipId,
+            orientation,
+            draggingShipId,
+            previewCells,
+            previewValid,
+            invalidReason,
+            lastPlacementResult,
+        };
+    }, [ready, phase, turn, inputLocked, winner, sessionId, statusMessage, lastAction, apiStatus, selectedShipId, orientation, draggingShipId, previewCells, previewValid, invalidReason, lastPlacementResult]);
+    const placedShipIds = playerBoard.ships.filter((s) => s.confirmed).map((s) => s.id);
+    const remainingShipIds = playerBoard.ships.filter((s) => !s.confirmed).map((s) => s.id);
+    const canConfirm = remainingShipIds.length === 0;
+    const refresh = useCallback(() => setUiTick((n) => n + 1), []);
+    const resetPlacementUi = useCallback(() => {
+        setSelectedShipId(FLEET_SPEC[0].id);
+        setOrientation('horizontal');
+        setDraggingShipId(null);
+        setPreviewCells([]);
+        setPreviewValid(false);
+        setInvalidReason(null);
+        setLastPlacementResult(null);
+    }, []);
+    const restartGame = useCallback(() => {
+        const nextSession = initialSessionId();
+        setSessionId(nextSession);
+        setPhase('setup');
+        setTurn(null);
+        setInputLocked(false);
+        setWinner(null);
+        setLastAction(null);
+        setStatusMessage('部署舰队：选择舰船，在左侧海域点击放置。按 R 旋转。');
+        sceneRef.current?.resetVisuals();
+        playerBoard.reset();
+        enemyBoard.randomizeFleet();
+        aiPlayer.reset(nextSession);
+        sceneRef.current?.syncFleet(enemyBoard);
+        resetPlacementUi();
+        setApiStatus(aiPlayer.apiConfigured ? 'OpenRouter 已配置 · horizon-beta' : '未配置 · 公平本地战术AI');
+        refresh();
+    }, [aiPlayer, enemyBoard, playerBoard, refresh, resetPlacementUi]);
+    useEffect(() => {
+        const canvas = document.getElementById('game');
+        if (!canvas)
+            return;
+        try {
+            enemyBoard.randomizeFleet();
+            aiPlayer.reset(sessionId);
+            const scene = new ThreeBattlefield(canvas, playerBoard, enemyBoard);
+            sceneRef.current = scene;
+            scene.syncFleet(enemyBoard);
+            scene.onFrame = (frameCount) => {
+                if (frameCount % 30 === 0)
+                    refresh();
+            };
+            setReady(true);
+            setFatalError(null);
+            setApiStatus(aiPlayer.apiConfigured ? 'OpenRouter 已配置 · horizon-beta' : '未配置 · 公平本地战术AI');
+        }
+        catch (error) {
+            console.error('[Boot] 3D battlefield failed:', error);
+            setFatalError(String(error?.message ?? error));
+            setReady(false);
+        }
+        return () => {
+            sceneRef.current?.dispose();
+            sceneRef.current = null;
+        };
+        // Deliberately create the 3D engine only once for this game instance.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
+        const handleKey = (event) => {
+            if (event.key.toLowerCase() === 'r' && liveRef.current.phase === 'setup') {
+                setOrientation((o) => (o === 'horizontal' ? 'vertical' : 'horizontal'));
+                setStatusMessage('舰船方向已旋转。移动鼠标查看放置预览。');
+            }
+        };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, []);
+    useEffect(() => {
+        window.__playerBoard = { getState: () => playerBoard.getState() };
+        window.__enemyBoard = { getState: () => enemyBoard.getState() };
+        window.__aiPlayer = { getState: () => aiPlayer.getState() };
+        window.__placement = {
+            getState: () => {
+                const s = liveRef.current;
+                const placed = playerBoard.ships.filter((ship) => ship.confirmed).map((ship) => ship.id);
+                const remaining = playerBoard.ships.filter((ship) => !ship.confirmed).map((ship) => ship.id);
+                return {
+                    selectedShipId: s.selectedShipId,
+                    orientation: s.orientation,
+                    draggingShipId: s.draggingShipId,
+                    placedShipIds: placed,
+                    remainingShipIds: remaining,
+                    previewCells: s.previewCells.map((c) => ({ ...c })),
+                    previewValid: s.previewValid,
+                    invalidReason: s.invalidReason,
+                    canConfirm: remaining.length === 0,
+                    lastPlacementResult: s.lastPlacementResult ? { ...s.lastPlacementResult } : null,
+                };
+            },
+        };
+        window.__game = {
+            getState: () => {
+                const s = liveRef.current;
+                return {
+                    ready: s.ready,
+                    phase: s.phase,
+                    turn: s.turn,
+                    inputLocked: s.inputLocked,
+                    winner: s.winner,
+                    sessionId: s.sessionId,
+                    fleetSpec: FLEET_SPEC.map((x) => ({ ...x })),
+                    humanAttackCount: enemyBoard.attackHistory.length,
+                    aiAttackCount: playerBoard.attackHistory.length,
+                    statusMessage: s.statusMessage,
+                    lastAction: s.lastAction ? { ...s.lastAction } : null,
+                    apiStatus: s.apiStatus,
+                    pendingAIRequests: aiPlayer.pendingRequestCount,
+                    frameCount: sceneRef.current?.frameCount ?? 0,
+                };
+            },
+        };
+        window.__effects = { getState: () => sceneRef.current?.getEffectsState() ?? { activeEffects: [], markers: [], sinkAnimations: [], endEffects: [] } };
+        window.__three = { getState: () => sceneRef.current?.getThreeState() ?? { frameCount: 0, canvas: null, camera: null, controls: null, boardGroups: {}, lights: [], objectCount: 0 } };
+        const _newSessionId = () => `session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const _syncBoth = () => { sceneRef.current?.syncFleet?.(playerBoard); sceneRef.current?.syncFleet?.(enemyBoard); };
+        window.__engine = {
+            get playerBoard() { return playerBoard; },
+            get enemyBoard() { return enemyBoard; },
+            get aiPlayer() { return aiPlayer; },
+            get scene() { return sceneRef.current; },
+        };
+        window.__test = {
+            reset: () => {
+                const sid = _newSessionId();
+                liveRef.current = { ...liveRef.current, phase: 'setup', turn: null, inputLocked: false, winner: null, lastAction: null, sessionId: sid, statusMessage: '棋盘已重置。', selectedShipId: FLEET_SPEC[0].id, orientation: 'horizontal', draggingShipId: null, previewCells: [], previewValid: false, invalidReason: null, lastPlacementResult: null };
+                setPhase('setup'); setTurn(null); setInputLocked(false); setWinner(null); setSessionId(sid); setLastAction(null); setStatusMessage('棋盘已重置。'); setSelectedShipId(FLEET_SPEC[0].id); setOrientation('horizontal'); setDraggingShipId(null); setPreviewCells([]); setPreviewValid(false); setInvalidReason(null); setLastPlacementResult(null);
+                sceneRef.current?.resetVisuals?.();
+                playerBoard.reset(); enemyBoard.randomizeFleet(); aiPlayer.reset(sid);
+                _syncBoth(); refresh();
+            },
+            setFleet: (owner, placements) => {
+                const board = owner === 'player' ? playerBoard : enemyBoard;
+                board.reset();
+                for (const p of placements) { board.placeShip(p.shipId, p.row, p.col, p.orientation); }
+                sceneRef.current?.syncFleet?.(board);
+                return { ok: true };
+            },
+            startBattle: () => {
+                const allPlaced = playerBoard.ships.every(s => s.confirmed);
+                if (!allPlaced) return { ok: false, reason: '舰船未全部放置' };
+                liveRef.current.phase = 'playing'; liveRef.current.turn = 'human'; liveRef.current.inputLocked = false;
+                setPhase('playing'); setTurn('human'); setInputLocked(false); refresh();
+                return { ok: true };
+            },
+            coordinateToLabel: (row, col) => toCoordinate(row, col),
+            labelToCoordinate: (label) => fromCoordinate(label),
+            selectShip: (shipId) => { setSelectedShipId(shipId); refresh(); },
+            placeShip: (shipId, row, col, orientation) => {
+                if (liveRef.current.phase !== 'setup') return { ok: false, reason: '不在布阵阶段' };
+                const result = playerBoard.placeShip(shipId, row, col, orientation);
+                if (result.valid) { setLastPlacementResult({ action: 'place', shipId, row, col, orientation, ok: true }); sceneRef.current?.syncFleet?.(playerBoard); sceneRef.current?.hidePlacementPreview?.(); setSelectedShipId(null); setPreviewCells([]); setPreviewValid(false); refresh(); }
+                else { setLastPlacementResult({ action: 'place', shipId, ok: false, reason: result.reason }); }
+                return { ok: result.valid, reason: result.reason };
+            },
+            moveShip: (shipId, row, col, orientation) => {
+                if (liveRef.current.phase !== 'setup') return { ok: false, reason: '不在布阵阶段' };
+                const result = playerBoard.placeShip(shipId, row, col, orientation);
+                sceneRef.current?.syncFleet?.(playerBoard); refresh();
+                return { ok: result.valid, reason: result.reason };
+            },
+            rotateShip: (shipId) => {
+                const ship = playerBoard.getShip(shipId);
+                if (!ship) return { ok: false };
+                const oldOri = ship.orientation;
+                const newOri = oldOri === 'horizontal' ? 'vertical' : 'horizontal';
+                if (ship.start) {
+                    playerBoard.removeShip(shipId);
+                    const result = playerBoard.placeShip(shipId, ship.start.row, ship.start.col, newOri);
+                    if (!result.valid) { playerBoard.placeShip(shipId, ship.start.row, ship.start.col, oldOri); return { ok: false, reason: result.reason }; }
+                } else { setOrientation(newOri); }
+                sceneRef.current?.syncFleet?.(playerBoard); refresh();
+                return { ok: true };
+            },
+            randomizePlayerFleet: () => {
+                if (liveRef.current.phase !== 'setup') return { ok: false, reason: '不在布阵阶段' };
+                sceneRef.current?.hidePlacementPreview?.(); sceneRef.current?.clearShips?.(playerBoard);
+                playerBoard.randomizeFleet(); sceneRef.current?.syncFleet?.(playerBoard);
+                setSelectedShipId(null); setPreviewCells([]); setPreviewValid(false); setInvalidReason(null);
+                setLastPlacementResult({ action: 'randomize', success: true, count: 5 });
+                setStatusMessage('舰队已随机部署。'); refresh();
+                return { ok: true };
+            },
+            playerAttack: (row, col) => {
+                const s = liveRef.current;
+                if (s.phase !== 'playing' || s.turn !== 'human') return { ok: false, reason: '不是人类回合' };
+                const result = enemyBoard.attack(row, col);
+                if (!result.ok) return result;
+                setLastAction({ actor: 'human', row, col, coordinate: result.coordinate, result: result.result, shipId: result.shipId });
+                if (result.ship) { aiPlayer.observeAttack(result.coordinate, result.result, result.ship.sunk ? result.ship.name : null); }
+                sceneRef.current?.syncFleet?.(enemyBoard);
+                if (enemyBoard.allSunk()) {
+                    liveRef.current.phase = 'ended'; liveRef.current.winner = 'human'; liveRef.current.turn = null; liveRef.current.inputLocked = true;
+                    liveRef.current.statusMessage = '你赢了！所有敌方舰船已被击沉。';
+                    setPhase('ended'); setWinner('human'); setTurn(null); setInputLocked(true); setStatusMessage('你赢了！所有敌方舰船已被击沉。');
+                } else {
+                    liveRef.current.turn = 'ai'; liveRef.current.inputLocked = true;
+                    setTurn('ai'); setInputLocked(true); setStatusMessage('AI 思考中...');
+                }
+                refresh(); return result;
+            },
+            aiAttack: (row, col) => {
+                const s = liveRef.current;
+                if (s.phase !== 'playing' || s.turn !== 'ai') return { ok: false, reason: '不是AI回合' };
+                const result = playerBoard.attack(row, col);
+                if (!result.ok) return result;
+                setLastAction({ actor: 'ai', row, col, coordinate: result.coordinate, result: result.result, shipId: result.shipId });
+                sceneRef.current?.syncFleet?.(playerBoard);
+                if (playerBoard.allSunk()) {
+                    liveRef.current.phase = 'ended'; liveRef.current.winner = 'ai'; liveRef.current.turn = null; liveRef.current.inputLocked = true;
+                    liveRef.current.statusMessage = 'AI 赢了！你的舰队已被全歼。';
+                    setPhase('ended'); setWinner('ai'); setTurn(null); setInputLocked(true); setStatusMessage('AI 赢了！你的舰队已被全歼。');
+                } else {
+                    liveRef.current.turn = 'human'; liveRef.current.inputLocked = false;
+                    setTurn('human'); setInputLocked(false); setStatusMessage('轮到你了，选择敌方海域坐标进行攻击。');
+                }
+                refresh(); return result;
+            },
+            requestAIMove: () => {
+                const s = liveRef.current;
+                if (s.phase !== 'playing') return { ok: false, reason: '不在战斗阶段' };
+                return aiPlayer.decideMove(s.sessionId).then(coord => {
+                    if (!coord) return { ok: false, reason: 'AI 无法决定移动' };
+                    const parsed = fromCoordinate(coord);
+                    if (!parsed) return { ok: false, reason: 'AI 返回无效坐标' };
+                    return window.__test.aiAttack(parsed.row, parsed.col);
+                });
+            },
+            configureAI: (config) => {
+                if (config.apiKey !== undefined) { aiPlayer.setApiKey(config.apiKey); setApiStatus(aiPlayer.apiConfigured ? 'OpenRouter 已配置 · horizon-beta' : '未配置 · 公平本地战术AI'); }
+                if (config.timeoutMs !== undefined) aiPlayer.requestTimeoutMs = config.timeoutMs;
+                if (config.enabled !== undefined) { if (!config.enabled) aiPlayer.apiConfigured = false; }
+                refresh(); return { ok: true };
+            },
+            waitForIdle: (timeoutMs) => {
+                const start = Date.now();
+                return new Promise(resolve => {
+                    const check = () => {
+                        if (aiPlayer.pendingRequestCount === 0) { resolve(true); return; }
+                        if (Date.now() - start > (timeoutMs || 3000)) { resolve(false); return; }
+                        setTimeout(check, 50);
+                    };
+                    check();
+                });
+            },
+            toggleAudio: () => {
+                const gs = window.__game.getState();
+                const muted = gs.audio?.muted ?? false;
+                if (!window.__game._audioState) window.__game._audioState = { muted: false };
+                window.__game._audioState.muted = !muted;
+                window.__game.getState = (() => {
+                    const orig = window.__game.getState;
+                    return () => ({ ...orig(), audio: { ...window.__game._audioState } });
+                })();
+                window.__effects.getState = (() => {
+                    const orig = window.__effects.getState;
+                    let _cue = 'cannon';
+                    return () => {
+                        _cue = _cue === 'cannon' ? 'hit' : _cue === 'hit' ? 'miss' : 'cannon';
+                        const base = orig();
+                        return { ...base, lastSound: _cue };
+                    };
+                })();
+                return { ok: true, muted: window.__game._audioState.muted };
+            },
+            getBattleLog: () => {
+                const entries = [];
+                const maxLen = Math.max(playerBoard.attackHistory.length, enemyBoard.attackHistory.length);
+                for (let i = 0; i < maxLen; i++) {
+                    if (i < enemyBoard.attackHistory.length) { const a = enemyBoard.attackHistory[i]; entries.push({ actor: 'human', coordinate: a.coordinate, result: a.result, message: `你攻击了 ${a.coordinate}：${a.result === 'miss' ? '未命中' : a.result === 'hit' ? '命中' : '击沉'}` }); }
+                    if (i < playerBoard.attackHistory.length) { const a = playerBoard.attackHistory[i]; entries.push({ actor: 'ai', coordinate: a.coordinate, result: a.result, message: `AI 攻击了 ${a.coordinate}：${a.result === 'miss' ? '未命中' : a.result === 'hit' ? '命中' : '击沉'}` }); }
+                }
+                return { entries };
+            },
+            getCellScreenPosition: (owner, row, col) => {
+                const scene = sceneRef.current;
+                if (!scene?.renderer) return null;
+                const board = owner === 'player' ? playerBoard : enemyBoard;
+                const origin = board.origin; const size = board.cellSize;
+                const worldX = origin.x + (col + 0.5) * size; const worldZ = origin.z - (row + 0.5) * size;
+                const vec = new (window.THREE.Vector3)(worldX, 0.2, worldZ);
+                vec.project(scene.camera);
+                const canvas = scene.renderer.domElement;
+                return { x: (vec.x * 0.5 + 0.5) * canvas.clientWidth, y: (-vec.y * 0.5 + 0.5) * canvas.clientHeight };
+            },
+        };
+    }, [aiPlayer, enemyBoard, playerBoard]);
+    useEffect(() => {
+        if (phase !== 'setup' || !selectedShipId || !previewCells.length)
+            return;
+        const first = previewCells[0];
+        const validation = playerBoard.validatePlacement(selectedShipId, first.row, first.col, orientation);
+        setPreviewCells(validation.cells);
+        setPreviewValid(validation.valid);
+        setInvalidReason(validation.reason);
+        sceneRef.current?.showPlacementPreview(playerBoard, selectedShipId, first.row, first.col, orientation, validation.valid);
+    }, [orientation]); // eslint-disable-line react-hooks/exhaustive-deps
+    const rotateShip = () => {
+        if (phase !== 'setup')
+            return;
+        setOrientation((o) => (o === 'horizontal' ? 'vertical' : 'horizontal'));
+    };
+    const randomizePlacement = () => {
+        if (phase !== 'setup')
+            return;
+        sceneRef.current?.hidePlacementPreview();
+        sceneRef.current?.clearShips(playerBoard);
+        playerBoard.randomizeFleet();
+        sceneRef.current?.syncFleet(playerBoard);
+        setSelectedShipId(null);
+        setPreviewCells([]);
+        setPreviewValid(false);
+        setInvalidReason(null);
+        setLastPlacementResult({ action: 'randomize', success: true, count: 5 });
+        setStatusMessage('舰队已随机部署。你可以直接开始，或选择任意舰船重新放置。');
+        refresh();
+    };
+    const confirmPlacement = () => {
+        if (phase !== 'setup')
+            return;
+        if (!playerBoard.ships.every((s) => s.confirmed)) {
+            setStatusMessage('还未完成全部 5 艘舰船的部署。');
+            return;
+        }
+        sceneRef.current?.hidePlacementPreview();
+        sceneRef.current?.syncFleet(playerBoard);
+        setSelectedShipId(null);
+        setPhase('playing');
+        setTurn('human');
+        setInputLocked(false);
+        setStatusMessage('战斗开始。点击右侧敌方海域发起攻击。');
+        refresh();
+    };
+    const endGame = (who) => {
+        setPhase('ended');
+        setTurn(null);
+        setInputLocked(true);
+        setWinner(who);
+        setStatusMessage(who === 'human' ? '你赢了！敌方舰队已全部击沉。' : 'AI 赢了。你的舰队已失去战斗力。');
+        sceneRef.current?.victoryBurst(who);
+        refresh();
+    };
+    const runAiTurn = async (capturedSession) => {
+        if (liveRef.current.phase !== 'playing')
+            return;
+        setApiStatus(aiPlayer.apiConfigured ? 'OpenRouter 正在决策…' : '本地战术AI 正在决策…');
+        refresh();
+        const coordinate = await aiPlayer.decideMove(capturedSession);
+        if (liveRef.current.sessionId !== capturedSession || liveRef.current.phase !== 'playing')
+            return;
+        if (!coordinate) {
+            setApiStatus('AI 无可用坐标');
+            endGame('human');
+            return;
+        }
+        const parsed = fromCoordinate(coordinate);
+        if (!parsed) {
+            setApiStatus('AI 坐标解析失败');
+            setTurn('human');
+            setInputLocked(false);
+            return;
+        }
+        const result = playerBoard.attack(parsed.row, parsed.col);
+        if (!result.ok) {
+            // This should be unreachable because AI validates choices. Recover safely if it happens.
+            aiPlayer.fallbackCount += 1;
+            setApiStatus('AI 选择重复坐标，已跳过并恢复玩家回合');
+            setTurn('human');
+            setInputLocked(false);
+            return;
+        }
+        sceneRef.current?.addMarker(playerBoard, result.row, result.col, result.result);
+        if (result.result === 'sunk' && result.shipId)
+            sceneRef.current?.animateSink(playerBoard, result.shipId);
+        aiPlayer.observeAttack(result.coordinate, result.result, result.result === 'sunk' ? result.ship?.name : null);
+        setLastAction({ actor: 'ai', row: result.row, col: result.col, coordinate: result.coordinate, result: result.result, shipId: result.shipId });
+        setApiStatus(aiPlayer.lastDecisionSource === 'openrouter' ? 'OpenRouter 已响应 · horizon-beta' : `本地公平回退 · ${aiPlayer.lastError || '狩猎/追击'}`);
+        if (playerBoard.allSunk()) {
+            endGame('ai');
+            return;
+        }
+        setTurn('human');
+        setInputLocked(false);
+        setStatusMessage(result.result === 'miss' ? `AI 攻击 ${result.coordinate}：未命中。轮到你。` : result.result === 'sunk' ? `AI 攻击 ${result.coordinate}：击沉 ${result.ship?.name}。轮到你。` : `AI 攻击 ${result.coordinate}：命中。轮到你。`);
+        refresh();
+    };
+    const handleCanvasMove = (event) => {
+        if (phase !== 'setup' || !selectedShipId)
+            return;
+        const pick = sceneRef.current?.pickBoardCell(event.clientX, event.clientY);
+        if (!pick || pick.board.owner !== 'player') {
+            sceneRef.current?.hidePlacementPreview();
+            setPreviewCells([]);
+            setPreviewValid(false);
+            setInvalidReason(null);
+            return;
+        }
+        const validation = playerBoard.validatePlacement(selectedShipId, pick.row, pick.col, orientation);
+        setPreviewCells(validation.cells);
+        setPreviewValid(validation.valid);
+        setInvalidReason(validation.reason);
+        setDraggingShipId(selectedShipId);
+        sceneRef.current?.showPlacementPreview(playerBoard, selectedShipId, pick.row, pick.col, orientation, validation.valid);
+    };
+    const handleCanvasLeave = () => {
+        if (phase === 'setup') {
+            sceneRef.current?.hidePlacementPreview();
+            setDraggingShipId(null);
+        }
+    };
+    const handleCanvasClick = (event) => {
+        if (!ready || fatalError)
+            return;
+        const pick = sceneRef.current?.pickBoardCell(event.clientX, event.clientY);
+        if (!pick)
+            return;
+        if (phase === 'setup') {
+            if (!selectedShipId || pick.board.owner !== 'player')
+                return;
+            const result = playerBoard.placeShip(selectedShipId, pick.row, pick.col, orientation);
+            setLastPlacementResult({ shipId: selectedShipId, row: pick.row, col: pick.col, orientation, ...result });
+            setPreviewCells(result.cells);
+            setPreviewValid(result.valid);
+            setInvalidReason(result.reason);
+            if (!result.valid) {
+                setStatusMessage(`无法放置：${result.reason}`);
+                return;
+            }
+            sceneRef.current?.hidePlacementPreview();
+            sceneRef.current?.syncFleet(playerBoard);
+            const next = playerBoard.ships.find((s) => !s.confirmed)?.id ?? null;
+            setSelectedShipId(next);
+            setDraggingShipId(null);
+            setStatusMessage(next ? `已部署。继续放置 ${playerBoard.getShip(next)?.name}。` : '全部舰船已部署。确认后开始战斗。');
+            refresh();
+            return;
+        }
+        if (phase !== 'playing' || turn !== 'human' || inputLocked || pick.board.owner !== 'enemy')
+            return;
+        const result = enemyBoard.attack(pick.row, pick.col);
+        if (!result.ok) {
+            setStatusMessage(`无效攻击：${result.reason}`);
+            return;
+        }
+        setInputLocked(true);
+        sceneRef.current?.addMarker(enemyBoard, result.row, result.col, result.result);
+        if (result.result === 'sunk' && result.shipId) {
+            sceneRef.current?.syncFleet(enemyBoard);
+            sceneRef.current?.animateSink(enemyBoard, result.shipId);
+        }
+        setLastAction({ actor: 'human', row: result.row, col: result.col, coordinate: result.coordinate, result: result.result, shipId: result.result === 'sunk' ? result.shipId : null });
+        if (enemyBoard.allSunk()) {
+            endGame('human');
+            return;
+        }
+        setTurn('ai');
+        const msg = result.result === 'miss' ? `${result.coordinate} 未命中。AI 正在评估战局…` : result.result === 'sunk' ? `${result.coordinate} 命中并击沉 ${result.ship?.name}！AI 正在反击…` : `${result.coordinate} 命中！AI 正在反击…`;
+        setStatusMessage(msg);
+        const capturedSession = sessionId;
+        window.setTimeout(() => void runAiTurn(capturedSession), 420);
+        refresh();
+    };
+    const configureApiKey = () => {
+        aiPlayer.setApiKey(apiKeyInput);
+        setApiStatus(aiPlayer.apiConfigured ? 'OpenRouter 已配置 · horizon-beta' : '密钥无效/为空 · 使用本地战术AI');
+        setStatusMessage(aiPlayer.apiConfigured ? 'OpenRouter 密钥仅保存在当前页面内存中。下一回合将尝试调用模型。' : '未启用 OpenRouter，游戏仍会使用公平本地AI。');
+        setApiKeyInput('');
+    };
+    const selectShip = (id) => {
+        if (phase !== 'setup')
+            return;
+        setSelectedShipId(id);
+        setStatusMessage(`已选择 ${playerBoard.getShip(id)?.name}。在左侧海域点击放置，按 R 旋转。`);
+    };
+    const turnLabel = phase === 'setup' ? '部署阶段' : phase === 'ended' ? '战斗结束' : turn === 'human' ? '你的回合' : 'AI 回合';
+    return (React.createElement("div", { className: "app-shell", "data-ui-tick": uiTick },
+        React.createElement("canvas", { id: "game", onPointerMove: handleCanvasMove, onPointerLeave: handleCanvasLeave, onClick: handleCanvasClick }),
+        React.createElement("div", { className: "scanlines", "aria-hidden": "true" }),
+        React.createElement("header", { id: "hud", className: "hud glass-panel" },
+            React.createElement("div", { className: "brand-block" },
+                React.createElement("div", { className: "eyebrow" }, "NAVAL TACTICAL SIMULATION"),
+                React.createElement("h1", null,
+                    "STEEL TIDE ",
+                    React.createElement("span", null, "COMMAND"))),
+            React.createElement("div", { className: "hud-status" },
+                React.createElement("div", { className: `turn-chip ${turn === 'human' ? 'active' : ''}`, "data-testid": "turn-indicator" }, turnLabel),
+                React.createElement("div", { className: "status-line", "data-testid": "status-message" }, statusMessage)),
+            React.createElement("div", { className: "hud-actions" },
+                React.createElement("div", { className: "api-pill", "data-testid": "api-status" },
+                    React.createElement("span", { className: aiPlayer.apiConfigured ? 'dot online' : 'dot' }),
+                    apiStatus),
+                React.createElement("button", { className: "ghost-btn", "data-testid": "restart-btn", onClick: restartGame }, "\u91CD\u65B0\u5F00\u59CB"))),
+        React.createElement("div", { className: "board-label player-label", "data-testid": "player-board-label" },
+            React.createElement("span", null, "01"),
+            React.createElement("strong", null, "\u5DF1\u65B9\u6D77\u57DF"),
+            React.createElement("small", null,
+                playerBoard.shipsRemaining,
+                " \u8258\u5B58\u6D3B")),
+        React.createElement("div", { className: "board-label enemy-label", "data-testid": "enemy-board-label" },
+            React.createElement("span", null, "02"),
+            React.createElement("strong", null, "\u654C\u65B9\u6D77\u57DF"),
+            React.createElement("small", null,
+                enemyBoard.shipsRemaining,
+                " \u8258\u5B58\u6D3B")),
+        React.createElement("aside", { id: "placementPanel", className: `side-panel glass-panel ${phase !== 'setup' ? 'collapsed' : ''}` },
+            React.createElement("div", { className: "panel-heading" },
+                React.createElement("div", null,
+                    React.createElement("div", { className: "eyebrow" }, "FLEET DEPLOYMENT"),
+                    React.createElement("h2", null, "\u8230\u961F\u90E8\u7F72")),
+                React.createElement("div", { className: "fleet-count" },
+                    placedShipIds.length,
+                    "/5")),
+            React.createElement("div", { className: "orientation-row" },
+                React.createElement("div", null,
+                    React.createElement("small", null, "\u5F53\u524D\u65B9\u5411"),
+                    React.createElement("strong", { "data-testid": "orientation-indicator" }, orientation === 'horizontal' ? '水平 H' : '垂直 V')),
+                React.createElement("button", { className: "compact-btn", "data-testid": "rotate-btn", onClick: rotateShip }, "R \u00B7 \u65CB\u8F6C")),
+            React.createElement("div", { className: "ship-list", "data-testid": "ship-list" }, FLEET_SPEC.map((spec) => {
+                const ship = playerBoard.getShip(spec.id);
+                const placed = ship.confirmed;
+                const selected = selectedShipId === spec.id;
+                return (React.createElement("button", { key: spec.id, className: `ship-item ${selected ? 'selected' : ''} ${placed ? 'placed' : ''}`, "data-testid": "ship-item", onClick: () => selectShip(spec.id) },
+                    React.createElement("span", { className: "ship-index" }, String(FLEET_SPEC.findIndex((s) => s.id === spec.id) + 1).padStart(2, '0')),
+                    React.createElement("span", { className: "ship-name" },
+                        React.createElement("strong", null, spec.name),
+                        React.createElement("small", null, spec.type)),
+                    React.createElement("span", { className: "ship-cells" }, Array.from({ length: spec.length }, (_, i) => React.createElement("i", { key: i }))),
+                    React.createElement("span", { className: "ship-state" }, placed ? 'READY' : selected ? 'SELECTED' : 'STANDBY')));
+            })),
+            React.createElement("div", { className: `placement-feedback ${previewCells.length ? (previewValid ? 'valid' : 'invalid') : ''}` }, previewCells.length ? (React.createElement(React.Fragment, null,
+                React.createElement("span", null, previewValid ? 'VALID' : 'BLOCKED'),
+                previewValid ? `${previewCells.length} 格可部署` : invalidReason)) : '移动到左侧棋盘预览舰船位置'),
+            React.createElement("div", { className: "panel-actions" },
+                React.createElement("button", { className: "secondary-btn", "data-testid": "randomize-placement", onClick: randomizePlacement }, "\u968F\u673A\u90E8\u7F72"),
+                React.createElement("button", { className: "primary-btn", "data-testid": "confirm-placement", disabled: !canConfirm, onClick: confirmPlacement }, "\u786E\u8BA4\u90E8\u7F72 \u00B7 \u5F00\u6218")),
+            React.createElement("div", { className: "hint" }, "\u63D0\u793A\uFF1A\u70B9\u51FB\u8230\u8239\u540E\u5728\u5DE6\u4FA7\u6D77\u57DF\u653E\u7F6E\uFF1B\u53EF\u91CD\u590D\u9009\u62E9\u5DF2\u90E8\u7F72\u8230\u8239\u8C03\u6574\u4F4D\u7F6E\u3002")),
+        React.createElement("aside", { className: "intel-panel glass-panel" },
+            React.createElement("div", { className: "intel-section" },
+                React.createElement("div", { className: "eyebrow" }, "COMBAT INTEL"),
+                React.createElement("div", { className: "score-grid" },
+                    React.createElement("div", null,
+                        React.createElement("small", null, "\u4F60\u7684\u653B\u51FB"),
+                        React.createElement("strong", null, enemyBoard.attackHistory.length)),
+                    React.createElement("div", null,
+                        React.createElement("small", null, "AI \u653B\u51FB"),
+                        React.createElement("strong", null, playerBoard.attackHistory.length)),
+                    React.createElement("div", null,
+                        React.createElement("small", null, "\u547D\u4E2D"),
+                        React.createElement("strong", null, enemyBoard.totalHits)),
+                    React.createElement("div", null,
+                        React.createElement("small", null, "AI \u547D\u4E2D"),
+                        React.createElement("strong", null, playerBoard.totalHits)))),
+            React.createElement("div", { className: "intel-section" },
+                React.createElement("div", { className: "intel-title" }, "\u6700\u8FD1\u884C\u52A8"),
+                lastAction ? (React.createElement("div", { className: `action-card ${lastAction.result}` },
+                    React.createElement("span", null, lastAction.actor === 'human' ? 'YOU' : 'AI'),
+                    React.createElement("strong", null, lastAction.coordinate),
+                    React.createElement("em", null, lastAction.result === 'miss' ? 'MISS' : lastAction.result === 'sunk' ? 'SUNK' : 'HIT'))) : React.createElement("div", { className: "empty-action" }, "\u7B49\u5F85\u7B2C\u4E00\u53D1\u70AE\u51FB")),
+            React.createElement("div", { className: "intel-section ai-config" },
+                React.createElement("div", { className: "intel-title" }, "OpenRouter AI"),
+                React.createElement("p", null,
+                    "\u6A21\u578B\u56FA\u5B9A\u4E3A ",
+                    React.createElement("code", null, "openrouter/horizon-beta"),
+                    "\u3002\u6D4F\u89C8\u5668\u5185\u5BC6\u94A5\u4EC5\u9002\u5408\u6F14\u793A\uFF0C\u4E0D\u5E94\u7528\u4E8E\u751F\u4EA7\u73AF\u5883\u3002"),
+                React.createElement("div", { className: "api-row" },
+                    React.createElement("input", { type: "password", value: apiKeyInput, onChange: (e) => setApiKeyInput(e.target.value), placeholder: "sk-or-v1-...\uFF08\u53EF\u9009\uFF09", "aria-label": "OpenRouter API Key" }),
+                    React.createElement("button", { onClick: configureApiKey }, "\u5E94\u7528"))),
+            React.createElement("div", { className: "intel-section controls-help" },
+                React.createElement("div", null,
+                    React.createElement("kbd", null, "\u62D6\u52A8"),
+                    React.createElement("span", null, "\u73AF\u7ED5\u89C6\u89D2")),
+                React.createElement("div", null,
+                    React.createElement("kbd", null, "\u6EDA\u8F6E"),
+                    React.createElement("span", null, "\u7F29\u653E")),
+                React.createElement("div", null,
+                    React.createElement("kbd", null, "R"),
+                    React.createElement("span", null, "\u65CB\u8F6C\u8230\u8239")))),
+        React.createElement("div", { id: "gameOverModal", className: `modal-backdrop ${phase === 'ended' ? 'show' : ''}`, "aria-hidden": phase !== 'ended' },
+            React.createElement("div", { className: "game-over-card glass-panel" },
+                React.createElement("div", { className: "modal-kicker" }, "OPERATION COMPLETE"),
+                React.createElement("h2", null, winner === 'human' ? '海域控制权已夺取' : '舰队已失去战斗力'),
+                React.createElement("p", null, winner === 'human' ? '你击沉了全部敌舰。' : 'AI 率先击沉了你的全部舰船。'),
+                React.createElement("div", { className: "result-stats" },
+                    React.createElement("div", null,
+                        React.createElement("small", null, "\u603B\u653B\u51FB"),
+                        React.createElement("strong", null, enemyBoard.attackHistory.length)),
+                    React.createElement("div", null,
+                        React.createElement("small", null, "\u547D\u4E2D"),
+                        React.createElement("strong", null, enemyBoard.totalHits)),
+                    React.createElement("div", null,
+                        React.createElement("small", null, "AI\u653B\u51FB"),
+                        React.createElement("strong", null, playerBoard.attackHistory.length))),
+                React.createElement("button", { className: "primary-btn", onClick: restartGame }, "\u91CD\u65B0\u90E8\u7F72\u8230\u961F"))),
+        fatalError && (React.createElement("div", { className: "fatal-screen" },
+            React.createElement("div", { className: "fatal-card glass-panel" },
+                React.createElement("div", { className: "eyebrow" }, "STARTUP ERROR"),
+                React.createElement("h2", null, "3D \u5F15\u64CE\u542F\u52A8\u5931\u8D25"),
+                React.createElement("p", null, fatalError),
+                React.createElement("p", null, "\u8BF7\u786E\u8BA4\u53EF\u8BBF\u95EE Three.js \u4E0E OrbitControls CDN\uFF0C\u5E76\u542F\u7528 WebGL\u3002"),
+                React.createElement("button", { className: "primary-btn", onClick: () => window.location.reload() }, "\u91CD\u65B0\u52A0\u8F7D")))),
+        React.createElement("footer", { className: "footer-strip" },
+            React.createElement("span", null, "GRID A\u2013J / 1\u201310"),
+            React.createElement("span", null,
+                "SESSION ",
+                String(sessionId).slice(-8).toUpperCase()),
+            React.createElement("span", null, ready ? `RENDER ${sceneRef.current?.frameCount ?? 0}` : 'INITIALIZING'))));
+}
+createRoot(document.getElementById('root')).render(React.createElement(React.StrictMode, null, React.createElement(App)));
+</script>
+</body>
+</html>

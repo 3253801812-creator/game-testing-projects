@@ -1,0 +1,50 @@
+{
+  "brand": "JAKARTA / AFTERDARK",
+  "kicker": "Night line 07",
+  "subtitle": "A tall double-deck city bus cutting through neon terminals, tower canyons and late-night arterial traffic.",
+  "vehicleId": "JKT-DD07",
+  "busType": "Double-Deck Urban Liner",
+  "routeName": "Sudirman · Glodok · Kota",
+  "capacity": 58,
+  "environment": "Dense neon metropolitan corridor",
+  "weather": "Humid night haze",
+  "timeOfDay": "22:40",
+  "trafficDensity": 1.08,
+  "sceneType": "night-city",
+  "layout": "bottom-ribbon",
+  "defaultCamera": "cinematic",
+  "defaultQuality": "high",
+  "roadCurve": 1.1,
+  "roadPhase": 60,
+  "cameraSide": 1,
+  "bus": {
+    "width": 2.55,
+    "length": 8.0,
+    "style": "double"
+  },
+  "palette": {
+    "sky": "#151334",
+    "ground": "#151629",
+    "road": "#131827",
+    "edge": "#22d3ee",
+    "bus": "#6d28d9",
+    "accent": "#2ee8ff",
+    "glass": "#081b33",
+    "trafficA": "#f43f5e",
+    "trafficB": "#22c55e",
+    "foliage": "#174f47",
+    "building": "#2c2455",
+    "building2": "#10304a",
+    "mountain": "#352c54",
+    "water": "#184463",
+    "stop": "#ec4899",
+    "served": "#334155"
+  },
+  "css": ":root{--bg:#090816;--sky:#151334;--text:#eefcff;--muted:#96dce7;--accent:#2ee8ff;--accent-glow:rgba(46,232,255,.35);--button-text:#041215;--line:rgba(46,232,255,.28);--glass:rgba(10,7,31,.62);--glass-strong:rgba(17,12,41,.94);--panel:rgba(10,9,28,.82);--landing-a:rgba(8,5,25,.94);--atmo-top:rgba(236,72,153,.13);--atmo-bottom:rgba(34,211,238,.1)} .sim-shell[data-layout=\"bottom-ribbon\"] .landing{justify-content:flex-end;border-bottom:7px solid var(--accent)} .sim-shell[data-layout=\"bottom-ribbon\"] .landing h1{font-family:monospace;letter-spacing:-.07em}",
+  "defects": {
+    "allowDoorsWhileMoving": true,
+    "fuelDrainMultiplier": 1,
+    "autoAdvanceAtStop": false,
+    "reportedSpeedBias": 0
+  }
+}

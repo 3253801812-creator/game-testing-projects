@@ -1,0 +1,1581 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06131f" />
+    <title>磁轨铸舰场：3D 战舰</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e9f8ff;
+  background: #020912;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+button { font: inherit; }
+button:focus-visible { outline: 2px solid #67e8f9; outline-offset: 2px; }
+
+.app-shell { position: relative; width: 100%; height: 100%; background: #020912; isolation: isolate; }
+#game { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 44%, transparent 35%, rgba(0,4,10,.5) 100%); z-index: 1; }
+.scanlines { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: .08; background-image: repeating-linear-gradient(to bottom, rgba(157,237,255,.4) 0, rgba(157,237,255,.4) 1px, transparent 1px, transparent 4px); }
+
+.glass-panel { background: linear-gradient(145deg, rgba(7,26,40,.88), rgba(4,17,29,.72)); border: 1px solid rgba(120,218,255,.16); box-shadow: 0 18px 48px rgba(0,0,0,.34), inset 0 1px rgba(255,255,255,.035); backdrop-filter: blur(15px); }
+.topbar { position: absolute; z-index: 6; top: 20px; left: 24px; right: 24px; display: flex; align-items: center; gap: 18px; pointer-events: none; }
+.topbar > * { pointer-events: auto; }
+.brand-block { flex: 1; }
+.eyebrow, .panel-kicker { font-size: 10px; letter-spacing: .24em; font-weight: 800; color: #60cce9; text-transform: uppercase; }
+h1 { margin: 4px 0 0; font-size: clamp(20px, 2.2vw, 31px); letter-spacing: .02em; font-weight: 760; text-shadow: 0 5px 30px rgba(0,0,0,.5); }
+.turn-card { min-width: 148px; padding: 9px 14px; border-left: 1px solid rgba(120,218,255,.25); background: rgba(4,17,29,.45); }
+.turn-card span { display:block; font-size:10px; color:#7896a6; letter-spacing:.12em; }
+.turn-card strong { display:block; margin-top:2px; color:#dff9ff; font-size:14px; }
+
+.button { border: 1px solid rgba(126,221,255,.24); border-radius: 8px; padding: 10px 14px; cursor: pointer; transition: .18s ease; color: #dff9ff; background: rgba(10,41,58,.78); font-weight: 700; font-size: 12px; letter-spacing:.03em; }
+.button:hover:not(:disabled) { transform: translateY(-1px); border-color: rgba(126,221,255,.55); background: rgba(14,61,82,.9); }
+.button:disabled { cursor: not-allowed; opacity: .38; }
+.button.primary { color:#021016; background: linear-gradient(135deg,#61e4ff,#35c9bc); border-color: transparent; box-shadow: 0 8px 26px rgba(71,218,225,.18); }
+.button.secondary { flex: 1; }
+.button.ghost { background:rgba(3,18,30,.6); }
+.button.full { width:100%; margin-top:10px; padding:12px 14px; }
+
+.left-panel { position:absolute; z-index:5; left:24px; top:112px; width:260px; border-radius:12px; padding:17px; }
+.status-message { margin-top:8px; min-height:46px; font-size:13px; line-height:1.55; color:#d5edf6; }
+.last-action { display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:9px 10px; border-radius:8px; background:rgba(0,0,0,.18); color:#9fb9c6; font-size:12px; }
+.result-badge { font-size:10px; padding:3px 6px; border-radius:999px; font-weight:800; }
+.result-badge.hit, .result-badge.sunk { color:#ffc0c0; background:rgba(255,72,72,.16); }
+.result-badge.miss { color:#d9f4ff; background:rgba(214,245,255,.12); }
+.mini-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:12px; }
+.mini-stats div { padding:9px 7px; background:rgba(3,13,22,.5); border-radius:8px; }
+.mini-stats span { display:block; font-size:9px; color:#6d8c9a; }
+.mini-stats b { display:block; margin-top:2px; font-size:16px; }
+.api-box { margin-top:12px; display:flex; gap:9px; align-items:flex-start; border-top:1px solid rgba(120,218,255,.10); padding-top:12px; }
+.api-dot { width:8px; height:8px; border-radius:50%; margin-top:4px; background:#f3a54a; box-shadow:0 0 10px rgba(243,165,74,.35); }
+.api-dot.live { background:#55e0ac; box-shadow:0 0 10px rgba(85,224,172,.45); }
+.api-box small { font-size:9px; letter-spacing:.16em; color:#7293a2; }
+.api-box p { margin:2px 0 0; font-size:10px; line-height:1.35; color:#a7c1cd; }
+
+.placement-panel { position:absolute; z-index:5; right:24px; top:112px; width:300px; border-radius:12px; padding:17px; transition:.25s ease; }
+.placement-panel.collapsed { opacity:0; transform:translateX(16px); pointer-events:none; }
+.panel-heading { display:flex; justify-content:space-between; align-items:flex-start; }
+.panel-heading h2 { margin:4px 0 0; font-size:18px; }
+.orientation { border:1px solid rgba(101,225,241,.3); background:rgba(48,184,199,.08); padding:5px 8px; border-radius:6px; font-size:10px; color:#78e9f4; }
+.ship-list { display:flex; flex-direction:column; gap:6px; margin-top:14px; }
+.ship-item { display:grid; grid-template-columns:72px 1fr 52px; align-items:center; gap:7px; width:100%; padding:9px; border-radius:8px; border:1px solid rgba(120,218,255,.09); background:rgba(3,15,25,.5); color:#bfd6df; text-align:left; cursor:pointer; transition:.15s ease; }
+.ship-item:hover { border-color:rgba(120,218,255,.3); }
+.ship-item.active { border-color:#49d6e9; background:rgba(35,148,164,.13); }
+.ship-item.placed { color:#8db6b5; }
+.ship-name { font-size:11px; font-weight:750; }
+.ship-state { font-size:9px; color:#6f909e; text-align:right; }
+.ship-units { display:flex; gap:2px; }
+.ship-units i { height:5px; flex:1; min-width:5px; background:#63cfe1; border-radius:1px; opacity:.75; }
+.ship-item.placed .ship-units i { background:#51c89b; }
+.placement-help { margin-top:11px; padding:9px 10px; border-radius:8px; background:rgba(1,10,18,.42); }
+.placement-help p { margin:2px 0; font-size:10px; line-height:1.45; color:#7f9eaa; }
+.placement-help .invalid { color:#ff8a8a; }
+.action-row { display:flex; gap:8px; margin-top:10px; }
+
+.board-label { position:absolute; z-index:4; top:50%; transform:translate(-50%,-50%) rotate(-90deg); font-size:9px; letter-spacing:.24em; color:rgba(158,231,246,.55); pointer-events:none; }
+.player-label { left:31.5%; }
+.enemy-label { left:68.5%; }
+.bottom-hint { position:absolute; z-index:5; left:50%; bottom:18px; transform:translateX(-50%); display:flex; align-items:center; gap:7px; color:#6d8d9b; font-size:10px; white-space:nowrap; }
+kbd { color:#b8d7e3; background:rgba(5,24,36,.78); border:1px solid rgba(130,220,255,.16); border-bottom-width:2px; border-radius:5px; padding:3px 6px; font:inherit; }
+
+.modal-layer { position:absolute; inset:0; z-index:20; display:grid; place-items:center; background:rgba(0,8,14,.12); opacity:0; pointer-events:none; transition:.25s ease; backdrop-filter:blur(0); }
+.modal-layer.show { opacity:1; pointer-events:auto; background:rgba(0,8,14,.66); backdrop-filter:blur(8px); }
+.modal-card { position:relative; width:min(390px,calc(100vw - 36px)); overflow:hidden; border:1px solid rgba(109,225,239,.22); border-radius:16px; padding:28px; background:linear-gradient(160deg,rgba(8,31,44,.98),rgba(3,13,23,.98)); box-shadow:0 24px 90px rgba(0,0,0,.5); }
+.modal-card h2 { margin:8px 0 5px; font-size:34px; }
+.modal-card p { margin:0 0 18px; color:#91adba; font-size:13px; }
+.report-row { display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid rgba(121,218,255,.10); border-bottom:1px solid rgba(121,218,255,.10); font-size:12px; color:#8aa7b3; }
+.report-row b { color:#dff9ff; }
+.victory-ring { position:absolute; width:130px; height:130px; border:1px solid rgba(91,224,239,.12); border-radius:50%; right:-38px; top:-42px; box-shadow:0 0 50px rgba(69,208,219,.08) inset; }
+
+.startup-error { position:absolute; inset:0; z-index:30; display:grid; place-items:center; background:#020912; }
+.error-card { max-width:500px; margin:20px; border:1px solid rgba(255,99,99,.25); padding:24px; border-radius:12px; background:#09121b; }
+.error-card h2 { margin:7px 0; }
+.error-card p { color:#9db1bb; line-height:1.55; }
+
+@media (max-width: 900px) {
+  .topbar { left:14px; right:14px; top:12px; }
+  .turn-card { display:none; }
+  .left-panel { left:14px; top:auto; bottom:58px; width:220px; padding:12px; }
+  .placement-panel { right:14px; top:82px; width:270px; padding:13px; }
+  .board-label { display:none; }
+  .bottom-hint { bottom:12px; }
+}
+@media (max-width: 650px) {
+  .eyebrow { display:none; }
+  h1 { font-size:18px; }
+  .topbar { gap:8px; }
+  .button.ghost { padding:8px 9px; }
+  .left-panel { left:10px; right:10px; width:auto; bottom:50px; }
+  .mini-stats, .api-box, .last-action { display:none; }
+  .placement-panel { left:10px; right:10px; top:auto; bottom:50px; width:auto; max-height:52vh; overflow:auto; }
+  .ship-item { grid-template-columns:65px 1fr 45px; }
+  .bottom-hint { display:none; }
+}
+
+/* Coilfire-specific tactical readouts */
+.fleet-status { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(97,216,255,.16); }
+.fleet-line { display:flex; justify-content:space-between; gap:12px; padding:2px 0; font-size:11px; letter-spacing:.04em; }
+.fleet-line b { color:#a6efff; font-weight:700; }
+.fleet-line.total { margin-top:3px; padding-top:5px; border-top:1px dashed rgba(97,216,255,.15); }
+.battle-log { margin-top:10px; max-height:116px; overflow:auto; padding-top:9px; border-top:1px solid rgba(97,216,255,.16); }
+.battle-log p { margin:3px 0; font-size:10px; line-height:1.35; color:rgba(221,247,255,.72); }
+@media (max-width:650px) {
+  .fleet-status { display:none; }
+  .battle-log { max-height:54px; }
+}
+</style></head><body><div id="root"><main id="boot-shell" style="min-height:100vh;background:#020912;color:#dff9ff;display:grid;place-items:center;font-family:system-ui"><canvas id="game" style="position:absolute;inset:0;width:100%;height:100%"></canvas><div id="hud" style="position:relative;z-index:2;padding:20px;text-align:center"><div data-testid="status-message">正在加载 3D 战舰指挥系统…</div><div data-testid="turn-indicator">启动中</div><div id="placementPanel"><div data-testid="ship-list"><span data-testid="ship-item">舰队数据加载中</span></div><span data-testid="orientation-indicator">水平</span><button data-testid="rotate-btn">旋转</button><button data-testid="confirm-placement">确认部署</button><button data-testid="randomize-placement">随机部署</button></div><div id="gameOverModal"></div><span data-testid="api-status">AI 初始化中</span><span data-testid="player-board-label">己方海域</span><span data-testid="enemy-board-label">敌方海域</span><button data-testid="restart-btn" onclick="location.reload()">重新加载</button></div></main></div><script>setTimeout(function(){var b=document.getElementById('boot-shell');if(b){var s=b.querySelector('[data-testid="status-message"]');if(s)s.textContent='启动超时：请检查网络、Three.js/React CDN 或 WebGL 支持后重新加载。';}},12000);</script><script type="module">
+/* Embedded project-local UI runtime (Preact core, MIT) */
+// Preact, MIT License
+var n,l,u,i,t,o,r={},f=[],e=/acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;function c(e,n){for(var t in n)e[t]=n[t];return e}function s(e){var n=e.parentNode;n&&n.removeChild(e)}function a(e,n,t){var _,l,o,r=arguments,i={};for(o in n)"key"==o?_=n[o]:"ref"==o?l=n[o]:i[o]=n[o];if(arguments.length>3)for(t=[t],o=3;o<arguments.length;o++)t.push(r[o]);if(null!=t&&(i.children=t),"function"==typeof e&&null!=e.defaultProps)for(o in e.defaultProps)void 0===i[o]&&(i[o]=e.defaultProps[o]);return v(e,i,_,l,null)}function v(e,t,_,l,o){var r={type:e,props:t,key:_,ref:l,__k:null,__:null,__b:0,__e:null,__d:void 0,__c:null,__h:null,constructor:void 0,__v:null==o?++n.__v:o};return null!=n.vnode&&n.vnode(r),r}function h(){return{current:null}}function y(e){return e.children}function p(e,n){this.props=e,this.context=n}function d(e,n){if(null==n)return e.__?d(e.__,e.__.__k.indexOf(e)+1):null;for(var t;n<e.__k.length;n++)if(null!=(t=e.__k[n])&&null!=t.__e)return t.__e;return"function"==typeof e.type?d(e):null}function _(e){var n,t;if(null!=(e=e.__)&&null!=e.__c){for(e.__e=e.__c.base=null,n=0;n<e.__k.length;n++)if(null!=(t=e.__k[n])&&null!=t.__e){e.__e=e.__c.base=t.__e;break}return _(e)}}function k(e){(!e.__d&&(e.__d=!0)&&u.push(e)&&!b.__r++||t!==n.debounceRendering)&&((t=n.debounceRendering)||i)(b)}function b(){for(var e;b.__r=u.length;)e=u.sort(function(e,n){return e.__v.__b-n.__v.__b}),u=[],e.some(function(e){var n,t,l,o,r,i;e.__d&&(r=(o=(n=e).__v).__e,(i=n.__P)&&(t=[],(l=c({},o)).__v=o.__v+1,I(i,o,l,n.__n,void 0!==i.ownerSVGElement,null!=o.__h?[r]:null,t,null==r?d(o):r,o.__h),T(t,o),o.__e!=r&&_(o)))})}function m(e,n,t,_,l,o,i,u,s,c){var p,a,h,m,k,b,C,P=_&&_.__k||f,S=P.length;for(t.__k=[],p=0;p<n.length;p++)if(null!=(m=t.__k[p]=null==(m=n[p])||"boolean"==typeof m?null:"string"==typeof m||"number"==typeof m||"bigint"==typeof m?v(null,m,null,null,m):Array.isArray(m)?v(y,{children:m},null,null,null):m.__b>0?v(m.type,m.props,m.key,null,m.__v):m)){if(m.__=t,m.__b=t.__b+1,null===(h=P[p])||h&&m.key==h.key&&m.type===h.type)P[p]=void 0;else for(a=0;a<S;a++){if((h=P[a])&&m.key==h.key&&m.type===h.type){P[a]=void 0;break}h=null}I(e,m,h=h||r,l,o,i,u,s,c),k=m.__e,(a=m.ref)&&h.ref!=a&&(C||(C=[]),h.ref&&C.push(h.ref,null,m),C.push(a,m.__c||k,m)),null!=k?(null==b&&(b=k),"function"==typeof m.type&&null!=m.__k&&m.__k===h.__k?m.__d=s=g(m,s,e):s=x(e,m,h,P,k,s),c||"option"!==t.type?"function"==typeof t.type&&(t.__d=s):e.value=""):s&&h.__e==s&&s.parentNode!=e&&(s=d(h))}for(t.__e=b,p=S;p--;)null!=P[p]&&("function"==typeof t.type&&null!=P[p].__e&&P[p].__e==t.__d&&(t.__d=d(_,p+1)),L(P[p],P[p]));if(C)for(p=0;p<C.length;p++)z(C[p],C[++p],C[++p])}function g(e,n,t){var _,l;for(_=0;_<e.__k.length;_++)(l=e.__k[_])&&(l.__=e,n="function"==typeof l.type?g(l,n,t):x(t,l,l,e.__k,l.__e,n));return n}function w(e,n){return n=n||[],null==e||"boolean"==typeof e||(Array.isArray(e)?e.some(function(e){w(e,n)}):n.push(e)),n}function x(e,n,t,_,l,o){var r,i,u;if(void 0!==n.__d)r=n.__d,n.__d=void 0;else if(null==t||l!=o||null==l.parentNode)e:if(null==o||o.parentNode!==e)e.appendChild(l),r=null;else{for(i=o,u=0;(i=i.nextSibling)&&u<_.length;u+=2)if(i==l)break e;e.insertBefore(l,o),r=o}return void 0!==r?r:l.nextSibling}function A(e,n,t,_,l){var o;for(o in t)"children"===o||"key"===o||o in n||C(e,o,null,t[o],_);for(o in n)l&&"function"!=typeof n[o]||"children"===o||"key"===o||"value"===o||"checked"===o||t[o]===n[o]||C(e,o,n[o],t[o],_)}function P(n,t,_){"-"===t[0]?n.setProperty(t,_):n[t]=null==_?"":"number"!=typeof _||e.test(t)?_:_+"px"}function C(e,n,t,_,l){var o;e:if("style"===n)if("string"==typeof t)e.style.cssText=t;else{if("string"==typeof _&&(e.style.cssText=_=""),_)for(n in _)t&&n in t||P(e.style,n,"");if(t)for(n in t)_&&t[n]===_[n]||P(e.style,n,t[n])}else if("o"===n[0]&&"n"===n[1])o=n!==(n=n.replace(/Capture$/,"")),n=n.toLowerCase()in e?n.toLowerCase().slice(2):n.slice(2),e.l||(e.l={}),e.l[n+o]=t,t?_||e.addEventListener(n,o?H:$,o):e.removeEventListener(n,o?H:$,o);else if("dangerouslySetInnerHTML"!==n){if(l)n=n.replace(/xlink[H:h]/,"h").replace(/sName$/,"s");else if("href"!==n&&"list"!==n&&"form"!==n&&"tabIndex"!==n&&"download"!==n&&n in e)try{e[n]=null==t?"":t;break e}catch(e){}"function"==typeof t||(null!=t&&(!1!==t||"a"===n[0]&&"r"===n[1])?e.setAttribute(n,t):e.removeAttribute(n))}}function $(e){this.l[e.type+!1](n.event?n.event(e):e)}function H(e){this.l[e.type+!0](n.event?n.event(e):e)}function I(e,t,_,l,o,r,i,u,s){var f,a,d,h,v,k,g,b,C,x,P,S=t.type;if(void 0!==t.constructor)return null;null!=_.__h&&(s=_.__h,u=t.__e=_.__e,t.__h=null,r=[u]),(f=n.__b)&&f(t);try{e:if("function"==typeof S){if(b=t.props,C=(f=S.contextType)&&l[f.__c],x=f?C?C.props.value:f.__:l,_.__c?g=(a=t.__c=_.__c).__=a.__E:("prototype"in S&&S.prototype.render?t.__c=a=new S(b,x):(t.__c=a=new p(b,x),a.constructor=S,a.render=M),C&&C.sub(a),a.props=b,a.state||(a.state={}),a.context=x,a.__n=l,d=a.__d=!0,a.__h=[]),null==a.__s&&(a.__s=a.state),null!=S.getDerivedStateFromProps&&(a.__s==a.state&&(a.__s=c({},a.__s)),c(a.__s,S.getDerivedStateFromProps(b,a.__s))),h=a.props,v=a.state,d)null==S.getDerivedStateFromProps&&null!=a.componentWillMount&&a.componentWillMount(),null!=a.componentDidMount&&a.__h.push(a.componentDidMount);else{if(null==S.getDerivedStateFromProps&&b!==h&&null!=a.componentWillReceiveProps&&a.componentWillReceiveProps(b,x),!a.__e&&null!=a.shouldComponentUpdate&&!1===a.shouldComponentUpdate(b,a.__s,x)||t.__v===_.__v){a.props=b,a.state=a.__s,t.__v!==_.__v&&(a.__d=!1),a.__v=t,t.__e=_.__e,t.__k=_.__k,t.__k.forEach(function(e){e&&(e.__=t)}),a.__h.length&&i.push(a);break e}null!=a.componentWillUpdate&&a.componentWillUpdate(b,a.__s,x),null!=a.componentDidUpdate&&a.__h.push(function(){a.componentDidUpdate(h,v,k)})}a.context=x,a.props=b,a.state=a.__s,(f=n.__r)&&f(t),a.__d=!1,a.__v=t,a.__P=e,f=a.render(a.props,a.state,a.context),a.state=a.__s,null!=a.getChildContext&&(l=c(c({},l),a.getChildContext())),d||null==a.getSnapshotBeforeUpdate||(k=a.getSnapshotBeforeUpdate(h,v)),P=null!=f&&f.type===y&&null==f.key?f.props.children:f,m(e,Array.isArray(P)?P:[P],t,_,l,o,r,i,u,s),a.base=t.__e,t.__h=null,a.__h.length&&i.push(a),g&&(a.__E=a.__=null),a.__e=!1}else null==r&&t.__v===_.__v?(t.__k=_.__k,t.__e=_.__e):t.__e=j(_.__e,t,_,l,o,r,i,s);(f=n.diffed)&&f(t)}catch(e){t.__v=null,(s||null!=r)&&(t.__e=u,t.__h=!!s,r[r.indexOf(u)]=null),n.__e(e,t,_)}}function T(e,t){n.__c&&n.__c(t,e),e.some(function(t){try{e=t.__h,t.__h=[],e.some(function(e){e.call(t)})}catch(e){n.__e(e,t.__v)}})}function j(e,n,t,_,l,o,i,u){var c,p,a,d,h=t.props,v=n.props,y=n.type,k=0;if("svg"===y&&(l=!0),null!=o)for(;k<o.length;k++)if((c=o[k])&&(c===e||(y?c.localName==y:3==c.nodeType))){e=c,o[k]=null;break}if(null==e){if(null===y)return document.createTextNode(v);e=l?document.createElementNS("http://www.w3.org/2000/svg",y):document.createElement(y,v.is&&v),o=null,u=!1}if(null===y)h===v||u&&e.data===v||(e.data=v);else{if(o=o&&f.slice.call(e.childNodes),p=(h=t.props||r).dangerouslySetInnerHTML,a=v.dangerouslySetInnerHTML,!u){if(null!=o)for(h={},d=0;d<e.attributes.length;d++)h[e.attributes[d].name]=e.attributes[d].value;(a||p)&&(a&&(p&&a.__html==p.__html||a.__html===e.innerHTML)||(e.innerHTML=a&&a.__html||""))}if(A(e,v,h,l,u),a)n.__k=[];else if(k=n.props.children,m(e,Array.isArray(k)?k:[k],n,t,_,l&&"foreignObject"!==y,o,i,e.firstChild,u),null!=o)for(k=o.length;k--;)null!=o[k]&&s(o[k]);u||("value"in v&&void 0!==(k=v.value)&&(k!==e.value||"progress"===y&&!k)&&C(e,"value",k,h.value,!1),"checked"in v&&void 0!==(k=v.checked)&&k!==e.checked&&C(e,"checked",k,h.checked,!1))}return e}function z(e,t,_){try{"function"==typeof e?e(t):e.current=t}catch(e){n.__e(e,_)}}function L(e,t,_){var l,o,r;if(n.unmount&&n.unmount(e),(l=e.ref)&&(l.current&&l.current!==e.__e||z(l,null,t)),_||"function"==typeof e.type||(_=null!=(o=e.__e)),e.__e=e.__d=void 0,null!=(l=e.__c)){if(l.componentWillUnmount)try{l.componentWillUnmount()}catch(e){n.__e(e,t)}l.base=l.__P=null}if(l=e.__k)for(r=0;r<l.length;r++)l[r]&&L(l[r],t,_);null!=o&&s(o)}function M(e,n,t){return this.constructor(e,t)}function N(e,t,_){var l,o,i;n.__&&n.__(e,t),o=(l="function"==typeof _)?null:_&&_.__k||t.__k,i=[],I(t,e=(!l&&_||t).__k=a(y,null,[e]),o||r,r,void 0!==t.ownerSVGElement,!l&&_?[_]:o?null:t.firstChild?f.slice.call(t.childNodes):null,i,!l&&_?_:o?o.__e:t.firstChild,l),T(i,e)}function O(e,n){N(e,n,O)}function S(e,n,t){var _,l,o,r=arguments,i=c({},e.props);for(o in n)"key"==o?_=n[o]:"ref"==o?l=n[o]:i[o]=n[o];if(arguments.length>3)for(t=[t],o=3;o<arguments.length;o++)t.push(r[o]);return null!=t&&(i.children=t),v(e.type,i,_||e.key,l||e.ref,null)}function q(e,n){var t={__c:n="__cC"+o++,__:e,Consumer:function(e,n){return e.children(n)},Provider:function(e){var t,_;return this.getChildContext||(t=[],(_={})[n]=this,this.getChildContext=function(){return _},this.shouldComponentUpdate=function(e){this.props.value!==e.value&&t.some(k)},this.sub=function(e){t.push(e);var n=e.componentWillUnmount;e.componentWillUnmount=function(){t.splice(t.indexOf(e),1),n&&n.call(e)}}),e.children}};return t.Provider.__=t.Consumer.contextType=t}n={__e:function(e,n){for(var t,_,l;n=n.__;)if((t=n.__c)&&!t.__)try{if((_=t.constructor)&&null!=_.getDerivedStateFromError&&(t.setState(_.getDerivedStateFromError(e)),l=t.__d),null!=t.componentDidCatch&&(t.componentDidCatch(e),l=t.__d),l)return t.__E=t}catch(n){e=n}throw e},__v:0},l=function(e){return null!=e&&void 0===e.constructor},p.prototype.setState=function(e,n){var t;t=null!=this.__s&&this.__s!==this.state?this.__s:this.__s=c({},this.state),"function"==typeof e&&(e=e(c({},t),this.props)),e&&c(t,e),null!=e&&this.__v&&(n&&this.__h.push(n),k(this))},p.prototype.forceUpdate=function(e){this.__v&&(this.__e=!0,e&&this.__h.push(e),k(this))},p.prototype.render=y,u=[],i="function"==typeof Promise?Promise.prototype.then.bind(Promise.resolve()):setTimeout,b.__r=0,o=0;const __P={render:N,hydrate:O,createElement:a,h:a,Fragment:y,createRef:h,isValidElement:l,Component:p,cloneElement:S,createContext:q,toChildArray:w,options:n};
+
+
+let __hookComponent=null,__hookIndex=0;
+const __hookOptions=__P.options;
+const __priorRender=__hookOptions.__r;
+const __priorUnmount=__hookOptions.unmount;
+__hookOptions.__r=(vnode)=>{if(__priorRender)__priorRender(vnode);__hookComponent=vnode.__c;__hookIndex=0;};
+__hookOptions.unmount=(vnode)=>{const bag=vnode.__c&&vnode.__c.__localHooks;if(bag){for(const hook of bag){if(hook&&typeof hook.cleanup==='function'){try{hook.cleanup();}catch(error){console.error(error);}}}}if(__priorUnmount)__priorUnmount(vnode);};
+function __nextHook(){if(!__hookComponent)throw new Error('Hook called outside component render');const bag=__hookComponent.__localHooks||(__hookComponent.__localHooks=[]);return bag[__hookIndex++]||(bag[__hookIndex-1]={});}
+function __sameDeps(a,b){return !!a&&!!b&&a.length===b.length&&a.every((v,i)=>Object.is(v,b[i]));}
+function useState(initial){const component=__hookComponent;const hook=__nextHook();if(!('value' in hook))hook.value=typeof initial==='function'?initial():initial;if(!hook.set)hook.set=(next)=>{const value=typeof next==='function'?next(hook.value):next;if(!Object.is(value,hook.value)){hook.value=value;component.setState({__hookRevision:(component.state.__hookRevision||0)+1});}};return[hook.value,hook.set];}
+function useRef(initial){const hook=__nextHook();if(!hook.ref)hook.ref={current:initial};return hook.ref;}
+function useMemo(factory,deps){const hook=__nextHook();if(!__sameDeps(hook.deps,deps)){hook.value=factory();hook.deps=deps;}return hook.value;}
+function useCallback(callback,deps){return useMemo(()=>callback,deps);}
+function useEffect(effect,deps){const component=__hookComponent;const hook=__nextHook();if(!__sameDeps(hook.deps,deps)){const nextDeps=deps;component.__h.push(function(){if(typeof hook.cleanup==='function'){try{hook.cleanup();}catch(error){console.error(error);}}const cleanup=effect();hook.cleanup=typeof cleanup==='function'?cleanup:null;hook.deps=nextDeps;});}}
+const React={createElement:__P.createElement,Fragment:__P.Fragment,createRef:__P.createRef,Component:__P.Component,createContext:__P.createContext,cloneElement:__P.cloneElement,isValidElement:__P.isValidElement,useState,useRef,useMemo,useCallback,useEffect};
+React.default=React;
+const ReactDOMClient={createRoot(element){return{render(vnode){__P.render(vnode,element);},unmount(){__P.render(null,element);}};}};
+
+
+const __externals = { react: React, 'react-dom/client': ReactDOMClient };
+const __modules = {"App.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = App;
+const React = require("react");
+const { useEffect, useRef, useState } = React;
+const BattleshipEngine_1 = require("./game/BattleshipEngine");
+const contracts_1 = require("./game/contracts");
+const ThreeBattlefield_1 = require("./scene/ThreeBattlefield");
+const DrydockReadouts_1 = require("./components/DrydockReadouts");
+function ResultBadge({ result }) {
+    if (!result)
+        return null;
+    const label = result === 'miss' ? '未命中' : result === 'sunk' ? '击沉' : '命中';
+    return React.createElement("span", { className: `result-badge ${result}` }, label);
+}
+function App() {
+    const [, setVersion] = useState(0);
+    const canvasRef = useRef(null);
+    const engineRef = useRef(null);
+    const sceneRef = useRef(null);
+    const [startupError, setStartupError] = useState(null);
+    if (!engineRef.current)
+        engineRef.current = new BattleshipEngine_1.BattleshipEngine(() => setVersion(v => v + 1));
+    const engine = engineRef.current;
+    useEffect(() => {
+        const onKey = (event) => {
+            if (event.key.toLowerCase() === 'r' && engine.phase === 'setup')
+                engine.rotate();
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [engine]);
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas)
+            return;
+        try {
+            if (!window.THREE || !window.THREE.OrbitControls)
+                throw new Error('Three.js 或 OrbitControls 未能从 CDN 加载。请检查网络后重试。');
+            const three = new ThreeBattlefield_1.ThreeBattlefield(canvas, engine.playerBoard, engine.enemyBoard);
+            sceneRef.current = three;
+            engine.attachThree(three);
+            window.__scene = three.scene;
+            window.__camera = three.camera;
+            window.__renderer = three.renderer;
+            window.__game = { getState: () => engine.getState() };
+            window.__playerBoard = { getState: () => engine.playerBoard.getState() };
+            window.__enemyBoard = { getState: () => engine.enemyBoard.getState() };
+            window.__placement = { getState: () => engine.placementState() };
+            window.__aiPlayer = { getState: () => engine.aiPlayer.getState() };
+            window.__effects = { getState: () => ({ ...three.getEffectsState(), lastSound: engine.audio.lastCue }) };
+            window.__three = { getState: () => three.getState() };
+            window.__engine = engine;
+            window.__test = {
+                reset: () => engine.restart(),
+                setFleet: (owner, placements) => engine.setFleet(owner, placements),
+                startBattle: () => engine.startBattle(),
+                coordinateToLabel: (row, col) => (0, contracts_1.toCoordinate)({ row, col }),
+                labelToCoordinate: (label) => (0, contracts_1.fromCoordinate)(label),
+                selectShip: (shipId) => engine.selectShip(shipId),
+                placeShip: (shipId, row, col, orientation) => engine.testPlaceShip(shipId, row, col, orientation),
+                moveShip: (shipId, row, col, orientation) => engine.moveShip(shipId, row, col, orientation),
+                rotateShip: (shipId) => engine.rotateShip(shipId),
+                randomizePlayerFleet: () => { engine.randomizePlacement(); return { ok: true }; },
+                playerAttack: (row, col) => engine.testHumanAttack(row, col),
+                aiAttack: (row, col) => engine.testAIAttack(row, col),
+                requestAIMove: () => engine.requestAIMove(),
+                configureAI: (config) => engine.configureAI(config),
+                waitForIdle: (timeoutMs) => engine.waitForIdle(timeoutMs),
+                toggleAudio: () => engine.toggleAudio(),
+                getBattleLog: () => ({ entries: engine.getBattleLog() }),
+                getCellScreenPosition: (owner, row, col) => three.getCellScreenPosition(owner, row, col)
+            };
+        }
+        catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            console.error('3D startup failed:', error);
+            setStartupError(message);
+        }
+        return () => sceneRef.current?.dispose();
+    }, [engine]);
+    const p = engine.placement;
+    const selected = p.selectedShipId ? engine.playerBoard.ship(p.selectedShipId) : null;
+    const last = engine.lastAction;
+    return (React.createElement("main", { className: "app-shell" },
+        React.createElement("canvas", { id: "game", ref: canvasRef, "aria-label": "3D \u6218\u8230\u6E38\u620F\u753B\u5E03" }),
+        React.createElement("div", { className: "vignette" }),
+        React.createElement("div", { className: "scanlines" }),
+        React.createElement("header", { className: "topbar", id: "hud" },
+            React.createElement("div", { className: "brand-block" },
+                React.createElement("div", { className: "eyebrow" }, "COILFIRE DRYDOCK NETWORK"),
+                React.createElement("h1", null, "\u78C1\u8F68\u94F8\u8230\u573A \u00B7 3D \u6218\u8230")),
+            React.createElement("div", { className: "turn-card" },
+                React.createElement("span", { "data-testid": "phase" }, engine.phase === 'setup' ? '部署' : engine.phase === 'playing' ? '战斗' : '结束'),
+                React.createElement("strong", { "data-testid": "turn-indicator" }, engine.phase === 'setup' ? '部署阶段' : engine.phase === 'ended' ? '战斗结束' : engine.turn === 'human' ? '你的回合' : 'AI 回合')),
+            React.createElement("button", { className: "button ghost", "data-testid": "restart-btn", onClick: () => engine.restart() }, "\u91CD\u65B0\u5F00\u59CB")),
+        React.createElement("div", { className: "board-label player-label", "data-testid": "player-board-label" }, "\u5DF1\u65B9\u6D77\u57DF \u00B7 FLEET"),
+        React.createElement("div", { className: "board-label enemy-label", "data-testid": "enemy-board-label" }, "\u654C\u65B9\u6D77\u57DF \u00B7 UNKNOWN"),
+        React.createElement("aside", { className: "left-panel glass-panel" },
+            React.createElement("div", { className: "panel-kicker" }, "TACTICAL FEED"),
+            React.createElement("div", { className: "status-message", "data-testid": "status-message" }, engine.statusMessage),
+            last && (React.createElement("div", { className: "last-action" },
+                React.createElement("span", null,
+                    last.actor === 'human' ? '你' : 'AI',
+                    " \u00B7 ",
+                    last.coordinate),
+                React.createElement(ResultBadge, { result: last.result }))),
+            React.createElement("div", { className: "mini-stats" },
+                React.createElement("div", null,
+                    React.createElement("span", null, "\u4F60\u7684\u653B\u51FB"),
+                    React.createElement("b", null, engine.humanAttackCount)),
+                React.createElement("div", null,
+                    React.createElement("span", null, "AI \u653B\u51FB"),
+                    React.createElement("b", null, engine.aiAttackCount)),
+                React.createElement("div", null,
+                    React.createElement("span", null, "\u654C\u8230\u5269\u4F59"),
+                    React.createElement("b", null, engine.enemyBoard.shipsRemaining()))),
+            React.createElement("div", { className: "api-box" },
+                React.createElement("span", { className: `api-dot ${engine.aiPlayer.apiConfigured ? 'live' : ''}` }),
+                React.createElement("div", null,
+                    React.createElement("small", null, "AI AGENT"),
+                    React.createElement("p", { "data-testid": "api-status" }, engine.apiStatus))),
+            React.createElement(DrydockReadouts_1.DrydockReadouts, { engine: engine })),
+        React.createElement("aside", { id: "placementPanel", className: `placement-panel glass-panel ${engine.phase !== 'setup' ? 'collapsed' : ''}` },
+            React.createElement("div", { className: "panel-heading" },
+                React.createElement("div", null,
+                    React.createElement("div", { className: "panel-kicker" }, "FLEET DEPLOYMENT"),
+                    React.createElement("h2", null, "\u8230\u961F\u90E8\u7F72")),
+                React.createElement("div", { className: "orientation", "data-testid": "orientation-indicator" }, p.orientation === 'horizontal' ? '水平' : '垂直')),
+            React.createElement("div", { className: "ship-list", "data-testid": "ship-list" }, contracts_1.FLEET_SPEC.map(spec => {
+                const placed = p.placedShipIds.includes(spec.id);
+                const active = p.selectedShipId === spec.id;
+                return (React.createElement("button", { key: spec.id, "data-testid": "ship-item", "data-ship-id": spec.id, className: `ship-item ${active ? 'active' : ''} ${placed ? 'placed' : ''}`, onClick: () => engine.selectShip(spec.id) },
+                    React.createElement("span", { className: "ship-name" }, spec.name),
+                    React.createElement("span", { className: "ship-units" }, Array.from({ length: spec.length }, (_, i) => React.createElement("i", { key: i }))),
+                    React.createElement("span", { className: "ship-state" }, placed ? '已部署' : `${spec.length} 单位`)));
+            })),
+            React.createElement("div", { className: "placement-help" },
+                React.createElement("p", null, selected ? `当前：${selected.name} · ${selected.length} 单位` : '全部舰船已部署'),
+                React.createElement("p", null, "\u60AC\u505C\u9884\u89C8\uFF0C\u70B9\u51FB\u6D77\u683C\u653E\u7F6E\uFF1B\u6309 R \u6216\u6309\u94AE\u65CB\u8F6C\u3002"),
+                p.invalidReason && React.createElement("p", { className: "invalid" }, p.invalidReason)),
+            React.createElement("div", { className: "action-row" },
+                React.createElement("button", { className: "button secondary", "data-testid": "rotate-btn", onClick: () => engine.rotate() }, "\u65CB\u8F6C R"),
+                React.createElement("button", { className: "button secondary", "data-testid": "randomize-placement", onClick: () => engine.randomizePlacement() }, "\u968F\u673A\u90E8\u7F72")),
+            React.createElement("button", { className: "button primary full", "data-testid": "confirm-placement", disabled: !p.canConfirm, onClick: () => engine.confirmPlacement() }, p.canConfirm ? '确认部署 · 开始战斗' : `还需部署 ${p.remainingShipIds.length} 艘`)),
+        React.createElement("div", { className: "bottom-hint" },
+            React.createElement("span", null, "\u62D6\u52A8\u89C6\u89D2"),
+            React.createElement("kbd", null, "\u9F20\u6807"),
+            React.createElement("span", null, "\u7F29\u653E"),
+            React.createElement("kbd", null, "\u6EDA\u8F6E"),
+            React.createElement("span", null, "\u65CB\u8F6C\u8230\u8239"),
+            React.createElement("kbd", null, "R")),
+        React.createElement("section", { id: "gameOverModal", className: `modal-layer ${engine.phase === 'ended' ? 'show' : ''}`, "aria-hidden": engine.phase !== 'ended' },
+            React.createElement("div", { className: "modal-card" },
+                React.createElement("div", { className: "victory-ring" }),
+                React.createElement("div", { className: "panel-kicker" }, "BATTLE REPORT"),
+                React.createElement("h2", null, engine.winner === 'human' ? '你赢了' : 'AI 赢了'),
+                React.createElement("p", null, engine.winner === 'human' ? '敌方五艘战舰均已确认击沉。' : '我方舰队已经失去全部战斗能力。'),
+                React.createElement("div", { className: "report-row" },
+                    React.createElement("span", null, "\u653B\u51FB\u6B21\u6570"),
+                    React.createElement("b", null,
+                        engine.humanAttackCount,
+                        " : ",
+                        engine.aiAttackCount)),
+                React.createElement("button", { className: "button primary full", onClick: () => engine.restart() }, "\u91CD\u65B0\u90E8\u7F72"))),
+        startupError && (React.createElement("section", { className: "startup-error" },
+            React.createElement("div", { className: "error-card" },
+                React.createElement("div", { className: "panel-kicker" }, "STARTUP FAILURE"),
+                React.createElement("h2", null, "3D \u5F15\u64CE\u542F\u52A8\u5931\u8D25"),
+                React.createElement("p", null, startupError),
+                React.createElement("button", { className: "button primary", onClick: () => window.location.reload() }, "\u91CD\u65B0\u52A0\u8F7D"))))));
+}
+
+},
+"components/DrydockReadouts.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DrydockReadouts = DrydockReadouts;
+const React = require("react");
+function DrydockReadouts({ engine }) {
+    return (React.createElement(React.Fragment, null,
+        React.createElement("div", { className: "fleet-status", "data-testid": "enemy-fleet-status" },
+            React.createElement("div", { className: "panel-kicker" }, "ENEMY FLEET STATUS"),
+            engine.enemyBoard.ships.map(ship => (React.createElement("div", { className: "fleet-line", key: ship.id },
+                React.createElement("span", null, ship.name),
+                React.createElement("b", null, ship.sunk ? '击沉' : '在役')))),
+            React.createElement("div", { className: "fleet-line total" },
+                React.createElement("span", null, "\u5269\u4F59"),
+                React.createElement("b", null, engine.enemyBoard.shipsRemaining()))),
+        React.createElement("div", { className: "battle-log", "data-testid": "battle-log" },
+            React.createElement("div", { className: "panel-kicker" }, "BATTLE LOG"),
+            (engine.battleLog.length ? engine.battleLog.slice(-8) : [{ message: '等待交火记录…' }]).map((entry, index) => (React.createElement("p", { key: `${index}-${entry.message}` }, entry.message))))));
+}
+
+},
+"game/AIPlayer.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AIPlayer = void 0;
+const contracts_1 = require("./contracts");
+const ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
+const MODEL = 'openrouter/horizon-beta';
+class AIPlayer {
+    constructor() {
+        this.mode = 'hunt';
+        this.knownHits = [];
+        this.knownMisses = [];
+        this.sunkShips = [];
+        this.targetQueue = [];
+        this.attackHistory = [];
+        this.knowledgeBoard = Array.from({ length: 10 }, () => Array(10).fill('unknown'));
+        this.lastPrompt = '';
+        this.lastRawResponse = null;
+        this.lastChosenCoordinate = null;
+        this.lastDecisionSource = null;
+        this.lastError = null;
+        this.fallbackCount = 0;
+        this.apiKey = 'your-openrouter-api-key-here';
+        this.apiConfigured = false;
+        this.useApi = true;
+        this.requestTimeoutMs = 9000;
+        this.pendingRequestCount = 0;
+        this.activeSessionId = '';
+    }
+    configure(config = {}) {
+        if (typeof config.apiKey === 'string')
+            this.apiKey = config.apiKey;
+        if (typeof config.timeoutMs === 'number' && config.timeoutMs > 0)
+            this.requestTimeoutMs = config.timeoutMs;
+        if (typeof config.useApi === 'boolean')
+            this.useApi = config.useApi;
+        if (typeof config.enabled === 'boolean')
+            this.useApi = config.enabled;
+        this.apiConfigured = this.useApi && !!this.apiKey && this.apiKey !== 'your-openrouter-api-key-here';
+        return this.getState();
+    }
+    reset(sessionId) {
+        this.mode = 'hunt';
+        this.knownHits = [];
+        this.knownMisses = [];
+        this.sunkShips = [];
+        this.targetQueue = [];
+        this.attackHistory = [];
+        this.knowledgeBoard = Array.from({ length: 10 }, () => Array(10).fill('unknown'));
+        this.lastPrompt = '';
+        this.lastRawResponse = null;
+        this.lastChosenCoordinate = null;
+        this.lastDecisionSource = null;
+        this.lastError = null;
+        this.fallbackCount = 0;
+        this.pendingRequestCount = 0;
+        this.activeSessionId = sessionId;
+    }
+    noteResult(result) {
+        const cell = (0, contracts_1.fromCoordinate)(result.coordinate);
+        if (!cell)
+            return;
+        if (result.result === 'miss') {
+            this.knownMisses.push(result.coordinate);
+            this.knowledgeBoard[cell.row][cell.col] = 'miss';
+        }
+        else {
+            this.knownHits.push(result.coordinate);
+            this.knowledgeBoard[cell.row][cell.col] = result.result;
+            if (result.result === 'sunk' && result.sunkShipName)
+                this.sunkShips.push(result.sunkShipName);
+            this.addNeighbors(cell);
+        }
+        if (result.result === 'sunk') {
+            this.targetQueue = this.targetQueue.filter(c => !this.attackHistory.includes(c));
+        }
+        this.mode = this.targetQueue.length ? (this.knownHits.length >= 2 ? 'kill' : 'target') : 'hunt';
+    }
+    addNeighbors(cell) {
+        const neighbors = [
+            { row: cell.row - 1, col: cell.col }, { row: cell.row + 1, col: cell.col },
+            { row: cell.row, col: cell.col - 1 }, { row: cell.row, col: cell.col + 1 }
+        ].filter(c => c.row >= 0 && c.row < 10 && c.col >= 0 && c.col < 10)
+            .map(contracts_1.toCoordinate).filter(c => !this.attackHistory.includes(c));
+        this.targetQueue = [...new Set([...neighbors, ...this.targetQueue])];
+    }
+    buildPrompt() {
+        return `你是一个公平的战舰AI智能体。棋盘10x10，行A-J，列1-10。你不能知道或推断任何未通过攻击公开的隐藏舰位。\n目标：选择一个尚未攻击的坐标，高效击沉人类舰队。优先规则：若有已知命中，攻击其上下左右相邻未攻击格；否则采用棋盘狩猎。\n已命中：${this.knownHits.join(',') || '无'}\n已未命中：${this.knownMisses.join(',') || '无'}\n已击沉：${this.sunkShips.join(',') || '无'}\n已攻击：${this.attackHistory.join(',') || '无'}\n只给出下一次攻击坐标并可附一句简短理由，例如 A5。`;
+    }
+    isAvailable(coord) {
+        return !!(0, contracts_1.fromCoordinate)(coord) && !this.attackHistory.includes(coord);
+    }
+    localMove() {
+        while (this.targetQueue.length) {
+            const c = this.targetQueue.shift();
+            if (this.isAvailable(c))
+                return c;
+        }
+        const candidates = [];
+        for (let row = 0; row < 10; row++)
+            for (let col = 0; col < 10; col++) {
+                const c = (0, contracts_1.toCoordinate)({ row, col });
+                if (!this.attackHistory.includes(c) && (row + col) % 2 === 0)
+                    candidates.push(c);
+            }
+        if (!candidates.length) {
+            for (let row = 0; row < 10; row++)
+                for (let col = 0; col < 10; col++) {
+                    const c = (0, contracts_1.toCoordinate)({ row, col });
+                    if (!this.attackHistory.includes(c))
+                        candidates.push(c);
+                }
+        }
+        return candidates[Math.floor(Math.random() * candidates.length)] || 'A1';
+    }
+    async chooseMove(sessionId, onStatus) {
+        this.activeSessionId = sessionId;
+        this.lastPrompt = this.buildPrompt();
+        this.lastError = null;
+        if (!this.apiConfigured || !this.useApi)
+            return this.commitFallback('API 密钥未配置', onStatus);
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), this.requestTimeoutMs);
+        this.pendingRequestCount++;
+        onStatus?.('正在请求 OpenRouter AI…');
+        try {
+            const response = await fetch(ENDPOINT, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ model: MODEL, messages: [{ role: 'user', content: this.lastPrompt }], temperature: 0.2 }),
+                signal: controller.signal
+            });
+            if (!response.ok)
+                throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            const text = String(data?.choices?.[0]?.message?.content || '');
+            this.lastRawResponse = text;
+            const match = text.toUpperCase().match(/\b([A-J](?:10|[1-9]))\b/);
+            const coord = match?.[1] || '';
+            if (!this.isAvailable(coord))
+                throw new Error('API 返回了无效或重复坐标');
+            this.lastChosenCoordinate = coord;
+            this.lastDecisionSource = 'openrouter';
+            onStatus?.('OpenRouter 决策完成');
+            return coord;
+        }
+        catch (error) {
+            return this.commitFallback(error instanceof Error ? error.message : String(error), onStatus);
+        }
+        finally {
+            clearTimeout(timer);
+            this.pendingRequestCount = Math.max(0, this.pendingRequestCount - 1);
+        }
+    }
+    commitFallback(reason, onStatus) {
+        this.lastError = reason;
+        this.fallbackCount++;
+        const coord = this.localMove();
+        this.lastChosenCoordinate = coord;
+        this.lastDecisionSource = 'fallback';
+        onStatus?.(`本地战术 AI 接管：${reason}`);
+        return coord;
+    }
+    commitAttack(coord) {
+        if (!this.attackHistory.includes(coord))
+            this.attackHistory.push(coord);
+    }
+    getState() {
+        return {
+            mode: this.mode,
+            knownHits: [...this.knownHits], knownMisses: [...this.knownMisses], sunkShips: [...this.sunkShips],
+            targetQueue: [...this.targetQueue], attackHistory: [...this.attackHistory],
+            knowledgeBoard: this.knowledgeBoard.map(r => [...r]), lastPrompt: this.lastPrompt,
+            lastRawResponse: this.lastRawResponse, lastChosenCoordinate: this.lastChosenCoordinate,
+            lastDecisionSource: this.lastDecisionSource, lastError: this.lastError, fallbackCount: this.fallbackCount,
+            apiConfigured: this.apiConfigured, requestTimeoutMs: this.requestTimeoutMs,
+            pendingRequestCount: this.pendingRequestCount, activeSessionId: this.activeSessionId
+        };
+    }
+}
+exports.AIPlayer = AIPlayer;
+
+},
+"game/BattleshipEngine.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BattleshipEngine = void 0;
+const AIPlayer_1 = require("./AIPlayer");
+const contracts_1 = require("./contracts");
+const GameBoard_1 = require("./GameBoard");
+class BattleshipEngine {
+    constructor(onChange) {
+        this.playerBoard = new GameBoard_1.GameBoard('player', { x: -4.5, y: 0, z: 0 }, 0.78);
+        this.enemyBoard = new GameBoard_1.GameBoard('enemy', { x: 4.5, y: 0, z: 0 }, 0.78);
+        this.aiPlayer = new AIPlayer_1.AIPlayer();
+        this.three = null;
+        this.phase = 'setup';
+        this.turn = null;
+        this.inputLocked = false;
+        this.winner = null;
+        this.sessionId = Date.now();
+        this.humanAttackCount = 0;
+        this.aiAttackCount = 0;
+        this.statusMessage = '部署舰队：选择舰船并点击左侧海域。按 R 可旋转。';
+        this.apiStatus = 'API 密钥未配置，将使用本地战术 AI';
+        this.pendingAIRequests = 0;
+        this.lastAction = null;
+        this.battleLog = [];
+        this.audio = { muted: false, lastCue: null };
+        this.placement = {
+            selectedShipId: contracts_1.FLEET_SPEC[0].id,
+            orientation: 'horizontal',
+            draggingShipId: null,
+            placedShipIds: [],
+            remainingShipIds: contracts_1.FLEET_SPEC.map(s => s.id),
+            previewCells: [],
+            previewValid: false,
+            invalidReason: null,
+            canConfirm: false,
+            lastPlacementResult: null
+        };
+        this.onChange = onChange;
+        this.aiPlayer.reset(this.sessionId);
+        this.enemyBoard.randomizeFleet();
+    }
+    attachThree(three) {
+        this.three = three;
+        three.onCellHover = cell => this.handleHover(cell);
+        three.onCellClick = cell => this.handleCellClick(cell);
+        this.notify();
+    }
+    notify() { this.onChange(); }
+    selectShip(shipId) {
+        if (this.phase !== 'setup')
+            return;
+        this.placement.selectedShipId = shipId;
+        this.placement.draggingShipId = null;
+        this.placement.previewCells = [];
+        this.three?.clearPreview();
+        this.statusMessage = `已选择 ${this.playerBoard.ship(shipId)?.name || shipId}，点击左侧海域放置。`;
+        this.notify();
+    }
+    rotate() {
+        if (this.phase !== 'setup')
+            return;
+        this.placement.orientation = this.placement.orientation === 'horizontal' ? 'vertical' : 'horizontal';
+        this.statusMessage = `方向：${this.placement.orientation === 'horizontal' ? '水平' : '垂直'}`;
+        if (this.three?.hovered?.owner === 'player')
+            this.previewAt(this.three.hovered.row, this.three.hovered.col);
+        this.notify();
+    }
+    handleHover(cell) {
+        if (this.phase !== 'setup' || !this.placement.selectedShipId || !cell || cell.owner !== 'player') {
+            this.placement.draggingShipId = null;
+            if (this.phase === 'setup') {
+                this.placement.previewCells = [];
+                this.placement.previewValid = false;
+                this.three?.clearPreview();
+            }
+            return;
+        }
+        this.placement.draggingShipId = this.placement.selectedShipId;
+        this.previewAt(cell.row, cell.col);
+    }
+    previewAt(row, col) {
+        const shipId = this.placement.selectedShipId;
+        if (!shipId)
+            return;
+        const check = this.playerBoard.validatePlacement(shipId, { row, col }, this.placement.orientation);
+        this.placement.previewCells = check.cells.map(c => ({ ...c }));
+        this.placement.previewValid = check.valid;
+        this.placement.invalidReason = check.reason;
+        this.three?.setPreview(this.playerBoard, shipId, check.cells, check.valid);
+    }
+    handleCellClick(cell) {
+        if (this.inputLocked)
+            return;
+        if (this.phase === 'setup') {
+            if (cell.owner !== 'player') {
+                this.statusMessage = '部署阶段只能在左侧己方海域放置舰船。';
+                this.notify();
+                return;
+            }
+            this.placeSelected(cell.row, cell.col);
+            return;
+        }
+        if (this.phase === 'playing' && this.turn === 'human') {
+            if (cell.owner !== 'enemy') {
+                this.statusMessage = '请点击右侧敌方海域发动攻击。';
+                this.notify();
+                return;
+            }
+            void this.humanAttack(cell.row, cell.col);
+        }
+    }
+    placeSelected(row, col) {
+        const shipId = this.placement.selectedShipId;
+        if (!shipId)
+            return;
+        const result = this.playerBoard.placeShip(shipId, { row, col }, this.placement.orientation);
+        this.placement.lastPlacementResult = { shipId, row, col, orientation: this.placement.orientation, ...result };
+        if (!result.valid) {
+            this.statusMessage = result.reason || '放置无效';
+            this.notify();
+            return;
+        }
+        if (!this.placement.placedShipIds.includes(shipId))
+            this.placement.placedShipIds.push(shipId);
+        this.placement.remainingShipIds = contracts_1.FLEET_SPEC.map(s => s.id).filter(id => !this.placement.placedShipIds.includes(id));
+        this.placement.canConfirm = this.placement.remainingShipIds.length === 0;
+        this.three?.syncPlayerShips(this.playerBoard);
+        const next = this.placement.remainingShipIds[0] || null;
+        this.placement.selectedShipId = next;
+        this.placement.draggingShipId = null;
+        this.placement.previewCells = [];
+        this.placement.previewValid = false;
+        this.three?.clearPreview();
+        this.statusMessage = next ? `已部署。下一艘：${this.playerBoard.ship(next)?.name}` : '舰队部署完成，可以开始战斗。';
+        this.notify();
+    }
+    randomizePlacement() {
+        if (this.phase !== 'setup')
+            return;
+        this.playerBoard.randomizeFleet();
+        this.placement.placedShipIds = contracts_1.FLEET_SPEC.map(s => s.id);
+        this.placement.remainingShipIds = [];
+        this.placement.selectedShipId = null;
+        this.placement.draggingShipId = null;
+        this.placement.previewCells = [];
+        this.placement.previewValid = false;
+        this.placement.canConfirm = true;
+        this.placement.lastPlacementResult = { random: true, success: true };
+        this.three?.syncPlayerShips(this.playerBoard);
+        this.statusMessage = '已随机生成合法舰队布局。';
+        this.notify();
+    }
+    confirmPlacement() {
+        if (this.phase !== 'setup')
+            return;
+        if (!this.placement.canConfirm) {
+            this.statusMessage = '请先部署全部 5 艘舰船。';
+            this.notify();
+            return;
+        }
+        this.phase = 'playing';
+        this.turn = 'human';
+        this.inputLocked = false;
+        this.playerBoard.ships.forEach(s => { s.confirmed = true; });
+        this.statusMessage = '战斗开始：点击右侧敌方海域开火。';
+        this.notify();
+    }
+    async humanAttack(row, col) {
+        const result = this.enemyBoard.attack(row, col);
+        if (result.duplicate) {
+            this.statusMessage = '该坐标已经攻击过。';
+            this.notify();
+            return;
+        }
+        this.humanAttackCount++;
+        this.lastAction = { actor: 'human', row, col, coordinate: result.coordinate, result: result.result, shipId: result.shipId };
+        this.three?.addMarker(this.enemyBoard, row, col, result.result);
+        if (result.result === 'sunk' && result.shipId)
+            this.three?.sinkShip(this.enemyBoard, result.shipId, true);
+        if (this.enemyBoard.allSunk()) {
+            this.finish('human');
+            return;
+        }
+        this.statusMessage = result.result === 'miss' ? `${result.coordinate} 未命中。AI 正在决策…` : `${result.coordinate} ${result.result === 'sunk' ? '击沉目标！' : '命中！'} AI 正在决策…`;
+        this.turn = 'ai';
+        this.inputLocked = true;
+        this.notify();
+        await this.runAI();
+    }
+    async runAI() {
+        const session = this.sessionId;
+        this.pendingAIRequests++;
+        try {
+            const coord = await this.aiPlayer.chooseMove(session, status => { this.apiStatus = status; this.notify(); });
+            if (this.sessionId !== session || this.phase !== 'playing')
+                return;
+            const parsed = (0, contracts_1.fromCoordinate)(coord);
+            if (!parsed)
+                throw new Error('AI 坐标解析失败');
+            this.aiPlayer.commitAttack(coord);
+            const result = this.playerBoard.attack(parsed.row, parsed.col);
+            if (result.duplicate)
+                throw new Error('AI 产生重复攻击');
+            this.aiAttackCount++;
+            const sunkName = result.result === 'sunk' && result.shipId ? this.playerBoard.ship(result.shipId)?.name || null : null;
+            this.aiPlayer.noteResult({ coordinate: coord, result: result.result, sunkShipName: sunkName });
+            this.lastAction = { actor: 'ai', row: parsed.row, col: parsed.col, coordinate: coord, result: result.result, shipId: result.shipId };
+            this.three?.addMarker(this.playerBoard, parsed.row, parsed.col, result.result);
+            if (result.result === 'sunk' && result.shipId)
+                this.three?.sinkShip(this.playerBoard, result.shipId, false);
+            if (this.playerBoard.allSunk()) {
+                this.finish('ai');
+                return;
+            }
+            this.turn = 'human';
+            this.inputLocked = false;
+            this.statusMessage = result.result === 'miss' ? `AI 攻击 ${coord}：未命中。轮到你。` : `AI 攻击 ${coord}：${result.result === 'sunk' ? '击沉我方舰船。' : '命中。'} 轮到你。`;
+        }
+        catch (error) {
+            console.error('AI turn failed:', error);
+            this.apiStatus = `AI 回合异常：${error instanceof Error ? error.message : String(error)}`;
+            this.turn = 'human';
+            this.inputLocked = false;
+            this.statusMessage = 'AI 回合出现异常，已将控制权交还玩家。';
+        }
+        finally {
+            this.pendingAIRequests = Math.max(0, this.pendingAIRequests - 1);
+            this.notify();
+        }
+    }
+    finish(winner) {
+        this.phase = 'ended';
+        this.turn = null;
+        this.inputLocked = true;
+        this.winner = winner;
+        this.statusMessage = winner === 'human' ? '你赢了！敌方舰队已全部击沉。' : 'AI 赢了！我方舰队已全部失去战斗力。';
+        this.three?.celebrate();
+        this.notify();
+    }
+    restart() {
+        this.sessionId = Date.now();
+        this.phase = 'setup';
+        this.turn = null;
+        this.inputLocked = false;
+        this.winner = null;
+        this.humanAttackCount = 0;
+        this.aiAttackCount = 0;
+        this.lastAction = null;
+        this.pendingAIRequests = 0;
+        this.battleLog = [];
+        this.audio.lastCue = null;
+        this.playerBoard = new GameBoard_1.GameBoard('player', { x: -4.5, y: 0, z: 0 }, 0.78);
+        this.enemyBoard = new GameBoard_1.GameBoard('enemy', { x: 4.5, y: 0, z: 0 }, 0.78);
+        this.enemyBoard.randomizeFleet();
+        this.aiPlayer.reset(this.sessionId);
+        this.three?.resetVisuals();
+        this.placement = {
+            selectedShipId: contracts_1.FLEET_SPEC[0].id, orientation: 'horizontal', draggingShipId: null,
+            placedShipIds: [], remainingShipIds: contracts_1.FLEET_SPEC.map(s => s.id), previewCells: [], previewValid: false,
+            invalidReason: null, canConfirm: false, lastPlacementResult: null
+        };
+        this.apiStatus = this.aiPlayer.apiConfigured ? 'OpenRouter 已配置' : 'API 密钥未配置，将使用本地战术 AI';
+        this.statusMessage = '部署舰队：选择舰船并点击左侧海域。按 R 可旋转。';
+        this.notify();
+    }
+    setFleet(owner, placements) {
+        if (this.phase !== 'setup')
+            return { ok: false, reason: 'wrong_phase' };
+        const board = owner === 'player' ? this.playerBoard : this.enemyBoard;
+        board.cells.forEach(c => { c.shipId = null; c.attacked = false; c.result = null; c.markerObjectId = null; });
+        board.attackHistory = [];
+        board.ships.forEach(ship => { ship.orientation = null; ship.start = null; ship.cells = []; ship.hits.clear(); ship.sunk = false; ship.confirmed = false; ship.revealed = false; ship.meshObjectId = null; });
+        for (const placement of placements) {
+            const result = board.placeShip(placement.shipId, { row: placement.row, col: placement.col }, placement.orientation);
+            if (!result.valid)
+                return { ok: false, reason: result.reason || 'invalid_placement' };
+        }
+        board.ships.forEach(ship => { ship.confirmed = true; });
+        if (owner === 'player') {
+            this.placement.placedShipIds = contracts_1.FLEET_SPEC.map(s => s.id);
+            this.placement.remainingShipIds = [];
+            this.placement.canConfirm = true;
+            this.placement.selectedShipId = null;
+            this.three?.syncPlayerShips(board);
+        }
+        this.notify();
+        return { ok: true };
+    }
+    testPlaceShip(shipId, row, col, orientation) {
+        if (this.phase !== 'setup')
+            return { ok: false, reason: 'wrong_phase' };
+        const result = this.playerBoard.placeShip(shipId, { row, col }, orientation);
+        if (!result.valid)
+            return { ok: false, reason: result.reason, cells: result.cells };
+        if (!this.placement.placedShipIds.includes(shipId))
+            this.placement.placedShipIds.push(shipId);
+        this.placement.remainingShipIds = contracts_1.FLEET_SPEC.map(s => s.id).filter(id => !this.placement.placedShipIds.includes(id));
+        this.placement.canConfirm = this.placement.remainingShipIds.length === 0;
+        this.placement.lastPlacementResult = { shipId, row, col, orientation, valid: true, cells: result.cells };
+        this.three?.syncPlayerShips(this.playerBoard);
+        this.notify();
+        return { ok: true, cells: result.cells };
+    }
+    moveShip(shipId, row, col, orientation) {
+        return this.testPlaceShip(shipId, row, col, orientation);
+    }
+    rotateShip(shipId) {
+        if (this.phase !== 'setup')
+            return { ok: false, reason: 'wrong_phase' };
+        const id = shipId || this.placement.selectedShipId;
+        if (!id)
+            return { ok: false, reason: 'no_ship' };
+        const ship = this.playerBoard.ship(id);
+        if (!ship || !ship.start || !ship.orientation) {
+            this.rotate();
+            return { ok: true };
+        }
+        const next = ship.orientation === 'horizontal' ? 'vertical' : 'horizontal';
+        const result = this.playerBoard.placeShip(id, ship.start, next);
+        if (!result.valid)
+            return { ok: false, reason: result.reason };
+        this.placement.orientation = next;
+        this.three?.syncPlayerShips(this.playerBoard);
+        this.notify();
+        return { ok: true };
+    }
+    startBattle() {
+        if (this.phase !== 'setup' || !this.placement.canConfirm)
+            return { ok: false, reason: 'fleet_incomplete' };
+        this.confirmPlacement();
+        return { ok: true };
+    }
+    testHumanAttack(row, col) {
+        if (this.phase !== 'playing' || this.turn !== 'human' || this.inputLocked)
+            return { ok: false, reason: 'wrong_turn' };
+        if (row < 0 || row >= 10 || col < 0 || col >= 10)
+            return { ok: false, reason: 'out_of_bounds' };
+        const result = this.enemyBoard.attack(row, col);
+        if (result.duplicate)
+            return { ok: false, reason: 'already_attacked' };
+        this.humanAttackCount++;
+        this.lastAction = { actor: 'human', row, col, coordinate: result.coordinate, result: result.result, shipId: result.shipId };
+        this.audio.lastCue = result.result;
+        this.battleLog.push({ actor: 'human', coordinate: result.coordinate, result: result.result, message: `你攻击 ${result.coordinate}：${result.result}` });
+        this.three?.addMarker(this.enemyBoard, row, col, result.result);
+        if (result.result === 'sunk' && result.shipId)
+            this.three?.sinkShip(this.enemyBoard, result.shipId, true);
+        if (this.enemyBoard.allSunk()) {
+            this.finish('human');
+            return { ok: true, ...result };
+        }
+        this.turn = 'ai';
+        this.inputLocked = true;
+        this.notify();
+        return { ok: true, ...result };
+    }
+    testAIAttack(row, col) {
+        if (this.phase !== 'playing' || this.turn !== 'ai')
+            return { ok: false, reason: 'wrong_turn' };
+        if (row < 0 || row >= 10 || col < 0 || col >= 10)
+            return { ok: false, reason: 'out_of_bounds' };
+        const result = this.playerBoard.attack(row, col);
+        if (result.duplicate)
+            return { ok: false, reason: 'already_attacked' };
+        const coord = (0, contracts_1.toCoordinate)({ row, col });
+        this.aiPlayer.commitAttack(coord);
+        const sunkName = result.result === 'sunk' && result.shipId ? this.playerBoard.ship(result.shipId)?.name || null : null;
+        this.aiPlayer.noteResult({ coordinate: coord, result: result.result, sunkShipName: sunkName });
+        this.aiAttackCount++;
+        this.lastAction = { actor: 'ai', row, col, coordinate: coord, result: result.result, shipId: result.shipId };
+        this.audio.lastCue = result.result;
+        this.battleLog.push({ actor: 'ai', coordinate: coord, result: result.result, message: `AI攻击 ${coord}：${result.result}` });
+        this.three?.addMarker(this.playerBoard, row, col, result.result);
+        if (result.result === 'sunk' && result.shipId)
+            this.three?.sinkShip(this.playerBoard, result.shipId, false);
+        if (this.playerBoard.allSunk()) {
+            this.finish('ai');
+            return { ok: true, ...result };
+        }
+        this.turn = 'human';
+        this.inputLocked = false;
+        this.notify();
+        return { ok: true, ...result };
+    }
+    async requestAIMove() {
+        if (this.phase !== 'playing' || this.turn !== 'ai')
+            return { ok: false, reason: 'wrong_turn' };
+        const coordinate = await this.aiPlayer.chooseMove(this.sessionId, s => { this.apiStatus = s; this.notify(); });
+        const cell = (0, contracts_1.fromCoordinate)(coordinate);
+        return cell ? { ok: true, coordinate, ...cell } : { ok: false, reason: 'invalid_coordinate' };
+    }
+    configureAI(config) { return this.aiPlayer.configure(config); }
+    async waitForIdle(timeoutMs = 1200) { const end = Date.now() + timeoutMs; while (Date.now() < end) {
+        if (this.pendingAIRequests === 0 && this.aiPlayer.pendingRequestCount === 0)
+            return true;
+        await new Promise(r => setTimeout(r, 20));
+    } return false; }
+    toggleAudio() { this.audio.muted = !this.audio.muted; return { ...this.audio }; }
+    getBattleLog() { return this.battleLog.map(entry => ({ ...entry })); }
+    placementState() { return { ...this.placement, previewCells: this.placement.previewCells.map(c => ({ ...c })), placedShipIds: [...this.placement.placedShipIds], remainingShipIds: [...this.placement.remainingShipIds] }; }
+    getState() {
+        return {
+            ready: !!this.three,
+            phase: this.phase,
+            turn: this.turn,
+            inputLocked: this.inputLocked,
+            winner: this.winner,
+            sessionId: this.sessionId,
+            fleetSpec: contracts_1.FLEET_SPEC.map(s => ({ ...s })),
+            humanAttackCount: this.humanAttackCount,
+            aiAttackCount: this.aiAttackCount,
+            statusMessage: this.statusMessage,
+            lastAction: this.lastAction ? { ...this.lastAction } : null,
+            apiStatus: this.apiStatus,
+            pendingAIRequests: this.pendingAIRequests,
+            frameCount: this.three?.frameCount || 0,
+            audio: { ...this.audio },
+            battleLog: this.getBattleLog()
+        };
+    }
+}
+exports.BattleshipEngine = BattleshipEngine;
+
+},
+"game/GameBoard.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GameBoard = void 0;
+const contracts_1 = require("./contracts");
+const Ship_1 = require("./Ship");
+class GameBoard {
+    constructor(owner, origin, cellSize = 1) {
+        this.size = 10;
+        this.attackHistory = [];
+        this.owner = owner;
+        this.origin = origin;
+        this.cellSize = cellSize;
+        this.ships = contracts_1.FLEET_SPEC.map(spec => new Ship_1.Ship(spec));
+        this.cells = Array.from({ length: 100 }, (_, i) => ({
+            row: Math.floor(i / 10), col: i % 10, shipId: null, attacked: false, result: null, markerObjectId: null
+        }));
+    }
+    cell(row, col) { return this.cells[row * 10 + col]; }
+    ship(id) { return this.ships.find(s => s.id === id) || null; }
+    validatePlacement(shipId, start, orientation) {
+        const ship = this.ship(shipId);
+        if (!ship)
+            return { valid: false, reason: '舰船不存在', cells: [] };
+        const cells = Array.from({ length: ship.length }, (_, i) => ({
+            row: start.row + (orientation === 'vertical' ? i : 0),
+            col: start.col + (orientation === 'horizontal' ? i : 0)
+        }));
+        if (cells.some(c => c.row < 0 || c.row >= 10 || c.col < 0 || c.col >= 10)) {
+            return { valid: false, reason: '舰船超出棋盘边界', cells };
+        }
+        if (cells.some(c => {
+            const found = this.cell(c.row, c.col);
+            return found.shipId && found.shipId !== shipId;
+        }))
+            return { valid: false, reason: '舰船不能重叠', cells };
+        return { valid: true, reason: null, cells };
+    }
+    placeShip(shipId, start, orientation) {
+        const validation = this.validatePlacement(shipId, start, orientation);
+        if (!validation.valid)
+            return validation;
+        const ship = this.ship(shipId);
+        this.cells.forEach(c => { if (c.shipId === shipId)
+            c.shipId = null; });
+        ship.setPlacement(start, orientation);
+        validation.cells.forEach(c => { this.cell(c.row, c.col).shipId = shipId; });
+        return validation;
+    }
+    randomizeFleet() {
+        this.cells.forEach(c => { c.shipId = null; c.attacked = false; c.result = null; c.markerObjectId = null; });
+        this.attackHistory = [];
+        this.ships = contracts_1.FLEET_SPEC.map(spec => new Ship_1.Ship(spec));
+        for (const ship of this.ships) {
+            let placed = false;
+            for (let attempts = 0; attempts < 1000 && !placed; attempts++) {
+                const orientation = Math.random() < 0.5 ? 'horizontal' : 'vertical';
+                const start = { row: Math.floor(Math.random() * 10), col: Math.floor(Math.random() * 10) };
+                const result = this.placeShip(ship.id, start, orientation);
+                placed = result.valid;
+            }
+            if (!placed)
+                throw new Error('无法生成有效舰队布局');
+        }
+    }
+    attack(row, col) {
+        if (row < 0 || row >= 10 || col < 0 || col >= 10)
+            throw new Error('坐标越界');
+        const cell = this.cell(row, col);
+        if (cell.attacked)
+            return { duplicate: true, row, col, coordinate: (0, contracts_1.toCoordinate)({ row, col }), result: cell.result, shipId: cell.shipId };
+        cell.attacked = true;
+        let result = 'miss';
+        let shipId = null;
+        if (cell.shipId) {
+            shipId = cell.shipId;
+            const ship = this.ship(cell.shipId);
+            result = ship.hit({ row, col }) ? 'sunk' : 'hit';
+            if (result === 'sunk') {
+                for (const sc of ship.cells) {
+                    const sunkCell = this.cell(sc.row, sc.col);
+                    if (sunkCell.attacked)
+                        sunkCell.result = 'sunk';
+                }
+            }
+        }
+        cell.result = result;
+        const action = { row, col, coordinate: (0, contracts_1.toCoordinate)({ row, col }), result, shipId };
+        this.attackHistory.push(action);
+        return { duplicate: false, ...action };
+    }
+    setMarker(row, col, objectId) {
+        this.cell(row, col).markerObjectId = objectId;
+    }
+    allSunk() { return this.ships.every(s => s.sunk); }
+    shipsRemaining() { return this.ships.filter(s => !s.sunk).length; }
+    getState() {
+        const fog = this.owner === 'enemy';
+        const sunkIds = new Set(this.ships.filter(s => s.sunk).map(s => s.id));
+        return {
+            owner: this.owner,
+            size: this.size,
+            origin: { ...this.origin },
+            cellSize: this.cellSize,
+            ships: this.ships.map(s => s.snapshot(this.owner === 'player' || s.sunk, !fog)),
+            cells: this.cells.map(c => ({
+                row: c.row,
+                col: c.col,
+                shipId: fog ? (c.shipId && sunkIds.has(c.shipId) ? c.shipId : null) : c.shipId,
+                attacked: c.attacked,
+                result: c.attacked ? c.result : null,
+                markerObjectId: c.markerObjectId
+            })),
+            attackHistory: this.attackHistory.map(a => ({
+                ...a,
+                shipId: fog && a.shipId && !sunkIds.has(a.shipId) ? null : a.shipId
+            })),
+            shipsRemaining: this.shipsRemaining(),
+            totalHits: this.cells.filter(c => c.attacked && (c.result === 'hit' || c.result === 'sunk')).length,
+            occupiedCellCount: this.cells.filter(c => c.shipId).length
+        };
+    }
+}
+exports.GameBoard = GameBoard;
+
+},
+"game/Ship.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Ship = void 0;
+class Ship {
+    constructor(spec) {
+        this.orientation = null;
+        this.start = null;
+        this.cells = [];
+        this.hits = new Set();
+        this.sunk = false;
+        this.confirmed = false;
+        this.revealed = false;
+        this.meshObjectId = null;
+        this.id = spec.id;
+        this.type = spec.type;
+        this.name = spec.name;
+        this.length = spec.length;
+    }
+    setPlacement(start, orientation) {
+        this.start = { ...start };
+        this.orientation = orientation;
+        this.cells = Array.from({ length: this.length }, (_, i) => ({
+            row: start.row + (orientation === 'vertical' ? i : 0),
+            col: start.col + (orientation === 'horizontal' ? i : 0)
+        }));
+        this.confirmed = true;
+    }
+    hit(cell) {
+        this.hits.add(`${cell.row},${cell.col}`);
+        this.sunk = this.hits.size >= this.length;
+        if (this.sunk)
+            this.revealed = true;
+        return this.sunk;
+    }
+    snapshot(meshVisible, revealAll = true) {
+        const visible = revealAll || this.sunk;
+        return {
+            id: this.id,
+            type: this.type,
+            name: this.name,
+            length: this.length,
+            orientation: visible ? this.orientation : null,
+            start: visible && this.start ? { ...this.start } : null,
+            cells: visible ? this.cells.map(c => ({ ...c })) : [],
+            hits: visible ? this.cells.filter(c => this.hits.has(`${c.row},${c.col}`)).map(c => ({ ...c })) : [],
+            sunk: this.sunk,
+            confirmed: this.confirmed,
+            revealed: this.revealed,
+            meshVisible,
+            meshObjectId: this.meshObjectId
+        };
+    }
+}
+exports.Ship = Ship;
+
+},
+"game/contracts.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fromCoordinate = exports.toCoordinate = exports.ROWS = exports.FLEET_SPEC = void 0;
+exports.FLEET_SPEC = [
+    { id: 'carrier', type: 'carrier', name: '航母', length: 5 },
+    { id: 'battleship', type: 'battleship', name: '战列舰', length: 4 },
+    { id: 'cruiser', type: 'cruiser', name: '巡洋舰', length: 3 },
+    { id: 'submarine', type: 'submarine', name: '潜艇', length: 3 },
+    { id: 'destroyer', type: 'destroyer', name: '驱逐舰', length: 2 }
+];
+exports.ROWS = 'ABCDEFGHIJ';
+const toCoordinate = ({ row, col }) => `${exports.ROWS[row]}${col + 1}`;
+exports.toCoordinate = toCoordinate;
+const fromCoordinate = (value) => {
+    const m = value.trim().toUpperCase().match(/^([A-J])(10|[1-9])$/);
+    if (!m)
+        return null;
+    return { row: exports.ROWS.indexOf(m[1]), col: Number(m[2]) - 1 };
+};
+exports.fromCoordinate = fromCoordinate;
+
+},
+"main.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = require("react");
+const ReactDOM = require("react-dom/client");
+const App_1 = require("./App");
+require("./index.css");
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App_1.default, null));
+
+},
+"scene/ThreeBattlefield.js": function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ThreeBattlefield = void 0;
+const T = () => window.THREE;
+class ThreeBattlefield {
+    constructor(canvas, player, enemy) {
+        this.cellMeshes = [];
+        this.shipMeshes = new Map();
+        this.previewMesh = null;
+        this.markers = [];
+        this.activeEffects = [];
+        this.sinkAnimations = [];
+        this.endEffects = [];
+        this.lights = [];
+        this.frameCount = 0;
+        this.disposed = false;
+        this.hovered = null;
+        this.onCellClick = null;
+        this.onCellHover = null;
+        this.handlePointerMove = (event) => {
+            const cell = this.updatePointer(event);
+            this.hovered = cell;
+            this.onCellHover?.(cell);
+        };
+        this.handlePointerDown = (event) => {
+            if (event.button !== 0)
+                return;
+            const cell = this.updatePointer(event);
+            if (cell)
+                this.onCellClick?.(cell);
+        };
+        this.resize = () => {
+            const rect = this.canvas.getBoundingClientRect();
+            const w = Math.max(1, rect.width), h = Math.max(1, rect.height);
+            this.camera.aspect = w / h;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(w, h, false);
+        };
+        this.animate = () => {
+            if (this.disposed)
+                return;
+            requestAnimationFrame(this.animate);
+            const now = performance.now();
+            this.frameCount++;
+            this.controls.update();
+            for (let i = this.activeEffects.length - 1; i >= 0; i--) {
+                const fx = this.activeEffects[i];
+                const t = (now - fx.start) / fx.duration;
+                if (t >= 1) {
+                    fx.mesh.parent?.remove(fx.mesh);
+                    this.activeEffects.splice(i, 1);
+                    continue;
+                }
+                const s = 1 + t * (fx.kind === 'explosion' ? 5 : 7);
+                fx.mesh.scale.setScalar(s);
+                fx.mesh.material.opacity = 1 - t;
+            }
+            for (let i = this.sinkAnimations.length - 1; i >= 0; i--) {
+                const fx = this.sinkAnimations[i];
+                const t = Math.min(1, (now - fx.start) / fx.duration);
+                fx.mesh.rotation.z = t * 0.22;
+                fx.mesh.position.y = fx.fromY - t * 0.5;
+                if (t >= 1)
+                    this.sinkAnimations.splice(i, 1);
+            }
+            for (let i = this.endEffects.length - 1; i >= 0; i--) {
+                const fx = this.endEffects[i];
+                const t = (now - fx.start) / fx.duration;
+                if (t >= 1) {
+                    fx.mesh.parent?.remove(fx.mesh);
+                    this.endEffects.splice(i, 1);
+                    continue;
+                }
+                fx.mesh.position.y += fx.vy;
+                fx.mesh.material.opacity = 1 - t;
+            }
+            this.renderer.render(this.scene, this.camera);
+        };
+        if (!window.THREE)
+            throw new Error('Three.js 未加载');
+        this.canvas = canvas;
+        const THREE = T();
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0x020912);
+        this.scene.fog = new THREE.FogExp2(0x020912, 0.024);
+        this.camera = new THREE.PerspectiveCamera(46, 1, 0.1, 120);
+        this.camera.position.set(0, 12.5, 15.5);
+        this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.target.set(0, 0, 0);
+        this.controls.enableDamping = true;
+        this.controls.minDistance = 9;
+        this.controls.maxDistance = 28;
+        this.controls.maxPolarAngle = Math.PI * 0.47;
+        this.controls.update();
+        this.raycaster = new THREE.Raycaster();
+        this.pointer = new THREE.Vector2();
+        this.boardGroups = { player: new THREE.Group(), enemy: new THREE.Group() };
+        this.scene.add(this.boardGroups.player, this.boardGroups.enemy);
+        this.setupLights();
+        this.setupEnvironment();
+        this.createBoard(player);
+        this.createBoard(enemy);
+        this.resize();
+        this.bindEvents();
+        this.animate();
+    }
+    setupLights() {
+        const THREE = T();
+        const ambient = new THREE.AmbientLight(0x6d8dac, 0.62);
+        const sun = new THREE.DirectionalLight(0xd9f4ff, 1.15);
+        sun.position.set(-5, 13, 7);
+        sun.castShadow = true;
+        const rim = new THREE.PointLight(0x1ed6ff, 0.8, 24);
+        rim.position.set(0, 4, -6);
+        this.lights = [ambient, sun, rim];
+        this.scene.add(...this.lights);
+    }
+    setupEnvironment() {
+        const THREE = T();
+        const seabed = new THREE.Mesh(new THREE.PlaneGeometry(34, 22, 1, 1), new THREE.MeshStandardMaterial({ color: 0x03121e, roughness: 0.9, metalness: 0.05 }));
+        seabed.rotation.x = -Math.PI / 2;
+        seabed.position.y = -0.55;
+        seabed.receiveShadow = true;
+        this.scene.add(seabed);
+        const grid = new THREE.GridHelper(34, 34, 0x0e4465, 0x082b42);
+        grid.position.y = -0.5;
+        this.scene.add(grid);
+    }
+    worldFromCell(board, row, col) {
+        return {
+            x: board.origin.x + (col - 4.5) * board.cellSize,
+            y: board.origin.y,
+            z: board.origin.z + (row - 4.5) * board.cellSize
+        };
+    }
+    createBoard(board) {
+        const THREE = T();
+        const group = this.boardGroups[board.owner];
+        group.userData.owner = board.owner;
+        const width = board.cellSize * 10;
+        const base = new THREE.Mesh(new THREE.BoxGeometry(width + 0.25, 0.34, width + 0.25), new THREE.MeshStandardMaterial({ color: board.owner === 'player' ? 0x062a3b : 0x102538, roughness: 0.45, metalness: 0.32 }));
+        base.position.set(board.origin.x, board.origin.y - 0.25, board.origin.z);
+        base.receiveShadow = true;
+        group.add(base);
+        for (let row = 0; row < 10; row++)
+            for (let col = 0; col < 10; col++) {
+                const p = this.worldFromCell(board, row, col);
+                const cell = new THREE.Mesh(new THREE.BoxGeometry(board.cellSize * 0.92, 0.055, board.cellSize * 0.92), new THREE.MeshStandardMaterial({
+                    color: board.owner === 'player' ? 0x0b5774 : 0x0a415d,
+                    emissive: board.owner === 'player' ? 0x031c28 : 0x031722,
+                    roughness: 0.3,
+                    metalness: 0.18,
+                    transparent: true,
+                    opacity: 0.88
+                }));
+                cell.position.set(p.x, p.y, p.z);
+                cell.userData = { boardOwner: board.owner, row, col, baseColor: cell.material.color.getHex() };
+                cell.receiveShadow = true;
+                group.add(cell);
+                this.cellMeshes.push(cell);
+            }
+    }
+    addShipMesh(board, shipId, visible = true) {
+        const THREE = T();
+        const ship = board.ship(shipId);
+        if (!ship?.start || !ship.orientation)
+            return null;
+        this.removeShipMesh(board.owner, shipId);
+        const lengthWorld = ship.length * board.cellSize * 0.88;
+        const horizontal = ship.orientation === 'horizontal';
+        const geo = new THREE.BoxGeometry(horizontal ? lengthWorld : board.cellSize * 0.62, 0.34, horizontal ? board.cellSize * 0.62 : lengthWorld);
+        const mat = new THREE.MeshStandardMaterial({ color: board.owner === 'player' ? 0x5f7886 : 0x485967, metalness: 0.72, roughness: 0.27 });
+        const mesh = new THREE.Mesh(geo, mat);
+        const first = ship.cells[0], last = ship.cells[ship.cells.length - 1];
+        const a = this.worldFromCell(board, first.row, first.col), b = this.worldFromCell(board, last.row, last.col);
+        mesh.position.set((a.x + b.x) / 2, board.origin.y + 0.28, (a.z + b.z) / 2);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.visible = visible;
+        mesh.userData = { shipId, boardOwner: board.owner };
+        this.boardGroups[board.owner].add(mesh);
+        const key = `${board.owner}:${shipId}`;
+        this.shipMeshes.set(key, mesh);
+        ship.meshObjectId = mesh.id;
+        const bridge = new THREE.Mesh(new THREE.BoxGeometry(board.cellSize * 0.62, 0.22, board.cellSize * 0.42), mat.clone());
+        bridge.position.set(0, 0.28, 0);
+        bridge.castShadow = true;
+        mesh.add(bridge);
+        return mesh;
+    }
+    removeShipMesh(owner, shipId) {
+        const key = `${owner}:${shipId}`;
+        const mesh = this.shipMeshes.get(key);
+        if (mesh) {
+            mesh.parent?.remove(mesh);
+            this.shipMeshes.delete(key);
+        }
+    }
+    syncPlayerShips(board) {
+        for (const ship of board.ships) {
+            if (ship.confirmed)
+                this.addShipMesh(board, ship.id, true);
+            else
+                this.removeShipMesh(board.owner, ship.id);
+        }
+    }
+    sinkShip(board, shipId, revealIfHidden = false) {
+        const key = `${board.owner}:${shipId}`;
+        let mesh = this.shipMeshes.get(key);
+        if (!mesh && revealIfHidden)
+            mesh = this.addShipMesh(board, shipId, true);
+        if (!mesh)
+            return;
+        mesh.visible = true;
+        mesh.material.color.setHex(0x5a2825);
+        if (!this.sinkAnimations.some(a => a.mesh === mesh)) {
+            this.sinkAnimations.push({ mesh, start: performance.now(), duration: 1600, fromY: mesh.position.y });
+        }
+    }
+    revealSunkEnemyShip(board, shipId) {
+        const ship = board.ship(shipId);
+        if (!ship)
+            return;
+        const mesh = this.addShipMesh(board, shipId, true);
+        if (mesh) {
+            mesh.material.color.setHex(0x5a2825);
+            this.sinkAnimations.push({ mesh, start: performance.now(), duration: 1600, fromY: mesh.position.y });
+        }
+    }
+    setPreview(board, shipId, cells, valid) {
+        this.clearPreview();
+        if (!cells.length)
+            return;
+        const THREE = T();
+        const ship = board.ship(shipId);
+        if (!ship)
+            return;
+        const first = cells[0], last = cells[cells.length - 1];
+        const a = this.worldFromCell(board, first.row, first.col), b = this.worldFromCell(board, last.row, last.col);
+        const horizontal = first.row === last.row;
+        this.previewMesh = new THREE.Mesh(new THREE.BoxGeometry(horizontal ? ship.length * board.cellSize * 0.88 : board.cellSize * 0.62, 0.24, horizontal ? board.cellSize * 0.62 : ship.length * board.cellSize * 0.88), new THREE.MeshStandardMaterial({ color: valid ? 0x3de7c2 : 0xff5e67, emissive: valid ? 0x0b4c43 : 0x4d1015, transparent: true, opacity: 0.72 }));
+        this.previewMesh.position.set((a.x + b.x) / 2, board.origin.y + 0.23, (a.z + b.z) / 2);
+        this.boardGroups.player.add(this.previewMesh);
+    }
+    clearPreview() { if (this.previewMesh) {
+        this.previewMesh.parent?.remove(this.previewMesh);
+        this.previewMesh = null;
+    } }
+    addMarker(board, row, col, result) {
+        const THREE = T();
+        const p = this.worldFromCell(board, row, col);
+        const hit = result !== 'miss';
+        const geom = hit ? new THREE.SphereGeometry(board.cellSize * 0.17, 14, 10) : new THREE.TorusGeometry(board.cellSize * 0.17, 0.045, 8, 18);
+        const mat = new THREE.MeshStandardMaterial({ color: hit ? 0xff4f4f : 0xeaf6ff, emissive: hit ? 0x6d0d0d : 0x334d5d, roughness: 0.35 });
+        const marker = new THREE.Mesh(geom, mat);
+        marker.position.set(p.x, board.origin.y + 0.37, p.z);
+        marker.rotation.x = hit ? 0 : Math.PI / 2;
+        marker.userData = { owner: board.owner, row, col, result };
+        this.scene.add(marker);
+        this.markers.push(marker);
+        board.setMarker(row, col, marker.id);
+        this.spawnEffect(p.x, board.origin.y + 0.5, p.z, hit ? 'explosion' : 'ripple');
+        return marker;
+    }
+    spawnEffect(x, y, z, kind) {
+        const THREE = T();
+        const geom = kind === 'explosion' ? new THREE.SphereGeometry(0.16, 10, 8) : new THREE.RingGeometry(0.15, 0.2, 24);
+        const mat = new THREE.MeshBasicMaterial({ color: kind === 'explosion' ? 0xffaa45 : 0xbdefff, transparent: true, opacity: 0.95, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.position.set(x, y, z);
+        if (kind === 'ripple')
+            mesh.rotation.x = -Math.PI / 2;
+        this.scene.add(mesh);
+        this.activeEffects.push({ mesh, start: performance.now(), duration: kind === 'explosion' ? 620 : 900, kind });
+    }
+    celebrate() {
+        const THREE = T();
+        for (let i = 0; i < 20; i++) {
+            const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.07, 6, 5), new THREE.MeshBasicMaterial({ color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6), transparent: true, opacity: 1 }));
+            mesh.position.set((Math.random() - 0.5) * 12, 1 + Math.random() * 4, (Math.random() - 0.5) * 7);
+            this.scene.add(mesh);
+            this.endEffects.push({ mesh, start: performance.now(), duration: 2200 + Math.random() * 900, vy: 0.01 + Math.random() * 0.02 });
+        }
+    }
+    bindEvents() {
+        this.canvas.addEventListener('pointermove', this.handlePointerMove);
+        this.canvas.addEventListener('pointerdown', this.handlePointerDown);
+        window.addEventListener('resize', this.resize);
+    }
+    updatePointer(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        this.pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        this.pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        this.raycaster.setFromCamera(this.pointer, this.camera);
+        const hits = this.raycaster.intersectObjects(this.cellMeshes, false);
+        const obj = hits[0]?.object;
+        return obj ? { owner: obj.userData.boardOwner, row: obj.userData.row, col: obj.userData.col } : null;
+    }
+    getCellScreenPosition(owner, row, col) {
+        const THREE = T();
+        const mesh = this.cellMeshes.find(item => item.userData.boardOwner === owner && item.userData.row === row && item.userData.col === col);
+        if (!mesh)
+            return null;
+        const point = new THREE.Vector3();
+        mesh.getWorldPosition(point);
+        point.project(this.camera);
+        const rect = this.canvas.getBoundingClientRect();
+        return {
+            x: rect.left + (point.x + 1) * 0.5 * rect.width,
+            y: rect.top + (1 - point.y) * 0.5 * rect.height
+        };
+    }
+    getEffectsState() {
+        return {
+            activeEffectCount: this.activeEffects.length,
+            activeEffects: this.activeEffects.map(fx => ({ objectId: fx.mesh.id, kind: fx.kind })),
+            markers: this.markers.map(m => ({ objectId: m.id, ...m.userData })),
+            sinkAnimations: this.sinkAnimations.map(s => ({ objectId: s.mesh.id })),
+            endEffects: this.endEffects.length
+        };
+    }
+    getState() {
+        let objectCount = 0;
+        this.scene.traverse(() => objectCount++);
+        const rect = this.canvas.getBoundingClientRect();
+        const pixelRatio = this.renderer.getPixelRatio();
+        return {
+            ready: !this.disposed,
+            initialized: !this.disposed,
+            frameCount: this.frameCount,
+            waterTime: this.frameCount / 60,
+            allowCameraBelow: false,
+            canvas: {
+                id: this.canvas.id, width: this.canvas.width, height: this.canvas.height,
+                cssWidth: rect.width, cssHeight: rect.height, pixelRatio
+            },
+            renderer: { width: rect.width, height: rect.height, pixelRatio },
+            camera: {
+                objectId: this.camera.id, x: this.camera.position.x, y: this.camera.position.y, z: this.camera.position.z,
+                aspect: this.camera.aspect,
+                position: { x: this.camera.position.x, y: this.camera.position.y, z: this.camera.position.z },
+                target: { x: this.controls.target.x, y: this.controls.target.y, z: this.controls.target.z }
+            },
+            controls: {
+                enabled: this.controls.enabled, minDistance: this.controls.minDistance, maxDistance: this.controls.maxDistance,
+                maxPolarAngle: this.controls.maxPolarAngle
+            },
+            boardGroups: {
+                player: { objectId: this.boardGroups.player.id, childCount: this.boardGroups.player.children.length },
+                enemy: { objectId: this.boardGroups.enemy.id, childCount: this.boardGroups.enemy.children.length }
+            },
+            lights: this.lights.map(l => ({ objectId: l.id, type: l.type, intensity: l.intensity })),
+            objectCount
+        };
+    }
+    resetVisuals() {
+        this.clearPreview();
+        for (const mesh of this.shipMeshes.values())
+            mesh.parent?.remove(mesh);
+        this.shipMeshes.clear();
+        for (const marker of this.markers)
+            marker.parent?.remove(marker);
+        this.markers = [];
+        for (const fx of this.activeEffects)
+            fx.mesh.parent?.remove(fx.mesh);
+        for (const fx of this.endEffects)
+            fx.mesh.parent?.remove(fx.mesh);
+        this.activeEffects = [];
+        this.endEffects = [];
+        this.sinkAnimations = [];
+    }
+    dispose() {
+        this.disposed = true;
+        this.canvas.removeEventListener('pointermove', this.handlePointerMove);
+        this.canvas.removeEventListener('pointerdown', this.handlePointerDown);
+        window.removeEventListener('resize', this.resize);
+        this.renderer.dispose();
+    }
+}
+exports.ThreeBattlefield = ThreeBattlefield;
+
+}};
+const __cache = {};
+function __normalize(base, req) {
+  if (!req.startsWith('.')) return req;
+  const parts = base.split('/'); parts.pop();
+  for (const part of req.split('/')) { if (part === '.' || part === '') continue; if (part === '..') parts.pop(); else parts.push(part); }
+  let id = parts.join('/'); if (!id.endsWith('.js')) id += '.js'; return id;
+}
+function __requireFrom(base, req) {
+  if (__externals[req]) return __externals[req];
+  if (req.endsWith('.css')) return {};
+  const id = __normalize(base, req);
+  if (__cache[id]) return __cache[id].exports;
+  const fn = __modules[id]; if (!fn) throw new Error('Module not found: ' + id + ' from ' + base);
+  const module = { exports: {} }; __cache[id] = module;
+  fn((child) => __requireFrom(id, child), module, module.exports); return module.exports;
+}
+__requireFrom('entry.js', './main');
+</script></body></html>

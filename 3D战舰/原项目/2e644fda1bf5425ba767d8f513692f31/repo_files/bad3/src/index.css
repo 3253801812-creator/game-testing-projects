@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #eaf7ff;
+  background: #020811;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+body { background: radial-gradient(circle at 50% 15%, #0e3346 0%, #061321 42%, #02060d 100%); }
+button, input { font: inherit; }
+button { color: inherit; }
+
+.app-shell { position: relative; width: 100%; height: 100%; overflow: hidden; }
+#game { position: absolute; inset: 0; width: 100%; height: 100%; display: block; outline: none; }
+.hud-layer { position: absolute; inset: 0; pointer-events: none; }
+.glass-panel {
+  background: linear-gradient(135deg, rgba(9, 24, 38, .84), rgba(8, 18, 30, .68));
+  border: 1px solid rgba(123, 221, 255, .18);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter: blur(18px);
+}
+.topbar {
+  position: absolute; pointer-events: auto; left: 22px; right: 22px; top: 18px; min-height: 68px;
+  border-radius: 18px; padding: 12px 16px 12px 18px; display: flex; justify-content: space-between; align-items: center;
+}
+.eyebrow { color: #79d8f2; font-weight: 800; font-size: 9px; letter-spacing: .2em; margin-bottom: 3px; }
+h1 { margin: 0; font-size: 22px; line-height: 1; letter-spacing: -.02em; }
+h1 span { color: #8aa1b4; font-size: 12px; letter-spacing: .11em; margin-left: 7px; font-weight: 700; }
+.topbar-right { display: flex; align-items: center; gap: 9px; }
+.api-pill { font-size: 11px; padding: 8px 11px; border-radius: 999px; border: 1px solid rgba(103,226,166,.22); background: rgba(30, 119, 86, .12); color: #8ce3bc; }
+.icon-btn, .secondary-btn, .primary-btn { border: 0; cursor: pointer; transition: transform .18s ease, border-color .18s ease, background .18s ease, opacity .18s ease; }
+.icon-btn:hover, .secondary-btn:hover, .primary-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.icon-btn { padding: 8px 12px; border-radius: 10px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); font-size: 11px; }
+.board-label { position: absolute; top: 104px; padding: 8px 11px; border-radius: 12px; background: rgba(3, 12, 21, .56); border: 1px solid rgba(112, 214, 249, .16); backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 2px; text-shadow: 0 2px 12px #001; }
+.board-label strong { font-size: 12px; letter-spacing: .08em; }
+.board-label span { font-size: 10px; color: #9cb1c1; }
+.player-label { left: 18%; transform: translateX(-50%); }
+.enemy-label { left: 67%; transform: translateX(-50%); }
+.status-dock { position: absolute; pointer-events: auto; left: 50%; transform: translateX(-50%); bottom: 20px; width: min(580px, calc(100% - 42px)); min-height: 62px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; padding: 12px 13px 12px 17px; }
+.status-dock > div:first-child { display: flex; flex-direction: column; gap: 2px; }
+.status-kicker { font-size: 9px; letter-spacing: .18em; color: #6e98ad; text-transform: uppercase; }
+.status-dock strong { font-size: 13px; }
+.turn-chip { border-radius: 999px; padding: 8px 12px; font-size: 11px; font-weight: 800; color: #9de6ff; background: rgba(0, 150, 202, .13); border: 1px solid rgba(70, 202, 246, .2); }
+.placement-panel { position: absolute; pointer-events: auto; right: 22px; top: 103px; width: 282px; border-radius: 18px; padding: 14px; max-height: calc(100% - 198px); overflow: auto; }
+.panel-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.panel-heading > div { display: flex; align-items: center; gap: 8px; }
+.panel-heading strong { font-size: 13px; }
+.step { width: 25px; height: 25px; border-radius: 8px; display: grid; place-items: center; background: #0c79a5; color: white; font-size: 9px; font-weight: 900; }
+.orientation { font-size: 10px; border: 1px solid rgba(255,255,255,.09); background: rgba(255,255,255,.04); border-radius: 999px; padding: 5px 8px; color: #9cc9da; }
+.help { font-size: 10px; line-height: 1.5; color: #8ea4b2; margin: 0 0 10px; }
+kbd { border: 1px solid rgba(255,255,255,.12); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; color: #d8f3ff; background: rgba(255,255,255,.05); }
+.ship-list { display: grid; gap: 6px; }
+.ship-item { width: 100%; text-align: left; border-radius: 11px; padding: 8px 9px; display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 8px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.065); cursor: pointer; }
+.ship-item:hover, .ship-item.selected { border-color: rgba(79, 199, 236, .42); background: rgba(24, 139, 178, .12); }
+.ship-item.placed { opacity: .57; }
+.ship-name { font-size: 11px; font-weight: 750; }
+.ship-length { display: flex; gap: 2px; }
+.ship-length i { width: 8px; height: 4px; border-radius: 1px; background: #5fcbe9; box-shadow: 0 0 8px rgba(95,203,233,.28); }
+.ship-state { font-size: 9px; color: #728997; }
+.ship-item.placed .ship-state { color: #82d8ae; }
+.panel-actions { display: grid; gap: 7px; margin-top: 10px; }
+.two-col { grid-template-columns: 1fr 1fr; }
+.secondary-btn { border-radius: 10px; min-height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); font-size: 10px; font-weight: 750; }
+.primary-btn { width: 100%; margin-top: 8px; border-radius: 11px; min-height: 38px; background: linear-gradient(135deg, #0e95c3, #0e719d); box-shadow: 0 8px 24px rgba(0, 135, 185, .22); font-size: 11px; font-weight: 850; letter-spacing: .02em; }
+.primary-btn:disabled { cursor: not-allowed; opacity: .34; box-shadow: none; }
+.api-config { margin-top: 11px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.06); }
+.api-config label { display: block; color: #8ca9b8; font-size: 9px; margin-bottom: 5px; }
+.api-config input { width: 100%; color: #dff7ff; background: rgba(0,0,0,.24); border: 1px solid rgba(255,255,255,.07); outline: none; border-radius: 8px; padding: 7px 8px; font-size: 9px; }
+.api-config input:focus { border-color: rgba(68,198,237,.42); }
+.api-config small { display: block; margin-top: 5px; color: #627988; font-size: 8px; line-height: 1.4; }
+.api-config code { color: #7ab6c9; }
+.modal-backdrop { position: absolute; inset: 0; z-index: 20; pointer-events: auto; display: grid; place-items: center; background: rgba(1,7,14,.68); backdrop-filter: blur(12px); }
+.gameover-card { width: min(430px, calc(100% - 36px)); padding: 28px; border-radius: 24px; text-align: center; border-color: rgba(119,216,248,.28); }
+.result-badge { display: inline-block; padding: 6px 9px; border-radius: 999px; font-size: 9px; letter-spacing: .16em; font-weight: 900; color: #71d8f7; background: rgba(38,151,187,.1); border: 1px solid rgba(80,202,241,.18); }
+.gameover-card h2 { font-size: 32px; margin: 12px 0 6px; }
+.gameover-card p { margin: 0; color: #92a9b8; font-size: 12px; }
+.result-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 18px 0 10px; }
+.result-stats div { padding: 10px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); display: flex; flex-direction: column; gap: 3px; }
+.result-stats span { font-size: 9px; color: #738d9e; }
+.result-stats strong { font-size: 17px; }
+.startup-error { position: absolute; pointer-events: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(440px, calc(100% - 40px)); padding: 20px; border: 1px solid rgba(255,96,96,.28); background: rgba(35,7,12,.92); border-radius: 16px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
+.startup-error strong { color: #ff9a9a; }
+.startup-error span { font-size: 11px; color: #c99; }
+.startup-error button { margin: 4px auto 0; border: 0; border-radius: 8px; padding: 8px 13px; cursor: pointer; }
+.hidden { display: none !important; }
+
+@media (max-width: 920px) {
+  .placement-panel { right: 12px; top: 94px; width: 245px; }
+  .topbar { left: 12px; right: 12px; top: 10px; }
+  h1 { font-size: 17px; }
+  h1 span { display: none; }
+  .board-label { top: 89px; }
+}
+@media (max-width: 680px) {
+  .placement-panel { left: 10px; right: 10px; top: auto; bottom: 91px; width: auto; max-height: 42vh; }
+  .status-dock { bottom: 12px; }
+  .api-pill { display: none; }
+  .board-label { top: 78px; }
+  .player-label { left: 25%; }
+  .enemy-label { left: 75%; }
+}

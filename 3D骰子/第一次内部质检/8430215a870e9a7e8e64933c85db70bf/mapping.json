@@ -1,0 +1,398 @@
+{
+  "prompt_id": "8430215a870e9a7e8e64933c85db70bf",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "window.__contract.getState()",
+    "window.__game.getState()",
+    "window.__dice.getState()",
+    "window.__bets.getState()",
+    "window.__progressives.getState()",
+    "#game-root",
+    "#bubble-dome",
+    "#betting-board",
+    "[data-testid=\"dice-arena\"]",
+    "[data-testid=\"pulsing-floor\"]",
+    "[data-testid=\"die-1\"]",
+    "[data-testid=\"die-2\"]",
+    "[data-testid=\"roll-btn\"]",
+    "[data-testid=\"balance\"]",
+    "[data-testid=\"table-phase\"]",
+    "[data-testid=\"point-value\"]",
+    "[data-testid=\"last-roll\"]",
+    "[data-testid=\"chip-1\"]",
+    "[data-testid=\"chip-5\"]",
+    "[data-testid=\"chip-10\"]",
+    "[data-testid=\"chip-25\"]",
+    "[data-testid=\"chip-100\"]",
+    "[data-testid=\"place-4\"]",
+    "[data-testid=\"place-5\"]",
+    "[data-testid=\"place-6\"]",
+    "[data-testid=\"place-8\"]",
+    "[data-testid=\"place-9\"]",
+    "[data-testid=\"place-10\"]",
+    "[data-testid=\"buy-4\"]",
+    "[data-testid=\"buy-5\"]",
+    "[data-testid=\"buy-6\"]",
+    "[data-testid=\"buy-8\"]",
+    "[data-testid=\"buy-9\"]",
+    "[data-testid=\"buy-10\"]",
+    "[data-testid=\"pass-line\"]",
+    "[data-testid=\"come\"]",
+    "[data-testid=\"pass-odds\"]",
+    "[data-testid=\"clear-bets\"]",
+    "[data-testid=\"progressive-low\"]",
+    "[data-testid=\"progressive-high\"]",
+    "[data-testid=\"progressive-hitall\"]",
+    "[data-testid^=\"bet-chip-\"]"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "React and ReactDOM both use major version 19.",
+      "kind": "state",
+      "how": "Read package.json and verify that both react and react-dom use major version 19."
+    },
+    {
+      "id": 2,
+      "text": "The project includes TypeScript and Vite configuration and uses vite build for the production build.",
+      "kind": "state",
+      "how": "Inspect package.json, vite.config.ts, tsconfig.json, tsconfig.node.json, and src/main.tsx to verify the required dependencies, configuration, and build script."
+    },
+    {
+      "id": 3,
+      "text": "The project includes Tailwind CSS and PostCSS configuration and declares all three Tailwind directives in the entry stylesheet.",
+      "kind": "state",
+      "how": "Inspect tailwind.config.js, postcss.config.js, and src/index.css and verify @tailwind base, components, and utilities."
+    },
+    {
+      "id": 4,
+      "text": "The production build contains dist/index.html and at least one JavaScript asset.",
+      "kind": "state",
+      "how": "Check dist/index.html and verify that dist/assets contains at least one JavaScript file."
+    },
+    {
+      "id": 5,
+      "text": "The game root, bubble dome, dice arena, dice, and status displays use the required exact DOM identifiers.",
+      "kind": "dom",
+      "how": "Query the exact id and data-testid values declared in the prompt and reject substitute identifiers."
+    },
+    {
+      "id": 6,
+      "text": "Chip, bet, progressive, clear-bet, and roll controls use the required exact DOM identifiers and are real buttons.",
+      "kind": "dom",
+      "how": "Query every interactive data-testid and verify that each matching control is an interactive button element."
+    },
+    {
+      "id": 7,
+      "text": "All five read-only getState interfaces exist: __contract, __game, __dice, __bets, and __progressives.",
+      "kind": "state",
+      "how": "Verify that window.__contract, __game, __dice, __bets, and __progressives each expose a getState function."
+    },
+    {
+      "id": 8,
+      "text": "All five read-only state snapshots contain the top-level fields required by the interface contract.",
+      "kind": "state",
+      "how": "Read each public snapshot and verify all required top-level fields."
+    },
+    {
+      "id": 9,
+      "text": "Every getState call returns a fresh snapshot that cannot mutate the live production state.",
+      "kind": "state",
+      "how": "Mutate a previously returned snapshot, read the state again, and verify that balance and bet arrays were not changed."
+    },
+    {
+      "id": 10,
+      "text": "The game state, betting state, and balance DOM display report the same live balance.",
+      "kind": "state",
+      "how": "Read __game, __bets, and the balance DOM at the same point in time and compare their numeric values."
+    },
+    {
+      "id": 11,
+      "text": "The betting state declares an exact maximum odds multiplier of 3.",
+      "kind": "state",
+      "how": "Read window.__bets.getState().maxOddsMultiplier and verify that it equals 3."
+    },
+    {
+      "id": 12,
+      "text": "The 390x844 portrait view presents a classic commercial Bubble Craps machine.",
+      "kind": "vlm",
+      "how": "Use a 390x844 visual capture to judge whether the full composition resembles a classic commercial Bubble Craps cabinet."
+    },
+    {
+      "id": 13,
+      "text": "The view clearly shows a transparent bubble dome, top-down three-dimensional dice, and a mechanical pulsing floor.",
+      "kind": "vlm",
+      "how": "Use a 390x844 visual capture to confirm the transparent dome, top-down 3D dice, and pulsing mechanical floor."
+    },
+    {
+      "id": 14,
+      "text": "A roll completes in the order rolling, settling, resolved.",
+      "kind": "state",
+      "how": "Trigger a real roll, observe live state transitions, and verify the three phases appear in order."
+    },
+    {
+      "id": 15,
+      "text": "Both dice have non-zero linear or angular velocity while rolling.",
+      "kind": "state",
+      "how": "Sample __dice during the rolling phase and verify that live linear or rotational motion is present."
+    },
+    {
+      "id": 16,
+      "text": "The dome floor pulse or offset changes during a roll.",
+      "kind": "state",
+      "how": "Sample floorPulse and floorOffset at different times while the roll is active and verify that at least one changes from zero."
+    },
+    {
+      "id": 17,
+      "text": "A second roll request is rejected while rolling is locked, and rollId increases only once.",
+      "kind": "state",
+      "how": "Start one roll and immediately request another; verify the duplicate request is rejected and the final rollId increases by exactly one."
+    },
+    {
+      "id": 18,
+      "text": "Across eight unforced production rolls, each die stays within 1 through 6 and the outcomes vary.",
+      "kind": "state",
+      "how": "Run eight production-random rolls, verify the value range, and require at least two distinct dice pairs."
+    },
+    {
+      "id": 19,
+      "text": "After settlement, both dice are marked settled and their linear and angular velocities are zero.",
+      "kind": "state",
+      "how": "After known roll outcomes settle, inspect isSettled, stableSamples, linearVelocity, and angularVelocity."
+    },
+    {
+      "id": 20,
+      "text": "Across multiple settled outcomes, quaternion-derived top face, dice state, DOM face, and settled result remain consistent.",
+      "kind": "state",
+      "how": "Cover six complementary dice pairs spanning faces 1 through 6, independently derive the top face from quaternion rotation, and compare it with state, DOM, and lastRoll."
+    },
+    {
+      "id": 21,
+      "text": "After settlement, both dice remain inside the dice arena without visually intersecting each other.",
+      "kind": "dom",
+      "how": "Read the arena and die bounding boxes and verify both dice are inside the arena and their overlap ratio is below 0.15."
+    },
+    {
+      "id": 22,
+      "text": "The 390x844 portrait page has no horizontal overflow.",
+      "kind": "dom",
+      "how": "Compare documentElement.scrollWidth with innerWidth at a 390x844 viewport."
+    },
+    {
+      "id": 23,
+      "text": "ROLL is a native button at least 44x44 pixels and a real click completes one roll.",
+      "kind": "dom",
+      "how": "Measure the button element and dimensions, click it through the browser, and verify rollId increases once."
+    },
+    {
+      "id": 24,
+      "text": "All five chip values 1, 5, 10, 25, and 100 can be selected.",
+      "kind": "state",
+      "how": "Select each chip value and verify that each selection becomes the live selected chip."
+    },
+    {
+      "id": 25,
+      "text": "A successful bet immediately deducts the wager amount from balance.",
+      "kind": "state",
+      "how": "Start with balance 1000, place a 25-unit Place bet, and verify the balance becomes 975."
+    },
+    {
+      "id": 26,
+      "text": "A bet that exceeds the available balance is rejected without changing balance.",
+      "kind": "state",
+      "how": "Start with balance 10, attempt a 25-unit bet, and verify no bet is created and balance remains 10."
+    },
+    {
+      "id": 27,
+      "text": "Independent Place bets can be created on 4, 5, 6, 8, 9, and 10.",
+      "kind": "state",
+      "how": "Place one bet on each supported Place number and verify six distinct active bet IDs are created."
+    },
+    {
+      "id": 28,
+      "text": "Place bets remain working after hits and misses and are removed on 7.",
+      "kind": "state",
+      "how": "Create Place bets, exercise a hit, a non-hit, and a 7, and verify the expected keep-or-remove behavior and payout state."
+    },
+    {
+      "id": 29,
+      "text": "Independent Buy bets can be created on 4, 5, 6, 8, 9, and 10.",
+      "kind": "state",
+      "how": "Place one bet on each supported Buy number and verify six distinct active bet IDs are created."
+    },
+    {
+      "id": 30,
+      "text": "Buy bets remain working after hits and misses and are removed on 7.",
+      "kind": "state",
+      "how": "Create Buy bets, exercise a hit, a non-hit, and a 7, and verify the expected keep-or-remove behavior and payout state."
+    },
+    {
+      "id": 31,
+      "text": "Pass Line wins on come-out 7 or 11 and returns to come_out.",
+      "kind": "state",
+      "how": "Run separate come-out results of 7 and 11 and verify profit, bet removal, and phase reset."
+    },
+    {
+      "id": 32,
+      "text": "Pass Line loses on come-out 2, 3, or 12 and remains in come_out.",
+      "kind": "state",
+      "how": "Run separate come-out results of 2, 3, and 12 and verify loss, bet removal, and no point is established."
+    },
+    {
+      "id": 33,
+      "text": "Pass Line establishes table point 4 when a come-out roll is 4.",
+      "kind": "state",
+      "how": "Place a Pass Line bet, roll 4, and verify tablePhase is point, point equals 4, and the Pass bet remains active."
+    },
+    {
+      "id": 34,
+      "text": "An established Pass point wins when the point repeats and then clears the point.",
+      "kind": "state",
+      "how": "Establish point 4, roll 4 again, and verify profit, Pass bet removal, and phase reset."
+    },
+    {
+      "id": 35,
+      "text": "When a point is active, rolling 7 loses Pass and clears the point.",
+      "kind": "state",
+      "how": "Establish point 4, roll 7, and verify the loss, Pass bet removal, and point becomes null."
+    },
+    {
+      "id": 36,
+      "text": "A pending Come bet moves to its own number on a non-7/11/2/3/12 result.",
+      "kind": "state",
+      "how": "With a table point active, place Come, roll 5, and verify the bet becomes established on number 5."
+    },
+    {
+      "id": 37,
+      "text": "An established Come bet wins and is removed when its number repeats.",
+      "kind": "state",
+      "how": "Establish a Come bet on 5, roll 5 again, and verify profit and bet removal."
+    },
+    {
+      "id": 38,
+      "text": "An established Come bet loses and is removed on 7.",
+      "kind": "state",
+      "how": "Establish a Come bet on 4, roll 7, and verify the bet is removed without a winning credit."
+    },
+    {
+      "id": 39,
+      "text": "Pass Odds are allowed only after the Pass point is established and are capped at 3x the flat bet.",
+      "kind": "state",
+      "how": "Verify odds are rejected before a point, accepted up to 3x after a point, and an additional unit beyond the cap is rejected."
+    },
+    {
+      "id": 40,
+      "text": "Come Odds are allowed only after a Come bet is established on a number and are capped at 3x the flat bet.",
+      "kind": "state",
+      "how": "Verify odds are rejected while Come is pending, accepted up to 3x after establishment, and an additional unit beyond the cap is rejected."
+    },
+    {
+      "id": 41,
+      "text": "LOW records only unique hits from 2 through 6 and ignores duplicates.",
+      "kind": "state",
+      "how": "Activate LOW, run a partial sequence containing a duplicate 2, and verify targets and unique hits exactly."
+    },
+    {
+      "id": 42,
+      "text": "LOW completes once after all targets 2 through 6 are hit, clears its lights, and removes the progressive bet.",
+      "kind": "state",
+      "how": "Complete the LOW target sequence and verify completedCount increments, hits clears, and activeBetId becomes null."
+    },
+    {
+      "id": 43,
+      "text": "HIGH records only unique hits from 8 through 12 and ignores duplicates.",
+      "kind": "state",
+      "how": "Activate HIGH, run a partial sequence containing a duplicate 8, and verify targets and unique hits exactly."
+    },
+    {
+      "id": 44,
+      "text": "HIGH completes once after all targets 8 through 12 are hit, clears its lights, and removes the progressive bet.",
+      "kind": "state",
+      "how": "Complete the HIGH target sequence and verify completedCount increments, hits clears, and activeBetId becomes null."
+    },
+    {
+      "id": 45,
+      "text": "HIT ALL records only unique hits from 2 through 12 excluding 7.",
+      "kind": "state",
+      "how": "Run a partial HIT ALL sequence and verify targets exclude 7 and hits contain only the unique rolled totals."
+    },
+    {
+      "id": 46,
+      "text": "HIT ALL completes once after all ten targets are hit, clears its lights, and removes the progressive bet.",
+      "kind": "state",
+      "how": "Complete the final HIT ALL target and verify completedCount increments, hits clears, and activeBetId becomes null."
+    },
+    {
+      "id": 47,
+      "text": "Rolling 7 removes all active Pass, Come, Odds, Place, Buy, and progressive bets.",
+      "kind": "state",
+      "how": "Establish the supported bet types and odds, roll 7, and verify every recorded active bet ID is removed."
+    },
+    {
+      "id": 48,
+      "text": "Rolling 7 clears all LOW, HIGH, and HIT ALL progress lights.",
+      "kind": "state",
+      "how": "Create progressive hits, roll 7, and verify all three hit lists are empty and their activeBetId values are null."
+    },
+    {
+      "id": 49,
+      "text": "After every settlement, the final history record exactly matches lastRoll.",
+      "kind": "state",
+      "how": "Complete one known roll and compare the final history record with lastRoll, rollId, and total."
+    },
+    {
+      "id": 50,
+      "text": "Settlement ledger rollId, total, bet entries, and balanceAfter match the live game state.",
+      "kind": "state",
+      "how": "Complete a Pass win and compare the settlement ledger fields and resulting balance with the live state."
+    },
+    {
+      "id": 51,
+      "text": "The live balance, table phase, last result, and active-bet DOM agree with the live game state.",
+      "kind": "dom",
+      "how": "After settlement, read the four live DOM observations and compare them with __game state."
+    },
+    {
+      "id": 52,
+      "text": "While rolling, both dice visually show credible three-dimensional tumbling, collision, and settling inside the bubble dome.",
+      "kind": "vlm",
+      "how": "Capture the real rolling phase in the portrait view and visually judge 3D perspective, differing orientations, and convincing motion rather than flat numeric replacement."
+    },
+    {
+      "id": 53,
+      "text": "Every progressive target has a progress light whose data-hit value matches the live progressive state.",
+      "kind": "dom",
+      "how": "Query each progress-light-<track>-<number> element, create known hits, and compare data-hit with __progressives.hits."
+    },
+    {
+      "id": 54,
+      "text": "Every active bet renders a bet-chip-<betId> element with correct type, number, amount, and odds data.",
+      "kind": "dom",
+      "how": "Create a Place bet, query its visible chip by dynamic betId, and compare data-type, data-number, data-amount, and data-odds with live state."
+    },
+    {
+      "id": 55,
+      "text": "An established Come bet renders a come-odds-<betId> control and its displayed odds stay synchronized with state.",
+      "kind": "dom",
+      "how": "Establish a Come number, locate its dynamic odds control, add odds, and compare the control, bet-chip data-odds, and live bet odds."
+    },
+    {
+      "id": 56,
+      "text": "Both dice DOM position and settlement attributes match the live __dice state.",
+      "kind": "dom",
+      "how": "After a known settled roll, compare die-1 and die-2 data-x/y/z, data-value, data-top-face, and data-settled with the __dice snapshot."
+    },
+    {
+      "id": 57,
+      "text": "When a real ROLL path produces 7 from multiple dice combinations, Place, Buy, and all three progressive bets lose with no stake returned.",
+      "kind": "state",
+      "how": "Create the five bet categories through the real UI, produce 7 as 1+6, 2+5, and 3+4 through the production roll path, and verify bets clear, progress clears, the ledger records losses, and balance does not refund the wagers."
+    },
+    {
+      "id": 58,
+      "text": "Given the same initial state and multi-roll sequence, the production ROLL path and deterministic input path produce equivalent settlement results.",
+      "kind": "state",
+      "how": "Run totals 2, 3, 6, 11, and 7 through both paths from the same initial state; ignoring identifiers and timestamps, compare ledgers, balance transitions, point state, active bets, and progressive progress to detect split rule logic."
+    }
+  ]
+}

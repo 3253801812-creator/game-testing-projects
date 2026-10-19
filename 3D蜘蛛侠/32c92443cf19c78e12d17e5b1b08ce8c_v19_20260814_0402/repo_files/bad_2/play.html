@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05070f" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Skyline Thread — 直接进入 3D 城市蛛丝摆荡游戏" />
+    <title>Play — Skyline Thread</title>
+    <style>
+      html, body, #root { width: 100%; height: 100%; margin: 0; }
+      body { overflow: hidden; background: #05070f; }
+    </style>
+    <script>
+      if (window.location.protocol === "file:") {
+        window.location.replace("./standalone.html");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

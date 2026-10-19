@@ -1,0 +1,427 @@
+[
+  {
+    "repo": "good_1",
+    "report": {
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「React and ReactDOM both use major version 19.」；观测值：{'root': 'good_1', 'deps': {'react': '^19.0.0', 'react-dom': '^19.0.0', 'typescript': '^5.8.3', 'vite': '^6.1.0', 'tailwindcss': '^3.4.17', '@vitejs/plugin-react': '^4.3.4'}, 'missing_vite': [], 'tailwind_files': True, 'directives': True, 'dist': True}。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The project includes TypeScript and Vite configuration and uses vite build for the production build.」；观测值：{'root': 'good_1', 'deps': {'react': '^19.0.0', 'react-dom': '^19.0.0', 'typescript': '^5.8.3', 'vite': '^6.1.0', 'tailwindcss': '^3.4.17', '@vitejs/plugin-react': '^4.3.4'}, 'missing_vite': [], 'tailwind_files': True, 'directives': True, 'dist': True}。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The project includes Tailwind CSS and PostCSS configuration and declares all three Tailwind directives in the entry stylesheet.」；观测值：{'root': 'good_1', 'deps': {'react': '^19.0.0', 'react-dom': '^19.0.0', 'typescript': '^5.8.3', 'vite': '^6.1.0', 'tailwindcss': '^3.4.17', '@vitejs/plugin-react': '^4.3.4'}, 'missing_vite': [], 'tailwind_files': True, 'directives': True, 'dist': True}。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The production build contains dist/index.html and at least one JavaScript asset.」；观测值：{'root': 'good_1', 'deps': {'react': '^19.0.0', 'react-dom': '^19.0.0', 'typescript': '^5.8.3', 'vite': '^6.1.0', 'tailwindcss': '^3.4.17', '@vitejs/plugin-react': '^4.3.4'}, 'missing_vite': [], 'tailwind_files': True, 'directives': True, 'dist': True}。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The game root, bubble dome, dice arena, dice, and status displays use the required exact DOM identifiers.」；观测值：{'ids': {'game-root': True, 'bubble-dome': True, 'betting-board': True}, 'structural': {'dice-arena': True, 'pulsing-floor': True, 'die-1': True, 'die-2': True, 'balance': True, 'table-phase': True, 'point-value': True, 'last-roll': True}}。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Chip, bet, progressive, clear-bet, and roll controls use the required exact DOM identifiers and are real buttons.」；观测值：{'roll-btn': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'chip-1': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'chip-5': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'chip-10': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'chip-25': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'chip-100': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'pass-line': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'come': {'exists': True, 'tag': 'BUTTON', 'disabled': True}, 'pass-odds': {'exists': True, 'tag': 'BUTTON', 'disabled': True}, 'clear-bets': {'exists': True, 'tag': 'BUTTON', 'disabled': True}, 'progressive-low': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'progressive-high': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'progressive-hitall': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'place-4': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'place-5': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'place-6': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'place-8': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'place-9': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'place-10': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'buy-4': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'buy-5': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'buy-6': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'buy-8': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'buy-9': {'exists': True, 'tag': 'BUTTON', 'disabled': False}, 'buy-10': {'exists': True, 'tag': 'BUTTON', 'disabled': False}}。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All five read-only getState interfaces exist: __contract, __game, __dice, __bets, and __progressives.」；观测值：{'present': {'__contract': True, '__game': True, '__dice': True, '__bets': True, '__progressives': True}, 'fields': True, 'fresh': True, 'aligned': True, 'shown': 1000, 'game': 1000, 'bets': 1000, 'max': 3}。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All five read-only state snapshots contain the top-level fields required by the interface contract.」；观测值：{'present': {'__contract': True, '__game': True, '__dice': True, '__bets': True, '__progressives': True}, 'fields': True, 'fresh': True, 'aligned': True, 'shown': 1000, 'game': 1000, 'bets': 1000, 'max': 3}。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Every getState call returns a fresh snapshot that cannot mutate the live production state.」；观测值：{'present': {'__contract': True, '__game': True, '__dice': True, '__bets': True, '__progressives': True}, 'fields': True, 'fresh': True, 'aligned': True, 'shown': 1000, 'game': 1000, 'bets': 1000, 'max': 3}。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The game state, betting state, and balance DOM display report the same live balance.」；观测值：{'present': {'__contract': True, '__game': True, '__dice': True, '__bets': True, '__progressives': True}, 'fields': True, 'fresh': True, 'aligned': True, 'shown': 1000, 'game': 1000, 'bets': 1000, 'max': 3}。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The betting state declares an exact maximum odds multiplier of 3.」；观测值：{'present': {'__contract': True, '__game': True, '__dice': True, '__bets': True, '__progressives': True}, 'fields': True, 'fresh': True, 'aligned': True, 'shown': 1000, 'game': 1000, 'bets': 1000, 'max': 3}。"
+        },
+        {
+          "id": 12,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查确认「The 390x844 portrait view presents a classic commercial Bubble Craps machine.」。",
+          "image": "ut_images\\good_1_r12_1.png"
+        },
+        {
+          "id": 13,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查确认「The view clearly shows a transparent bubble dome, top-down three-dimensional dice, and a mechanical pulsing floor.」。",
+          "image": "ut_images\\good_1_r13_1.png"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A roll completes in the order rolling, settling, resolved.」；观测值：started=True, result={'rollId': 1, 'die1': 3, 'die2': 4, 'total': 7, 'timestamp': 36937.699999928474}, seq=['rolling', 'settling', 'settling', 'resolved']。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Both dice have non-zero linear or angular velocity while rolling.」；观测值：linear=True, angular=True, dice=[{'id': 1, 'value': None, 'topFace': None, 'position': {'x': -0.14108573007603384, 'y': -0.1068628008483255, 'z': 0.17881737255964997}, 'rotation': {'x': 58.72445735061093, 'y': 63.05181062048037, 'z': 60.5594439471335}, 'quaternion': {'w': 0.770825772731899, 'x': 0.13115771773067258, 'y': 0.6042857582786927, 'z': 0.15317964457948413}, 'linearVelocity': {'x': 0.7558838108417572, 'y': -0.16944765783053686, 'z': 1.3311271780265663}, 'angularVelocity': {'x': 549.4906634004719, 'y': 589.9821438892911, 'z': 566.6608178428386}, 'isSettled': False, 'stableSamples': 0}, {'id': 2, 'value': None, 'topFace': None, 'position': {'x': 0.14587051008734192, 'y': 0.030291133057635637, 'z': 0.17602078802251997}, 'rotation': {'x': 62.312325389061044, 'y': 58.430807070384944, 'z': -60.29057539538171}, 'quaternion': {'w': 0.5190677663969329, 'x': 0.6002493348160136, 'y': 0.13443107041625277, 'z': -0.5934624480515789}, 'linearVelocity': {'x': -0.7100525847216683, 'y': -0.04165587579942209, 'z': 1.3043399698409783}, 'angularVelocity': {'x': 583.0627060822898, 'y': 546.7429481457232, 'z': -564.1449877179632}, 'isSettled': False, 'stableSamples': 0}]。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The dome floor pulse or offset changes during a roll.」；观测值：moving=(0.8602482128941145, 0.06451861596705859), mid=(0.23074440549495287, 0.017305830412121463)。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A second roll request is rejected while rolling is locked, and rollId increases only once.」；观测值：duplicate=False, result={'rollId': 1, 'die1': 3, 'die2': 4, 'total': 7, 'timestamp': 36937.699999928474}。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Across eight unforced production rolls, each die stays within 1 through 6 and the outcomes vary.」；观测值：pairs=[(3, 5), (1, 1), (6, 2), (4, 2), (2, 1), (3, 3), (4, 1), (4, 6)]。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「After settlement, both dice are marked settled and their linear and angular velocities are zero.」；观测值：cases=[{'expected': (1, 6), 'faces': [(1, 1.0, 1, 1, 1), (6, 1.0, 6, 6, 6)], 'last': {'rollId': 1, 'die1': 1, 'die2': 6, 'total': 7, 'timestamp': 37302.199999928474}, 'dom': [{'value': 1, 'top': 1, 'settled': 'true'}, {'value': 6, 'top': 6, 'settled': 'true'}]}, {'expected': (2, 5), 'faces': [(2, 1.0, 2, 2, 2), (5, 1.0, 5, 5, 5)], 'last': {'rollId': 1, 'die1': 2, 'die2': 5, 'total': 7, 'timestamp': 37327.5}, 'dom': [{'value': 2, 'top': 2, 'settled': 'true'}, {'value': 5, 'top': 5, 'settled': 'true'}]}, {'expected': (3, 4), 'faces': [(3, 1.0, 3, 3, 3), (4, 1.0, 4, 4, 4)], 'last': {'rollId': 1, 'die1': 3, 'die2': 4, 'total': 7, 'timestamp': 37351.799999952316}, 'dom': [{'value': 3, 'top': 3, 'settled': 'true'}, {'value': 4, 'top': 4, 'settled': 'true'}]}, {'expected': (4, 3), 'faces': [(4, 1.0, 4, 4, 4), (3, 1.0, 3, 3, 3)], 'last': {'rollId': 1, 'die1': 4, 'die2': 3, 'total': 7, 'timestamp': 37388.5}, 'dom': [{'value': 4, 'top': 4, 'settled': 'true'}, {'value': 3, 'top': 3, 'settled': 'true'}]}, {'expected': (5, 2), 'faces': [(5, 1.0, 5, 5, 5), (2, 1.0, 2, 2, 2)], 'last': {'rollId': 1, 'die1': 5, 'die2': 2, 'total': 7, 'timestamp': 37499.59999990463}, 'dom': [{'value': 5, 'top': 5, 'settled': 'true'}, {'value': 2, 'top': 2, 'settled': 'true'}]}, {'expected': (6, 1), 'faces': [(6, 1.0, 6, 6, 6), (1, 1.0, 1, 1, 1)], 'last': {'rollId': 1, 'die1': 6, 'die2': 1, 'total': 7, 'timestamp': 37520.09999990463}, 'dom': [{'value': 6, 'top': 6, 'settled': 'true'}, {'value': 1, 'top': 1, 'settled': 'true'}]}]。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Across multiple settled outcomes, quaternion-derived top face, dice state, DOM face, and settled result remain consistent.」；观测值：cases=[{'expected': (1, 6), 'faces': [(1, 1.0, 1, 1, 1), (6, 1.0, 6, 6, 6)], 'last': {'rollId': 1, 'die1': 1, 'die2': 6, 'total': 7, 'timestamp': 37302.199999928474}, 'dom': [{'value': 1, 'top': 1, 'settled': 'true'}, {'value': 6, 'top': 6, 'settled': 'true'}]}, {'expected': (2, 5), 'faces': [(2, 1.0, 2, 2, 2), (5, 1.0, 5, 5, 5)], 'last': {'rollId': 1, 'die1': 2, 'die2': 5, 'total': 7, 'timestamp': 37327.5}, 'dom': [{'value': 2, 'top': 2, 'settled': 'true'}, {'value': 5, 'top': 5, 'settled': 'true'}]}, {'expected': (3, 4), 'faces': [(3, 1.0, 3, 3, 3), (4, 1.0, 4, 4, 4)], 'last': {'rollId': 1, 'die1': 3, 'die2': 4, 'total': 7, 'timestamp': 37351.799999952316}, 'dom': [{'value': 3, 'top': 3, 'settled': 'true'}, {'value': 4, 'top': 4, 'settled': 'true'}]}, {'expected': (4, 3), 'faces': [(4, 1.0, 4, 4, 4), (3, 1.0, 3, 3, 3)], 'last': {'rollId': 1, 'die1': 4, 'die2': 3, 'total': 7, 'timestamp': 37388.5}, 'dom': [{'value': 4, 'top': 4, 'settled': 'true'}, {'value': 3, 'top': 3, 'settled': 'true'}]}, {'expected': (5, 2), 'faces': [(5, 1.0, 5, 5, 5), (2, 1.0, 2, 2, 2)], 'last': {'rollId': 1, 'die1': 5, 'die2': 2, 'total': 7, 'timestamp': 37499.59999990463}, 'dom': [{'value': 5, 'top': 5, 'settled': 'true'}, {'value': 2, 'top': 2, 'settled': 'true'}]}, {'expected': (6, 1), 'faces': [(6, 1.0, 6, 6, 6), (1, 1.0, 1, 1, 1)], 'last': {'rollId': 1, 'die1': 6, 'die2': 1, 'total': 7, 'timestamp': 37520.09999990463}, 'dom': [{'value': 6, 'top': 6, 'settled': 'true'}, {'value': 1, 'top': 1, 'settled': 'true'}]}]。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「After settlement, both dice remain inside the dice arena without visually intersecting each other.」；观测值：cases=[{'expected': (1, 6), 'geometry': {'overlap': 0.08668673563599194, 'inside': True, 'values': [{'value': 1, 'top': 1, 'settled': 'true'}, {'value': 6, 'top': 6, 'settled': 'true'}]}}, {'expected': (2, 5), 'geometry': {'overlap': 0.07433448003985865, 'inside': True, 'values': [{'value': 2, 'top': 2, 'settled': 'true'}, {'value': 5, 'top': 5, 'settled': 'true'}]}}, {'expected': (3, 4), 'geometry': {'overlap': 0.07738944811698718, 'inside': True, 'values': [{'value': 3, 'top': 3, 'settled': 'true'}, {'value': 4, 'top': 4, 'settled': 'true'}]}}, {'expected': (4, 3), 'geometry': {'overlap': 0.08352402305226825, 'inside': True, 'values': [{'value': 4, 'top': 4, 'settled': 'true'}, {'value': 3, 'top': 3, 'settled': 'true'}]}}, {'expected': (5, 2), 'geometry': {'overlap': 0.07377906413081443, 'inside': True, 'values': [{'value': 5, 'top': 5, 'settled': 'true'}, {'value': 2, 'top': 2, 'settled': 'true'}]}}, {'expected': (6, 1), 'geometry': {'overlap': 0.05978435689410749, 'inside': True, 'values': [{'value': 6, 'top': 6, 'settled': 'true'}, {'value': 1, 'top': 1, 'settled': 'true'}]}}]。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The 390x844 portrait page has no horizontal overflow.」；观测值：{'tag': 'BUTTON', 'width': 110, 'height': 62, 'scroll': 390, 'inner': 390, 'before': 0}。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「ROLL is a native button at least 44x44 pixels and a real click completes one roll.」；观测值：mobile={'tag': 'BUTTON', 'width': 110, 'height': 62, 'scroll': 390, 'inner': 390, 'before': 0}, after=1。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All five chip values 1, 5, 10, 25, and 100 can be selected.」；观测值：selections=[True, True, True, True, True]。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A successful bet immediately deducts the wager amount from balance.」；观测值：betId=b1, balance=975。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A bet that exceeds the available balance is rejected without changing balance.」；观测值：rejected=None, state={'ready': True, 'variant': 'production', 'machineState': 'idle', 'tablePhase': 'come_out', 'point': None, 'balance': 10, 'selectedChip': 5, 'locked': False, 'canRoll': True, 'rollId': 0, 'lastRoll': None, 'history': [], 'activeBets': [], 'progressive': {'low': {'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'high': {'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'hitall': {'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 176}}, 'settlementLedger': [], 'dome': {'radius': 0.78, 'floorPulse': 0, 'floorOffset': 0}}。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Independent Place bets can be created on 4, 5, 6, 8, 9, and 10.」；观测值：ids={4: 'b2', 5: 'b3', 6: 'b4', 8: 'b5', 9: 'b6', 10: 'b7'}, active=[{'id': 'b2', 'type': 'place', 'number': 4, 'amount': 12, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b3', 'type': 'place', 'number': 5, 'amount': 12, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b4', 'type': 'place', 'number': 6, 'amount': 12, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b5', 'type': 'place', 'number': 8, 'amount': 12, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b6', 'type': 'place', 'number': 9, 'amount': 12, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b7', 'type': 'place', 'number': 10, 'amount': 12, 'odds': 0, 'status': 'active', 'createdRollId': 0}]。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Place bets remain working after hits and misses and are removed on 7.」；观测值：afterHit=6, afterMiss=6, after7=0; placePayout=[{'num': 6, 'stake': 12, 'pair': (3, 3), 'expectedProfit': 14, 'before': 1988, 'after': 2002, 'ok': True}, {'num': 8, 'stake': 12, 'pair': (4, 4), 'expectedProfit': 14, 'before': 1988, 'after': 2002, 'ok': True}, {'num': 4, 'stake': 5, 'pair': (2, 2), 'expectedProfit': 9, 'before': 1995, 'after': 2004, 'ok': True}, {'num': 5, 'stake': 10, 'pair': (2, 3), 'expectedProfit': 14, 'before': 1990, 'after': 2004, 'ok': True}]。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Independent Buy bets can be created on 4, 5, 6, 8, 9, and 10.」；观测值：ids={4: 'b12', 5: 'b13', 6: 'b14', 8: 'b15', 9: 'b16', 10: 'b17'}, active=[{'id': 'b12', 'type': 'buy', 'number': 4, 'amount': 20, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b13', 'type': 'buy', 'number': 5, 'amount': 20, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b14', 'type': 'buy', 'number': 6, 'amount': 20, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b15', 'type': 'buy', 'number': 8, 'amount': 20, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b16', 'type': 'buy', 'number': 9, 'amount': 20, 'odds': 0, 'status': 'active', 'createdRollId': 0}, {'id': 'b17', 'type': 'buy', 'number': 10, 'amount': 20, 'odds': 0, 'status': 'active', 'createdRollId': 0}]。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Buy bets remain working after hits and misses and are removed on 7.」；观测值：afterHit=6, afterMiss=6, after7=0; buyPayout=[{'num': 4, 'stake': 20, 'pair': (2, 2), 'expectedProfit': 39, 'before': 2980, 'after': 3019, 'ok': True}, {'num': 10, 'stake': 20, 'pair': (4, 6), 'expectedProfit': 39, 'before': 2980, 'after': 3019, 'ok': True}, {'num': 6, 'stake': 20, 'pair': (3, 3), 'expectedProfit': 23, 'before': 2980, 'after': 3003, 'ok': True}, {'num': 8, 'stake': 20, 'pair': (4, 4), 'expectedProfit': 23, 'before': 2980, 'after': 3003, 'ok': True}]。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pass Line wins on come-out 7 or 11 and returns to come_out.」；观测值：[((3, 4), 1010, 'come_out'), ((5, 6), 1010, 'come_out')]。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pass Line loses on come-out 2, 3, or 12 and remains in come_out.」；观测值：[((1, 1), 990, 'come_out'), ((1, 2), 990, 'come_out'), ((6, 6), 990, 'come_out')]。"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pass Line establishes table point 4 when a come-out roll is 4.」；观测值：state={'ready': True, 'variant': 'production', 'machineState': 'resolved', 'tablePhase': 'point', 'point': 4, 'balance': 990, 'selectedChip': 5, 'locked': False, 'canRoll': True, 'rollId': 1, 'lastRoll': {'rollId': 1, 'die1': 2, 'die2': 2, 'total': 4, 'timestamp': 1512.7999999523163}, 'history': [{'rollId': 1, 'die1': 2, 'die2': 2, 'total': 4, 'timestamp': 1512.7999999523163}], 'activeBets': [{'id': 'b27', 'type': 'pass', 'number': None, 'amount': 10, 'odds': 0, 'status': 'active', 'createdRollId': 0}], 'progressive': {'low': {'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'high': {'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'hitall': {'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 176}}, 'settlementLedger': [{'rollId': 1, 'total': 4, 'balanceBefore': 990, 'balanceAfter': 990, 'entries': [], 'timestamp': 1512.7999999523163}], 'dome': {'radius': 0.78, 'floorPulse': 0, 'floorOffset': 0}}。"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「An established Pass point wins when the point repeats and then clears the point.」；观测值：state={'ready': True, 'variant': 'production', 'machineState': 'resolved', 'tablePhase': 'come_out', 'point': None, 'balance': 1010, 'selectedChip': 5, 'locked': False, 'canRoll': True, 'rollId': 2, 'lastRoll': {'rollId': 2, 'die1': 2, 'die2': 2, 'total': 4, 'timestamp': 1527.7999999523163}, 'history': [{'rollId': 1, 'die1': 2, 'die2': 2, 'total': 4, 'timestamp': 1512.7999999523163}, {'rollId': 2, 'die1': 2, 'die2': 2, 'total': 4, 'timestamp': 1527.7999999523163}], 'activeBets': [], 'progressive': {'low': {'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'high': {'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'hitall': {'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 176}}, 'settlementLedger': [{'rollId': 1, 'total': 4, 'balanceBefore': 990, 'balanceAfter': 990, 'entries': [], 'timestamp': 1512.7999999523163}, {'rollId': 2, 'total': 4, 'balanceBefore': 990, 'balanceAfter': 1010, 'entries': [{'betId': 'b27', 'type': 'pass', 'number': None, 'outcome': 'win', 'stake': 10, 'odds': 0, 'credit': 20, 'profit': 10, 'reason': 'pass point made'}], 'timestamp': 1527.7999999523163}], 'dome': {'radius': 0.78, 'floorPulse': 0, 'floorOffset': 0}}。"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「When a point is active, rolling 7 loses Pass and clears the point.」；观测值：state={'ready': True, 'variant': 'production', 'machineState': 'resolved', 'tablePhase': 'come_out', 'point': None, 'balance': 990, 'selectedChip': 5, 'locked': False, 'canRoll': True, 'rollId': 2, 'lastRoll': {'rollId': 2, 'die1': 3, 'die2': 4, 'total': 7, 'timestamp': 1584.3999999761581}, 'history': [{'rollId': 1, 'die1': 2, 'die2': 2, 'total': 4, 'timestamp': 1559}, {'rollId': 2, 'die1': 3, 'die2': 4, 'total': 7, 'timestamp': 1584.3999999761581}], 'activeBets': [], 'progressive': {'low': {'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'high': {'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'hitall': {'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 176}}, 'settlementLedger': [{'rollId': 1, 'total': 4, 'balanceBefore': 990, 'balanceAfter': 990, 'entries': [], 'timestamp': 1559}, {'rollId': 2, 'total': 7, 'balanceBefore': 990, 'balanceAfter': 990, 'entries': [{'betId': 'b28', 'type': 'pass', 'number': None, 'outcome': 'lose', 'stake': 10, 'odds': 0, 'credit': 0, 'profit': -10, 'reason': 'pass seven-out'}], 'timestamp': 1584.3999999761581}], 'dome': {'radius': 0.78, 'floorPulse': 0, 'floorOffset': 0}}。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A pending Come bet moves to its own number on a non-7/11/2/3/12 result.」；观测值：phaseOk=True(comeoutRejected=None), move={'id': 'b29', 'type': 'come', 'number': 5, 'amount': 10, 'odds': 0, 'status': 'established', 'createdRollId': 1}。"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「An established Come bet wins and is removed when its number repeats.」；观测值：established=True(bal=1010), natural=True(bal=1010)。"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「An established Come bet loses and is removed on 7.」；观测值：before={'id': 'b31', 'type': 'come', 'number': 4, 'amount': 10, 'odds': 0, 'status': 'established', 'createdRollId': 1}, afterBalance=990。"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pass Odds are allowed only after the Pass point is established and are capped at 3x the flat bet.」；观测值：before=False, add30=True, over=False, bet={'id': 'b32', 'type': 'pass', 'number': None, 'amount': 10, 'odds': 30, 'status': 'active', 'createdRollId': 0}。"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Come Odds are allowed only after a Come bet is established on a number and are capped at 3x the flat bet.」；观测值：pending=False, add30=True, over=False, bet={'id': 'b33', 'type': 'come', 'number': 5, 'amount': 10, 'odds': 30, 'status': 'established', 'createdRollId': 1}。"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「LOW records only unique hits from 2 through 6 and ignores duplicates.」；观测值：low={'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [2, 3, 4], 'activeBetId': 'b34', 'completedCount': 0, 'payoutMultiplier': 35}。"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「LOW completes once after all targets 2 through 6 are hit, clears its lights, and removes the progressive bet.」；观测值：low={'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [], 'activeBetId': None, 'completedCount': 1, 'payoutMultiplier': 35}。"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「HIGH records only unique hits from 8 through 12 and ignores duplicates.」；观测值：high={'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [8, 9, 10, 11], 'activeBetId': 'b35', 'completedCount': 0, 'payoutMultiplier': 35}。"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「HIGH completes once after all targets 8 through 12 are hit, clears its lights, and removes the progressive bet.」；观测值：high={'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 1, 'payoutMultiplier': 35}。"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「HIT ALL records only unique hits from 2 through 12 excluding 7.」；观测值：hitall={'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [2, 3, 4, 5, 6, 8, 9, 10, 11], 'activeBetId': 'b36', 'completedCount': 0, 'payoutMultiplier': 176}。"
+        },
+        {
+          "id": 46,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「HIT ALL completes once after all ten targets are hit, clears its lights, and removes the progressive bet.」；观测值：hitall={'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 1, 'payoutMultiplier': 176}。"
+        },
+        {
+          "id": 47,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Rolling 7 removes all active Pass, Come, Odds, Place, Buy, and progressive bets.」；观测值：ids=['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7'], after=[], clearRefund=True($2000)。"
+        },
+        {
+          "id": 48,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Rolling 7 clears all LOW, HIGH, and HIT ALL progress lights.」；观测值：progress={'low': {'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'high': {'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 35}, 'hitall': {'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [], 'activeBetId': None, 'completedCount': 0, 'payoutMultiplier': 176}}。"
+        },
+        {
+          "id": 49,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「After every settlement, the final history record exactly matches lastRoll.」；观测值：history=[{'rollId': 1, 'die1': 5, 'die2': 6, 'total': 11, 'timestamp': 6194.5}], last={'rollId': 1, 'die1': 5, 'die2': 6, 'total': 11, 'timestamp': 6194.5}。"
+        },
+        {
+          "id": 50,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Settlement ledger rollId, total, bet entries, and balanceAfter match the live game state.」；观测值：ledger={'rollId': 1, 'total': 11, 'balanceBefore': 990, 'balanceAfter': 1010, 'entries': [{'betId': 'b9', 'type': 'pass', 'number': None, 'outcome': 'win', 'stake': 10, 'odds': 0, 'credit': 20, 'profit': 10, 'reason': 'pass natural'}], 'timestamp': 6194.5}, balance=1010。"
+        },
+        {
+          "id": 51,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The live balance, table phase, last result, and active-bet DOM agree with the live game state.」；观测值：live={'balance': 1010, 'phase': 'COME OUT', 'last': '5 + 6 = 11', 'chips': 0}, stateBalance=1010。"
+        },
+        {
+          "id": 52,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查确认「While rolling, both dice visually show credible three-dimensional tumbling, collision, and settling inside the bubble dome.」。",
+          "image": "ut_images\\good_1_r52_1.png"
+        },
+        {
+          "id": 53,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Every progressive target has a progress light whose data-hit value matches the live progressive state.」；观测值：state={'low': {'key': 'low', 'label': 'LOW', 'targets': [2, 3, 4, 5, 6], 'hits': [2], 'activeBetId': 'b10', 'completedCount': 0, 'payoutMultiplier': 35}, 'high': {'key': 'high', 'label': 'HIGH', 'targets': [8, 9, 10, 11, 12], 'hits': [], 'activeBetId': 'b11', 'completedCount': 0, 'payoutMultiplier': 35}, 'hitall': {'key': 'hitall', 'label': 'HIT ALL', 'targets': [2, 3, 4, 5, 6, 8, 9, 10, 11, 12], 'hits': [2], 'activeBetId': 'b12', 'completedCount': 0, 'payoutMultiplier': 176}}, dom={'low': {'2': {'exists': True, 'hit': 'true'}, '3': {'exists': True, 'hit': 'false'}, '4': {'exists': True, 'hit': 'false'}, '5': {'exists': True, 'hit': 'false'}, '6': {'exists': True, 'hit': 'false'}}, 'high': {'8': {'exists': True, 'hit': 'false'}, '9': {'exists': True, 'hit': 'false'}, '10': {'exists': True, 'hit': 'false'}, '11': {'exists': True, 'hit': 'false'}, '12': {'exists': True, 'hit': 'false'}}, 'hitall': {'2': {'exists': True, 'hit': 'true'}, '3': {'exists': True, 'hit': 'false'}, '4': {'exists': True, 'hit': 'false'}, '5': {'exists': True, 'hit': 'false'}, '6': {'exists': True, 'hit': 'false'}, '8': {'exists': True, 'hit': 'false'}, '9': {'exists': True, 'hit': 'false'}, '10': {'exists': True, 'hit': 'false'}, '11': {'exists': True, 'hit': 'false'}, '12': {'exists': True, 'hit': 'false'}}}。"
+        },
+        {
+          "id": 54,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Every active bet renders a bet-chip-<betId> element with correct type, number, amount, and odds data.」；观测值：state={'id': 'b13', 'type': 'place', 'number': 6, 'amount': 25, 'odds': 0, 'status': 'active', 'createdRollId': 0}, dom={'type': 'place', 'number': '6', 'amount': '25', 'odds': '0', 'visible': True}。"
+        },
+        {
+          "id": 55,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「An established Come bet renders a come-odds-<betId> control and its displayed odds stay synchronized with state.」；观测值：before={'tag': 'BUTTON', 'disabled': False}, added=True, state={'id': 'b14', 'type': 'come', 'number': 5, 'amount': 10, 'odds': 30, 'status': 'established', 'createdRollId': 1}, dom={'betOdds': '30', 'oddsTag': 'BUTTON', 'oddsDisabled': True}。"
+        },
+        {
+          "id": 56,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Both dice DOM position and settlement attributes match the live __dice state.」；观测值：state=[{'id': 1, 'value': 4, 'topFace': 4, 'position': {'x': -0.19991010779647594, 'y': 0.0738602452605033, 'z': 0}, 'rotation': {'x': 0, 'y': 0, 'z': -90}, 'quaternion': {'w': 0.7071067811865476, 'x': 0, 'y': 0, 'z': -0.7071067811865475}, 'linearVelocity': {'x': 0, 'y': 0, 'z': 0}, 'angularVelocity': {'x': 0, 'y': 0, 'z': 0}, 'isSettled': True, 'stableSamples': 8}, {'id': 2, 'value': 2, 'topFace': 2, 'position': {'x': 0.19872804921907034, 'y': 0.06130216394586176, 'z': 0}, 'rotation': {'x': 0, 'y': 0, 'z': 0}, 'quaternion': {'w': 1, 'x': 0, 'y': 0, 'z': 0}, 'linearVelocity': {'x': 0, 'y': 0, 'z': 0}, 'angularVelocity': {'x': 0, 'y': 0, 'z': 0}, 'isSettled': True, 'stableSamples': 8}], dom=[{'id': 'die-1', 'value': 4, 'topFace': 4, 'x': -0.1999, 'y': 0.0739, 'z': 0, 'settled': 'true'}, {'id': 'die-2', 'value': 2, 'topFace': 2, 'x': 0.1987, 'y': 0.0613, 'z': 0, 'settled': 'true'}]。"
+        },
+        {
+          "id": 57,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「When a real ROLL path produces 7 from multiple dice combinations, Place, Buy, and all three progressive bets lose with no stake returned.」；观测值：cases=[{'pair': (1, 6), 'ok': True, 'beforeBalance': 975, 'afterBalance': 975, 'total': 7, 'lossTypes': ['buy', 'place', 'progressive_high', 'progressive_hitall', 'progressive_low']}, {'pair': (2, 5), 'ok': True, 'beforeBalance': 975, 'afterBalance': 975, 'total': 7, 'lossTypes': ['buy', 'place', 'progressive_high', 'progressive_hitall', 'progressive_low']}, {'pair': (3, 4), 'ok': True, 'beforeBalance': 975, 'afterBalance': 975, 'total': 7, 'lossTypes': ['buy', 'place', 'progressive_high', 'progressive_hitall', 'progressive_low']}]。"
+        },
+        {
+          "id": 58,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Given the same initial state and multi-roll sequence, the production ROLL path and deterministic input path produce equivalent settlement results.」；观测值：sequence=((1, 1), (1, 2), (3, 3), (5, 6), (3, 4)), forced={'balance': 980, 'tablePhase': 'come_out', 'point': None, 'last': (3, 4, 7), 'active': [], 'progress': {'low': {'hits': [], 'active': False, 'completed': 0}, 'high': {'hits': [], 'active': False, 'completed': 0}, 'hitall': {'hits': [], 'active': False, 'completed': 0}}, 'ledgers': [{'total': 2, 'balanceBefore': 975, 'balanceAfter': 975, 'entries': []}, {'total': 3, 'balanceBefore': 975, 'balanceAfter': 975, 'entries': []}, {'total': 6, 'balanceBefore': 975, 'balanceAfter': 980, 'entries': [('place', 6, 'win', 5, 0, 5, 5)]}, {'total': 11, 'balanceBefore': 980, 'balanceAfter': 980, 'entries': []}, {'total': 7, 'balanceBefore': 980, 'balanceAfter': 980, 'entries': [('buy', 8, 'lose', 5, 0, 0, -5), ('place', 6, 'lose', 5, 0, 0, -5), ('progressive_high', None, 'lose', 5, 0, 0, -5), ('progressive_hitall', None, 'lose', 5, 0, 0, -5), ('progressive_low', None, 'lose', 5, 0, 0, -5)]}]}, random={'balance': 980, 'tablePhase': 'come_out', 'point': None, 'last': (3, 4, 7), 'active': [], 'progress': {'low': {'hits': [], 'active': False, 'completed': 0}, 'high': {'hits': [], 'active': False, 'completed': 0}, 'hitall': {'hits': [], 'active': False, 'completed': 0}}, 'ledgers': [{'total': 2, 'balanceBefore': 975, 'balanceAfter': 975, 'entries': []}, {'total': 3, 'balanceBefore': 975, 'balanceAfter': 975, 'entries': []}, {'total': 6, 'balanceBefore': 975, 'balanceAfter': 980, 'entries': [('place', 6, 'win', 5, 0, 5, 5)]}, {'total': 11, 'balanceBefore': 980, 'balanceAfter': 980, 'entries': []}, {'total': 7, 'balanceBefore': 980, 'balanceAfter': 980, 'entries': [('buy', 8, 'lose', 5, 0, 0, -5), ('place', 6, 'lose', 5, 0, 0, -5), ('progressive_high', None, 'lose', 5, 0, 0, -5), ('progressive_hitall', None, 'lose', 5, 0, 0, -5), ('progressive_low', None, 'lose', 5, 0, 0, -5)]}]}。"
+        }
+      ],
+      "func_score": {
+        "React and ReactDOM both use major version 19.": 1,
+        "The project includes TypeScript and Vite configuration and uses vite build for the production build.": 1,
+        "The project includes Tailwind CSS and PostCSS configuration and declares all three Tailwind directives in the entry stylesheet.": 1,
+        "The production build contains dist/index.html and at least one JavaScript asset.": 1,
+        "The game root, bubble dome, dice arena, dice, and status displays use the required exact DOM identifiers.": 1,
+        "Chip, bet, progressive, clear-bet, and roll controls use the required exact DOM identifiers and are real buttons.": 1,
+        "All five read-only getState interfaces exist: __contract, __game, __dice, __bets, and __progressives.": 1,
+        "All five read-only state snapshots contain the top-level fields required by the interface contract.": 1,
+        "Every getState call returns a fresh snapshot that cannot mutate the live production state.": 1,
+        "The game state, betting state, and balance DOM display report the same live balance.": 1,
+        "The betting state declares an exact maximum odds multiplier of 3.": 1,
+        "A roll completes in the order rolling, settling, resolved.": 1,
+        "Both dice have non-zero linear or angular velocity while rolling.": 1,
+        "The dome floor pulse or offset changes during a roll.": 1,
+        "A second roll request is rejected while rolling is locked, and rollId increases only once.": 1,
+        "Across eight unforced production rolls, each die stays within 1 through 6 and the outcomes vary.": 1,
+        "After settlement, both dice are marked settled and their linear and angular velocities are zero.": 1,
+        "Across multiple settled outcomes, quaternion-derived top face, dice state, DOM face, and settled result remain consistent.": 1,
+        "After settlement, both dice remain inside the dice arena without visually intersecting each other.": 1,
+        "The 390x844 portrait page has no horizontal overflow.": 1,
+        "ROLL is a native button at least 44x44 pixels and a real click completes one roll.": 1,
+        "All five chip values 1, 5, 10, 25, and 100 can be selected.": 1,
+        "A successful bet immediately deducts the wager amount from balance.": 1,
+        "A bet that exceeds the available balance is rejected without changing balance.": 1,
+        "Independent Place bets can be created on 4, 5, 6, 8, 9, and 10.": 1,
+        "Place bets remain working after hits and misses and are removed on 7.": 1,
+        "Independent Buy bets can be created on 4, 5, 6, 8, 9, and 10.": 1,
+        "Buy bets remain working after hits and misses and are removed on 7.": 1,
+        "Pass Line wins on come-out 7 or 11 and returns to come_out.": 1,
+        "Pass Line loses on come-out 2, 3, or 12 and remains in come_out.": 1,
+        "Pass Line establishes table point 4 when a come-out roll is 4.": 1,
+        "An established Pass point wins when the point repeats and then clears the point.": 1,
+        "When a point is active, rolling 7 loses Pass and clears the point.": 1,
+        "A pending Come bet moves to its own number on a non-7/11/2/3/12 result.": 1,
+        "An established Come bet wins and is removed when its number repeats.": 1,
+        "An established Come bet loses and is removed on 7.": 1,
+        "Pass Odds are allowed only after the Pass point is established and are capped at 3x the flat bet.": 1,
+        "Come Odds are allowed only after a Come bet is established on a number and are capped at 3x the flat bet.": 1,
+        "LOW records only unique hits from 2 through 6 and ignores duplicates.": 1,
+        "LOW completes once after all targets 2 through 6 are hit, clears its lights, and removes the progressive bet.": 1,
+        "HIGH records only unique hits from 8 through 12 and ignores duplicates.": 1,
+        "HIGH completes once after all targets 8 through 12 are hit, clears its lights, and removes the progressive bet.": 1,
+        "HIT ALL records only unique hits from 2 through 12 excluding 7.": 1,
+        "HIT ALL completes once after all ten targets are hit, clears its lights, and removes the progressive bet.": 1,
+        "Rolling 7 removes all active Pass, Come, Odds, Place, Buy, and progressive bets.": 1,
+        "Rolling 7 clears all LOW, HIGH, and HIT ALL progress lights.": 1,
+        "After every settlement, the final history record exactly matches lastRoll.": 1,
+        "Settlement ledger rollId, total, bet entries, and balanceAfter match the live game state.": 1,
+        "The live balance, table phase, last result, and active-bet DOM agree with the live game state.": 1,
+        "Every progressive target has a progress light whose data-hit value matches the live progressive state.": 1,
+        "Every active bet renders a bet-chip-<betId> element with correct type, number, amount, and odds data.": 1,
+        "An established Come bet renders a come-odds-<betId> control and its displayed odds stay synchronized with state.": 1,
+        "Both dice DOM position and settlement attributes match the live __dice state.": 1,
+        "When a real ROLL path produces 7 from multiple dice combinations, Place, Buy, and all three progressive bets lose with no stake returned.": 1,
+        "Given the same initial state and multi-roll sequence, the production ROLL path and deterministic input path produce equivalent settlement results.": 1
+      },
+      "vlm_score": {
+        "The 390x844 portrait view presents a classic commercial Bubble Craps machine.": 1,
+        "The view clearly shows a transparent bubble dome, top-down three-dimensional dice, and a mechanical pulsing floor.": 1,
+        "While rolling, both dice visually show credible three-dimensional tumbling, collision, and settling inside the bubble dome.": 1
+      }
+    }
+  }
+]

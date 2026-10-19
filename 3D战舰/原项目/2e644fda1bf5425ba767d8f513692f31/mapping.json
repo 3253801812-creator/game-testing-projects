@@ -1,0 +1,286 @@
+{
+  "prompt_id": "2e644fda1bf5425ba767d8f513692f31",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "window.__game.getState()",
+    "window.__playerBoard.getState()",
+    "window.__enemyBoard.getState()",
+    "window.__placement.getState()",
+    "window.__aiPlayer.getState()",
+    "window.__effects.getState()",
+    "window.__three.getState()",
+    "window.__scene",
+    "window.__camera",
+    "window.__renderer",
+    "id=game",
+    "id=hud",
+    "id=placementPanel",
+    "id=gameOverModal",
+    "data-testid=status-message",
+    "data-testid=turn-indicator",
+    "data-testid=ship-list",
+    "data-testid=ship-item",
+    "data-testid=orientation-indicator",
+    "data-testid=rotate-btn",
+    "data-testid=confirm-placement",
+    "data-testid=randomize-placement",
+    "data-testid=restart-btn",
+    "data-testid=api-status",
+    "data-testid=player-board-label",
+    "data-testid=enemy-board-label"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "项目采用 React 19、TypeScript、Vite 与 Tailwind CSS 的完整前端工程结构，依赖和构建脚本齐全，并且 npm run build 成功生成可部署的 dist 产物。",
+      "kind": "dom",
+      "how": "检查 package.json、Vite/TypeScript/Tailwind 配置、React 入口与组件目录；从无 node_modules 状态安装依赖并执行 npm run build，确认 dist/index.html 与构建资源存在。"
+    },
+    {
+      "id": 2,
+      "text": "应用通过 React 挂载到 #root，页面包含 canvas#game；源码遵循 React 19 + TypeScript + Vite + Tailwind CSS，最终单文件按原始用户 Prompt 加载 Three.js r128 与 OrbitControls CDN。",
+      "kind": "dom",
+      "how": "检查 React 根节点、canvas#game、真实 Three.js 场景对象以及最终 HTML 的 r128/OrbitControls CDN 加载。"
+    },
+    {
+      "id": 3,
+      "text": "Three.js 场景包含 PerspectiveCamera、WebGLRenderer、AmbientLight、DirectionalLight、两个棋盘 Group、Raycaster 和持续的 requestAnimationFrame 渲染循环。",
+      "kind": "state",
+      "how": "交叉检查源码和 window.__three.getState()，确认相机、渲染器、灯光、两个棋盘组、射线拾取器、frameCount 与 waterTime 持续更新。"
+    },
+    {
+      "id": 4,
+      "text": "双方均使用独立 10×10 棋盘，坐标 A1–J10 与行列互转准确，两个棋盘的攻击和舰船状态互不污染。",
+      "kind": "state",
+      "how": "验证棋盘 size、100 个单元格、坐标正反转换；分别攻击双方棋盘并确认历史和状态隔离。"
+    },
+    {
+      "id": 5,
+      "text": "每方舰队严格包含航母5、战列舰4、巡洋舰3、潜艇3、驱逐舰2，共5艘17格。",
+      "kind": "state",
+      "how": "读取双方棋盘快照，核对舰型、名称、长度、唯一身份和占格总数。"
+    },
+    {
+      "id": 6,
+      "text": "玩家可通过舰船列表拖拽或点击棋盘完成布阵，并能在开始前选择、移动和重新放置舰船。",
+      "kind": "dom",
+      "how": "在真实页面执行拖拽/点击放置，再读取 placement 和 playerBoard 快照确认正式布阵状态变化。"
+    },
+    {
+      "id": 7,
+      "text": "设置阶段支持 R 键或按钮在水平/垂直方向间旋转舰船，旋转后占格、方向和模型保持一致。",
+      "kind": "state",
+      "how": "放置舰船后分别使用 R 键和旋转按钮，检查 orientation、cells 长度与场景舰船方向一致。"
+    },
+    {
+      "id": 8,
+      "text": "越界、重叠、未知舰船和非法参数会被拒绝，失败操作保持原有舰队不变。",
+      "kind": "state",
+      "how": "对合法快照执行多种非法布阵，确认返回明确 reason 且前后棋盘深度相等。"
+    },
+    {
+      "id": 9,
+      "text": "随机布阵每次生成完整合法的五舰17格配置，且多次随机结果具有变化。",
+      "kind": "state",
+      "how": "多次点击随机布阵按钮，验证每次均为完整五舰17格、无重叠、无越界，并确认至少两次布局存在变化。"
+    },
+    {
+      "id": 10,
+      "text": "AI 舰队自动合法随机放置，在未命中前不向玩家、DOM、公开状态或场景可见性泄露坐标。",
+      "kind": "state",
+      "how": "在设置与战斗阶段读取公开 enemyBoard、敌方舰队面板和 Three 场景可见性，确认未公开舰位不会出现在 DOM 或公开状态中。"
+    },
+    {
+      "id": 11,
+      "text": "只有玩家五艘舰船完整放置后才能开始战斗；开战后锁定布阵并由人类先手。",
+      "kind": "state",
+      "how": "在舰队不完整时确认开战按钮不可用；完整五舰后点击确认，验证 phase=playing、turn=human、confirmed=true，且布阵控件被锁定。"
+    },
+    {
+      "id": 12,
+      "text": "游戏严格按人类一次攻击、AI一次攻击的顺序切换，AI思考期间锁定玩家输入，任何并发点击都不能产生额外攻击。",
+      "kind": "state",
+      "how": "玩家攻击后立即连续攻击，验证只有一次记录且 turn=ai/inputLocked；AI完成后仅恢复一次 human 回合。"
+    },
+    {
+      "id": 13,
+      "text": "重复攻击、越界攻击、错误阶段或错误回合攻击均安全拒绝，不消耗回合也不增加历史。",
+      "kind": "state",
+      "how": "覆盖 setup、human、ai、ended 阶段的非法攻击并比较前后攻击计数、turn 和 winner。"
+    },
+    {
+      "id": 14,
+      "text": "一次攻击的结果只由请求棋格在固定棋盘上的真实占用情况决定；攻击过程中不得重定向坐标、伪造结果或暗中移动尚未公开的舰船。",
+      "kind": "state",
+      "how": "使用确定性敌舰布置，先攻击空格再攻击舰格；核对 requested/coordinate、攻击历史、船体 hits，并比较攻击前后全部敌舰占格保持不变。"
+    },
+    {
+      "id": 15,
+      "text": "舰船只有在其全部格子被命中后才击沉；普通命中不会提前减少剩余舰船数，击沉后对应敌舰显形并记录名称。",
+      "kind": "state",
+      "how": "依次攻击长度大于1的舰船，验证前 length-1 次为 hit、剩余数不变，最后一次 sunk、shipsRemaining-1、revealed/meshVisible=true。"
+    },
+    {
+      "id": 16,
+      "text": "击沉敌方全部五艘船后判定玩家胜利并停止 AI；击沉我方全部五艘船后判定 AI 胜利并禁止继续输入。",
+      "kind": "state",
+      "how": "以确定性舰队完成双方终局路径，检查 phase=ended、winner、turn=null、输入锁和终局文案。"
+    },
+    {
+      "id": 17,
+      "text": "重新开始会创建干净的新局：清空攻击、命中、胜负、战报、特效、AI队列、请求和定时器，并回到可布阵状态。",
+      "kind": "state",
+      "how": "在有攻击和AI请求的局中 reset，等待稳定后检查 sessionId 更新、所有历史清空、phase=setup 且无旧异步响应污染。"
+    },
+    {
+      "id": 18,
+      "text": "OpenRouter 请求使用 POST https://openrouter.ai/api/v1/chat/completions、模型 openrouter/horizon-beta、Bearer 鉴权、JSON消息体和合理超时。",
+      "kind": "state",
+      "how": "拦截 fetch，检查 endpoint、method、Authorization、Content-Type、model、messages 和 AbortController 超时。"
+    },
+    {
+      "id": 19,
+      "text": "AI 提示和决策只依赖公开命中、未命中、击沉信息；在公开历史和随机源相同的情况下，更换玩家隐藏舰队不得改变 AI 的下一次决策。",
+      "kind": "state",
+      "how": "检查 lastPrompt 不含密钥或隐藏坐标；运行两套公开历史和随机源相同、玩家隐藏舰队不同的对照局，比较 AI 下一坐标必须一致。"
+    },
+    {
+      "id": 20,
+      "text": "OpenRouter 返回合法坐标时正确解析且不重复攻击；网络失败、非2xx、超时、空文本或非法坐标时回退到未使用坐标。",
+      "kind": "state",
+      "how": "模拟多类响应与失败，检查 chosenCoordinate 合法、未使用、fallbackCount/lastError/source 更新且游戏继续。"
+    },
+    {
+      "id": 21,
+      "text": "AI 具有狩猎与追击逻辑：未命中时选择未使用坐标，命中后优先攻击相邻格，并根据连续命中维持目标模式。",
+      "kind": "state",
+      "how": "通过真实命中与未命中历史触发 AI 决策，验证 mode、targetQueue 与下一坐标符合狩猎/追击规则。"
+    },
+    {
+      "id": 22,
+      "text": "AI 维护独立 10×10 知识棋盘和攻击历史，知识只由实际公开结果更新，两个3格舰船的状态互不混淆。",
+      "kind": "state",
+      "how": "读取 knowledgeBoard/knownHits/knownMisses/sunkShips，逐次AI攻击后核对单格更新和舰船身份。"
+    },
+    {
+      "id": 23,
+      "text": "延迟或过期的 AI 响应在重开、终局或会话变化后不会落地；pending 状态和 waitForIdle 最终收敛。",
+      "kind": "state",
+      "how": "拦截延迟 fetch，在真实页面执行重新开始或进入终局后释放响应，确认新会话不受旧响应影响且 pending 最终收敛。"
+    },
+    {
+      "id": 24,
+      "text": "API 密钥使用占位符并可在运行时配置，页面明确显示 API/回退状态；公开状态、日志与构建产物不得泄露真实密钥。",
+      "kind": "dom",
+      "how": "检查占位符和配置UI；设置测试密钥后扫描 DOM、getState、console 和静态文件，确认没有明文回显。"
+    },
+    {
+      "id": 25,
+      "text": "所有公开 getState 接口返回防御性快照；外部修改返回对象不能改变内部棋盘、AI、放置、效果或 Three.js 运行状态。",
+      "kind": "state",
+      "how": "分别篡改各公开 getState 返回对象，再次读取状态并确认内部值不变。"
+    },
+    {
+      "id": 26,
+      "text": "Ship、GameBoard、AIPlayer 与 BattleshipEngine 构成实际运行的领域逻辑；UI、公开状态与 Three.js 场景必须由同一套真实游戏状态驱动，不维护平行影子状态。",
+      "kind": "state",
+      "how": "将真实 UI 操作后的 DOM、公开棋盘快照、AI 状态和 Three.js 场景对象交叉验证，并静态检查三个领域类由 BattleshipEngine 实例化使用。"
+    },
+    {
+      "id": 27,
+      "text": "OrbitControls 支持环绕和缩放，视角最多到平视且不能进入棋盘下方；拖动镜头不会误触发攻击。",
+      "kind": "state",
+      "how": "真实拖动/滚轮后检查相机变化和 y/polar 限制；比较攻击历史确保手势未开火。"
+    },
+    {
+      "id": 28,
+      "text": "窗口和画布尺寸变化会更新 renderer 尺寸、pixelRatio 和 camera aspect，桌面及窄屏均无横向溢出或关键控件遮挡。",
+      "kind": "dom",
+      "how": "改变 viewport 和容器尺寸，检查 Three 状态、canvas rect、页面 scrollWidth 与关键控件可见性。"
+    },
+    {
+      "id": 29,
+      "text": "水面或环境持续动画，渲染循环保持运行，并限制活动特效数量和像素比以避免明显性能泄漏。",
+      "kind": "state",
+      "how": "观察 frameCount/waterTime 增长；连续攻击后检查活动特效上限，renderer pixelRatio 不超过合理值。"
+    },
+    {
+      "id": 30,
+      "text": "未命中、命中、击沉具有可区分的涟漪/爆炸/弹丸反馈，击沉和终局有额外动画，特效对象会自动清理。",
+      "kind": "state",
+      "how": "分别触发三种结果和终局，检查 effects 类型、数量、生命周期和场景动态对象。"
+    },
+    {
+      "id": 31,
+      "text": "开火、未命中、命中、击沉及胜负具有区分度的浏览器音效；静音或 AudioContext 失败不影响规则结算。",
+      "kind": "state",
+      "how": "启用/静音并触发各结果，检查 lastSound/audioEnabled；模拟音频异常后确认攻击仍结算。"
+    },
+    {
+      "id": 32,
+      "text": "HUD 清楚显示设置/战斗/结束阶段、当前回合、状态消息、重新开始、布阵和开火控件，按钮可用性与真实状态一致。",
+      "kind": "dom",
+      "how": "在三个阶段检查 data-testid 文本、按钮 disabled 状态与 __game 快照一致。"
+    },
+    {
+      "id": 33,
+      "text": "敌方舰队面板显示五艘船的中文名称、受损/击沉状态和剩余数量，普通命中不减少数量，击沉后同步更新。",
+      "kind": "dom",
+      "how": "在未攻击、普通命中、击沉后读取面板和 enemyBoard，核对名称与 shipsRemaining。"
+    },
+    {
+      "id": 34,
+      "text": "战斗日志持久记录双方每次攻击的坐标和命中结果，顺序、数量与双方 attackHistory 完全一致且可滚动回读。",
+      "kind": "state",
+      "how": "执行多回合后比较 battleLog 文本与双方历史，并检查战报容器可见/可滚动。"
+    },
+    {
+      "id": 35,
+      "text": "应用运行过程中没有未捕获异常；非法操作、API故障、音频故障与重开均通过错误处理继续运行。",
+      "kind": "state",
+      "how": "持续收集 console error/pageerror，覆盖异常场景后确认无致命错误且页面仍可操作。"
+    },
+    {
+      "id": 36,
+      "text": "源码按 React 组件和 TypeScript 领域模块组织，Ship、GameBoard、AIPlayer、BattleshipEngine 职责清晰并包含关键注释。",
+      "kind": "dom",
+      "how": "检查 src/components、src/game、类型声明、类定义、实例化和关键模块注释，而非把全部逻辑堆在单文件。"
+    },
+    {
+      "id": 37,
+      "text": "除 Three.js/OrbitControls CDN 与浏览器访问 OpenRouter 外不存在业务服务器、WebSocket、数据库或持久化密钥依赖，最终单文件可直接打开或由普通静态服务器部署。",
+      "kind": "dom",
+      "how": "检查资源请求仅允许 Three.js/OrbitControls CDN 与 OpenRouter，且不存在其他业务后端依赖。"
+    },
+    {
+      "id": 38,
+      "text": "默认画面呈现两个清晰独立的3D海洋棋盘、可辨识舰船、网格和具有纵深的海战环境。",
+      "kind": "vlm",
+      "how": "截图判断双棋盘、海面、舰船、网格、灯光与3D层次是否清晰。"
+    },
+    {
+      "id": 39,
+      "text": "布阵界面直观展示五种舰船和方向，玩家舰船在确认前可见且易于拖拽/选择，敌舰保持隐藏。",
+      "kind": "vlm",
+      "how": "设置阶段截图判断舰船列表、实体舰船、方向/确认控件和敌方隐藏是否直观。"
+    },
+    {
+      "id": 40,
+      "text": "未命中、命中和击沉的视觉反馈明显不同，弹丸、爆炸/涟漪和沉船动画具有可读性且不遮挡操作。",
+      "kind": "vlm",
+      "how": "准备三种攻击结果截图，判断反馈层级、位置和可读性。"
+    },
+    {
+      "id": 41,
+      "text": "终局界面明确显示“你赢了”或“AI赢了”、重新开始按钮和具有完成感的胜负动画。",
+      "kind": "vlm",
+      "how": "终局截图判断胜负文案、按钮和动画是否清楚且完整。"
+    },
+    {
+      "id": 42,
+      "text": "整体UI达到演示版质量，中文信息层级清楚，在桌面和窄屏下布局响应良好、无明显裁切或素材复用感。",
+      "kind": "vlm",
+      "how": "分别检查桌面与窄屏截图的布局、字号、面板、画布和视觉一致性。"
+    }
+  ]
+}

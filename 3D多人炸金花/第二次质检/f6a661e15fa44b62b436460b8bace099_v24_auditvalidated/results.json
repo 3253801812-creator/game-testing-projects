@@ -1,0 +1,1881 @@
+{
+  "prompt_id": "f6a661e15fa44b62b436460b8bace099",
+  "game_type": "3d",
+  "samples": {
+    "good_1": {
+      "repo": "good_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：root=True, canvas=True, zjhHook=True, sceneHook=True, localViteModuleScripts=1, gameReady=True, sceneReady=True, bodyTextLen=155。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeThreeRevision='128', packageThree='0.128.0', renderer={'ready': True, 'type': 'WebGLRenderer'}, webgl=True, drawDelta=14。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：react='19.1.1', reactDom='19.1.1', three='0.128.0', vite='6.1.0', typescript='5.9.2', tailwind='3.4.17', buildScript='tsc --noEmit -p tsconfig.json && vite build --config vite.config.ts', tsFiles=7, reactCreateRoot=True, tailwindEntry=True, indexHtml=True, viteModuleEntry=True, moduleTarget='src\\\\main.tsx', externalModelFiles=[]；真实发牌后的运行时外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：before={'cw': 768, 'ch': 480, 'w': 1280, 'h': 800}, after={'cw': 622, 'ch': 414, 'w': 1037, 'h': 691}, cameraBefore={'type': 'PerspectiveCamera', 'fov': 42, 'near': 0.1, 'far': 100, 'aspect': 1.6, 'position': {'x': 0, 'y': 10.3, 'z': 9.15}, 'target': {'x': 0, 'y': 0, 'z': 0}}, cameraAfter={'type': 'PerspectiveCamera', 'fov': 42, 'near': 0.1, 'far': 100, 'aspect': 1.5007235890014472, 'position': {'x': 0, 'y': 10.3, 'z': 9.15}, 'target': {'x': 0, 'y': 0, 'z': 0}}, viewportFit=True, expectedAspect=1.501, aspectOK=True。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：在真实发牌后的 player_turn 稳定可玩状态测量；同一浏览器空白页 RAF 基线 60.6 FPS，主 WebGL 59.0 FPS，要求至少 48.5 FPS；最长帧间隔 18.4ms（允许 90.0ms），长帧占比 0.000。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 camera.type=PerspectiveCamera, fov/near/far=(42,0.1,100)；透视矩阵 instrumentation 次数=3，instrumentation 未命中时生产可达源码+真实 WebGL 绘制交叉补证=False。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 AmbientLight 存在且强度=0.78，当前采样 drawCalls=8、同页 R2 实测 drawDelta=14；实际使用环境光 shader 的 instrumentation 次数=4，漏采时生产可达 AmbientLight+受光材质补证=False。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cameraMoved=True, targetCentered=True, controlsAccessible=True；拖拽后真实发牌投影仍保持真人在下/电脑在上=True（playerMeanY=319.94661908616985, computerMeanY=147.89817222479388, deckScreen=(384.0, 230.85119386452305)）。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时桌面 color=#006400, roughness=0.93，真实中央桌面深绿像素采样=True；roughness shader instrumentation 次数=12，漏采时生产可达粗糙材质补证=False。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvas={'width': 768, 'height': 480}, deckScreen=(384.0, 229.56009618747746), playerScreen=[(314.2691301328785, 325.60169733882464), (384.0, 332.45691257176156), (453.7308698671215, 325.60169733882464)], computerScreen=[(330.20715386427423, 145.1719863532993), (384.0, 140.20147619995083), (437.79284613572577, 145.1719863532993)], playerMeanY=327.9, computerMeanY=143.5, deckCentered=True, realCanvasRegionChange=({'ok': True, 'changedRatio': 0.27466977466977466, 'meanDelta': 24.125097125097124, 'samples': 2574, 'region': [0.18, 0.48, 0.82, 0.9]},{'ok': True, 'changedRatio': 0.11258012820512821, 'meanDelta': 11.199385683760683, 'samples': 2496, 'region': [0.18, 0.08, 0.82, 0.5]})。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行中的 6 张牌有 6/6 张同时匹配真实 rank、suit、owner 与 Three.js transform；WebGL 资源创建数=75，纹理上传=14，其中程序化纹理上传=14；外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：count=6, idsUnique=6, facesUnique=6, legal=True, liveDeckRemaining=46, expectedRemainingAfterSix=46。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：phase=player_turn, turn=player, playerCards=3, computerCards=3, playerLooked=False, playerHidden=True, computerHidden=True。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：6 张真实发牌中满足多帧位移轨迹要求的数量=6/6；牌堆起点可用=True，真人区域与电脑区域在发牌前后都观察到真实画布变化=True；生产源码存在 LERP/等价线性插值=True（src\\royal\\scene.ts）。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：controls={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, manualComputerButtons=[]。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：waitingDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerCan={'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerDisabled={'deal': True, 'peek': False, 'call': False, 'raise': False, 'fold': False, 'compare': False}, computerBoundary=computer_turn, computerDisabled={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, roundOverPhase=round_over, roundOverDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌点击成功=True，6 张牌 ID 保持不变=True；真人已看牌且只有真人 3 张牌翻开=True；奖池、双方筹码和行动方均未改变=True；独立牌型=单张，状态牌型=单张。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：frames=24, rotationSpans={'royal-1-H-8': 3.1479524140446213, 'royal-1-C-7': 3.141592653589793, 'royal-1-C-2': 3.1479524140446213}, fanMetrics={'zRotationSpread': (0.10294680449701799, 0.24), 'finalCurvature': 0.14000000000000012}, flipMultiFrame=True, fanTransition=True, playerRenderChange={'ok': True, 'changedRatio': 0.18551367331855137, 'meanDelta': 12.559127864005912, 'samples': 2706, 'region': [0.16, 0.48, 0.84, 0.9]}, cardIds=['royal-1-H-8', 'royal-1-C-7', 'royal-1-C-2']。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cards=[{'id': 'royal-1-H-8', 'suit': 'H', 'rank': '8', 'faceUp': True}, {'id': 'royal-1-C-7', 'suit': 'C', 'rank': '7', 'faceUp': True}, {'id': 'royal-1-C-2', 'suit': 'C', 'rank': '2', 'faceUp': True}], expectedType=单张, stateType='单张', domType='单张'。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际执行牌型函数=gradeRoyalHand；六类固定牌测试全部正确=True，函数真实参与 handType 生成=True；本局独立计算牌型=单张，状态牌型=单张；规则探针异常=None。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：固定六类牌型顺序探针=全部正确；比较函数是否真实驱动 showdown=True；真实比牌独立结果=1，页面最终 winner=player；规则探针异常=None。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：六类同牌型高低固定牌测试=全部正确；同点数不同花色比较结果=0（0 表示平局）；真实 showdown 路径=True，真实比牌独立结果=1。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：evaluatorEdgeOK=True, compareEdges={'A23<234': -1, 'QKA>JQK': 1}, handTypeCausal=True, showdownCausal=True, ruleProbeUnavailable=False。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerAnte=20.0, computerAnte=20.0, pot=40.0, playerRoundBet=20, computerRoundBet=20。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：跟注前需补 20.0，同步点击边界观察到真人筹码减少 20.0、真人 roundBet 增加 20.0、奖池增加 20.0；同一边界电脑筹码变化 0.0，阶段=computer_turn。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：targetBet=40.0->60.0, roundBetBefore=40.0, amountDue=20.0, boundaryPhase=computer_turn, playerChipDelta=20.0, playerRoundBetDelta=20.0, computerChipDeltaAtBoundary=0.0, immediatePotDelta=20.0。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：potBefore=120.0, computerGain=120.0, winner=computer, outcome=fold, potAfter=0, settlementStable=True。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：双方真实三张牌的独立比较结果=1，预期 winner=player，页面实际 winner=player；结算类型=compare，奖池从 40.0 归零为 0，双方筹码加奖池总价值从 2000.0 到 2000.0，胜者与派彩均正确=True。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cardIds=['royal-3-C-6', 'royal-3-H-7', 'royal-3-S-5', 'royal-3-C-4', 'royal-3-D-3', 'royal-3-D-5'], movingCards=6/6, finalFaceUp=6/6, compareOwner=6/6, centralCards=6/6, sampledFrames=34, centerRenderChange={'ok': True, 'changedRatio': 0.27775208140610547, 'meanDelta': 38.40201973481344, 'samples': 4324, 'region': [0.12, 0.18, 0.88, 0.78]}。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：humanAction=call, observedBoundaryPhase=computer_turn, observedBoundaryTurn=computer, finalPhase=player_turn, finalTurn=player；未点击任何电脑控件。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：电脑决策探针模式=replay，可重放随机序列=True；已观察到牌力变化会改变行动倾向=True，下注压力变化会改变行动倾向=True；自然观察局数=0。所有证据均来自真实 Deal/Call/Raise 与电脑自动行动。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：已观察到电脑真实下注动作=call；电脑 chips、roundBet 与 pot 的投入增量是否一致=True。弃牌或比牌不会作为本项空通过证据。"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerStateTurn=player, playerDomTurn='真人玩家', computerStateTurn=computer, computerDomTurn='电脑玩家'；只检查运行时 DOM，不扫描源码词。"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerTurnForcedActionsStateStable=True, roundOverIllegalActionsStateStable=True。"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：真人 Fold 快速双击只结算一次=True；Call 后电脑回合强制重复/非法动作保持状态不变=True；potBefore=40.0, winner=computer, outcome=fold。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldConservation=True, compareConservation=True, foldTotal=2000.0->2000.0, compareTotal=2000.0->2000.0。"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldScoreOK=True, compareExpected=1, compareScoreDelta=(1.0,0.0), compareScoreOK=True, scoreStableAfterSettlement=True。"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：局号从 2 进入 3；累计计分保留=True，筹码按上一局余额扣除新底注后连续=True；新一局 6 张牌 ID 合法=True，看牌/弃牌/胜负/下注状态均已重置=True。"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待、发牌后、下注后、结算后四个阶段的 HUD 数值均与真实状态逐项一致=True；四阶段覆盖了不同 phase=True。"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌前真人牌面不泄露=True、牌型不泄露=True，电脑牌在 DOM 中保持隐藏=True；看牌后真人 3 张真实牌全部准确显示=True，页面牌型='顺子'，独立计算牌型=顺子。"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 DOM 能分别识别等待=True、真人回合=True、电脑回合=True、弃牌结算=True、比牌过程=True、淘汰终局=True；状态文案至少形成 4 个不同结果，真人/电脑行动方文案发生真实切换=True。"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：Call/Raise 分别采样 115/115 帧，缺失筹码 ID 数 0/0；真人连续飞入奖池=True（有效采样 46），电脑连续飞入奖池=True（有效采样 46）；Call/Raise 真人同步奖池增量分别为 20.0/20.0。"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：普通弃牌结算观察到真实 winner=computer 且状态区域计算样式发生颜色变化=True；淘汰终局观察到真实 winner=computer 且计算样式发生颜色变化=True。"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：通过正常 UI 推进 24 局后到达 phase=eliminated、outcome=elimination，winner=computer，双方筹码为 0.0/2000.0；终局 Deal 禁用=True，强制点击后状态保持不变=True；源码结构是否证明双方都能进入真实淘汰结算=True（探针可用=True）。"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：normalizedSamples=5, paths=['fold', 'peek+fold+fold', 'raise+fold', 'compare'], activeSeries=[38, 38, 38, 38, 38], webglNetSeries=[65, 65, 65, 65, 65], webglSteps=[0, 0, 0, 0], repeatedGrowth=False, rafPendingSeries=[1, 1, 1, 1, 1], rafPeakSeries=[9, 9, 9, 10, 10], roundsExercised=4。"
+        },
+        {
+          "id": 46,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；画面清晰呈现绿色绒布质感的牌桌，牌桌中央摆放有未翻开的牌堆，上方电脑的暗牌区与下方真人的手牌区对向分布，二者的空间前后层次区分清晰。",
+          "image": "ut_images/good_1_r46_1.png"
+        },
+        {
+          "id": 47,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；六类核心按钮的“发牌、看牌、跟注、加注、弃牌、比牌”标签全部完整清晰可读，AFTER中的交互按钮拥有明确的抬升浮起的阴影深度效果，没有遮挡相邻按钮的文字和状态信息，半透明界面层次表现分明。",
+          "image": "ut_images/good_1_r47_4.png"
+        },
+        {
+          "id": 48,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；三张可见牌分别为梅花6、红桃7、黑桃5，点数与花色都能从牌面纹理清楚辨识，牌体也具备轻微曲面的3D实体感。",
+          "image": "ut_images/good_1_r48_2.png"
+        },
+        {
+          "id": 49,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；玩家的三张正面3D牌面点数花色清晰可辨，双方筹码、奖池数值、当前的牌型行动状态提示、底部所有操作区的控件与对应信息都清晰无异常可读。",
+          "image": "ut_images/good_1_r49_3.png"
+        },
+        {
+          "id": 50,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待状态接口纯读=True，真实发牌后接口纯读=True；未发现 setter、状态突变或可控制牌局的公开测试能力。"
+        },
+        {
+          "id": 51,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerCards=[{'id': 'royal-3-C-4', 'suit': 'C', 'rank': '4', 'faceUp': True}, {'id': 'royal-3-D-3', 'suit': 'D', 'rank': '3', 'faceUp': True}, {'id': 'royal-3-D-5', 'suit': 'D', 'rank': '5', 'faceUp': True}], independentType=顺子, stateHandType=顺子。"
+        }
+      ],
+      "func_score": {
+        "Vite 生产构建能够加载为可交互页面且不存在阻止游戏运行的致命脚本错误。": 1,
+        "主游戏场景实际使用 Three.js r128 的 WebGLRenderer 持续渲染。": 1,
+        "工程采用 React 19 + TypeScript + Vite + Tailwind CSS，并使用 Three.js r128，且不依赖外部 3D 模型。": 1,
+        "Three.js 画布在窗口尺寸变化后会同步更新绘制尺寸和透视相机宽高比。": 1,
+        "正常可玩状态下主渲染循环达到接近当前浏览器基线的 60FPS 目标。": 1,
+        "活动场景使用透视相机观察牌桌。": 1,
+        "活动场景包含实际参与牌桌照明的环境光。": 1,
+        "OrbitControls 能轻量微调视角，操作后仍保持真人下方、电脑上方和中央牌桌可玩构图。": 1,
+        "牌桌使用接近 #006400 的绿色绒布外观并具有粗糙材质属性。": 1,
+        "牌堆位于牌桌中央，真人区域在画面下方，电脑区域在画面上方对坐。": 1,
+        "运行中的 3D 扑克牌与真实 rank/suit 一致，由 Three.js 场景实时生成且不依赖外部 3D 模型。": 1,
+        "每局使用一副无大小王的 52 张标准牌，实际发出的 6 张牌合法且不重复。": 1,
+        "发牌完成后真人与电脑双方都恰好获得 3 张牌，电脑手牌保持隐藏，真人在看牌前保持未看牌状态。": 1,
+        "发牌动画中每张牌会从中央牌堆沿多帧路径平滑飞入对应玩家区域。": 1,
+        "底部界面提供发牌、看牌、跟注、加注、弃牌和比牌六类真人操作控件，且不存在要求用户替电脑行动的控件。": 1,
+        "真人操作权限会随牌局阶段和当前行动方正确启用或禁用。": 1,
+        "看牌只翻开真人自己的 3 张牌并显示真实牌型，不会改变牌、筹码、奖池或行动归属。": 1,
+        "看牌过程包含真实的多帧翻转与扇形展开动画。": 1,
+        "当前真人牌型显示与三张真实牌按炸金花规则独立计算的结果一致。": 1,
+        "牌型判定实现覆盖豹子、同花顺、金花、顺子、对子和单张六种类型。": 1,
+        "不同牌型比较严格遵循 豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。": 1,
+        "相同牌型时按真实点数结构正确比较大小，且不使用花色决定胜负。": 1,
+        "顺子边界按 A-2-3 最小、Q-K-A 最大处理。": 1,
+        "新一局开始时双方投入相同正数基础注，筹码真实扣除并形成对应初始奖池。": 1,
+        "真人跟注会补齐当前需要承担的下注，并把同额筹码真实移入奖池。": 1,
+        "真人加注会把有效注额提高到更高合法值，并把新增投入真实计入筹码和奖池。": 1,
+        "真人弃牌会立即结束当前局，由电脑获得奖池，并且结算只发生一次。": 1,
+        "真人发起比牌后，胜负由双方真实三张牌按独立炸金花比较器决定。": 1,
+        "比牌时双方 3 张牌会移动至牌桌中央并翻至可见后再完成结算展示。": 1,
+        "真人完成一个会把行动权交给电脑的有效下注动作后，电脑会无需用户点击而自动执行合法行动。": 1,
+        "电脑决策会同时参考真实牌力和当前下注情况，而不是所有局固定执行同一种动作。": 1,
+        "电脑下注类自动行动会按实际投入同步更新电脑筹码、roundBet 与奖池。": 1,
+        "当前行动方在真人与电脑之间正确流转，并与界面显示一致。": 1,
+        "非真人回合或本局已结束时点击下注、弃牌、比牌不会改变筹码、奖池、牌或计分。": 1,
+        "真人操作具备重复输入保护，同一次行动不会被快速连点处理两次。": 1,
+        "任一正常结算前后双方筹码与未结算奖池满足总价值守恒，且不出现负筹码。": 1,
+        "计分系统在每局结算时只给获胜方增加一次，并与 winner 一致。": 1,
+        "开始下一局会保留累计筹码和计分，并重置本局手牌、看牌、弃牌、胜负与下注状态。": 1,
+        "界面实时显示当前注额、奖池、双方剩余筹码和累计得分，并与真实状态一致。": 1,
+        "真人手牌和牌型显示遵循看牌状态：未看牌时不泄露牌面，看牌后显示真实三张牌与牌型；电脑牌在比牌前保持隐藏。": 1,
+        "界面实时显示当前行动方和游戏状态，并能区分等待、弃牌结算、比牌结算和胜利/淘汰结果。": 1,
+        "真人或电脑发生下注时，可观察到筹码从对应玩家区域沿多帧路径飞入中央奖池。": 1,
+        "胜利结算和淘汰终局都会产生明确的颜色视觉反馈。": 1,
+        "筹码耗尽时不会继续产生负筹码，并进入可观察的淘汰或最终胜利状态。": 1,
+        "重复多局后主 RAF、关键事件监听器和 WebGL 资源不会持续无界累积。": 1,
+        "公开只读状态接口不得改变游戏或场景，也不得暴露可控制发牌、牌、筹码、行动、结算或动画的测试能力。": 1,
+        "电脑手牌在比牌/结算揭示后，其 handType 与真实三张牌的独立牌型判定一致。": 1
+      },
+      "vlm_score": {
+        "整体画面呈现绿色绒布牌桌，中央牌堆、上方电脑和下方真人的空间层次清晰。": 1,
+        "底部操作区具有玻璃态层次，六类核心按钮标签完整可读；悬停核心按钮时按钮位置或阴影相对未悬停状态发生可见变化，且不会遮挡相邻按钮或状态信息。": 1,
+        "3D 扑克牌牌面能清楚识别花色与点数，并具有轻微弯曲的实体感。": 1,
+        "在看牌后的典型可玩画面中，牌面、双方筹码、奖池、当前行动/状态和底部操作区均保持可辨认，不存在导致关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。": 1
+      }
+    },
+    "bad_1": {
+      "repo": "bad_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：root=True, canvas=True, zjhHook=True, sceneHook=True, localViteModuleScripts=0, gameReady=True, sceneReady=True, bodyTextLen=208。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeThreeRevision='128', packageThree='0.128.0', renderer={'ready': True, 'type': 'WebGLRenderer'}, webgl=True, drawDelta=66。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：react='19.1.1', reactDom='19.1.1', three='0.128.0', vite='6.1.0', typescript='5.9.2', tailwind='3.4.17', buildScript='tsc --noEmit -p tsconfig.json && vite build --config vite.config.ts', tsFiles=8, reactCreateRoot=True, tailwindEntry=True, indexHtml=True, viteModuleEntry=False, moduleTarget='', externalModelFiles=[]；真实发牌后的运行时外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：before={'cw': 1280, 'ch': 800, 'w': 1280, 'h': 800}, after={'cw': 1037, 'ch': 691, 'w': 1037, 'h': 691}, cameraBefore={'type': 'PerspectiveCamera', 'fov': 42, 'near': 0.1, 'far': 100, 'aspect': 1.6, 'position': {'x': 0, 'y': 9.4, 'z': 9.1}, 'target': {'x': 0, 'y': 0.15, 'z': 0}}, cameraAfter={'type': 'PerspectiveCamera', 'fov': 42, 'near': 0.1, 'far': 100, 'aspect': 1.5007235890014472, 'position': {'x': 0, 'y': 9.4, 'z': 9.1}, 'target': {'x': 0, 'y': 0.15, 'z': 0}}, viewportFit=True, expectedAspect=1.501, aspectOK=True。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：在真实发牌后的 player_turn 稳定可玩状态测量；同一浏览器空白页 RAF 基线 53.3 FPS，主 WebGL 31.5 FPS，要求至少 42.7 FPS；最长帧间隔 87.8ms（允许 90.0ms），长帧占比 0.486。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 camera.type=PerspectiveCamera, fov/near/far=(42,0.1,100)；透视矩阵 instrumentation 次数=4，instrumentation 未命中时生产可达源码+真实 WebGL 绘制交叉补证=False。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 AmbientLight 存在且强度=1.25，当前采样 drawCalls=66、同页 R2 实测 drawDelta=66；实际使用环境光 shader 的 instrumentation 次数=9，漏采时生产可达 AmbientLight+受光材质补证=False。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cameraMoved=True, targetCentered=True, controlsAccessible=True；拖拽后真实发牌投影仍保持真人在下/电脑在上=True（playerMeanY=576.2785606322778, computerMeanY=242.53941476906206, deckScreen=(639.9999999999999, 389.56302283323834)）。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时桌面 color=#006400, roughness=0.92，真实中央桌面深绿像素采样=True；roughness shader instrumentation 次数=12，漏采时生产可达粗糙材质补证=False。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvas={'width': 1280, 'height': 800}, deckScreen=(640.0, 388.0350292552308), playerScreen=[(517.0486129898417, 576.2351589192351), (640.0, 592.9500653784668), (762.9513870101583, 576.2351589192351)], computerScreen=[(549.7287678055291, 247.85654831039548), (640.0, 237.34850183546774), (730.2712321944709, 247.85654831039548)], playerMeanY=581.8, computerMeanY=244.4, deckCentered=True, realCanvasRegionChange=({'ok': True, 'changedRatio': 0.21717171717171718, 'meanDelta': 10.011266511266511, 'samples': 2574, 'region': [0.18, 0.48, 0.82, 0.9]},{'ok': True, 'changedRatio': 0.08253205128205128, 'meanDelta': 4.63261217948718, 'samples': 2496, 'region': [0.18, 0.08, 0.82, 0.5]})。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行中的 6 张牌有 6/6 张同时匹配真实 rank、suit、owner 与 Three.js transform；WebGL 资源创建数=197，纹理上传=18，其中程序化纹理上传=17；外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：count=6, idsUnique=6, facesUnique=6, legal=True, liveDeckRemaining=46, expectedRemainingAfterSix=46。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：phase=player_turn, turn=player, playerCards=3, computerCards=3, playerLooked=False, playerHidden=True, computerHidden=True。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：6 张真实发牌中满足多帧位移轨迹要求的数量=6/6；牌堆起点可用=True，真人区域与电脑区域在发牌前后都观察到真实画布变化=True；生产源码存在 LERP/等价线性插值=True（src\\emerald\\world.ts）。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：controls={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, manualComputerButtons=[]。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：waitingDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerCan={'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerDisabled={'deal': True, 'peek': False, 'call': False, 'raise': False, 'fold': False, 'compare': False}, computerBoundary=computer_turn, computerDisabled={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, roundOverPhase=round_over, roundOverDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌点击成功=True，6 张牌 ID 保持不变=True；真人已看牌且只有真人 3 张牌翻开=True；奖池、双方筹码和行动方均未改变=True；独立牌型=单张，状态牌型=单张。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：frames=24, rotationSpans={'zjh-1-C-J': 3.1438836494198314, 'zjh-1-C-6': 3.141592653589793, 'zjh-1-D-10': 3.1438836494198314}, fanMetrics={'zRotationSpread': (0.002509825245302308, 0.24), 'finalCurvature': 0.18000000000000016}, flipMultiFrame=True, fanTransition=True, playerRenderChange={'ok': True, 'changedRatio': 0.2039911308203991, 'meanDelta': 8.55789603350579, 'samples': 2706, 'region': [0.16, 0.48, 0.84, 0.9]}, cardIds=['zjh-1-C-J', 'zjh-1-C-6', 'zjh-1-D-10']。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cards=[{'id': 'zjh-1-C-J', 'rank': 'J', 'suit': 'C', 'faceUp': True}, {'id': 'zjh-1-C-6', 'rank': '6', 'suit': 'C', 'faceUp': True}, {'id': 'zjh-1-D-10', 'rank': '10', 'suit': 'D', 'faceUp': True}], expectedType=单张, stateType='单张', domType='单张 · 已看牌'。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际执行牌型函数=evaluateHand；六类固定牌测试全部正确=True，函数真实参与 handType 生成=True；本局独立计算牌型=单张，状态牌型=单张；规则探针异常=None。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：固定六类牌型顺序探针=全部正确；比较函数是否真实驱动 showdown=True；真实比牌独立结果=-1，页面最终 winner=computer；规则探针异常=None。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：六类同牌型高低固定牌测试=全部正确；同点数不同花色比较结果=0（0 表示平局）；真实 showdown 路径=True，真实比牌独立结果=-1。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：evaluatorEdgeOK=False, compareEdges={'A23<234': -1, 'QKA>JQK': 1}, handTypeCausal=True, showdownCausal=True, ruleProbeUnavailable=False。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerAnte=20.0, computerAnte=20.0, pot=40.0, playerRoundBet=20, computerRoundBet=20。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：跟注前需补 20.0，同步点击边界观察到真人筹码减少 20.0、真人 roundBet 增加 20.0、奖池增加 20.0；同一边界电脑筹码变化 0.0，阶段=computer_turn。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：targetBet=40.0->60.0, roundBetBefore=40.0, amountDue=20.0, boundaryPhase=computer_turn, playerChipDelta=20.0, playerRoundBetDelta=20.0, computerChipDeltaAtBoundary=0.0, immediatePotDelta=20.0。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：potBefore=40.0, computerGain=40.0, winner=computer, outcome=fold, potAfter=0, settlementStable=True。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：双方真实三张牌的独立比较结果=-1，预期 winner=computer，页面实际 winner=computer；结算类型=compare，奖池从 40.0 归零为 0，双方筹码加奖池总价值从 2000.0 到 2000.0，胜者与派彩均正确=True。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cardIds=['zjh-4-S-9', 'zjh-4-S-K', 'zjh-4-D-J', 'zjh-4-S-6', 'zjh-4-S-J', 'zjh-4-C-6'], movingCards=6/6, finalFaceUp=6/6, compareOwner=6/6, centralCards=6/6, sampledFrames=34, centerRenderChange={'ok': True, 'changedRatio': 0.2314986123959297, 'meanDelta': 17.92345050878816, 'samples': 4324, 'region': [0.12, 0.18, 0.88, 0.78]}。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：humanAction=call, observedBoundaryPhase=computer_turn, observedBoundaryTurn=computer, finalPhase=player_turn, finalTurn=player；未点击任何电脑控件。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：电脑决策探针模式=observational，可重放随机序列=False；已观察到牌力变化会改变行动倾向=True，下注压力变化会改变行动倾向=True；自然观察局数=5。所有证据均来自真实 Deal/Call/Raise 与电脑自动行动。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：已观察到电脑真实下注动作=call；电脑 chips、roundBet 与 pot 的投入增量是否一致=True。弃牌或比牌不会作为本项空通过证据。"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerStateTurn=player, playerDomTurn='真人玩家', computerStateTurn=computer, computerDomTurn='电脑玩家'；只检查运行时 DOM，不扫描源码词。"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerTurnForcedActionsStateStable=True, roundOverIllegalActionsStateStable=True。"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：真人 Fold 快速双击只结算一次=True；Call 后电脑回合强制重复/非法动作保持状态不变=True；potBefore=40.0, winner=computer, outcome=fold。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldConservation=True, compareConservation=True, foldTotal=2000.0->2000.0, compareTotal=2000.0->2000.0。"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldScoreOK=True, compareExpected=-1, compareScoreDelta=(0.0,1.0), compareScoreOK=True, scoreStableAfterSettlement=True。"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：局号从 3 进入 4；累计计分保留=True，筹码按上一局余额扣除新底注后连续=True；新一局 6 张牌 ID 合法=True，看牌/弃牌/胜负/下注状态均已重置=True。"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待、发牌后、下注后、结算后四个阶段的 HUD 数值均与真实状态逐项一致=True；四阶段覆盖了不同 phase=True。"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌前真人牌面不泄露=True、牌型不泄露=True，电脑牌在 DOM 中保持隐藏=True；看牌后真人 3 张真实牌全部准确显示=True，页面牌型='单张 · 已看牌'，独立计算牌型=单张。"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 DOM 能分别识别等待=True、真人回合=True、电脑回合=True、弃牌结算=True、比牌过程=True、淘汰终局=True；状态文案至少形成 4 个不同结果，真人/电脑行动方文案发生真实切换=True。"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：Call/Raise 分别采样 53/47 帧，缺失筹码 ID 数 0/0；真人连续飞入奖池=False（有效采样 0），电脑连续飞入奖池=False（有效采样 0）；Call/Raise 真人同步奖池增量分别为 20.0/20.0。"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：普通弃牌结算观察到真实 winner=computer 且状态区域计算样式发生颜色变化=True；淘汰终局观察到真实 winner=computer 且计算样式发生颜色变化=True。"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：通过正常 UI 推进 24 局后到达 phase=eliminated、outcome=elimination，winner=computer，双方筹码为 0.0/2000.0；终局 Deal 禁用=True，强制点击后状态保持不变=True；源码结构是否证明双方都能进入真实淘汰结算=True（探针可用=True）。"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：normalizedSamples=5, paths=['fold', 'peek+fold+fold', 'raise+fold', 'compare'], activeSeries=[13, 13, 13, 13, 13], webglNetSeries=[189, 189, 189, 189, 189], webglSteps=[0, 0, 0, 0], repeatedGrowth=False, rafPendingSeries=[1, 0, 0, 0, 0], rafPeakSeries=[3, 3, 3, 3, 3], roundsExercised=4。"
+        },
+        {
+          "id": 46,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；截图画面呈现了绿色绒布质感的椭圆形牌桌，桌面中央设有背面朝上的牌，牌桌上方是电脑方的暗牌区域、下方是真人玩家的手牌区域，二者对坐布局的空间层次清晰可辨。",
+          "image": "ut_images/bad_1_r46_1.png"
+        },
+        {
+          "id": 47,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；六类核心按钮（发牌、看牌、跟注、加注、弃牌、比牌）的所有文字与附带状态标识均完整清晰可读，AFTER中被悬停的加注按钮带有明显的亮金边突出抬升视觉效果，没有对相邻按钮的内容和状态信息产生任何遮挡。",
+          "image": "ut_images/bad_1_r47_4.png"
+        },
+        {
+          "id": 48,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO；实际渲染的三张3D扑克牌里，最左侧牌的牌面被半透明状态栏完全遮挡，无法辨识其点数与花色，剩余两张也仅边角露出极少量标识，不能从牌面纹理完整清晰辨认全部三张牌的点数与花色。",
+          "image": "ut_images/bad_1_r48_2.png"
+        },
+        {
+          "id": 49,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO；玩家的三张真实3D牌面被中间的半透明深色遮罩大幅遮挡，仅露出极小部分边角，无法清晰完整地辨识3D牌面内容，仅靠文字提示展示牌值，不符合要求。",
+          "image": "ut_images/bad_1_r49_3.png"
+        },
+        {
+          "id": 50,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待状态接口纯读=True，真实发牌后接口纯读=True；未发现 setter、状态突变或可控制牌局的公开测试能力。"
+        },
+        {
+          "id": 51,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerCards=[{'id': 'zjh-4-S-6', 'rank': '6', 'suit': 'S', 'faceUp': True}, {'id': 'zjh-4-S-J', 'rank': 'J', 'suit': 'S', 'faceUp': True}, {'id': 'zjh-4-C-6', 'rank': '6', 'suit': 'C', 'faceUp': True}], independentType=对子, stateHandType=对子。"
+        }
+      ],
+      "func_score": {
+        "Vite 生产构建能够加载为可交互页面且不存在阻止游戏运行的致命脚本错误。": 0,
+        "主游戏场景实际使用 Three.js r128 的 WebGLRenderer 持续渲染。": 1,
+        "工程采用 React 19 + TypeScript + Vite + Tailwind CSS，并使用 Three.js r128，且不依赖外部 3D 模型。": 0,
+        "Three.js 画布在窗口尺寸变化后会同步更新绘制尺寸和透视相机宽高比。": 1,
+        "正常可玩状态下主渲染循环达到接近当前浏览器基线的 60FPS 目标。": 0,
+        "活动场景使用透视相机观察牌桌。": 1,
+        "活动场景包含实际参与牌桌照明的环境光。": 1,
+        "OrbitControls 能轻量微调视角，操作后仍保持真人下方、电脑上方和中央牌桌可玩构图。": 1,
+        "牌桌使用接近 #006400 的绿色绒布外观并具有粗糙材质属性。": 1,
+        "牌堆位于牌桌中央，真人区域在画面下方，电脑区域在画面上方对坐。": 1,
+        "运行中的 3D 扑克牌与真实 rank/suit 一致，由 Three.js 场景实时生成且不依赖外部 3D 模型。": 1,
+        "每局使用一副无大小王的 52 张标准牌，实际发出的 6 张牌合法且不重复。": 1,
+        "发牌完成后真人与电脑双方都恰好获得 3 张牌，电脑手牌保持隐藏，真人在看牌前保持未看牌状态。": 1,
+        "发牌动画中每张牌会从中央牌堆沿多帧路径平滑飞入对应玩家区域。": 1,
+        "底部界面提供发牌、看牌、跟注、加注、弃牌和比牌六类真人操作控件，且不存在要求用户替电脑行动的控件。": 1,
+        "真人操作权限会随牌局阶段和当前行动方正确启用或禁用。": 1,
+        "看牌只翻开真人自己的 3 张牌并显示真实牌型，不会改变牌、筹码、奖池或行动归属。": 1,
+        "看牌过程包含真实的多帧翻转与扇形展开动画。": 1,
+        "当前真人牌型显示与三张真实牌按炸金花规则独立计算的结果一致。": 1,
+        "牌型判定实现覆盖豹子、同花顺、金花、顺子、对子和单张六种类型。": 1,
+        "不同牌型比较严格遵循 豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。": 1,
+        "相同牌型时按真实点数结构正确比较大小，且不使用花色决定胜负。": 1,
+        "顺子边界按 A-2-3 最小、Q-K-A 最大处理。": 0,
+        "新一局开始时双方投入相同正数基础注，筹码真实扣除并形成对应初始奖池。": 1,
+        "真人跟注会补齐当前需要承担的下注，并把同额筹码真实移入奖池。": 1,
+        "真人加注会把有效注额提高到更高合法值，并把新增投入真实计入筹码和奖池。": 1,
+        "真人弃牌会立即结束当前局，由电脑获得奖池，并且结算只发生一次。": 1,
+        "真人发起比牌后，胜负由双方真实三张牌按独立炸金花比较器决定。": 1,
+        "比牌时双方 3 张牌会移动至牌桌中央并翻至可见后再完成结算展示。": 1,
+        "真人完成一个会把行动权交给电脑的有效下注动作后，电脑会无需用户点击而自动执行合法行动。": 1,
+        "电脑决策会同时参考真实牌力和当前下注情况，而不是所有局固定执行同一种动作。": 1,
+        "电脑下注类自动行动会按实际投入同步更新电脑筹码、roundBet 与奖池。": 1,
+        "当前行动方在真人与电脑之间正确流转，并与界面显示一致。": 1,
+        "非真人回合或本局已结束时点击下注、弃牌、比牌不会改变筹码、奖池、牌或计分。": 1,
+        "真人操作具备重复输入保护，同一次行动不会被快速连点处理两次。": 1,
+        "任一正常结算前后双方筹码与未结算奖池满足总价值守恒，且不出现负筹码。": 1,
+        "计分系统在每局结算时只给获胜方增加一次，并与 winner 一致。": 1,
+        "开始下一局会保留累计筹码和计分，并重置本局手牌、看牌、弃牌、胜负与下注状态。": 1,
+        "界面实时显示当前注额、奖池、双方剩余筹码和累计得分，并与真实状态一致。": 1,
+        "真人手牌和牌型显示遵循看牌状态：未看牌时不泄露牌面，看牌后显示真实三张牌与牌型；电脑牌在比牌前保持隐藏。": 1,
+        "界面实时显示当前行动方和游戏状态，并能区分等待、弃牌结算、比牌结算和胜利/淘汰结果。": 1,
+        "真人或电脑发生下注时，可观察到筹码从对应玩家区域沿多帧路径飞入中央奖池。": 0,
+        "胜利结算和淘汰终局都会产生明确的颜色视觉反馈。": 1,
+        "筹码耗尽时不会继续产生负筹码，并进入可观察的淘汰或最终胜利状态。": 1,
+        "重复多局后主 RAF、关键事件监听器和 WebGL 资源不会持续无界累积。": 1,
+        "公开只读状态接口不得改变游戏或场景，也不得暴露可控制发牌、牌、筹码、行动、结算或动画的测试能力。": 1,
+        "电脑手牌在比牌/结算揭示后，其 handType 与真实三张牌的独立牌型判定一致。": 1
+      },
+      "vlm_score": {
+        "整体画面呈现绿色绒布牌桌，中央牌堆、上方电脑和下方真人的空间层次清晰。": 1,
+        "底部操作区具有玻璃态层次，六类核心按钮标签完整可读；悬停核心按钮时按钮位置或阴影相对未悬停状态发生可见变化，且不会遮挡相邻按钮或状态信息。": 1,
+        "3D 扑克牌牌面能清楚识别花色与点数，并具有轻微弯曲的实体感。": 0,
+        "在看牌后的典型可玩画面中，牌面、双方筹码、奖池、当前行动/状态和底部操作区均保持可辨认，不存在导致关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。": 0
+      }
+    },
+    "bad_2": {
+      "repo": "bad_2",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：root=True, canvas=True, zjhHook=True, sceneHook=True, localViteModuleScripts=0, gameReady=True, sceneReady=True, bodyTextLen=372。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeThreeRevision='128', packageThree='0.128.0', renderer={'ready': True, 'type': 'WebGLRenderer'}, webgl=True, drawDelta=19。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：react='19.1.1', reactDom='19.1.1', three='0.128.0', vite='6.1.0', typescript='5.9.2', tailwind='3.4.17', buildScript='tsc --noEmit -p tsconfig.json && vite build --config vite.config.ts', tsFiles=7, reactCreateRoot=True, tailwindEntry=True, indexHtml=True, viteModuleEntry=False, moduleTarget='', externalModelFiles=[]；真实发牌后的运行时外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：before={'cw': 921, 'ch': 576, 'w': 1280, 'h': 800}, after={'cw': 746, 'ch': 497, 'w': 1037, 'h': 691}, cameraBefore={'type': 'PerspectiveCamera', 'fov': 48, 'near': 0.1, 'far': 100, 'aspect': 1.6, 'position': {'x': 0, 'y': 18.2, 'z': 22.8}, 'target': {'x': 0, 'y': 0.45, 'z': 0}}, cameraAfter={'type': 'PerspectiveCamera', 'fov': 48, 'near': 0.1, 'far': 100, 'aspect': 1.5007235890014472, 'position': {'x': 0, 'y': 18.2, 'z': 22.8}, 'target': {'x': 0, 'y': 0.45, 'z': 0}}, viewportFit=True, expectedAspect=1.501, aspectOK=True。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：在真实发牌后的 player_turn 稳定可玩状态测量；同一浏览器空白页 RAF 基线 12.8 FPS，主 WebGL 12.4 FPS，要求至少 12.0 FPS；最长帧间隔 93.5ms（允许 150.1ms），长帧占比 0.000。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 camera.type=PerspectiveCamera, fov/near/far=(48,0.1,100)；透视矩阵 instrumentation 次数=0，instrumentation 未命中时生产可达源码+真实 WebGL 绘制交叉补证=True。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 AmbientLight 存在且强度=0.92，当前采样 drawCalls=0、同页 R2 实测 drawDelta=19；实际使用环境光 shader 的 instrumentation 次数=0，漏采时生产可达 AmbientLight+受光材质补证=True。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cameraMoved=True, targetCentered=True, controlsAccessible=True；拖拽后真实发牌投影仍保持真人在下/电脑在上=True（playerMeanY=338.56775175877505, computerMeanY=233.7673339061903, deckScreen=(460.5, 282.345209847665)）。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时桌面 color=#006400, roughness=0.91，真实中央桌面深绿像素采样=True；roughness shader instrumentation 次数=0，漏采时生产可达粗糙材质补证=True。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvas={'width': 921, 'height': 576}, deckScreen=(460.5, 281.7709740008234), playerScreen=[(423.6161776108212, 333.37389401280416), (460.5, 335.8547585439734), (497.3838223891788, 333.37389401280416)], computerScreen=[(430.01499869473895, 238.1372814367754), (460.5, 235.86197759828465), (490.9850013052611, 238.1372814367754)], playerMeanY=334.2, computerMeanY=237.4, deckCentered=True, realCanvasRegionChange=({'ok': True, 'changedRatio': 0.0707070707070707, 'meanDelta': 2.4401709401709404, 'samples': 2574, 'region': [0.18, 0.48, 0.82, 0.9]},{'ok': True, 'changedRatio': 0.015224358974358974, 'meanDelta': 0.7040598290598291, 'samples': 2496, 'region': [0.18, 0.08, 0.82, 0.5]})。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行中的 6 张牌有 6/6 张同时匹配真实 rank、suit、owner 与 Three.js transform；WebGL 资源创建数=172，纹理上传=16，其中程序化纹理上传=16；外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：count=6, idsUnique=6, facesUnique=6, legal=True, liveDeckRemaining=46, expectedRemainingAfterSix=46。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：phase=player_turn, turn=player, playerCards=3, computerCards=3, playerLooked=False, playerHidden=True, computerHidden=True。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：6 张真实发牌中满足多帧位移轨迹要求的数量=6/6；牌堆起点可用=True，真人区域与电脑区域在发牌前后都观察到真实画布变化=True；生产源码存在 LERP/等价线性插值=True（src\\private\\scene.ts）。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：controls={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, manualComputerButtons=[]。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：waitingDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerCan={'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerDisabled={'deal': True, 'peek': False, 'call': False, 'raise': False, 'fold': False, 'compare': False}, computerBoundary=computer_turn, computerDisabled={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, roundOverPhase=round_over, roundOverDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌点击成功=True，6 张牌 ID 保持不变=True；真人已看牌且只有真人 3 张牌翻开=True；奖池、双方筹码和行动方均未改变=True；独立牌型=单张，状态牌型=单张。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：frames=24, rotationSpans={'zjh-1-C-2': 0.0, 'zjh-1-S-Q': 0.0, 'zjh-1-H-6': 0.0}, fanMetrics={'zRotationSpread': (0.24, 0.24), 'finalCurvature': 0.18000000000000016}, flipMultiFrame=False, fanTransition=True, playerRenderChange={'ok': True, 'changedRatio': 0.028824833702882482, 'meanDelta': 0.8677014042867701, 'samples': 2706, 'region': [0.16, 0.48, 0.84, 0.9]}, cardIds=['zjh-1-C-2', 'zjh-1-S-Q', 'zjh-1-H-6']。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cards=[{'id': 'zjh-1-C-2', 'rank': '2', 'suit': 'C', 'faceUp': True}, {'id': 'zjh-1-S-Q', 'rank': 'Q', 'suit': 'S', 'faceUp': True}, {'id': 'zjh-1-H-6', 'rank': '6', 'suit': 'H', 'faceUp': True}], expectedType=单张, stateType='单张', domType='单张 · 已看牌'。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际执行牌型函数=evaluateHand；六类固定牌测试全部正确=True，函数真实参与 handType 生成=True；本局独立计算牌型=单张，状态牌型=单张；规则探针异常=None。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：固定六类牌型顺序探针=全部正确；比较函数是否真实驱动 showdown=True；真实比牌独立结果=1，页面最终 winner=player；规则探针异常=None。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：六类同牌型高低固定牌测试=全部正确；同点数不同花色比较结果=0（0 表示平局）；真实 showdown 路径=True，真实比牌独立结果=1。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：evaluatorEdgeOK=False, compareEdges={'A23<234': -1, 'QKA>JQK': 1}, handTypeCausal=True, showdownCausal=True, ruleProbeUnavailable=False。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerAnte=20.0, computerAnte=20.0, pot=40.0, playerRoundBet=20, computerRoundBet=20。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：跟注前需补 20.0，同步点击边界观察到真人筹码减少 20.0、真人 roundBet 增加 20.0、奖池增加 20.0；同一边界电脑筹码变化 0.0，阶段=computer_turn。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：targetBet=40.0->60.0, roundBetBefore=40.0, amountDue=20.0, boundaryPhase=computer_turn, playerChipDelta=20.0, playerRoundBetDelta=20.0, computerChipDeltaAtBoundary=0.0, immediatePotDelta=20.0。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：potBefore=120.0, computerGain=120.0, winner=computer, outcome=fold, potAfter=0, settlementStable=True。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：双方真实三张牌的独立比较结果=1，预期 winner=player，页面实际 winner=player；结算类型=compare，奖池从 40.0 归零为 0，双方筹码加奖池总价值从 2000.0 到 2000.0，胜者与派彩均正确=True。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cardIds=['zjh-3-S-A', 'zjh-3-D-K', 'zjh-3-C-9', 'zjh-3-D-10', 'zjh-3-H-6', 'zjh-3-H-5'], movingCards=6/6, finalFaceUp=6/6, compareOwner=6/6, centralCards=6/6, sampledFrames=34, centerRenderChange={'ok': True, 'changedRatio': 0.036077705827937095, 'meanDelta': 1.8808202281837805, 'samples': 4324, 'region': [0.12, 0.18, 0.88, 0.78]}。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：humanAction=call, observedBoundaryPhase=computer_turn, observedBoundaryTurn=computer, finalPhase=player_turn, finalTurn=player；未点击任何电脑控件。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：电脑决策探针模式=replay，可重放随机序列=True；已观察到牌力变化会改变行动倾向=True，下注压力变化会改变行动倾向=True；自然观察局数=0。所有证据均来自真实 Deal/Call/Raise 与电脑自动行动。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：已观察到电脑真实下注动作=call；电脑 chips、roundBet 与 pot 的投入增量是否一致=True。弃牌或比牌不会作为本项空通过证据。"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerStateTurn=player, playerDomTurn='真人玩家', computerStateTurn=computer, computerDomTurn='电脑玩家'；只检查运行时 DOM，不扫描源码词。"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerTurnForcedActionsStateStable=True, roundOverIllegalActionsStateStable=True。"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：真人 Fold 快速双击只结算一次=True；Call 后电脑回合强制重复/非法动作保持状态不变=True；potBefore=40.0, winner=computer, outcome=fold。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldConservation=True, compareConservation=True, foldTotal=2000.0->2000.0, compareTotal=2000.0->2000.0。"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldScoreOK=True, compareExpected=1, compareScoreDelta=(1.0,0.0), compareScoreOK=True, scoreStableAfterSettlement=True。"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：局号从 2 进入 3；累计计分保留=True，筹码按上一局余额扣除新底注后连续=True；新一局 6 张牌 ID 合法=True，看牌/弃牌/胜负/下注状态均已重置=True。"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待、发牌后、下注后、结算后四个阶段的 HUD 数值均与真实状态逐项一致=True；四阶段覆盖了不同 phase=True。"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌前真人牌面不泄露=True、牌型不泄露=True，电脑牌在 DOM 中保持隐藏=True；看牌后真人 3 张真实牌全部准确显示=True，页面牌型='单张 · 已看牌'，独立计算牌型=单张。"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 DOM 能分别识别等待=True、真人回合=True、电脑回合=True、弃牌结算=True、比牌过程=True、淘汰终局=True；状态文案至少形成 4 个不同结果，真人/电脑行动方文案发生真实切换=True。"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：Call/Raise 分别采样 36/39 帧，缺失筹码 ID 数 0/0；真人连续飞入奖池=True（有效采样 11），电脑连续飞入奖池=True（有效采样 12）；Call/Raise 真人同步奖池增量分别为 20.0/20.0。"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：普通弃牌结算观察到真实 winner=computer 且状态区域计算样式发生颜色变化=False；淘汰终局观察到真实 winner=computer 且计算样式发生颜色变化=False。"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：通过正常 UI 推进 25 局后到达 phase=eliminated、outcome=elimination，winner=computer，双方筹码为 0.0/2000.0；终局 Deal 禁用=True，强制点击后状态保持不变=True；源码结构是否证明双方都能进入真实淘汰结算=True（探针可用=True）。"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：normalizedSamples=5, paths=['fold', 'peek+fold+fold', 'raise+fold', 'compare'], activeSeries=[13, 13, 13, 13, 13], webglNetSeries=[164, 164, 164, 164, 164], webglSteps=[0, 0, 0, 0], repeatedGrowth=False, rafPendingSeries=[1, 1, 1, 1, 1], rafPeakSeries=[3, 3, 3, 3, 3], roundsExercised=4。"
+        },
+        {
+          "id": 46,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；画面呈现出绿色绒布质感的牌桌，桌台区域设有牌堆，上方为电脑牌区、下方为真人牌区呈对坐布局，空间层次清晰可辨。",
+          "image": "ut_images/bad_2_r46_1.png"
+        },
+        {
+          "id": 47,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；六类核心按钮（发牌、看牌、跟注、加注、弃牌、比牌）的标签全部完整可读，AFTER中被悬停的加注按钮呈现出清楚的抬升浮起与高亮外阴影变化，没有遮挡相邻按钮或任何状态信息。",
+          "image": "ut_images/bad_2_r47_4.png"
+        },
+        {
+          "id": 48,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO；画面中所有可见的3D扑克牌牌面都泛白模糊，没有任何一张牌的点数与花色可以从牌面纹理清楚辨识，不符合要求。",
+          "image": "ut_images/bad_2_r48_2.png"
+        },
+        {
+          "id": 49,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO；当前牌桌上的所有3D卡牌均为未翻开的空白占位状态，没有可清晰辨识内容的真实3D可读牌面，不满足全部要求要素都清晰可辨的条件。",
+          "image": "ut_images/bad_2_r49_3.png"
+        },
+        {
+          "id": 50,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待状态接口纯读=True，真实发牌后接口纯读=True；未发现 setter、状态突变或可控制牌局的公开测试能力。"
+        },
+        {
+          "id": 51,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerCards=[{'id': 'zjh-3-D-10', 'rank': '10', 'suit': 'D', 'faceUp': True}, {'id': 'zjh-3-H-6', 'rank': '6', 'suit': 'H', 'faceUp': True}, {'id': 'zjh-3-H-5', 'rank': '5', 'suit': 'H', 'faceUp': True}], independentType=单张, stateHandType=单张。"
+        }
+      ],
+      "func_score": {
+        "Vite 生产构建能够加载为可交互页面且不存在阻止游戏运行的致命脚本错误。": 0,
+        "主游戏场景实际使用 Three.js r128 的 WebGLRenderer 持续渲染。": 1,
+        "工程采用 React 19 + TypeScript + Vite + Tailwind CSS，并使用 Three.js r128，且不依赖外部 3D 模型。": 0,
+        "Three.js 画布在窗口尺寸变化后会同步更新绘制尺寸和透视相机宽高比。": 1,
+        "正常可玩状态下主渲染循环达到接近当前浏览器基线的 60FPS 目标。": 1,
+        "活动场景使用透视相机观察牌桌。": 1,
+        "活动场景包含实际参与牌桌照明的环境光。": 1,
+        "OrbitControls 能轻量微调视角，操作后仍保持真人下方、电脑上方和中央牌桌可玩构图。": 1,
+        "牌桌使用接近 #006400 的绿色绒布外观并具有粗糙材质属性。": 1,
+        "牌堆位于牌桌中央，真人区域在画面下方，电脑区域在画面上方对坐。": 1,
+        "运行中的 3D 扑克牌与真实 rank/suit 一致，由 Three.js 场景实时生成且不依赖外部 3D 模型。": 1,
+        "每局使用一副无大小王的 52 张标准牌，实际发出的 6 张牌合法且不重复。": 1,
+        "发牌完成后真人与电脑双方都恰好获得 3 张牌，电脑手牌保持隐藏，真人在看牌前保持未看牌状态。": 1,
+        "发牌动画中每张牌会从中央牌堆沿多帧路径平滑飞入对应玩家区域。": 1,
+        "底部界面提供发牌、看牌、跟注、加注、弃牌和比牌六类真人操作控件，且不存在要求用户替电脑行动的控件。": 1,
+        "真人操作权限会随牌局阶段和当前行动方正确启用或禁用。": 1,
+        "看牌只翻开真人自己的 3 张牌并显示真实牌型，不会改变牌、筹码、奖池或行动归属。": 1,
+        "看牌过程包含真实的多帧翻转与扇形展开动画。": 0,
+        "当前真人牌型显示与三张真实牌按炸金花规则独立计算的结果一致。": 1,
+        "牌型判定实现覆盖豹子、同花顺、金花、顺子、对子和单张六种类型。": 1,
+        "不同牌型比较严格遵循 豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。": 1,
+        "相同牌型时按真实点数结构正确比较大小，且不使用花色决定胜负。": 1,
+        "顺子边界按 A-2-3 最小、Q-K-A 最大处理。": 0,
+        "新一局开始时双方投入相同正数基础注，筹码真实扣除并形成对应初始奖池。": 1,
+        "真人跟注会补齐当前需要承担的下注，并把同额筹码真实移入奖池。": 1,
+        "真人加注会把有效注额提高到更高合法值，并把新增投入真实计入筹码和奖池。": 1,
+        "真人弃牌会立即结束当前局，由电脑获得奖池，并且结算只发生一次。": 1,
+        "真人发起比牌后，胜负由双方真实三张牌按独立炸金花比较器决定。": 1,
+        "比牌时双方 3 张牌会移动至牌桌中央并翻至可见后再完成结算展示。": 1,
+        "真人完成一个会把行动权交给电脑的有效下注动作后，电脑会无需用户点击而自动执行合法行动。": 1,
+        "电脑决策会同时参考真实牌力和当前下注情况，而不是所有局固定执行同一种动作。": 1,
+        "电脑下注类自动行动会按实际投入同步更新电脑筹码、roundBet 与奖池。": 1,
+        "当前行动方在真人与电脑之间正确流转，并与界面显示一致。": 1,
+        "非真人回合或本局已结束时点击下注、弃牌、比牌不会改变筹码、奖池、牌或计分。": 1,
+        "真人操作具备重复输入保护，同一次行动不会被快速连点处理两次。": 1,
+        "任一正常结算前后双方筹码与未结算奖池满足总价值守恒，且不出现负筹码。": 1,
+        "计分系统在每局结算时只给获胜方增加一次，并与 winner 一致。": 1,
+        "开始下一局会保留累计筹码和计分，并重置本局手牌、看牌、弃牌、胜负与下注状态。": 1,
+        "界面实时显示当前注额、奖池、双方剩余筹码和累计得分，并与真实状态一致。": 1,
+        "真人手牌和牌型显示遵循看牌状态：未看牌时不泄露牌面，看牌后显示真实三张牌与牌型；电脑牌在比牌前保持隐藏。": 1,
+        "界面实时显示当前行动方和游戏状态，并能区分等待、弃牌结算、比牌结算和胜利/淘汰结果。": 1,
+        "真人或电脑发生下注时，可观察到筹码从对应玩家区域沿多帧路径飞入中央奖池。": 1,
+        "胜利结算和淘汰终局都会产生明确的颜色视觉反馈。": 0,
+        "筹码耗尽时不会继续产生负筹码，并进入可观察的淘汰或最终胜利状态。": 1,
+        "重复多局后主 RAF、关键事件监听器和 WebGL 资源不会持续无界累积。": 1,
+        "公开只读状态接口不得改变游戏或场景，也不得暴露可控制发牌、牌、筹码、行动、结算或动画的测试能力。": 1,
+        "电脑手牌在比牌/结算揭示后，其 handType 与真实三张牌的独立牌型判定一致。": 1
+      },
+      "vlm_score": {
+        "整体画面呈现绿色绒布牌桌，中央牌堆、上方电脑和下方真人的空间层次清晰。": 1,
+        "底部操作区具有玻璃态层次，六类核心按钮标签完整可读；悬停核心按钮时按钮位置或阴影相对未悬停状态发生可见变化，且不会遮挡相邻按钮或状态信息。": 1,
+        "3D 扑克牌牌面能清楚识别花色与点数，并具有轻微弯曲的实体感。": 0,
+        "在看牌后的典型可玩画面中，牌面、双方筹码、奖池、当前行动/状态和底部操作区均保持可辨认，不存在导致关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。": 0
+      }
+    },
+    "bad_3": {
+      "repo": "bad_3",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：root=True, canvas=True, zjhHook=True, sceneHook=True, localViteModuleScripts=0, gameReady=True, sceneReady=True, bodyTextLen=238。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeThreeRevision='128', packageThree='0.128.0', renderer={'ready': True, 'type': 'WebGLRenderer'}, webgl=True, drawDelta=160。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：react='19.1.1', reactDom='19.1.1', three='0.128.0', vite='6.1.0', typescript='5.9.2', tailwind='3.4.17', buildScript='tsc --noEmit -p tsconfig.json && vite build --config vite.config.ts', tsFiles=7, reactCreateRoot=True, tailwindEntry=True, indexHtml=True, viteModuleEntry=False, moduleTarget='', externalModelFiles=[]；真实发牌后的运行时外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：before={'cw': 921, 'ch': 576, 'w': 1280, 'h': 800}, after={'cw': 746, 'ch': 497, 'w': 1037, 'h': 691}, cameraBefore={'type': 'PerspectiveCamera', 'fov': 38, 'near': 0.1, 'far': 100, 'aspect': 1.6, 'position': {'x': 0, 'y': 9.45, 'z': 10.899999999999999}, 'target': {'x': 0, 'y': 0.2, 'z': 0.1}}, cameraAfter={'type': 'PerspectiveCamera', 'fov': 38, 'near': 0.1, 'far': 100, 'aspect': 1.5007235890014472, 'position': {'x': 0, 'y': 9.45, 'z': 10.899999999999999}, 'target': {'x': 0, 'y': 0.2, 'z': 0.1}}, viewportFit=True, expectedAspect=1.501, aspectOK=True。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：在真实发牌后的 player_turn 稳定可玩状态测量；同一浏览器空白页 RAF 基线 41.2 FPS，主 WebGL 38.4 FPS，要求至少 33.0 FPS；最长帧间隔 28.9ms（允许 90.0ms），长帧占比 0.000。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 camera.type=PerspectiveCamera, fov/near/far=(38,0.1,100)；透视矩阵 instrumentation 次数=4，instrumentation 未命中时生产可达源码+真实 WebGL 绘制交叉补证=False。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 AmbientLight 存在且强度=0.7，当前采样 drawCalls=96、同页 R2 实测 drawDelta=160；实际使用环境光 shader 的 instrumentation 次数=6，漏采时生产可达 AmbientLight+受光材质补证=False。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cameraMoved=True, targetCentered=True, controlsAccessible=True；拖拽后真实发牌投影仍保持真人在下/电脑在上=True（playerMeanY=398.6858983933499, computerMeanY=175.5628327845749, deckScreen=(457.45757416748694, 274.35070690690696)）。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时桌面 color=#006400, roughness=0.94，真实中央桌面深绿像素采样=True；roughness shader instrumentation 次数=12，漏采时生产可达粗糙材质补证=False。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvas={'width': 921, 'height': 576}, deckScreen=(460.5, 272.91319024583987), playerScreen=[(366.81411496878485, 398.80420788267344), (460.5, 408.50559326280046), (554.1858850312152, 398.80420788267344)], computerScreen=[(391.7198782858734, 178.90496416022316), (460.5, 172.42827489876652), (529.2801217141266, 178.90496416022316)], playerMeanY=402.0, computerMeanY=176.7, deckCentered=True, realCanvasRegionChange=({'ok': True, 'changedRatio': 0.20357420357420358, 'meanDelta': 9.12950012950013, 'samples': 2574, 'region': [0.18, 0.48, 0.82, 0.9]},{'ok': True, 'changedRatio': 0.08493589743589744, 'meanDelta': 3.7295673076923075, 'samples': 2496, 'region': [0.18, 0.08, 0.82, 0.5]})。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行中的 6 张牌有 6/6 张同时匹配真实 rank、suit、owner 与 Three.js transform；WebGL 资源创建数=238，纹理上传=15，其中程序化纹理上传=15；外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：count=6, idsUnique=6, facesUnique=6, legal=True, liveDeckRemaining=46, expectedRemainingAfterSix=46。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：phase=player_turn, turn=player, playerCards=3, computerCards=3, playerLooked=False, playerHidden=True, computerHidden=True。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：6 张真实发牌中满足多帧位移轨迹要求的数量=6/6；牌堆起点可用=True，真人区域与电脑区域在发牌前后都观察到真实画布变化=True；生产源码存在 LERP/等价线性插值=True（src\\minimal\\view.ts）。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：controls={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, manualComputerButtons=[]。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：waitingDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerCan={'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerDisabled={'deal': True, 'peek': False, 'call': False, 'raise': False, 'fold': False, 'compare': False}, computerBoundary=computer_turn, computerDisabled={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, roundOverPhase=round_over, roundOverDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌点击成功=True，6 张牌 ID 保持不变=True；真人已看牌且只有真人 3 张牌翻开=True；奖池、双方筹码和行动方均未改变=True；独立牌型=金花，状态牌型=金花。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：frames=24, rotationSpans={'zjh-1-H-4': 3.1438836494198314, 'zjh-1-H-10': 3.141592653589793, 'zjh-1-H-6': 3.1438836494198314}, fanMetrics={'zRotationSpread': (0.0030962955232852383, 0.24), 'finalCurvature': 0.18000000000000016}, flipMultiFrame=True, fanTransition=True, playerRenderChange={'ok': True, 'changedRatio': 0.21249076127124908, 'meanDelta': 10.117516629711751, 'samples': 2706, 'region': [0.16, 0.48, 0.84, 0.9]}, cardIds=['zjh-1-H-4', 'zjh-1-H-10', 'zjh-1-H-6']。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cards=[{'id': 'zjh-1-H-4', 'rank': '4', 'suit': 'H', 'faceUp': True}, {'id': 'zjh-1-H-10', 'rank': '10', 'suit': 'H', 'faceUp': True}, {'id': 'zjh-1-H-6', 'rank': '6', 'suit': 'H', 'faceUp': True}], expectedType=金花, stateType='金花', domType='金花 · 已看牌'。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际执行牌型函数=evaluateHand；六类固定牌测试全部正确=True，函数真实参与 handType 生成=True；本局独立计算牌型=金花，状态牌型=金花；规则探针异常=None。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：固定六类牌型顺序探针=全部正确；比较函数是否真实驱动 showdown=True；真实比牌独立结果=1，页面最终 winner=player；规则探针异常=None。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：六类同牌型高低固定牌测试=全部正确；同点数不同花色比较结果=0（0 表示平局）；真实 showdown 路径=True，真实比牌独立结果=1。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：evaluatorEdgeOK=False, compareEdges={'A23<234': -1, 'QKA>JQK': 1}, handTypeCausal=True, showdownCausal=True, ruleProbeUnavailable=False。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerAnte=20.0, computerAnte=20.0, pot=40.0, playerRoundBet=20, computerRoundBet=20。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：跟注前需补 20.0，同步点击边界观察到真人筹码减少 20.0、真人 roundBet 增加 20.0、奖池增加 20.0；同一边界电脑筹码变化 0.0，阶段=computer_turn。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：targetBet=40.0->60.0, roundBetBefore=40.0, amountDue=20.0, boundaryPhase=computer_turn, playerChipDelta=20.0, playerRoundBetDelta=20.0, computerChipDeltaAtBoundary=0.0, immediatePotDelta=20.0。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：potBefore=120.0, computerGain=120.0, winner=computer, outcome=fold, potAfter=0, settlementStable=True。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：双方真实三张牌的独立比较结果=1，预期 winner=player，页面实际 winner=player；结算类型=compare，奖池从 40.0 归零为 0，双方筹码加奖池总价值从 2000.0 到 2000.0，胜者与派彩均正确=True。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cardIds=['zjh-3-H-2', 'zjh-3-C-2', 'zjh-3-H-3', 'zjh-3-H-5', 'zjh-3-D-8', 'zjh-3-S-9'], movingCards=6/6, finalFaceUp=6/6, compareOwner=6/6, centralCards=6/6, sampledFrames=34, centerRenderChange={'ok': True, 'changedRatio': 0.23635522664199815, 'meanDelta': 15.290780141843971, 'samples': 4324, 'region': [0.12, 0.18, 0.88, 0.78]}。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：humanAction=call, observedBoundaryPhase=computer_turn, observedBoundaryTurn=computer, finalPhase=player_turn, finalTurn=player；未点击任何电脑控件。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：电脑决策探针模式=replay，可重放随机序列=True；已观察到牌力变化会改变行动倾向=True，下注压力变化会改变行动倾向=True；自然观察局数=0。所有证据均来自真实 Deal/Call/Raise 与电脑自动行动。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：已观察到电脑真实下注动作=call；电脑 chips、roundBet 与 pot 的投入增量是否一致=True。弃牌或比牌不会作为本项空通过证据。"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerStateTurn=player, playerDomTurn='真人玩家', computerStateTurn=computer, computerDomTurn='电脑玩家'；只检查运行时 DOM，不扫描源码词。"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerTurnForcedActionsStateStable=True, roundOverIllegalActionsStateStable=True。"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：真人 Fold 快速双击只结算一次=True；Call 后电脑回合强制重复/非法动作保持状态不变=True；potBefore=40.0, winner=computer, outcome=fold。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldConservation=True, compareConservation=True, foldTotal=2000.0->2000.0, compareTotal=2000.0->2000.0。"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldScoreOK=True, compareExpected=1, compareScoreDelta=(1.0,0.0), compareScoreOK=True, scoreStableAfterSettlement=True。"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：局号从 2 进入 3；累计计分保留=True，筹码按上一局余额扣除新底注后连续=True；新一局 6 张牌 ID 合法=True，看牌/弃牌/胜负/下注状态均已重置=True。"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待、发牌后、下注后、结算后四个阶段的 HUD 数值均与真实状态逐项一致=True；四阶段覆盖了不同 phase=True。"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌前真人牌面不泄露=True、牌型不泄露=True，电脑牌在 DOM 中保持隐藏=True；看牌后真人 3 张真实牌全部准确显示=True，页面牌型='对子 · 已看牌'，独立计算牌型=对子。"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 DOM 能分别识别等待=True、真人回合=True、电脑回合=True、弃牌结算=True、比牌过程=True、淘汰终局=True；状态文案至少形成 4 个不同结果，真人/电脑行动方文案发生真实切换=True。"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：Call/Raise 分别采样 73/73 帧，缺失筹码 ID 数 0/0；真人连续飞入奖池=False（有效采样 0），电脑连续飞入奖池=False（有效采样 0）；Call/Raise 真人同步奖池增量分别为 20.0/20.0。"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：普通弃牌结算观察到真实 winner=computer 且状态区域计算样式发生颜色变化=False；淘汰终局观察到真实 winner=computer 且计算样式发生颜色变化=False。"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：通过正常 UI 推进 24 局后到达 phase=eliminated、outcome=elimination，winner=computer，双方筹码为 0.0/2000.0；终局 Deal 禁用=True，强制点击后状态保持不变=True；源码结构是否证明双方都能进入真实淘汰结算=True（探针可用=True）。"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：normalizedSamples=5, paths=['fold', 'peek+fold+fold', 'raise+fold', 'compare'], activeSeries=[13, 13, 13, 13, 13], webglNetSeries=[230, 230, 230, 230, 230], webglSteps=[0, 0, 0, 0], repeatedGrowth=False, rafPendingSeries=[1, 1, 1, 1, 1], rafPeakSeries=[3, 3, 3, 3, 3], roundsExercised=4。"
+        },
+        {
+          "id": 46,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；该画面呈现了绿色绒布质感的牌桌，桌中央设有牌堆，上方排布电脑的暗牌区、下方排布真人的手牌区，二者对坐，空间层次清晰可辨。",
+          "image": "ut_images/bad_3_r46_1.png"
+        },
+        {
+          "id": 47,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；图中六个核心按钮的中英文字符标签全部完整可读，AFTER中处于悬停态的加注按钮带有清晰的高亮边框与抬升类半透明光影效果，没有遮挡相邻的跟注、弃牌按钮，所有按钮的状态信息都完整呈现。",
+          "image": "ut_images/bad_3_r47_4.png"
+        },
+        {
+          "id": 48,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；三张实际渲染的3D扑克牌，牌面纹理可直接清晰辨识出红桃2、梅花2、红桃3的点数与对应花色，牌体具备轻微曲面的实体3D质感。",
+          "image": "ut_images/bad_3_r48_2.png"
+        },
+        {
+          "id": 49,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；玩家的关键3D明牌牌面信息完整清晰可读，双方筹码数值、奖池数据、当前轮到玩家行动的状态提示、底部操作区的所有功能按钮与相关文字标识均清晰可辨，不存在关键牌面因画面问题不可读的情况。",
+          "image": "ut_images/bad_3_r49_3.png"
+        },
+        {
+          "id": 50,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待状态接口纯读=True，真实发牌后接口纯读=True；未发现 setter、状态突变或可控制牌局的公开测试能力。"
+        },
+        {
+          "id": 51,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerCards=[{'id': 'zjh-3-H-5', 'rank': '5', 'suit': 'H', 'faceUp': True}, {'id': 'zjh-3-D-8', 'rank': '8', 'suit': 'D', 'faceUp': True}, {'id': 'zjh-3-S-9', 'rank': '9', 'suit': 'S', 'faceUp': True}], independentType=单张, stateHandType=单张。"
+        }
+      ],
+      "func_score": {
+        "Vite 生产构建能够加载为可交互页面且不存在阻止游戏运行的致命脚本错误。": 0,
+        "主游戏场景实际使用 Three.js r128 的 WebGLRenderer 持续渲染。": 1,
+        "工程采用 React 19 + TypeScript + Vite + Tailwind CSS，并使用 Three.js r128，且不依赖外部 3D 模型。": 0,
+        "Three.js 画布在窗口尺寸变化后会同步更新绘制尺寸和透视相机宽高比。": 1,
+        "正常可玩状态下主渲染循环达到接近当前浏览器基线的 60FPS 目标。": 1,
+        "活动场景使用透视相机观察牌桌。": 1,
+        "活动场景包含实际参与牌桌照明的环境光。": 1,
+        "OrbitControls 能轻量微调视角，操作后仍保持真人下方、电脑上方和中央牌桌可玩构图。": 1,
+        "牌桌使用接近 #006400 的绿色绒布外观并具有粗糙材质属性。": 1,
+        "牌堆位于牌桌中央，真人区域在画面下方，电脑区域在画面上方对坐。": 1,
+        "运行中的 3D 扑克牌与真实 rank/suit 一致，由 Three.js 场景实时生成且不依赖外部 3D 模型。": 1,
+        "每局使用一副无大小王的 52 张标准牌，实际发出的 6 张牌合法且不重复。": 1,
+        "发牌完成后真人与电脑双方都恰好获得 3 张牌，电脑手牌保持隐藏，真人在看牌前保持未看牌状态。": 1,
+        "发牌动画中每张牌会从中央牌堆沿多帧路径平滑飞入对应玩家区域。": 1,
+        "底部界面提供发牌、看牌、跟注、加注、弃牌和比牌六类真人操作控件，且不存在要求用户替电脑行动的控件。": 1,
+        "真人操作权限会随牌局阶段和当前行动方正确启用或禁用。": 1,
+        "看牌只翻开真人自己的 3 张牌并显示真实牌型，不会改变牌、筹码、奖池或行动归属。": 1,
+        "看牌过程包含真实的多帧翻转与扇形展开动画。": 1,
+        "当前真人牌型显示与三张真实牌按炸金花规则独立计算的结果一致。": 1,
+        "牌型判定实现覆盖豹子、同花顺、金花、顺子、对子和单张六种类型。": 1,
+        "不同牌型比较严格遵循 豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。": 1,
+        "相同牌型时按真实点数结构正确比较大小，且不使用花色决定胜负。": 1,
+        "顺子边界按 A-2-3 最小、Q-K-A 最大处理。": 0,
+        "新一局开始时双方投入相同正数基础注，筹码真实扣除并形成对应初始奖池。": 1,
+        "真人跟注会补齐当前需要承担的下注，并把同额筹码真实移入奖池。": 1,
+        "真人加注会把有效注额提高到更高合法值，并把新增投入真实计入筹码和奖池。": 1,
+        "真人弃牌会立即结束当前局，由电脑获得奖池，并且结算只发生一次。": 1,
+        "真人发起比牌后，胜负由双方真实三张牌按独立炸金花比较器决定。": 1,
+        "比牌时双方 3 张牌会移动至牌桌中央并翻至可见后再完成结算展示。": 1,
+        "真人完成一个会把行动权交给电脑的有效下注动作后，电脑会无需用户点击而自动执行合法行动。": 1,
+        "电脑决策会同时参考真实牌力和当前下注情况，而不是所有局固定执行同一种动作。": 1,
+        "电脑下注类自动行动会按实际投入同步更新电脑筹码、roundBet 与奖池。": 1,
+        "当前行动方在真人与电脑之间正确流转，并与界面显示一致。": 1,
+        "非真人回合或本局已结束时点击下注、弃牌、比牌不会改变筹码、奖池、牌或计分。": 1,
+        "真人操作具备重复输入保护，同一次行动不会被快速连点处理两次。": 1,
+        "任一正常结算前后双方筹码与未结算奖池满足总价值守恒，且不出现负筹码。": 1,
+        "计分系统在每局结算时只给获胜方增加一次，并与 winner 一致。": 1,
+        "开始下一局会保留累计筹码和计分，并重置本局手牌、看牌、弃牌、胜负与下注状态。": 1,
+        "界面实时显示当前注额、奖池、双方剩余筹码和累计得分，并与真实状态一致。": 1,
+        "真人手牌和牌型显示遵循看牌状态：未看牌时不泄露牌面，看牌后显示真实三张牌与牌型；电脑牌在比牌前保持隐藏。": 1,
+        "界面实时显示当前行动方和游戏状态，并能区分等待、弃牌结算、比牌结算和胜利/淘汰结果。": 1,
+        "真人或电脑发生下注时，可观察到筹码从对应玩家区域沿多帧路径飞入中央奖池。": 0,
+        "胜利结算和淘汰终局都会产生明确的颜色视觉反馈。": 0,
+        "筹码耗尽时不会继续产生负筹码，并进入可观察的淘汰或最终胜利状态。": 1,
+        "重复多局后主 RAF、关键事件监听器和 WebGL 资源不会持续无界累积。": 1,
+        "公开只读状态接口不得改变游戏或场景，也不得暴露可控制发牌、牌、筹码、行动、结算或动画的测试能力。": 1,
+        "电脑手牌在比牌/结算揭示后，其 handType 与真实三张牌的独立牌型判定一致。": 1
+      },
+      "vlm_score": {
+        "整体画面呈现绿色绒布牌桌，中央牌堆、上方电脑和下方真人的空间层次清晰。": 1,
+        "底部操作区具有玻璃态层次，六类核心按钮标签完整可读；悬停核心按钮时按钮位置或阴影相对未悬停状态发生可见变化，且不会遮挡相邻按钮或状态信息。": 1,
+        "3D 扑克牌牌面能清楚识别花色与点数，并具有轻微弯曲的实体感。": 1,
+        "在看牌后的典型可玩画面中，牌面、双方筹码、奖池、当前行动/状态和底部操作区均保持可辨认，不存在导致关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。": 1
+      }
+    },
+    "cheat_1": {
+      "repo": "cheat_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：root=True, canvas=True, zjhHook=True, sceneHook=True, localViteModuleScripts=0, gameReady=True, sceneReady=True, bodyTextLen=238。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeThreeRevision='128', packageThree='0.128.0', renderer={'ready': True, 'type': 'WebGLRenderer'}, webgl=True, drawDelta=160。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：react='19.1.1', reactDom='19.1.1', three='0.128.0', vite='6.1.0', typescript='5.9.2', tailwind='3.4.17', buildScript='tsc --noEmit -p tsconfig.json && vite build --config vite.config.ts', tsFiles=7, reactCreateRoot=True, tailwindEntry=True, indexHtml=True, viteModuleEntry=False, moduleTarget='', externalModelFiles=[]；真实发牌后的运行时外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：before={'cw': 921, 'ch': 576, 'w': 1280, 'h': 800}, after={'cw': 746, 'ch': 497, 'w': 1037, 'h': 691}, cameraBefore={'type': 'PerspectiveCamera', 'fov': 38, 'near': 0.1, 'far': 100, 'aspect': 1.6, 'position': {'x': 0, 'y': 9.45, 'z': 10.899999999999999}, 'target': {'x': 0, 'y': 0.2, 'z': 0.1}}, cameraAfter={'type': 'PerspectiveCamera', 'fov': 38, 'near': 0.1, 'far': 100, 'aspect': 1.5007235890014472, 'position': {'x': 0, 'y': 9.45, 'z': 10.899999999999999}, 'target': {'x': 0, 'y': 0.2, 'z': 0.1}}, viewportFit=True, expectedAspect=1.501, aspectOK=True。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：在真实发牌后的 player_turn 稳定可玩状态测量；同一浏览器空白页 RAF 基线 49.4 FPS，主 WebGL 40.9 FPS，要求至少 39.5 FPS；最长帧间隔 56.3ms（允许 90.0ms），长帧占比 0.065。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 camera.type=PerspectiveCamera, fov/near/far=(38,0.1,100)；透视矩阵 instrumentation 次数=4，instrumentation 未命中时生产可达源码+真实 WebGL 绘制交叉补证=False。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 AmbientLight 存在且强度=0.7，当前采样 drawCalls=96、同页 R2 实测 drawDelta=160；实际使用环境光 shader 的 instrumentation 次数=6，漏采时生产可达 AmbientLight+受光材质补证=False。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cameraMoved=True, targetCentered=True, controlsAccessible=True；拖拽后真实发牌投影仍保持真人在下/电脑在上=True（playerMeanY=398.4748755953979, computerMeanY=175.6931395974351, deckScreen=(457.43656853530854, 274.3679527918175)）。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时桌面 color=#006400, roughness=0.94，真实中央桌面深绿像素采样=True；roughness shader instrumentation 次数=12，漏采时生产可达粗糙材质补证=False。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvas={'width': 921, 'height': 576}, deckScreen=(460.5, 272.91319024583987), playerScreen=[(366.81411496878485, 398.80420788267344), (460.5, 408.50559326280046), (554.1858850312152, 398.80420788267344)], computerScreen=[(391.7198782858734, 178.90496416022316), (460.5, 172.42827489876652), (529.2801217141266, 178.90496416022316)], playerMeanY=402.0, computerMeanY=176.7, deckCentered=True, realCanvasRegionChange=({'ok': True, 'changedRatio': 0.20357420357420358, 'meanDelta': 9.135457135457136, 'samples': 2574, 'region': [0.18, 0.48, 0.82, 0.9]},{'ok': True, 'changedRatio': 0.08493589743589744, 'meanDelta': 3.7295673076923075, 'samples': 2496, 'region': [0.18, 0.08, 0.82, 0.5]})。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行中的 6 张牌有 6/6 张同时匹配真实 rank、suit、owner 与 Three.js transform；WebGL 资源创建数=238，纹理上传=15，其中程序化纹理上传=15；外部 3D 模型请求数=0。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：count=6, idsUnique=6, facesUnique=6, legal=True, liveDeckRemaining=46, expectedRemainingAfterSix=46。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：phase=player_turn, turn=player, playerCards=3, computerCards=3, playerLooked=False, playerHidden=True, computerHidden=True。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：6 张真实发牌中满足多帧位移轨迹要求的数量=6/6；牌堆起点可用=True，真人区域与电脑区域在发牌前后都观察到真实画布变化=True；生产源码存在 LERP/等价线性插值=True（src\\minimal\\view.ts）。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：controls={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, manualComputerButtons=[]。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：waitingDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerCan={'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, playerDisabled={'deal': True, 'peek': False, 'call': False, 'raise': False, 'fold': False, 'compare': False}, computerBoundary=computer_turn, computerDisabled={'deal': True, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}, roundOverPhase=round_over, roundOverDisabled={'deal': False, 'peek': True, 'call': True, 'raise': True, 'fold': True, 'compare': True}。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌点击成功=True，6 张牌 ID 保持不变=True；真人已看牌且只有真人 3 张牌翻开=True；奖池、双方筹码和行动方均未改变=True；独立牌型=单张，状态牌型=单张。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：frames=24, rotationSpans={'zjh-1-D-K': 3.1438836494198314, 'zjh-1-H-7': 3.141592653589793, 'zjh-1-S-2': 3.1438836494198314}, fanMetrics={'zRotationSpread': (0.0027863683745655214, 0.24), 'finalCurvature': 0.18000000000000016}, flipMultiFrame=True, fanTransition=True, playerRenderChange={'ok': True, 'changedRatio': 0.21286031042128603, 'meanDelta': 9.953929539295393, 'samples': 2706, 'region': [0.16, 0.48, 0.84, 0.9]}, cardIds=['zjh-1-D-K', 'zjh-1-H-7', 'zjh-1-S-2']。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cards=[{'id': 'zjh-1-D-K', 'rank': 'K', 'suit': 'D', 'faceUp': True}, {'id': 'zjh-1-H-7', 'rank': '7', 'suit': 'H', 'faceUp': True}, {'id': 'zjh-1-S-2', 'rank': '2', 'suit': 'S', 'faceUp': True}], expectedType=单张, stateType='单张', domType='单张 · 已看牌'。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际执行牌型函数=evaluateHand；六类固定牌测试全部正确=True，函数真实参与 handType 生成=True；本局独立计算牌型=单张，状态牌型=单张；规则探针异常=None。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：固定六类牌型顺序探针=全部正确；比较函数是否真实驱动 showdown=True；真实比牌独立结果=1，页面最终 winner=player；规则探针异常=None。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：六类同牌型高低固定牌测试=全部正确；同点数不同花色比较结果=0（0 表示平局）；真实 showdown 路径=True，真实比牌独立结果=1。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：evaluatorEdgeOK=False, compareEdges={'A23<234': -1, 'QKA>JQK': 1}, handTypeCausal=True, showdownCausal=True, ruleProbeUnavailable=False。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerAnte=20.0, computerAnte=20.0, pot=40.0, playerRoundBet=20, computerRoundBet=20。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：跟注前需补 20.0，同步点击边界观察到真人筹码减少 20.0、真人 roundBet 增加 20.0、奖池增加 20.0；同一边界电脑筹码变化 0.0，阶段=computer_turn。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：targetBet=40.0->60.0, roundBetBefore=40.0, amountDue=20.0, boundaryPhase=computer_turn, playerChipDelta=20.0, playerRoundBetDelta=20.0, computerChipDeltaAtBoundary=0.0, immediatePotDelta=20.0。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：potBefore=120.0, computerGain=120.0, winner=computer, outcome=fold, potAfter=0, settlementStable=True。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：双方真实三张牌的独立比较结果=1，预期 winner=player，页面实际 winner=player；结算类型=compare，奖池从 40.0 归零为 0，双方筹码加奖池总价值从 2000.0 到 2000.0，胜者与派彩均正确=True。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：cardIds=['zjh-3-S-Q', 'zjh-3-D-Q', 'zjh-3-S-7', 'zjh-3-H-5', 'zjh-3-C-7', 'zjh-3-D-4'], movingCards=6/6, finalFaceUp=6/6, compareOwner=6/6, centralCards=6/6, sampledFrames=34, centerRenderChange={'ok': True, 'changedRatio': 0.23658649398704903, 'meanDelta': 14.917900092506938, 'samples': 4324, 'region': [0.12, 0.18, 0.88, 0.78]}。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：humanAction=call, observedBoundaryPhase=computer_turn, observedBoundaryTurn=computer, finalPhase=player_turn, finalTurn=player；未点击任何电脑控件。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：电脑决策探针模式=replay，可重放随机序列=True；已观察到牌力变化会改变行动倾向=True，下注压力变化会改变行动倾向=True；自然观察局数=0。所有证据均来自真实 Deal/Call/Raise 与电脑自动行动。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：已观察到电脑真实下注动作=call；电脑 chips、roundBet 与 pot 的投入增量是否一致=True。弃牌或比牌不会作为本项空通过证据。"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerStateTurn=player, playerDomTurn='真人玩家', computerStateTurn=computer, computerDomTurn='电脑玩家'；只检查运行时 DOM，不扫描源码词。"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerTurnForcedActionsStateStable=True, roundOverIllegalActionsStateStable=True。"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：真人 Fold 快速双击只结算一次=True；Call 后电脑回合强制重复/非法动作保持状态不变=True；potBefore=40.0, winner=computer, outcome=fold。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldConservation=True, compareConservation=True, foldTotal=2000.0->2000.0, compareTotal=2000.0->2000.0。"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：foldScoreOK=True, compareExpected=1, compareScoreDelta=(1.0,0.0), compareScoreOK=True, scoreStableAfterSettlement=True。"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：局号从 2 进入 3；累计计分保留=True，筹码按上一局余额扣除新底注后连续=True；新一局 6 张牌 ID 合法=True，看牌/弃牌/胜负/下注状态均已重置=True。"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待、发牌后、下注后、结算后四个阶段的 HUD 数值均与真实状态逐项一致=True；四阶段覆盖了不同 phase=True。"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：看牌前真人牌面不泄露=True、牌型不泄露=True，电脑牌在 DOM 中保持隐藏=True；看牌后真人 3 张真实牌全部准确显示=True，页面牌型='对子 · 已看牌'，独立计算牌型=对子。"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：运行时 DOM 能分别识别等待=True、真人回合=True、电脑回合=True、弃牌结算=True、比牌过程=True、淘汰终局=True；状态文案至少形成 4 个不同结果，真人/电脑行动方文案发生真实切换=True。"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：Call/Raise 分别采样 78/79 帧，缺失筹码 ID 数 0/0；真人连续飞入奖池=False（有效采样 0），电脑连续飞入奖池=False（有效采样 0）；Call/Raise 真人同步奖池增量分别为 20.0/20.0。"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：普通弃牌结算观察到真实 winner=computer 且状态区域计算样式发生颜色变化=False；淘汰终局观察到真实 winner=computer 且计算样式发生颜色变化=False。"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：通过正常 UI 推进 24 局后到达 phase=eliminated、outcome=elimination，winner=computer，双方筹码为 0.0/2000.0；终局 Deal 禁用=True，强制点击后状态保持不变=True；源码结构是否证明双方都能进入真实淘汰结算=True（探针可用=True）。"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：normalizedSamples=5, paths=['fold', 'peek+fold+fold', 'raise+fold', 'compare'], activeSeries=[13, 13, 13, 13, 13], webglNetSeries=[230, 230, 230, 230, 230], webglSteps=[0, 0, 0, 0], repeatedGrowth=False, rafPendingSeries=[1, 1, 1, 1, 1], rafPeakSeries=[3, 3, 3, 3, 3], roundsExercised=4。"
+        },
+        {
+          "id": 46,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；画面呈现绿色绒布质感的牌桌，桌面中央放置有背面朝上的牌堆，上方是电脑方的三张暗牌区域、下方是真人方的手牌区域，二者对坐排布，空间层次清晰分明。",
+          "image": "ut_images/cheat_1_r46_1.png"
+        },
+        {
+          "id": 47,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES；六类核心按钮的中英文标签均完整可清晰辨识，AFTER中处于悬停状态的加注按钮呈现出明确的高亮边框+抬升的视觉层次变化，没有对左右相邻的跟注、弃牌按钮造成任何遮挡，所有状态信息均完整露出。",
+          "image": "ut_images/cheat_1_r47_4.png"
+        },
+        {
+          "id": 48,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO；三张3D扑克牌的牌面纹理整体模糊，大量区域被叠加的UI半透文字遮挡，无法直接从原生3D牌面纹理处清楚辨识所有牌的点数与花色，不符合判断要求。",
+          "image": "ut_images/cheat_1_r48_2.png"
+        },
+        {
+          "id": 49,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO；玩家的关键3D手牌被大尺寸半透明的点数文字遮挡，3D牌面本身的图案内容无法清晰完整辨识，不满足全部元素清晰可辨的要求。",
+          "image": "ut_images/cheat_1_r49_3.png"
+        },
+        {
+          "id": 50,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：等待状态接口纯读=True，真实发牌后接口纯读=True；未发现 setter、状态突变或可控制牌局的公开测试能力。"
+        },
+        {
+          "id": 51,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：computerCards=[{'id': 'zjh-3-H-5', 'rank': '5', 'suit': 'H', 'faceUp': True}, {'id': 'zjh-3-C-7', 'rank': '7', 'suit': 'C', 'faceUp': True}, {'id': 'zjh-3-D-4', 'rank': '4', 'suit': 'D', 'faceUp': True}], independentType=单张, stateHandType=单张。"
+        }
+      ],
+      "func_score": {
+        "Vite 生产构建能够加载为可交互页面且不存在阻止游戏运行的致命脚本错误。": 0,
+        "主游戏场景实际使用 Three.js r128 的 WebGLRenderer 持续渲染。": 1,
+        "工程采用 React 19 + TypeScript + Vite + Tailwind CSS，并使用 Three.js r128，且不依赖外部 3D 模型。": 0,
+        "Three.js 画布在窗口尺寸变化后会同步更新绘制尺寸和透视相机宽高比。": 1,
+        "正常可玩状态下主渲染循环达到接近当前浏览器基线的 60FPS 目标。": 1,
+        "活动场景使用透视相机观察牌桌。": 1,
+        "活动场景包含实际参与牌桌照明的环境光。": 1,
+        "OrbitControls 能轻量微调视角，操作后仍保持真人下方、电脑上方和中央牌桌可玩构图。": 1,
+        "牌桌使用接近 #006400 的绿色绒布外观并具有粗糙材质属性。": 1,
+        "牌堆位于牌桌中央，真人区域在画面下方，电脑区域在画面上方对坐。": 1,
+        "运行中的 3D 扑克牌与真实 rank/suit 一致，由 Three.js 场景实时生成且不依赖外部 3D 模型。": 1,
+        "每局使用一副无大小王的 52 张标准牌，实际发出的 6 张牌合法且不重复。": 1,
+        "发牌完成后真人与电脑双方都恰好获得 3 张牌，电脑手牌保持隐藏，真人在看牌前保持未看牌状态。": 1,
+        "发牌动画中每张牌会从中央牌堆沿多帧路径平滑飞入对应玩家区域。": 1,
+        "底部界面提供发牌、看牌、跟注、加注、弃牌和比牌六类真人操作控件，且不存在要求用户替电脑行动的控件。": 1,
+        "真人操作权限会随牌局阶段和当前行动方正确启用或禁用。": 1,
+        "看牌只翻开真人自己的 3 张牌并显示真实牌型，不会改变牌、筹码、奖池或行动归属。": 1,
+        "看牌过程包含真实的多帧翻转与扇形展开动画。": 1,
+        "当前真人牌型显示与三张真实牌按炸金花规则独立计算的结果一致。": 1,
+        "牌型判定实现覆盖豹子、同花顺、金花、顺子、对子和单张六种类型。": 1,
+        "不同牌型比较严格遵循 豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。": 1,
+        "相同牌型时按真实点数结构正确比较大小，且不使用花色决定胜负。": 1,
+        "顺子边界按 A-2-3 最小、Q-K-A 最大处理。": 0,
+        "新一局开始时双方投入相同正数基础注，筹码真实扣除并形成对应初始奖池。": 1,
+        "真人跟注会补齐当前需要承担的下注，并把同额筹码真实移入奖池。": 1,
+        "真人加注会把有效注额提高到更高合法值，并把新增投入真实计入筹码和奖池。": 1,
+        "真人弃牌会立即结束当前局，由电脑获得奖池，并且结算只发生一次。": 1,
+        "真人发起比牌后，胜负由双方真实三张牌按独立炸金花比较器决定。": 1,
+        "比牌时双方 3 张牌会移动至牌桌中央并翻至可见后再完成结算展示。": 1,
+        "真人完成一个会把行动权交给电脑的有效下注动作后，电脑会无需用户点击而自动执行合法行动。": 1,
+        "电脑决策会同时参考真实牌力和当前下注情况，而不是所有局固定执行同一种动作。": 1,
+        "电脑下注类自动行动会按实际投入同步更新电脑筹码、roundBet 与奖池。": 1,
+        "当前行动方在真人与电脑之间正确流转，并与界面显示一致。": 1,
+        "非真人回合或本局已结束时点击下注、弃牌、比牌不会改变筹码、奖池、牌或计分。": 1,
+        "真人操作具备重复输入保护，同一次行动不会被快速连点处理两次。": 1,
+        "任一正常结算前后双方筹码与未结算奖池满足总价值守恒，且不出现负筹码。": 1,
+        "计分系统在每局结算时只给获胜方增加一次，并与 winner 一致。": 1,
+        "开始下一局会保留累计筹码和计分，并重置本局手牌、看牌、弃牌、胜负与下注状态。": 1,
+        "界面实时显示当前注额、奖池、双方剩余筹码和累计得分，并与真实状态一致。": 1,
+        "真人手牌和牌型显示遵循看牌状态：未看牌时不泄露牌面，看牌后显示真实三张牌与牌型；电脑牌在比牌前保持隐藏。": 1,
+        "界面实时显示当前行动方和游戏状态，并能区分等待、弃牌结算、比牌结算和胜利/淘汰结果。": 1,
+        "真人或电脑发生下注时，可观察到筹码从对应玩家区域沿多帧路径飞入中央奖池。": 0,
+        "胜利结算和淘汰终局都会产生明确的颜色视觉反馈。": 0,
+        "筹码耗尽时不会继续产生负筹码，并进入可观察的淘汰或最终胜利状态。": 1,
+        "重复多局后主 RAF、关键事件监听器和 WebGL 资源不会持续无界累积。": 1,
+        "公开只读状态接口不得改变游戏或场景，也不得暴露可控制发牌、牌、筹码、行动、结算或动画的测试能力。": 1,
+        "电脑手牌在比牌/结算揭示后，其 handType 与真实三张牌的独立牌型判定一致。": 1
+      },
+      "vlm_score": {
+        "整体画面呈现绿色绒布牌桌，中央牌堆、上方电脑和下方真人的空间层次清晰。": 1,
+        "底部操作区具有玻璃态层次，六类核心按钮标签完整可读；悬停核心按钮时按钮位置或阴影相对未悬停状态发生可见变化，且不会遮挡相邻按钮或状态信息。": 1,
+        "3D 扑克牌牌面能清楚识别花色与点数，并具有轻微弯曲的实体感。": 0,
+        "在看牌后的典型可玩画面中，牌面、双方筹码、奖池、当前行动/状态和底部操作区均保持可辨认，不存在导致关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。": 0
+      }
+    }
+  }
+}

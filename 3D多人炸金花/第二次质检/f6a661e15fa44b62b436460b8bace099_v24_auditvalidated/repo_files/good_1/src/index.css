@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f7f4e8;
+  background: #041208;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+button { font: inherit; }
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(245, 205, 98, .09), transparent 28%),
+    linear-gradient(180deg, #081b10 0%, #020805 100%);
+}
+
+
+canvas { display: block; width: 100%; height: 100%; }
+
+.topbar {
+  position: absolute;
+  z-index: 5;
+  left: 24px;
+  right: 24px;
+  top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.brand { text-shadow: 0 2px 14px rgba(0,0,0,.6); }
+.brand-kicker { letter-spacing: .28em; text-transform: uppercase; font-size: 10px; opacity: .64; }
+.brand-title { font-family: Georgia, "Times New Roman", serif; font-size: clamp(24px, 3vw, 42px); margin: 2px 0 0; letter-spacing: .04em; }
+.brand-title span { color: #e7c46d; }
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(62px, 1fr));
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(2, 16, 8, .5);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.22);
+}
+.score-cell { text-align: center; min-width: 62px; padding: 6px 8px; }
+.score-label { display: block; font-size: 9px; letter-spacing: .16em; opacity: .55; text-transform: uppercase; }
+.score-value { display: block; font-weight: 800; margin-top: 1px; }
+
+.hud {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(900px, calc(100% - 28px));
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.055));
+  box-shadow: 0 22px 65px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.14);
+}
+
+.hud-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
+.stats { display: flex; gap: 10px; }
+.stat {
+  min-width: 90px;
+  padding: 9px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,.17);
+  border: 1px solid rgba(255,255,255,.07);
+}
+.stat-label { display: block; font-size: 9px; letter-spacing: .13em; opacity: .52; text-transform: uppercase; }
+.stat-value { display: block; margin-top: 2px; font-size: 17px; font-weight: 800; }
+
+.actions { display: flex; gap: 9px; justify-content: center; }
+.action-btn {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fffdf4;
+  min-width: 105px;
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 14px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.055));
+  box-shadow: 0 8px 20px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.14);
+  transition: transform .18s ease, background .18s ease, opacity .18s ease, box-shadow .18s ease;
+  cursor: pointer;
+}
+.action-btn:hover:not(:disabled) { transform: translateY(-4px); background: linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.08)); box-shadow: 0 14px 28px rgba(0,0,0,.26); }
+.action-btn:active:not(:disabled) { transform: translateY(-1px) scale(.98); }
+.action-btn.primary { background: linear-gradient(180deg, #d3af59, #9e7930); border-color: rgba(255,236,178,.48); color: #171006; }
+.action-btn.primary:hover:not(:disabled) { background: linear-gradient(180deg, #e3c46f, #ac8738); }
+.action-btn:disabled { opacity: .28; cursor: not-allowed; }
+
+.status-wrap { display: flex; justify-content: flex-end; }
+.status-pill {
+  max-width: 260px;
+  text-align: right;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: .03em;
+  opacity: .9;
+}
+.status-pill.win { color: #aef1bb; }
+.status-pill.loss { color: #ffaca9; }
+.status-pill.push { color: #ffe29a; }
+
+.floating-total {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+  text-shadow: 0 2px 7px rgba(0,0,0,.9);
+}
+.floating-total strong { color: #fff; font-size: 18px; letter-spacing: 0; margin-left: 6px; }
+.computer-total { top: 18%; }
+.player-total { bottom: 24%; }
+
+@media (max-width: 760px) {
+  .topbar { left: 14px; right: 14px; top: 12px; }
+  .scoreboard { display: none; }
+  .hud { bottom: 12px; padding: 11px; border-radius: 18px; }
+  .hud-row { grid-template-columns: 1fr; gap: 9px; }
+  .stats { justify-content: center; }
+  .stat { flex: 1; min-width: 0; text-align: center; }
+  .actions { order: -1; }
+  .action-btn { min-width: 0; flex: 1; padding: 0 12px; }
+  .status-wrap { justify-content: center; }
+  .status-pill { text-align: center; }
+  .computer-total { top: 16%; }
+  .player-total { bottom: 33%; }
+}
+
+/* 炸金花玩法适配：只扩展原控制台容纳 6 个动作，不改变原视觉体系。 */
+[data-testid="game-canvas"]{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+[data-testid="game-status"][data-tone="win"]{--zjh-tone:#5fd28b}[data-testid="game-status"][data-tone="loss"]{--zjh-tone:#e76c78}[data-testid="game-status"][data-tone="compare"]{--zjh-tone:#d7b764}[data-testid="game-status"][data-tone="eliminated"]{--zjh-tone:#f0c66b}
+[data-testid="game-status"][data-tone]:before{background:var(--zjh-tone,currentColor)!important}
+.zjh-actions button{transition:transform .18s ease,filter .18s ease,opacity .18s ease}.zjh-actions button:hover:not(:disabled){transform:translateY(-4px)}
+.zjh-hidden-meta{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.hud{max-width:1180px}.hud-row{grid-template-columns:minmax(360px,1fr) auto minmax(150px,.55fr)}.stats{flex-wrap:wrap}.stat{min-width:90px}.actions{gap:6px}.action-btn{min-width:72px;padding:11px 12px}.status-pill small{display:block;margin-top:3px;font-size:9px;opacity:.55}
+
+/* 炸金花结算状态：沿用 Royal Felt 象牙白/金/翡翠色，仅改变原状态胶囊。 */
+[data-testid="game-status"][data-tone="win"]{color:#9bd8af!important;background:rgba(18,92,54,.18)!important;}
+[data-testid="game-status"][data-tone="loss"]{color:#e7a5a7!important;background:rgba(112,34,40,.16)!important}
+[data-testid="game-status"][data-tone="compare"]{color:#dcc27c!important;background:rgba(110,83,22,.14)!important}
+[data-testid="game-status"][data-tone="eliminated"]{color:#efc66c!important;background:rgba(119,76,14,.18)!important}
+
+/* DISTINCTIVE PASS 2026-08: Royal Felt / heritage-club layout */
+body{background:#031008}
+.topbar{left:clamp(18px,3.2vw,58px);right:clamp(18px,3.2vw,58px);top:20px;padding:0 0 17px;border-bottom:1px solid rgba(231,196,109,.22)}
+.brand-kicker{color:rgba(242,229,196,.56);letter-spacing:.34em}
+.brand-title{font-size:clamp(30px,3.3vw,50px);font-weight:500}
+.scoreboard{border:1px solid rgba(231,196,109,.18);background:rgba(3,18,10,.48);box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.hud{width:min(1080px,calc(100% - 72px));bottom:24px;padding:10px 12px;border-radius:9px;border:1px solid rgba(231,196,109,.24);background:linear-gradient(180deg,rgba(8,29,17,.86),rgba(2,13,8,.91));box-shadow:0 24px 60px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.055)}
+.hud-row{grid-template-columns:minmax(360px,1.25fr) auto minmax(140px,.5fr)}
+.stats{gap:6px}.stat{border-radius:3px;border-color:rgba(255,255,255,.07);background:rgba(0,0,0,.14)}
+.action-btn{border-radius:3px;min-width:68px;padding:11px 12px;font-family:Georgia,"Times New Roman",serif;letter-spacing:.05em;text-transform:none}
+.action-btn.primary{box-shadow:inset 0 1px rgba(255,249,220,.28),0 6px 18px rgba(121,86,25,.18)}
+.status-pill{border-radius:3px;border-left:2px solid #d7b764;background:rgba(0,0,0,.16)}
+@media(max-width:900px){.hud{width:calc(100% - 24px);bottom:12px;border-radius:12px}.topbar{left:16px;right:16px}.action-btn{border-radius:8px}}
+
+/* Responsive ZJH controls: keep all six actions reachable on tablet/narrow screens. */
+@media(max-width:900px){
+  .hud-row{grid-template-columns:1fr!important;gap:9px}
+  .actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;order:-1}
+  .action-btn{width:100%;min-width:0!important}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+  .status-wrap{justify-content:center}.status-pill{text-align:center}
+}

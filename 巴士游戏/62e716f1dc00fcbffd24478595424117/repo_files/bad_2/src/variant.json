@@ -1,0 +1,50 @@
+{
+  "brand": "PESISIR / MIX",
+  "kicker": "Coastal market service",
+  "subtitle": "A roof-loaded mixed-form regional bus threading a lively coastal road beside market sheds, palms, cargo and water.",
+  "vehicleId": "PSR-44C",
+  "busType": "Regional Cargo Coach",
+  "routeName": "Pelabuhan · Pasar · Tanjung",
+  "capacity": 36,
+  "environment": "Coastal market corridor",
+  "weather": "Bright sea breeze",
+  "timeOfDay": "14:05",
+  "trafficDensity": 0.76,
+  "sceneType": "coast",
+  "layout": "split-deck",
+  "defaultCamera": "cinematic",
+  "defaultQuality": "high",
+  "roadCurve": 4.4,
+  "roadPhase": 210,
+  "cameraSide": 1,
+  "bus": {
+    "width": 2.5,
+    "length": 7.6,
+    "style": "cargo"
+  },
+  "palette": {
+    "sky": "#7ec4d4",
+    "ground": "#b58b55",
+    "road": "#51483f",
+    "edge": "#ffd166",
+    "bus": "#d9482f",
+    "accent": "#ffd166",
+    "glass": "#1d4850",
+    "trafficA": "#2a9d8f",
+    "trafficB": "#264653",
+    "foliage": "#2e7d5b",
+    "building": "#e0a458",
+    "building2": "#d76d3c",
+    "mountain": "#6f8b76",
+    "water": "#3f9dbb",
+    "stop": "#ffcf4a",
+    "served": "#64748b"
+  },
+  "css": ":root{--bg:#14353b;--sky:#7ec4d4;--text:#fff9e8;--muted:#ffe5b4;--accent:#ffd166;--accent-glow:rgba(255,209,102,.3);--button-text:#38250b;--line:rgba(255,245,211,.25);--glass:rgba(45,37,25,.58);--glass-strong:rgba(50,39,23,.92);--panel:rgba(40,33,26,.74);--landing-a:rgba(32,38,33,.92);--atmo-top:rgba(255,235,168,.18);--atmo-bottom:rgba(19,116,134,.1)} .sim-shell[data-layout=\"split-deck\"] .landing{max-width:58%;background:linear-gradient(90deg,rgba(33,31,23,.96),rgba(33,31,23,.72),transparent)} .sim-shell[data-layout=\"split-deck\"] .landing h1{font-family:Georgia,serif;font-style:italic}.sim-shell[data-layout=\"split-deck\"] .hud-brand{top:auto;bottom:18px}.sim-shell[data-layout=\"split-deck\"] .status{left:50%;transform:translateX(-50%)}",
+  "defects": {
+    "allowDoorsWhileMoving": false,
+    "fuelDrainMultiplier": 1,
+    "autoAdvanceAtStop": true,
+    "reportedSpeedBias": 0
+  }
+}

@@ -1,0 +1,2620 @@
+{
+  "prompt_id": "62e716f1dc00fcbffd24478595424117",
+  "game_type": "3d",
+  "samples": {
+    "aidp-glm-5__3-aidp-glm-5__run-1": {
+      "repo": "aidp-glm-5__3-aidp-glm-5__run-1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-1_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-1_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-1_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-1_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 0,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 0,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 1,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 1
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 1,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 1,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 13,
+      "vlm_passed": 3
+    },
+    "aidp-glm-5__3-aidp-glm-5__run-2": {
+      "repo": "aidp-glm-5__3-aidp-glm-5__run-2",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-2_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-2_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-2_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/aidp-glm-5__3-aidp-glm-5__run-2_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 0,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 0,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 1,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 0,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 1,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 0,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 0,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 12,
+      "vlm_passed": 1
+    },
+    "aidp-glm-5__3-aidp-glm-5__run-3": {
+      "repo": "aidp-glm-5__3-aidp-glm-5__run-3",
+      "layer1_pass": false,
+      "layer1_detail": {
+        "loadable": false,
+        "fatal_console_errors": [
+          "build failed: CalledProcessError(2, ['npm.cmd', 'run', 'build'])"
+        ]
+      },
+      "items": [],
+      "build_ok": false,
+      "evaluator_return_code": 1,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 0,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 0,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 0,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 0,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 0,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 0,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 0,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 0,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 0,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 0,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 0,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 0,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 0,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": -100,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": -100,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": -100,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": -100
+      },
+      "func_passed": 0,
+      "vlm_passed": -400
+    },
+    "aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-1": {
+      "repo": "aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-1_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-1_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-1_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-1_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 1,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 1,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 0,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 1,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 1,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 0,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 0,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 16,
+      "vlm_passed": 1
+    },
+    "aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-2": {
+      "repo": "aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-2",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-2_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-2_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-2_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-2_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 0,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 0,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 0,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 0,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 0,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 0,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 0,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 0,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 0,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 0
+      },
+      "func_passed": 6,
+      "vlm_passed": 0
+    },
+    "aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-3": {
+      "repo": "aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-3",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-3_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-3_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-3_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/aidp-gpt-5.4-2026-03-05__6-aidp-gpt-5.4-2026-03-05__run-3_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 0,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 0,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 0,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 0,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 0,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 0,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 0,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 0,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 0
+      },
+      "func_passed": 7,
+      "vlm_passed": 0
+    },
+    "aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-1": {
+      "repo": "aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-1_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-1_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-1_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-1_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 0,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 1,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 1,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 1,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 1,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 1,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 1
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 0,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 0,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 18,
+      "vlm_passed": 1
+    },
+    "aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-2": {
+      "repo": "aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-2",
+      "layer1_pass": false,
+      "layer1_detail": {
+        "loadable": false,
+        "fatal_console_errors": [
+          "TimeoutError('Page.goto: Timeout 20000ms exceeded.\\nCall log:\\n  - navigating to \"http://127.0.0.1:61292/index.html\", waiting until \"domcontentloaded\"\\n')"
+        ]
+      },
+      "items": [],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 0,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 0,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 0,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 0,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 0,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 0,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 0,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 0,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 0,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 0,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 0,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 0,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 0,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": -100,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": -100,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": -100,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": -100
+      },
+      "func_passed": 0,
+      "vlm_passed": -400
+    },
+    "aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-3": {
+      "repo": "aidp-gpt-5.6-sol__1-aidp-gpt-5.6-sol__run-3",
+      "layer1_pass": false,
+      "layer1_detail": {
+        "loadable": false,
+        "fatal_console_errors": [
+          "TimeoutError('Page.goto: Timeout 20000ms exceeded.\\nCall log:\\n  - navigating to \"http://127.0.0.1:49637/index.html\", waiting until \"domcontentloaded\"\\n')"
+        ]
+      },
+      "items": [],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 0,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 0,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 0,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 0,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 0,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 0,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 0,
+        "The parking brake prevents meaningful acceleration until released.": 0,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 0,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 0,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 0,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 0,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 0,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 0,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 0,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 0,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 0,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 0,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 0,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 0,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 0,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 0,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 0,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": -100,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": -100,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": -100,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": -100
+      },
+      "func_passed": 0,
+      "vlm_passed": -400
+    },
+    "bad_1": {
+      "repo": "bad_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/bad_1_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/bad_1_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/bad_1_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/bad_1_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 1,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 1,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 1,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 1,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 1,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 1,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 1,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 1,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 1,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 1,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 1,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 1,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 1,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 1,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 1,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 26,
+      "vlm_passed": 3
+    },
+    "bad_2": {
+      "repo": "bad_2",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/bad_2_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/bad_2_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/bad_2_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/bad_2_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 1,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 1,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 1,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 1,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 1,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 1,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 1,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 1,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 1,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 1,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 1,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 1,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 1,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 1,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 1,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 26,
+      "vlm_passed": 3
+    },
+    "cheat_1": {
+      "repo": "cheat_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：VLM 截图未确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/cheat_1_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/cheat_1_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/cheat_1_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/cheat_1_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：自动化断言未满足「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 1,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 1,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 1,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 1,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 1,
+        "The parking brake prevents meaningful acceleration until released.": 0,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 1,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 0,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 0,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 0,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 0,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 1,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 1,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 1,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 1,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 0,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 0
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 0,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 1,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 1,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 21,
+      "vlm_passed": 3
+    },
+    "good_1": {
+      "repo": "good_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.」。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.」。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.」。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.」。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Throttle input accelerates the bus forward and increases odometer distance.」。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.」。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.」。"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The parking brake prevents meaningful acceleration until released.」。"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The camera control cycles through distinct supported driving views with different live camera transforms.」。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.」。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.」。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.」。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.」。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.」。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.」。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Fuel decreases as the bus travels under engine power.」。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Road traffic moves independently during active play and freezes while the simulation is paused.」。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.」。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.」。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.」。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.」。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.」。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.」。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.」。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Cross-hook values stay consistent with the visible and independently observed production behavior.」。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.」。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.」。"
+        },
+        {
+          "id": 28,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.」。",
+          "image": "ut_images/good_1_dist_r28_1.png"
+        },
+        {
+          "id": 29,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.」。",
+          "image": "ut_images/good_1_dist_r29_2.png"
+        },
+        {
+          "id": 30,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.」。",
+          "image": "ut_images/good_1_dist_r30_3.png"
+        },
+        {
+          "id": 31,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：VLM 截图确认「The home and driving interfaces remain readable and usable at mobile width with visible touch controls.」。",
+          "image": "ut_images/good_1_dist_r31_4.png"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：自动化断言确认「Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.」。"
+        }
+      ],
+      "build_ok": true,
+      "evaluator_return_code": 0,
+      "func_score": {
+        "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.": 1,
+        "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.": 1,
+        "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.": 1,
+        "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.": 1,
+        "Throttle input accelerates the bus forward and increases odometer distance.": 1,
+        "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.": 1,
+        "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.": 1,
+        "The parking brake prevents meaningful acceleration until released.": 1,
+        "The camera control cycles through distinct supported driving views with different live camera transforms.": 1,
+        "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.": 1,
+        "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.": 1,
+        "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.": 1,
+        "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.": 1,
+        "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.": 1,
+        "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.": 1,
+        "Fuel decreases as the bus travels under engine power.": 1,
+        "Road traffic moves independently during active play and freezes while the simulation is paused.": 1,
+        "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.": 1,
+        "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.": 1,
+        "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.": 1,
+        "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.": 1,
+        "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.": 1,
+        "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.": 1,
+        "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.": 1,
+        "Cross-hook values stay consistent with the visible and independently observed production behavior.": 1,
+        "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.": 1,
+        "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.": 1,
+        "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.": 1
+      },
+      "vlm_score": {
+        "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.": 1,
+        "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.": 1,
+        "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.": 1,
+        "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.": 1
+      },
+      "func_passed": 28,
+      "vlm_passed": 4
+    }
+  },
+  "id": "62e716f1dc00fcbffd24478595424117"
+}

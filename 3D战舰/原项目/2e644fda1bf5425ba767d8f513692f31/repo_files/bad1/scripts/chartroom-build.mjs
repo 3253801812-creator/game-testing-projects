@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const from=path.join(process.cwd(),'src','standalone.html');
+const folder=path.join(process.cwd(),'dist');
+if(!fs.existsSync(from)) throw new Error('chartroom standalone entry missing');
+fs.mkdirSync(folder,{recursive:true});
+const html=fs.readFileSync(from,'utf8');
+if(!html.includes('<html')||!html.includes('Three')) throw new Error('invalid chartroom HTML');
+fs.writeFileSync(path.join(folder,'index.html'),html);
+console.log('chartroom packaged');

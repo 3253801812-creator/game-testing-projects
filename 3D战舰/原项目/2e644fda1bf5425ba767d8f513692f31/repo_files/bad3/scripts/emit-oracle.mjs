@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const src=path.resolve('src/standalone.html');
+const destDir=path.resolve('dist');
+const data=await fs.readFile(src);
+if(data.byteLength===0) throw new Error('oracle HTML is empty');
+await fs.rm(destDir,{recursive:true,force:true});
+await fs.mkdir(destDir,{recursive:true});
+await fs.writeFile(path.join(destDir,'index.html'),data);
+console.log('abyssal sonar oracle emitted');

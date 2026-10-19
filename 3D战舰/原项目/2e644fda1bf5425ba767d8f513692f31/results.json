@@ -1,0 +1,1032 @@
+[
+  {
+    "repo": "bad1",
+    "report": {
+      "layer1_pass": true,
+      "layer1_detail": {
+        "fatal_console_errors": [],
+        "has_content": true,
+        "entry_mode": "single-file"
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "页面基础架构：根节点(#root)=✓、Canvas(#game)=✓、游戏对象(__game)=✓、模块运行时=✓、CDN依赖=✓、工程配置文件=7/7(齐全)"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "Three.js运行时：场景=✓、相机=✓、渲染器=✓、THREE全局=✓、React根节点=✓、CDN已加载=✓"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "渲染循环：ready=✗、棋盘分组数=2(需=2)、射线检测=✓、frameCount 9→17(需递增)"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 0,
+          "reason": "棋盘坐标系：player棋盘10×10(100格)、enemy棋盘10×10(100格)、coordinateToLabel(9,9)=J10(需=J10)、labelToCoordinate('J10')={'row': 9, 'col': 9, 'coordinate': 'J10'}(需=row:9,col:9)"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "舰队配置：舰船类型及长度=[('巡洋舰', 3), ('战列舰', 4), ('潜艇', 3), ('航空母舰', 5), ('驱逐舰', 2)](需=航母5/战列舰4/巡洋舰3/潜艇3/驱逐舰2)，player占格=17(需=17)，enemy占格=0(需=17)"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 0,
+          "reason": "回合交替：首次攻击=失败(需通过)，连续第二次攻击=被拒(需被拒)，turn=None(需=ai)，inputLocked=False(需=True)，humanAttackCount=0(需=1)，并发双攻击成功数=1/2(需=1)"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重复攻击拒绝：playerAttack(-1,0)=被拒，aiAttack(11,0)=被拒(均需被拒)，攻击计数未变(human=1=1，ai=0=0)"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "命中/未命中区分：攻击(9,9)→result=miss(需=miss)/coordinate=J10(需=J10)，攻击(0,0)→result=hit(需=hit/sunk)/coordinate=A1(需=A1)，棋盘布局不变(防窥屏)=✓"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "击沉检测：前4击result=['hit', 'hit', 'hit', 'hit'](均需=hit)，第5击result=sunk(需=sunk)，shipsRemaining=4(需=4)，沉船meshVisible=True(需=True)"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "双结局覆盖：人类胜利→winner=human(需=human)/phase=ended(需=ended)/turn=None(需=null)，AI胜利→winner=ai(需=ai)/phase=ended(需=ended)/turn=None(需=null)"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "游戏重置：phase=setup(需=setup)，sessionId已更换=✓，attackHistory已清空=✓，pendingAIRequests=0(需=0)，特效数=0(需=0)"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "OpenRouter API调用：method=POST(需=POST)，endpoint=/api/v1/chat/completions，Authorization=Bearer ，model=openrouter/horizon-beta(需=openrouter/horizon-beta)，messages=✓"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 0,
+          "reason": "AI公平性约束：prompt含'不得/禁止隐藏人类舰船'约束=✗，API密钥未泄露到prompt=✓，不同布局相同seed→prompt一致=✓，决策坐标一致=True(a=B4, b=B4)"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "AI降级策略：API返回无效→fallback结果=ok，decisionSource=local-fallback(需=fallback)，fallbackCount=3(需≥1)，最终坐标=H8(需非null)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 0,
+          "reason": "AI追击模式：命中敌舰→result=hit(需=hit/sunk)，mode=hunt(需=target/kill)，targetQueue长度=0(需>0)"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 0,
+          "reason": "AI知识库：knowledgeBoard维度=10×10(需10×10)，命中位置标记=unknown(需=hit/sunk)，attackHistory=[](需=['A1'])"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI空闲收敛：waitForIdle=通过，pendingAIRequests=0(需=0)，aiPending=0(需=0)，phase=setup(需=setup)"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "API密钥防泄露：DOM中无=✓，无=✓，runtime可配置AI=✓，api-status元素=✓"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "状态防篡改：修改后size=10(需=10未受注入影响)，shipId未受注入=✓，knownHits未受注入=✓"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "多Board独立性：playerBoard.owner=player(需=player)，enemyBoard.owner=enemy(需=enemy)，aiPlayer=✓，engine存在且双Board独立=✓"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "相机控制(OrbitControls)：拖拽后相机Y=11.8(需≥0不低于水面)，拖拽触发攻击计数=0(需=0)"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "窄屏响应式(390×844)：scrollWidth=390≤clientWidth+2=392=✓，canvas宽=390，canvas高=844(需均>0)"
+        },
+        {
+          "id": 38,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n当前画面仅显示了游戏标题与信息面板，核心的棋盘区域未展示出两个独立3D海洋战舰棋盘、网格、舰船与纵深海战环境。",
+          "image": "ut_images\\play.html_r38_1.png"
+        },
+        {
+          "id": 39,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n该界面仅展示了游戏基础框架与侧边信息栏，未直观呈现五种舰船、方向控制与确认控件，也没有显示出玩家可见的己方舰船。",
+          "image": "ut_images\\play.html_r39_2.png"
+        },
+        {
+          "id": 40,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n当前画面中没有显示任何弹丸、涟漪或爆炸反馈，核心海域操作区域为空白，不存在符合描述的相关反馈内容。",
+          "image": "ut_images\\play.html_r40_3.png"
+        },
+        {
+          "id": 41,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n界面明确显示了“你赢了”的胜负结果，右上角有“重新开始”按钮，同时弹窗提供了完整的战斗结束结算与反馈信息。",
+          "image": "ut_images\\play.html_r41_4.png"
+        },
+        {
+          "id": 42,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n左侧大量UI内容与文字被明显裁切，部分功能区域显示不全，不符合清晰可操作的演示版质量要求。",
+          "image": "ut_images\\play.html_r42_5.png"
+        }
+      ],
+      "func_score": {
+        "项目采用 React 19、TypeScript、Vite 与 Tailwind CSS 的完整前端工程结构，依赖和构建脚本齐全，并且 npm run build 成功生成可部署的 dist 产物。": 1,
+        "应用通过 React 挂载到 #root，页面包含 canvas#game；源码遵循 React 19 + TypeScript + Vite + Tailwind CSS，最终单文件按原始用户 Prompt 加载 Three.js r128 与 OrbitControls CDN。": 1,
+        "Three.js 场景包含 PerspectiveCamera、WebGLRenderer、AmbientLight、DirectionalLight、两个棋盘 Group、Raycaster 和持续的 requestAnimationFrame 渲染循环。": 0,
+        "双方均使用独立 10×10 棋盘，坐标 A1–J10 与行列互转准确，两个棋盘的攻击和舰船状态互不污染。": 0,
+        "每方舰队严格包含航母5、战列舰4、巡洋舰3、潜艇3、驱逐舰2，共5艘17格。": 0,
+        "玩家可通过舰船列表拖拽或点击棋盘完成布阵，并能在开始前选择、移动和重新放置舰船。": 0,
+        "设置阶段支持 R 键或按钮在水平/垂直方向间旋转舰船，旋转后占格、方向和模型保持一致。": 0,
+        "越界、重叠、未知舰船和非法参数会被拒绝，失败操作保持原有舰队不变。": 0,
+        "随机布阵每次生成完整合法的五舰17格配置，且多次随机结果具有变化。": 0,
+        "AI 舰队自动合法随机放置，在未命中前不向玩家、DOM、公开状态或场景可见性泄露坐标。": 0,
+        "只有玩家五艘舰船完整放置后才能开始战斗；开战后锁定布阵并由人类先手。": 0,
+        "游戏严格按人类一次攻击、AI一次攻击的顺序切换，AI思考期间锁定玩家输入，任何并发点击都不能产生额外攻击。": 0,
+        "重复攻击、越界攻击、错误阶段或错误回合攻击均安全拒绝，不消耗回合也不增加历史。": 1,
+        "一次攻击的结果只由请求棋格在固定棋盘上的真实占用情况决定；攻击过程中不得重定向坐标、伪造结果或暗中移动尚未公开的舰船。": 1,
+        "舰船只有在其全部格子被命中后才击沉；普通命中不会提前减少剩余舰船数，击沉后对应敌舰显形并记录名称。": 1,
+        "击沉敌方全部五艘船后判定玩家胜利并停止 AI；击沉我方全部五艘船后判定 AI 胜利并禁止继续输入。": 1,
+        "重新开始会创建干净的新局：清空攻击、命中、胜负、战报、特效、AI队列、请求和定时器，并回到可布阵状态。": 1,
+        "OpenRouter 请求使用 POST https://openrouter.ai/api/v1/chat/completions、模型 openrouter/horizon-beta、Bearer 鉴权、JSON消息体和合理超时。": 1,
+        "AI 提示和决策只依赖公开命中、未命中、击沉信息；在公开历史和随机源相同的情况下，更换玩家隐藏舰队不得改变 AI 的下一次决策。": 0,
+        "OpenRouter 返回合法坐标时正确解析且不重复攻击；网络失败、非2xx、超时、空文本或非法坐标时回退到未使用坐标。": 0,
+        "AI 具有狩猎与追击逻辑：未命中时选择未使用坐标，命中后优先攻击相邻格，并根据连续命中维持目标模式。": 0,
+        "AI 维护独立 10×10 知识棋盘和攻击历史，知识只由实际公开结果更新，两个3格舰船的状态互不混淆。": 0,
+        "延迟或过期的 AI 响应在重开、终局或会话变化后不会落地；pending 状态和 waitForIdle 最终收敛。": 1,
+        "API 密钥使用占位符并可在运行时配置，页面明确显示 API/回退状态；公开状态、日志与构建产物不得泄露真实密钥。": 1,
+        "所有公开 getState 接口返回防御性快照；外部修改返回对象不能改变内部棋盘、AI、放置、效果或 Three.js 运行状态。": 1,
+        "Ship、GameBoard、AIPlayer 与 BattleshipEngine 构成实际运行的领域逻辑；UI、公开状态与 Three.js 场景必须由同一套真实游戏状态驱动，不维护平行影子状态。": 1,
+        "OrbitControls 支持环绕和缩放，视角最多到平视且不能进入棋盘下方；拖动镜头不会误触发攻击。": 1,
+        "窗口和画布尺寸变化会更新 renderer 尺寸、pixelRatio 和 camera aspect，桌面及窄屏均无横向溢出或关键控件遮挡。": 1,
+        "水面或环境持续动画，渲染循环保持运行，并限制活动特效数量和像素比以避免明显性能泄漏。": 0,
+        "未命中、命中、击沉具有可区分的涟漪/爆炸/弹丸反馈，击沉和终局有额外动画，特效对象会自动清理。": 0,
+        "开火、未命中、命中、击沉及胜负具有区分度的浏览器音效；静音或 AudioContext 失败不影响规则结算。": 0,
+        "HUD 清楚显示设置/战斗/结束阶段、当前回合、状态消息、重新开始、布阵和开火控件，按钮可用性与真实状态一致。": 0,
+        "敌方舰队面板显示五艘船的中文名称、受损/击沉状态和剩余数量，普通命中不减少数量，击沉后同步更新。": 0,
+        "战斗日志持久记录双方每次攻击的坐标和命中结果，顺序、数量与双方 attackHistory 完全一致且可滚动回读。": 0,
+        "应用运行过程中没有未捕获异常；非法操作、API故障、音频故障与重开均通过错误处理继续运行。": 0,
+        "源码按 React 组件和 TypeScript 领域模块组织，Ship、GameBoard、AIPlayer、BattleshipEngine 职责清晰并包含关键注释。": 0,
+        "除 Three.js/OrbitControls CDN 与浏览器访问 OpenRouter 外不存在业务服务器、WebSocket、数据库或持久化密钥依赖，最终单文件可直接打开或由普通静态服务器部署。": 0
+      },
+      "vlm_score": {
+        "默认画面呈现两个清晰独立的3D海洋棋盘、可辨识舰船、网格和具有纵深的海战环境。": 0,
+        "布阵界面直观展示五种舰船和方向，玩家舰船在确认前可见且易于拖拽/选择，敌舰保持隐藏。": 0,
+        "未命中、命中和击沉的视觉反馈明显不同，弹丸、爆炸/涟漪和沉船动画具有可读性且不遮挡操作。": 0,
+        "终局界面明确显示“你赢了”或“AI赢了”、重新开始按钮和具有完成感的胜负动画。": 1,
+        "整体UI达到演示版质量，中文信息层级清楚，在桌面和窄屏下布局响应良好、无明显裁切或素材复用感。": 0
+      }
+    }
+  },
+  {
+    "repo": "bad2",
+    "report": {
+      "layer1_pass": true,
+      "layer1_detail": {
+        "fatal_console_errors": [],
+        "has_content": true,
+        "entry_mode": "single-file"
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "页面基础架构：根节点(#root)=✓、Canvas(#game)=✓、游戏对象(__game)=✓、模块运行时=✗、CDN依赖=✓、工程配置文件=7/7(齐全)"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "Three.js运行时：场景=✓、相机=✓、渲染器=✓、THREE全局=✓、React根节点=✓、CDN已加载=✓"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "渲染循环：ready=✓、棋盘分组数=2(需=2)、射线检测=✓、frameCount 102→110(需递增)"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "棋盘坐标系：player棋盘10×10(100格)、enemy棋盘10×10(100格)、coordinateToLabel(9,9)=J10(需=J10)、labelToCoordinate('J10')={'row': 9, 'col': 9}(需=row:9,col:9)"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "舰队配置：舰船类型及长度=[('巡洋舰', 3), ('战列舰', 4), ('潜艇', 3), ('航母', 5), ('驱逐舰', 2)](需=航母5/战列舰4/巡洋舰3/潜艇3/驱逐舰2)，player占格=17(需=17)，enemy占格=17(需=17)"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "拖拽布阵：点击船舰→placeShip返回True(需=True)，已放置舰船=['carrier'](需含carrier)，placementPanel可见=True"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "舰船旋转：旋转前orientation=horizontal→旋转后orientation=vertical(需不同)，cells数量=5(需=5)"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重叠/非法ID拒绝：越界放置(9,9)=False、重叠放置(0,0)=False、未知shipId=False(以上均需=False)，棋盘状态不变=✓"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "随机布阵多样性：3次随机布局cell总数均为17=✓，不同布局数=3(需≥2)"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 0,
+          "reason": "敌方舰船隐藏：5艘敌舰meshVisible/revealed均为false=✗，DOM无坐标泄露=✓，场景无敌舰可见节点=✓"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "游戏流程控制：未布阵startBattle=被拒(需被拒)，布阵后startBattle=通过(需通过)，phase=playing(需=playing)，turn=human(需=human)，战斗中moveShip=被拒(需被拒)"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "回合交替：首次攻击=通过(需通过)，连续第二次攻击=被拒(需被拒)，turn=ai(需=ai)，inputLocked=True(需=True)，humanAttackCount=1(需=1)，并发双攻击成功数=1/2(需=1)"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重复攻击拒绝：playerAttack(-1,0)=被拒，aiAttack(11,0)=被拒(均需被拒)，攻击计数未变(human=1=1，ai=0=0)"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "命中/未命中区分：攻击(9,9)→result=miss(需=miss)/coordinate=J10(需=J10)，攻击(0,0)→result=hit(需=hit/sunk)/coordinate=A1(需=A1)，棋盘布局不变(防窥屏)=✓"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "击沉检测：前4击result=['hit', 'hit', 'hit', 'hit'](均需=hit)，第5击result=sunk(需=sunk)，shipsRemaining=4(需=4)，沉船meshVisible=True(需=True)"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "双结局覆盖：人类胜利→winner=human(需=human)/phase=ended(需=ended)/turn=None(需=null)，AI胜利→winner=ai(需=ai)/phase=ended(需=ended)/turn=None(需=null)"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "游戏重置：phase=setup(需=setup)，sessionId已更换=✓，attackHistory已清空=✓，pendingAIRequests=0(需=0)，特效数=0(需=0)"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "OpenRouter API调用：method=POST(需=POST)，endpoint=/api/v1/chat/completions，Authorization=Bearer ，model=openrouter/horizon-beta(需=openrouter/horizon-beta)，messages=✓"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "状态防篡改：修改后size=10(需=10未受注入影响)，shipId未受注入=✓，knownHits未受注入=✓"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "多Board独立性：playerBoard.owner=player(需=player)，enemyBoard.owner=enemy(需=enemy)，aiPlayer=✓，engine存在且双Board独立=✓"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "相机控制(OrbitControls)：拖拽后相机Y=17(需≥0不低于水面)，拖拽触发攻击计数=0(需=0)"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "窄屏响应式(390×844)：scrollWidth=390≤clientWidth+2=392=✓，canvas宽=390，canvas高=195(需均>0)"
+        },
+        {
+          "id": 38,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n该画面仅显示了海域标题区域，并未实际展示出两个完整的带网格、舰船的3D海洋战舰棋盘与有纵深的海战环境。",
+          "image": "ut_images\\play.html_r38_1.png"
+        },
+        {
+          "id": 39,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n该布阵界面直观展示了五种待部署舰船，提供了方向旋转控件与确认开战控件，布阵阶段敌舰保持隐藏，玩家的待部署舰船可见，符合描述要求。",
+          "image": "ut_images\\play.html_r39_2.png"
+        },
+        {
+          "id": 40,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n当前画面未绘制对战网格，也不存在弹丸、涟漪或爆炸相关反馈，没有符合要求的反馈内容。",
+          "image": "ut_images\\play.html_r40_3.png"
+        },
+        {
+          "id": 41,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n该界面明确显示了你方获胜的胜负结果，带有「再次出航」的重新开始按钮，同时展示了双方攻击数据，具备完整的战斗结束反馈。",
+          "image": "ut_images\\play.html_r41_4.png"
+        },
+        {
+          "id": 42,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n所有可交互功能元素都清晰可见可操作，仅少量提示文字被按钮遮挡不影响使用，无明显裁切和横向溢出，达到演示版质量。",
+          "image": "ut_images\\play.html_r42_5.png"
+        }
+      ],
+      "func_score": {
+        "项目采用 React 19、TypeScript、Vite 与 Tailwind CSS 的完整前端工程结构，依赖和构建脚本齐全，并且 npm run build 成功生成可部署的 dist 产物。": 1,
+        "应用通过 React 挂载到 #root，页面包含 canvas#game；源码遵循 React 19 + TypeScript + Vite + Tailwind CSS，最终单文件按原始用户 Prompt 加载 Three.js r128 与 OrbitControls CDN。": 1,
+        "Three.js 场景包含 PerspectiveCamera、WebGLRenderer、AmbientLight、DirectionalLight、两个棋盘 Group、Raycaster 和持续的 requestAnimationFrame 渲染循环。": 1,
+        "双方均使用独立 10×10 棋盘，坐标 A1–J10 与行列互转准确，两个棋盘的攻击和舰船状态互不污染。": 1,
+        "每方舰队严格包含航母5、战列舰4、巡洋舰3、潜艇3、驱逐舰2，共5艘17格。": 1,
+        "玩家可通过舰船列表拖拽或点击棋盘完成布阵，并能在开始前选择、移动和重新放置舰船。": 1,
+        "设置阶段支持 R 键或按钮在水平/垂直方向间旋转舰船，旋转后占格、方向和模型保持一致。": 1,
+        "越界、重叠、未知舰船和非法参数会被拒绝，失败操作保持原有舰队不变。": 1,
+        "随机布阵每次生成完整合法的五舰17格配置，且多次随机结果具有变化。": 1,
+        "AI 舰队自动合法随机放置，在未命中前不向玩家、DOM、公开状态或场景可见性泄露坐标。": 0,
+        "只有玩家五艘舰船完整放置后才能开始战斗；开战后锁定布阵并由人类先手。": 1,
+        "游戏严格按人类一次攻击、AI一次攻击的顺序切换，AI思考期间锁定玩家输入，任何并发点击都不能产生额外攻击。": 1,
+        "重复攻击、越界攻击、错误阶段或错误回合攻击均安全拒绝，不消耗回合也不增加历史。": 1,
+        "一次攻击的结果只由请求棋格在固定棋盘上的真实占用情况决定；攻击过程中不得重定向坐标、伪造结果或暗中移动尚未公开的舰船。": 1,
+        "舰船只有在其全部格子被命中后才击沉；普通命中不会提前减少剩余舰船数，击沉后对应敌舰显形并记录名称。": 1,
+        "击沉敌方全部五艘船后判定玩家胜利并停止 AI；击沉我方全部五艘船后判定 AI 胜利并禁止继续输入。": 1,
+        "重新开始会创建干净的新局：清空攻击、命中、胜负、战报、特效、AI队列、请求和定时器，并回到可布阵状态。": 1,
+        "OpenRouter 请求使用 POST https://openrouter.ai/api/v1/chat/completions、模型 openrouter/horizon-beta、Bearer 鉴权、JSON消息体和合理超时。": 1,
+        "AI 提示和决策只依赖公开命中、未命中、击沉信息；在公开历史和随机源相同的情况下，更换玩家隐藏舰队不得改变 AI 的下一次决策。": 0,
+        "OpenRouter 返回合法坐标时正确解析且不重复攻击；网络失败、非2xx、超时、空文本或非法坐标时回退到未使用坐标。": 0,
+        "AI 具有狩猎与追击逻辑：未命中时选择未使用坐标，命中后优先攻击相邻格，并根据连续命中维持目标模式。": 0,
+        "AI 维护独立 10×10 知识棋盘和攻击历史，知识只由实际公开结果更新，两个3格舰船的状态互不混淆。": 0,
+        "延迟或过期的 AI 响应在重开、终局或会话变化后不会落地；pending 状态和 waitForIdle 最终收敛。": 0,
+        "API 密钥使用占位符并可在运行时配置，页面明确显示 API/回退状态；公开状态、日志与构建产物不得泄露真实密钥。": 0,
+        "所有公开 getState 接口返回防御性快照；外部修改返回对象不能改变内部棋盘、AI、放置、效果或 Three.js 运行状态。": 1,
+        "Ship、GameBoard、AIPlayer 与 BattleshipEngine 构成实际运行的领域逻辑；UI、公开状态与 Three.js 场景必须由同一套真实游戏状态驱动，不维护平行影子状态。": 1,
+        "OrbitControls 支持环绕和缩放，视角最多到平视且不能进入棋盘下方；拖动镜头不会误触发攻击。": 1,
+        "窗口和画布尺寸变化会更新 renderer 尺寸、pixelRatio 和 camera aspect，桌面及窄屏均无横向溢出或关键控件遮挡。": 1,
+        "水面或环境持续动画，渲染循环保持运行，并限制活动特效数量和像素比以避免明显性能泄漏。": 0,
+        "未命中、命中、击沉具有可区分的涟漪/爆炸/弹丸反馈，击沉和终局有额外动画，特效对象会自动清理。": 0,
+        "开火、未命中、命中、击沉及胜负具有区分度的浏览器音效；静音或 AudioContext 失败不影响规则结算。": 0,
+        "HUD 清楚显示设置/战斗/结束阶段、当前回合、状态消息、重新开始、布阵和开火控件，按钮可用性与真实状态一致。": 0,
+        "敌方舰队面板显示五艘船的中文名称、受损/击沉状态和剩余数量，普通命中不减少数量，击沉后同步更新。": 0,
+        "战斗日志持久记录双方每次攻击的坐标和命中结果，顺序、数量与双方 attackHistory 完全一致且可滚动回读。": 0,
+        "应用运行过程中没有未捕获异常；非法操作、API故障、音频故障与重开均通过错误处理继续运行。": 0,
+        "源码按 React 组件和 TypeScript 领域模块组织，Ship、GameBoard、AIPlayer、BattleshipEngine 职责清晰并包含关键注释。": 0,
+        "除 Three.js/OrbitControls CDN 与浏览器访问 OpenRouter 外不存在业务服务器、WebSocket、数据库或持久化密钥依赖，最终单文件可直接打开或由普通静态服务器部署。": 0
+      },
+      "vlm_score": {
+        "默认画面呈现两个清晰独立的3D海洋棋盘、可辨识舰船、网格和具有纵深的海战环境。": 0,
+        "布阵界面直观展示五种舰船和方向，玩家舰船在确认前可见且易于拖拽/选择，敌舰保持隐藏。": 1,
+        "未命中、命中和击沉的视觉反馈明显不同，弹丸、爆炸/涟漪和沉船动画具有可读性且不遮挡操作。": 0,
+        "终局界面明确显示“你赢了”或“AI赢了”、重新开始按钮和具有完成感的胜负动画。": 1,
+        "整体UI达到演示版质量，中文信息层级清楚，在桌面和窄屏下布局响应良好、无明显裁切或素材复用感。": 1
+      }
+    }
+  },
+  {
+    "repo": "bad3",
+    "report": {
+      "layer1_pass": true,
+      "layer1_detail": {
+        "fatal_console_errors": [],
+        "has_content": true,
+        "entry_mode": "single-file"
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "页面基础架构：根节点(#root)=✓、Canvas(#game)=✓、游戏对象(__game)=✓、模块运行时=✗、CDN依赖=✓、工程配置文件=7/7(齐全)"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "Three.js运行时：场景=✓、相机=✓、渲染器=✓、THREE全局=✓、React根节点=✓、CDN已加载=✓"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "渲染循环：ready=✓、棋盘分组数=2(需=2)、射线检测=✓、frameCount 103→111(需递增)"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "棋盘坐标系：player棋盘10×10(100格)、enemy棋盘10×10(100格)、coordinateToLabel(9,9)=J10(需=J10)、labelToCoordinate('J10')={'row': 9, 'col': 9}(需=row:9,col:9)"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "舰队配置：舰船类型及长度=[('巡洋舰', 3), ('战列舰', 4), ('潜艇', 3), ('航母', 5), ('驱逐舰', 2)](需=航母5/战列舰4/巡洋舰3/潜艇3/驱逐舰2)，player占格=17(需=17)，enemy占格=17(需=17)"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "拖拽布阵：点击船舰→placeShip返回True(需=True)，已放置舰船=['carrier'](需含carrier)，placementPanel可见=True"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "舰船旋转：旋转前orientation=horizontal→旋转后orientation=vertical(需不同)，cells数量=5(需=5)"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重叠/非法ID拒绝：越界放置(9,9)=False、重叠放置(0,0)=False、未知shipId=False(以上均需=False)，棋盘状态不变=✓"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "随机布阵多样性：3次随机布局cell总数均为17=✓，不同布局数=3(需≥2)"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "敌方舰船隐藏：5艘敌舰meshVisible/revealed均为false=✓，DOM无坐标泄露=✓，场景无敌舰可见节点=✓"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "游戏流程控制：未布阵startBattle=被拒(需被拒)，布阵后startBattle=通过(需通过)，phase=playing(需=playing)，turn=human(需=human)，战斗中moveShip=被拒(需被拒)"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "回合交替：首次攻击=通过(需通过)，连续第二次攻击=被拒(需被拒)，turn=ai(需=ai)，inputLocked=True(需=True)，humanAttackCount=1(需=1)，并发双攻击成功数=1/2(需=1)"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重复攻击拒绝：playerAttack(-1,0)=被拒，aiAttack(11,0)=被拒(均需被拒)，攻击计数未变(human=1=1，ai=0=0)"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "命中/未命中区分：攻击(9,9)→result=miss(需=miss)/coordinate=J10(需=J10)，攻击(0,0)→result=hit(需=hit/sunk)/coordinate=A1(需=A1)，棋盘布局不变(防窥屏)=✓"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "击沉检测：前4击result=['hit', 'hit', 'hit', 'hit'](均需=hit)，第5击result=sunk(需=sunk)，shipsRemaining=4(需=4)，沉船meshVisible=True(需=True)"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "双结局覆盖：人类胜利→winner=human(需=human)/phase=ended(需=ended)/turn=None(需=null)，AI胜利→winner=ai(需=ai)/phase=ended(需=ended)/turn=None(需=null)"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "OpenRouter API调用：method=POST(需=POST)，endpoint=/api/v1/chat/completions，Authorization=Bearer ，model=openrouter/horizon-beta(需=openrouter/horizon-beta)，messages=✓"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 0,
+          "reason": "AI公平性约束：prompt含'不得/禁止隐藏人类舰船'约束=✗，API密钥未泄露到prompt=✓，不同布局相同seed→prompt一致=✓，决策坐标一致=True(a=B4, b=B4)"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI降级策略：API返回无效→fallback结果=ok，decisionSource=fallback(需=fallback)，fallbackCount=1(需≥1)，最终坐标=A7(需非null)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI追击模式：命中敌舰→result=hit(需=hit/sunk)，mode=target(需=target/kill)，targetQueue长度=2(需>0)"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI知识库：knowledgeBoard维度=10×10(需10×10)，命中位置标记=hit(需=hit/sunk)，attackHistory=['A1'](需=['A1'])"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI空闲收敛：waitForIdle=通过，pendingAIRequests=0(需=0)，aiPending=0(需=0)，phase=setup(需=setup)"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "API密钥防泄露：DOM中无=✓，无=✓，runtime可配置AI=✓，api-status元素=✓"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "状态防篡改：修改后size=10(需=10未受注入影响)，shipId未受注入=✓，knownHits未受注入=✓"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "多Board独立性：playerBoard.owner=player(需=player)，enemyBoard.owner=enemy(需=enemy)，aiPlayer=✓，engine存在且双Board独立=✓"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "相机控制(OrbitControls)：拖拽后相机Y=11.5(需≥0不低于水面)，拖拽触发攻击计数=0(需=0)"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "窄屏响应式(390×844)：scrollWidth=390≤clientWidth+2=392=✓，canvas宽=390，canvas高=844(需均>0)"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "渲染持续性：frameCount 156→166(需递增=✓)，waterTime 2.6→2.7666666666666666(需递增)，pixelRatio=1(需≤2.01)"
+        },
+        {
+          "id": 38,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n当前画面仅显示了游戏标题、状态提示栏，并没有展示出两个独立的3D海洋战舰棋盘、网格、舰船和具有纵深的海战环境。",
+          "image": "ut_images\\play.html_r38_1.png"
+        },
+        {
+          "id": 39,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n该布阵界面直观展示了五种舰船，提供了方向旋转控件和确认部署的控件，当前为己方舰队部署阶段，仅我方舰船可见，敌方舰船处于隐藏状态，符合要求。",
+          "image": "ut_images\\play.html_r39_2.png"
+        },
+        {
+          "id": 40,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n当前画面未显示弹丸、涟漪或爆炸反馈，也未呈现目标所在的海域棋盘，不存在符合要求的反馈效果。",
+          "image": "ut_images\\play.html_r40_3.png"
+        },
+        {
+          "id": 41,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n该界面明确标注了胜负结果“你赢了！”，有“再来一局”的重新开始按钮，同时提供了胜负说明和双方攻击次数统计，拥有完整的战斗结束反馈。",
+          "image": "ut_images\\play.html_r41_4.png"
+        },
+        {
+          "id": 42,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n所有UI元素完整展示在窄屏内，无裁切和横向溢出，信息清晰、操作入口明确，达到了演示版质量。",
+          "image": "ut_images\\play.html_r42_5.png"
+        }
+      ],
+      "func_score": {
+        "项目采用 React 19、TypeScript、Vite 与 Tailwind CSS 的完整前端工程结构，依赖和构建脚本齐全，并且 npm run build 成功生成可部署的 dist 产物。": 1,
+        "应用通过 React 挂载到 #root，页面包含 canvas#game；源码遵循 React 19 + TypeScript + Vite + Tailwind CSS，最终单文件按原始用户 Prompt 加载 Three.js r128 与 OrbitControls CDN。": 1,
+        "Three.js 场景包含 PerspectiveCamera、WebGLRenderer、AmbientLight、DirectionalLight、两个棋盘 Group、Raycaster 和持续的 requestAnimationFrame 渲染循环。": 1,
+        "双方均使用独立 10×10 棋盘，坐标 A1–J10 与行列互转准确，两个棋盘的攻击和舰船状态互不污染。": 1,
+        "每方舰队严格包含航母5、战列舰4、巡洋舰3、潜艇3、驱逐舰2，共5艘17格。": 1,
+        "玩家可通过舰船列表拖拽或点击棋盘完成布阵，并能在开始前选择、移动和重新放置舰船。": 1,
+        "设置阶段支持 R 键或按钮在水平/垂直方向间旋转舰船，旋转后占格、方向和模型保持一致。": 1,
+        "越界、重叠、未知舰船和非法参数会被拒绝，失败操作保持原有舰队不变。": 1,
+        "随机布阵每次生成完整合法的五舰17格配置，且多次随机结果具有变化。": 1,
+        "AI 舰队自动合法随机放置，在未命中前不向玩家、DOM、公开状态或场景可见性泄露坐标。": 1,
+        "只有玩家五艘舰船完整放置后才能开始战斗；开战后锁定布阵并由人类先手。": 1,
+        "游戏严格按人类一次攻击、AI一次攻击的顺序切换，AI思考期间锁定玩家输入，任何并发点击都不能产生额外攻击。": 1,
+        "重复攻击、越界攻击、错误阶段或错误回合攻击均安全拒绝，不消耗回合也不增加历史。": 1,
+        "一次攻击的结果只由请求棋格在固定棋盘上的真实占用情况决定；攻击过程中不得重定向坐标、伪造结果或暗中移动尚未公开的舰船。": 1,
+        "舰船只有在其全部格子被命中后才击沉；普通命中不会提前减少剩余舰船数，击沉后对应敌舰显形并记录名称。": 1,
+        "击沉敌方全部五艘船后判定玩家胜利并停止 AI；击沉我方全部五艘船后判定 AI 胜利并禁止继续输入。": 1,
+        "重新开始会创建干净的新局：清空攻击、命中、胜负、战报、特效、AI队列、请求和定时器，并回到可布阵状态。": 0,
+        "OpenRouter 请求使用 POST https://openrouter.ai/api/v1/chat/completions、模型 openrouter/horizon-beta、Bearer 鉴权、JSON消息体和合理超时。": 1,
+        "AI 提示和决策只依赖公开命中、未命中、击沉信息；在公开历史和随机源相同的情况下，更换玩家隐藏舰队不得改变 AI 的下一次决策。": 0,
+        "OpenRouter 返回合法坐标时正确解析且不重复攻击；网络失败、非2xx、超时、空文本或非法坐标时回退到未使用坐标。": 1,
+        "AI 具有狩猎与追击逻辑：未命中时选择未使用坐标，命中后优先攻击相邻格，并根据连续命中维持目标模式。": 1,
+        "AI 维护独立 10×10 知识棋盘和攻击历史，知识只由实际公开结果更新，两个3格舰船的状态互不混淆。": 1,
+        "延迟或过期的 AI 响应在重开、终局或会话变化后不会落地；pending 状态和 waitForIdle 最终收敛。": 1,
+        "API 密钥使用占位符并可在运行时配置，页面明确显示 API/回退状态；公开状态、日志与构建产物不得泄露真实密钥。": 1,
+        "所有公开 getState 接口返回防御性快照；外部修改返回对象不能改变内部棋盘、AI、放置、效果或 Three.js 运行状态。": 1,
+        "Ship、GameBoard、AIPlayer 与 BattleshipEngine 构成实际运行的领域逻辑；UI、公开状态与 Three.js 场景必须由同一套真实游戏状态驱动，不维护平行影子状态。": 1,
+        "OrbitControls 支持环绕和缩放，视角最多到平视且不能进入棋盘下方；拖动镜头不会误触发攻击。": 1,
+        "窗口和画布尺寸变化会更新 renderer 尺寸、pixelRatio 和 camera aspect，桌面及窄屏均无横向溢出或关键控件遮挡。": 1,
+        "水面或环境持续动画，渲染循环保持运行，并限制活动特效数量和像素比以避免明显性能泄漏。": 1,
+        "未命中、命中、击沉具有可区分的涟漪/爆炸/弹丸反馈，击沉和终局有额外动画，特效对象会自动清理。": 0,
+        "开火、未命中、命中、击沉及胜负具有区分度的浏览器音效；静音或 AudioContext 失败不影响规则结算。": 0,
+        "HUD 清楚显示设置/战斗/结束阶段、当前回合、状态消息、重新开始、布阵和开火控件，按钮可用性与真实状态一致。": 0,
+        "敌方舰队面板显示五艘船的中文名称、受损/击沉状态和剩余数量，普通命中不减少数量，击沉后同步更新。": 0,
+        "战斗日志持久记录双方每次攻击的坐标和命中结果，顺序、数量与双方 attackHistory 完全一致且可滚动回读。": 0,
+        "应用运行过程中没有未捕获异常；非法操作、API故障、音频故障与重开均通过错误处理继续运行。": 0,
+        "源码按 React 组件和 TypeScript 领域模块组织，Ship、GameBoard、AIPlayer、BattleshipEngine 职责清晰并包含关键注释。": 0,
+        "除 Three.js/OrbitControls CDN 与浏览器访问 OpenRouter 外不存在业务服务器、WebSocket、数据库或持久化密钥依赖，最终单文件可直接打开或由普通静态服务器部署。": 0
+      },
+      "vlm_score": {
+        "默认画面呈现两个清晰独立的3D海洋棋盘、可辨识舰船、网格和具有纵深的海战环境。": 0,
+        "布阵界面直观展示五种舰船和方向，玩家舰船在确认前可见且易于拖拽/选择，敌舰保持隐藏。": 1,
+        "未命中、命中和击沉的视觉反馈明显不同，弹丸、爆炸/涟漪和沉船动画具有可读性且不遮挡操作。": 0,
+        "终局界面明确显示“你赢了”或“AI赢了”、重新开始按钮和具有完成感的胜负动画。": 1,
+        "整体UI达到演示版质量，中文信息层级清楚，在桌面和窄屏下布局响应良好、无明显裁切或素材复用感。": 1
+      }
+    }
+  },
+  {
+    "repo": "good",
+    "report": {
+      "layer1_pass": true,
+      "layer1_detail": {
+        "fatal_console_errors": [],
+        "has_content": true,
+        "entry_mode": "single-file"
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "页面基础架构：根节点(#root)=✓、Canvas(#game)=✓、游戏对象(__game)=✓、模块运行时=✓、CDN依赖=✓、工程配置文件=7/7(齐全)"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "Three.js运行时：场景=✓、相机=✓、渲染器=✓、THREE全局=✓、React根节点=✓、CDN已加载=✓"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "渲染循环：ready=✓、棋盘分组数=2(需=2)、射线检测=✓、frameCount 102→110(需递增)"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "棋盘坐标系：player棋盘10×10(100格)、enemy棋盘10×10(100格)、coordinateToLabel(9,9)=J10(需=J10)、labelToCoordinate('J10')={'row': 9, 'col': 9}(需=row:9,col:9)"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "舰队配置：舰船类型及长度=[('巡洋舰', 3), ('战列舰', 4), ('潜艇', 3), ('航母', 5), ('驱逐舰', 2)](需=航母5/战列舰4/巡洋舰3/潜艇3/驱逐舰2)，player占格=17(需=17)，enemy占格=17(需=17)"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "拖拽布阵：点击船舰→placeShip返回True(需=True)，已放置舰船=['carrier'](需含carrier)，placementPanel可见=True"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "舰船旋转：旋转前orientation=horizontal→旋转后orientation=vertical(需不同)，cells数量=5(需=5)"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重叠/非法ID拒绝：越界放置(9,9)=False、重叠放置(0,0)=False、未知shipId=False(以上均需=False)，棋盘状态不变=✓"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "随机布阵多样性：3次随机布局cell总数均为17=✓，不同布局数=3(需≥2)"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "敌方舰船隐藏：5艘敌舰meshVisible/revealed均为false=✓，DOM无坐标泄露=✓，场景无敌舰可见节点=✓"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "游戏流程控制：未布阵startBattle=被拒(需被拒)，布阵后startBattle=通过(需通过)，phase=playing(需=playing)，turn=human(需=human)，战斗中moveShip=被拒(需被拒)"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "回合交替：首次攻击=通过(需通过)，连续第二次攻击=被拒(需被拒)，turn=ai(需=ai)，inputLocked=True(需=True)，humanAttackCount=1(需=1)，并发双攻击成功数=1/2(需=1)"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "越界/重复攻击拒绝：playerAttack(-1,0)=被拒，aiAttack(11,0)=被拒(均需被拒)，攻击计数未变(human=1=1，ai=0=0)"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "命中/未命中区分：攻击(9,9)→result=miss(需=miss)/coordinate=J10(需=J10)，攻击(0,0)→result=hit(需=hit/sunk)/coordinate=A1(需=A1)，棋盘布局不变(防窥屏)=✓"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "击沉检测：前4击result=['hit', 'hit', 'hit', 'hit'](均需=hit)，第5击result=sunk(需=sunk)，shipsRemaining=4(需=4)，沉船meshVisible=True(需=True)"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "双结局覆盖：人类胜利→winner=human(需=human)/phase=ended(需=ended)/turn=None(需=null)，AI胜利→winner=ai(需=ai)/phase=ended(需=ended)/turn=None(需=null)"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "游戏重置：phase=setup(需=setup)，sessionId已更换=✓，attackHistory已清空=✓，pendingAIRequests=0(需=0)，特效数=0(需=0)"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "OpenRouter API调用：method=POST(需=POST)，endpoint=/api/v1/chat/completions，Authorization=Bearer ，model=openrouter/horizon-beta(需=openrouter/horizon-beta)，messages=✓"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI公平性约束：prompt含'不得/禁止隐藏人类舰船'约束=✓，API密钥未泄露到prompt=✓，不同布局相同seed→prompt一致=✓，决策坐标一致=True(a=B4, b=B4)"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI降级策略：API返回无效→fallback结果=ok，decisionSource=fallback(需=fallback)，fallbackCount=1(需≥1)，最终坐标=G1(需非null)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI追击模式：命中敌舰→result=hit(需=hit/sunk)，mode=target(需=target/kill)，targetQueue长度=2(需>0)"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI知识库：knowledgeBoard维度=10×10(需10×10)，命中位置标记=hit(需=hit/sunk)，attackHistory=['A1'](需=['A1'])"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "AI空闲收敛：waitForIdle=通过，pendingAIRequests=0(需=0)，aiPending=0(需=0)，phase=setup(需=setup)"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "API密钥防泄露：DOM中无=✓，无=✓，runtime可配置AI=✓，api-status元素=✓"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "状态防篡改：修改后size=10(需=10未受注入影响)，shipId未受注入=✓，knownHits未受注入=✓"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "多Board独立性：playerBoard.owner=player(需=player)，enemyBoard.owner=enemy(需=enemy)，aiPlayer=✓，engine存在且双Board独立=✓"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "相机控制(OrbitControls)：拖拽后相机Y=12.5(需≥0不低于水面)，拖拽触发攻击计数=0(需=0)"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "窄屏响应式(390×844)：scrollWidth=390≤clientWidth+2=392=✓，canvas宽=390，canvas高=844(需均>0)"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "渲染持续性：frameCount 152→162(需递增=✓)，waterTime 2.533333333333333→2.7(需递增)，pixelRatio=1(需≤2.01)"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "特效反馈：miss攻击特效数=1(需≥1)，hit攻击特效数=3(需≥1且≤24)，miss详情=[{'objectId': 665, 'kind': 'ripple'}]，hit详情=[{'objectId': 665, 'kind': 'ripple'}, {'objectId': 667, 'kind': 'ripple'}, {'objectId': 669, 'kind': 'explosion'}]"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "音效控制：toggleAudio前后静音状态变化=✓(需切换)，lastCue=hit(需为hit/sunk/miss/cannon之一)"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "HUD元素：phase文字=✓，turn文字=✓，status文字=✓，fleet面板=✓，battleLog=✓，restart按钮=✓，confirm=✓，playerLabel=✓，enemyLabel=✓，orientation=✓，randomize=✓，shipList=✓"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "敌方舰队面板：含'航母'=✓、'战列舰'=✓、'巡洋舰'=✓、'潜艇'=✓、'驱逐舰'=✓，剩余舰船数=5(需在面板可见)"
+        },
+        {
+          "id": 34,
+          "kind": "det",
+          "score": 1,
+          "reason": "战斗日志：日志条目数=3(需≥攻击总数3=✓)，最后3条消息在DOM中可见"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "控制台无致命错误：严重错误数=0(需=0)，错误详情=无"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "架构完整性：engine=✓，playerBoard=✓，enemyBoard=✓，aiPlayer=✓，双Board独立=✓，testHook使用实况对象=✓；源码结构=6/6(齐全)"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "网络/Canvas约束：canvas#game数量=1(需=1)，外部请求数=0(需=0)，外部URL=无"
+        },
+        {
+          "id": 38,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "NO\n当前画面仅标注了己方海域与敌方海域，未清楚展示出两个独立的3D海洋战舰棋盘、网格、舰船以及有纵深的完整海战环境。",
+          "image": "ut_images\\play.html_r38_1.png"
+        },
+        {
+          "id": 39,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n该界面展示了全部五种舰船，标注了旋转调整方向的操作，存在确认部署的控件，己方布阵海域可见、敌方海域敌舰保持隐藏，符合描述要求。",
+          "image": "ut_images\\play.html_r39_2.png"
+        },
+        {
+          "id": 40,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n当前画面不存在弹丸、涟漪或爆炸反馈，现有界面UI未遮挡主要操作区域。",
+          "image": "ut_images\\play.html_r40_3.png"
+        },
+        {
+          "id": 41,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n该终局界面明确显示了你赢了的胜负结果，有“重新部署”的重新开始类按钮，同时给出了战果和攻击次数的完整战斗结束反馈。",
+          "image": "ut_images\\play.html_r41_4.png"
+        },
+        {
+          "id": 42,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "YES\n所有功能元素都完整显示在屏幕内，无明显裁切与横向溢出，操作区域清晰可点击，符合演示版质量要求。",
+          "image": "ut_images\\play.html_r42_5.png"
+        }
+      ],
+      "func_score": {
+        "项目采用 React 19、TypeScript、Vite 与 Tailwind CSS 的完整前端工程结构，依赖和构建脚本齐全，并且 npm run build 成功生成可部署的 dist 产物。": 1,
+        "应用通过 React 挂载到 #root，页面包含 canvas#game；源码遵循 React 19 + TypeScript + Vite + Tailwind CSS，最终单文件按原始用户 Prompt 加载 Three.js r128 与 OrbitControls CDN。": 1,
+        "Three.js 场景包含 PerspectiveCamera、WebGLRenderer、AmbientLight、DirectionalLight、两个棋盘 Group、Raycaster 和持续的 requestAnimationFrame 渲染循环。": 1,
+        "双方均使用独立 10×10 棋盘，坐标 A1–J10 与行列互转准确，两个棋盘的攻击和舰船状态互不污染。": 1,
+        "每方舰队严格包含航母5、战列舰4、巡洋舰3、潜艇3、驱逐舰2，共5艘17格。": 1,
+        "玩家可通过舰船列表拖拽或点击棋盘完成布阵，并能在开始前选择、移动和重新放置舰船。": 1,
+        "设置阶段支持 R 键或按钮在水平/垂直方向间旋转舰船，旋转后占格、方向和模型保持一致。": 1,
+        "越界、重叠、未知舰船和非法参数会被拒绝，失败操作保持原有舰队不变。": 1,
+        "随机布阵每次生成完整合法的五舰17格配置，且多次随机结果具有变化。": 1,
+        "AI 舰队自动合法随机放置，在未命中前不向玩家、DOM、公开状态或场景可见性泄露坐标。": 1,
+        "只有玩家五艘舰船完整放置后才能开始战斗；开战后锁定布阵并由人类先手。": 1,
+        "游戏严格按人类一次攻击、AI一次攻击的顺序切换，AI思考期间锁定玩家输入，任何并发点击都不能产生额外攻击。": 1,
+        "重复攻击、越界攻击、错误阶段或错误回合攻击均安全拒绝，不消耗回合也不增加历史。": 1,
+        "一次攻击的结果只由请求棋格在固定棋盘上的真实占用情况决定；攻击过程中不得重定向坐标、伪造结果或暗中移动尚未公开的舰船。": 1,
+        "舰船只有在其全部格子被命中后才击沉；普通命中不会提前减少剩余舰船数，击沉后对应敌舰显形并记录名称。": 1,
+        "击沉敌方全部五艘船后判定玩家胜利并停止 AI；击沉我方全部五艘船后判定 AI 胜利并禁止继续输入。": 1,
+        "重新开始会创建干净的新局：清空攻击、命中、胜负、战报、特效、AI队列、请求和定时器，并回到可布阵状态。": 1,
+        "OpenRouter 请求使用 POST https://openrouter.ai/api/v1/chat/completions、模型 openrouter/horizon-beta、Bearer 鉴权、JSON消息体和合理超时。": 1,
+        "AI 提示和决策只依赖公开命中、未命中、击沉信息；在公开历史和随机源相同的情况下，更换玩家隐藏舰队不得改变 AI 的下一次决策。": 1,
+        "OpenRouter 返回合法坐标时正确解析且不重复攻击；网络失败、非2xx、超时、空文本或非法坐标时回退到未使用坐标。": 1,
+        "AI 具有狩猎与追击逻辑：未命中时选择未使用坐标，命中后优先攻击相邻格，并根据连续命中维持目标模式。": 1,
+        "AI 维护独立 10×10 知识棋盘和攻击历史，知识只由实际公开结果更新，两个3格舰船的状态互不混淆。": 1,
+        "延迟或过期的 AI 响应在重开、终局或会话变化后不会落地；pending 状态和 waitForIdle 最终收敛。": 1,
+        "API 密钥使用占位符并可在运行时配置，页面明确显示 API/回退状态；公开状态、日志与构建产物不得泄露真实密钥。": 1,
+        "所有公开 getState 接口返回防御性快照；外部修改返回对象不能改变内部棋盘、AI、放置、效果或 Three.js 运行状态。": 1,
+        "Ship、GameBoard、AIPlayer 与 BattleshipEngine 构成实际运行的领域逻辑；UI、公开状态与 Three.js 场景必须由同一套真实游戏状态驱动，不维护平行影子状态。": 1,
+        "OrbitControls 支持环绕和缩放，视角最多到平视且不能进入棋盘下方；拖动镜头不会误触发攻击。": 1,
+        "窗口和画布尺寸变化会更新 renderer 尺寸、pixelRatio 和 camera aspect，桌面及窄屏均无横向溢出或关键控件遮挡。": 1,
+        "水面或环境持续动画，渲染循环保持运行，并限制活动特效数量和像素比以避免明显性能泄漏。": 1,
+        "未命中、命中、击沉具有可区分的涟漪/爆炸/弹丸反馈，击沉和终局有额外动画，特效对象会自动清理。": 1,
+        "开火、未命中、命中、击沉及胜负具有区分度的浏览器音效；静音或 AudioContext 失败不影响规则结算。": 1,
+        "HUD 清楚显示设置/战斗/结束阶段、当前回合、状态消息、重新开始、布阵和开火控件，按钮可用性与真实状态一致。": 1,
+        "敌方舰队面板显示五艘船的中文名称、受损/击沉状态和剩余数量，普通命中不减少数量，击沉后同步更新。": 1,
+        "战斗日志持久记录双方每次攻击的坐标和命中结果，顺序、数量与双方 attackHistory 完全一致且可滚动回读。": 1,
+        "应用运行过程中没有未捕获异常；非法操作、API故障、音频故障与重开均通过错误处理继续运行。": 1,
+        "源码按 React 组件和 TypeScript 领域模块组织，Ship、GameBoard、AIPlayer、BattleshipEngine 职责清晰并包含关键注释。": 1,
+        "除 Three.js/OrbitControls CDN 与浏览器访问 OpenRouter 外不存在业务服务器、WebSocket、数据库或持久化密钥依赖，最终单文件可直接打开或由普通静态服务器部署。": 1
+      },
+      "vlm_score": {
+        "默认画面呈现两个清晰独立的3D海洋棋盘、可辨识舰船、网格和具有纵深的海战环境。": 0,
+        "布阵界面直观展示五种舰船和方向，玩家舰船在确认前可见且易于拖拽/选择，敌舰保持隐藏。": 1,
+        "未命中、命中和击沉的视觉反馈明显不同，弹丸、爆炸/涟漪和沉船动画具有可读性且不遮挡操作。": 1,
+        "终局界面明确显示“你赢了”或“AI赢了”、重新开始按钮和具有完成感的胜负动画。": 1,
+        "整体UI达到演示版质量，中文信息层级清楚，在桌面和窄屏下布局响应良好、无明显裁切或素材复用感。": 1
+      }
+    }
+  }
+]

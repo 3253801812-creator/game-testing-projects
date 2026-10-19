@@ -1,0 +1,1082 @@
+{
+  "prompt_id": "32c92443cf19c78e12d17e5b1b08ce8c",
+  "game_type": "3d",
+  "samples": {
+    "good_1": {
+      "repo": "good_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：package react='^19.0.0'；sourceReactMount=True；productionBuildLoaded=True；runtimeReactMarker=True；runtimeRootChildren=1。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：vite='^6.1.0', typescript='~5.7.2', build='vite build', viteConfig=True, tsconfig=True, tsSources=2。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：tailwind='^3.4.17', cssHasTailwindDirectives=True, importedTailwindCss=['src/index.css'], tailwindConfig=True, postcssConfig=True。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：buildAttempted=True, buildSucceeded=True, infrastructureOnly=False, buildContract=True, command='npm run build', outputDir='dist'。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：完整核心游玩流程后观察到跨源运行时请求 0 个：[]。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvasCount=1, visible=True, box={'x': 0, 'y': 0, 'width': 1280, 'height': 800}, observedWebGLContexts=1。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：renderer='webgl', cameraMode='third-person', buildings=125, 3DBuilding=True, elapsedAdvanced=True, canvasChanged=True。"
+        },
+        {
+          "id": 8,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查结论为符合；画面正前方清晰呈现了作为玩家代理的蓝青色卡通机器人角色，属于典型的第三人称尾随观察角色的3D游戏视角，并非第一人称视角或者仅为空场景。",
+          "image": "ut_images/good_1_r8_1.png"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerMove=2.009, cameraMove=1.444, cameraTargetToPlayer=1.504。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：yaw -2.6543401187955256e-32->-0.03121875857175715, canvasChanged=True。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：pitch 0.24->0.2932, canvasChanged=True。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=1.367, directionDot=1.000。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=1.367, directionDot=1.000。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=1.367, directionDot=1.000。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=1.367, directionDot=1.000。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：groundedBefore=True, startY=0.0, maxY=2.655000000000004, jumpingStateSeen=True, verticalVelocities=[6.600000000000011, 4.200000000000009, 3.0000000000000075, 0.6000000000000065, -1.7999999999999938, -2.999999999999995, -5.399999999999997, -7.799999999999999]。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：verticalVelocitySamples=[6.600000000000011, 4.200000000000009, 3.0000000000000075, 0.6000000000000065, -1.7999999999999938, -2.999999999999995, -5.399999999999997, -7.799999999999999, -10.199999999999992, 0.0, 0.0, 0.0], decreasingPairs=8, becameNegative=True。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：landed=True, playerY=0.0, groundY=0, colliderRadius=0.65。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=125, initialPenetration=False, sampledPoints=8, sampledPenetration=False, sampledTunnel=False。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAttached=True, anchorObjectId='landmark-needle', anchor={'x': 0, 'y': 3.8546932339127906, 'z': -103}。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAnchorMatch=True, anchorObjectId='landmark-needle', buildingFound=True, geometryCheck={'insideBounds': True, 'rayError': 3.66205343881779e-14, 'rayT': 128.47515291879424}, anchor=(0.0, 3.8546932339127906, -103.0)。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeInvalidTargetGuard=True, exercisedInvalidClick=True, targetValidBeforeClick=False, stateAfterInvalidClick={'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, attempts=[{'attempt': 1, 'pre': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'early': {'attached': True, 'targetValid': True, 'anchor': {'x': -0.0034503031789442375, 'y': 18.241292167138937, 'z': -103.00000000000001}, 'anchorObjectId': 'landmark-needle', 'ropeLength': 85.06540194200656, 'distanceToAnchor': 83.58033529581296, 'lineVisible': True, 'playerEndpoint': {'x': -0.000729709304426711, 'y': 7.258347569826633, 'z': -20.37989862291307}, 'anchorEndpoint': {'x': -0.0034503031789442375, 'y': 18.241292167138937, 'z': -103.00000000000001}}, 'after': {'attached': True, 'targetValid': True, 'anchor': {'x': -0.0034503031789442375, 'y': 18.241292167138937, 'z': -103.00000000000001}, 'anchorObjectId': 'landmark-needle', 'ropeLength': 85.06540194200656, 'distanceToAnchor': 82.02890504667936, 'lineVisible': True, 'playerEndpoint': {'x': -0.0007638099271423626, 'y': 7.9682139027200005, 'z': -21.842243373535563}, 'anchorEndpoint': {'x': -0.0034503031789442375, 'y': 18.241292167138937, 'z': -103.00000000000001}}, 'contaminated': True, 'noAttachment': False}, {'attempt': 2, 'pre': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'early': {'attached': True, 'targetValid': True, 'anchor': {'x': -8.439789472644055, 'y': 39.41594292598323, 'z': -103}, 'anchorObjectId': 'landmark-needle', 'ropeLength': 57.76136914122767, 'distanceToAnchor': 55.977994123426505, 'lineVisible': True, 'playerEndpoint': {'x': -0.013298731808763991, 'y': 9.516201359639677, 'z': -57.534145922748536}, 'anchorEndpoint': {'x': -8.439789472644055, 'y': 39.41594292598323, 'z': -103}}, 'after': {'attached': True, 'targetValid': False, 'anchor': {'x': -8.439789472644055, 'y': 39.41594292598323, 'z': -103}, 'anchorObjectId': 'landmark-needle', 'ropeLength': 57.76136914122767, 'distanceToAnchor': 54.11660325088828, 'lineVisible': True, 'playerEndpoint': {'x': -0.042199710752823034, 'y': 10.352898023648805, 'z': -59.241616729680004}, 'anchorEndpoint': {'x': -8.439789472644055, 'y': 39.41594292598323, 'z': -103}}, 'contaminated': True, 'noAttachment': False}, {'attempt': 3, 'pre': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'early': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'after': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'contaminated': False, 'noAttachment': True}]。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeLine=True, lineVisibleAtAttach=True, playerEndpointInBody=False, anchorEndpointMatches=True, renderPatchEvidence=True, evidenceMode=frame-transition, fullAttachChange=True, fullReleaseChange=True。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeDistanceMatch=True, ropeLength=121.06138385103473, geometricDistanceAtClick=121.06138385103473。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeConstraint=True, distanceSamples=[104.67032889511239, 104.06730273929371, 103.46418141331814, 102.86106497424224, 102.25795350853465, 101.65484710471543, 101.05174585341699, 100.44864984744775], ropeLength=121.06138385103473, maxExcess=-16.391054955922343。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeSwingPhysics=True, preAttachHorizontalSpeed=11.438, earlyDirectionCos=0.9999999999832156, pathLength=9.425, radialAngleChange=0.0261, verticalVelocityRange=7.099781539536863, swingingStateSeen=True。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeRelease=True, webAfterMouseUp={'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeMomentumPreserved=True, preVelocity=(-0.0005967809845840124, 6.418033675103889, -26.654436034823192), immediatePostVelocity=(-0.0005967809845840124, 5.218033675103888, -26.654436034823192), preHorizontalSpeed=26.654, postHorizontalSpeed=26.654, horizontalDelta=0.0, horizontalDirectionCos=0.9999999999999999。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeFreeFlight=True, postReleaseMove=6.668, verticalVelocity=[4.0180336751038865, 2.818033675103885, 1.6180336751038842, 0.4180336751038841, -0.7819663248961162, -1.9819663248961161], gravityDecrease=True。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeReattach=True, targetValid=True, reattached=True, anchorObjectId='landmark-needle', attempts=[{'attempt': 1, 'targetValid': True, 'confirmedTargetValid': True, 'attached': True, 'anchorObjectId': 'landmark-needle'}]。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=125, validUnique3DBuildings=125, WebGLContexts=1。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：bestRealMove=0.845, collisionClean=True, buildingCount=125, separatedLayout=True。"
+        },
+        {
+          "id": 33,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查结论为符合；画面正后方中央位置有一栋高度显著远超周边所有普通方正楼宇的超高层独特摩天楼，和其余常规造型的城市建筑区分度极高，是可明确辨识的风格化地标。",
+          "image": "ut_images/good_1_r33_2.png"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查结论为符合；该截图中的城市场景为通用简约风格的低多边形抽象建筑，界面文字均为自定义的游戏状态提示内容，登场的机器人角色也没有对应已知受保护IP的专属独特标识，不存在明确的受保护内容复刻信号。",
+          "image": "ut_images/good_1_r34_3.png"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：capturedAirborne=True, groundY=0.0, playerY=2.075000000000002, renderedPlayerRegionChanged=True, movementState=jumping。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeVisibleSwingFeedback=True, reusedRenderedWeb=True, pathLength=9.425, radialAngleChange=0.0261, swingingStateSeen=True。"
+        }
+      ],
+      "func_score": {
+        "项目使用 React 19 作为应用运行框架。": 1,
+        "项目使用 Vite 驱动的 TypeScript 构建链。": 1,
+        "项目具有可用的 Tailwind CSS 配置并在应用样式中实际接入 Tailwind。": 1,
+        "执行 npm run build 能成功生成可加载的生产构建。": 1,
+        "核心游戏可在本地离线运行，不依赖任何跨源运行时资源或服务。": 1,
+        "页面存在可见且具有非零尺寸的主 WebGL 游戏画布。": 1,
+        "主游戏场景使用 WebGL 渲染真实三维世界。": 1,
+        "第三人称相机会随玩家位置变化持续跟随。": 1,
+        "鼠标水平移动会真实改变渲染相机的 yaw。": 1,
+        "鼠标垂直移动会真实改变渲染相机的 pitch。": 1,
+        "按住 W 会使玩家沿当前相机水平前方产生真实位移。": 1,
+        "按住 S 会使玩家沿当前相机水平后方产生真实位移。": 1,
+        "按住 A 会使玩家沿当前相机水平左方产生真实位移。": 1,
+        "按住 D 会使玩家沿当前相机水平右方产生真实位移。": 1,
+        "玩家在地面按 Space 能执行跳跃。": 1,
+        "玩家离地后会持续受到向下重力影响。": 1,
+        "玩家落地时不会持续穿过地面。": 1,
+        "玩家碰撞体不会进入或高速穿过真实建筑碰撞体。": 1,
+        "主鼠标键瞄准有效建筑时能够建立真实蛛丝连接。": 1,
+        "蛛丝锚点对应被命中的真实建筑表面。": 1,
+        "当前瞄准方向没有有效建筑目标时不会建立蛛丝连接。": 1,
+        "蛛丝连接期间画面中存在连接玩家与锚点的可见蛛丝。": 1,
+        "建立蛛丝连接时记录的绳长是正的有限真实距离。": 1,
+        "蛛丝连接期间玩家到锚点的距离受到当前绳长约束。": 1,
+        "摆荡轨迹由进入连接时的已有速度、重力和锚点共同形成。": 1,
+        "松开主鼠标键会解除当前蛛丝连接。": 1,
+        "解除蛛丝连接时玩家会保留解除瞬间的真实速度。": 1,
+        "解除蛛丝后玩家会继续沿已有速度飞行并继续受重力影响。": 1,
+        "解除一次蛛丝后可以通过正常鼠标操作再次连接有效建筑。": 1,
+        "城市场景包含多个具有非退化三维边界的真实建筑。": 1,
+        "城市建筑之间存在可供玩家移动或摆荡穿行的开放空间。": 1,
+        "玩家跳跃时具有可见的跳跃或腾空姿态变化。": 1,
+        "玩家摆荡时具有可见的摆荡动态反馈。": 1
+      },
+      "vlm_score": {
+        "正常游玩画面采用第三人称构图且玩家角色在相机前方可见。": 1,
+        "城市画面包含从普通建筑中可辨识的风格化地标。": 1,
+        "城市地标画面不出现可直接识别的受保护游戏品牌、徽标、角色符号或一对一复刻的标志性资产。": 1
+      }
+    },
+    "bad_1": {
+      "repo": "bad_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：package react='^19.1.1'；sourceReactMount=True；productionBuildLoaded=True；runtimeReactMarker=True；runtimeRootChildren=1。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：vite='latest', typescript='latest', build='vite build', viteConfig=True, tsconfig=True, tsSources=3。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：tailwind='^3.4.17', cssHasTailwindDirectives=True, importedTailwindCss=['src/index.css'], tailwindConfig=True, postcssConfig=True。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：buildAttempted=True, buildSucceeded=True, infrastructureOnly=False, buildContract=True, command='npm run build', outputDir='dist'。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：完整核心游玩流程后观察到跨源运行时请求 0 个：[]。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvasCount=1, visible=True, box={'x': 0, 'y': 0, 'width': 1280, 'height': 800}, observedWebGLContexts=1。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：renderer='webgl', cameraMode='third-person', buildings=661, 3DBuilding=True, elapsedAdvanced=True, canvasChanged=True。"
+        },
+        {
+          "id": 8,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查结论为符合；该截图属于第三人称尾随3D游戏视角，画面中心清晰呈现了玩家操控的蓝身红顶的机器人玩家代理，摄像机处于该角色的后方位置，并非看不到自身角色的第一人称视角，也不是空场景。",
+          "image": "ut_images/bad_1_r8_1.png"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerMove=1.464, cameraMove=1.278, cameraTargetToPlayer=0.796。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：yaw 0->-0.0792, canvasChanged=True。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：pitch 0.35->0.4018, canvasChanged=True。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.946, directionDot=0.998。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.093, directionDot=0.768。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=1.377, directionDot=0.687。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.946, directionDot=0.998。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：groundedBefore=True, startY=0.93, maxY=2.5845559999999996, jumpingStateSeen=True, verticalVelocities=[6.22752, 5.027519999999999, 3.827519999999998, 2.627519999999997, 1.4275199999999966, 0.22751999999999672, -0.9724800000000033, -2.1724800000000033]。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：verticalVelocitySamples=[6.22752, 5.027519999999999, 3.827519999999998, 2.627519999999997, 1.4275199999999966, 0.22751999999999672, -0.9724800000000033, -2.1724800000000033, -3.4684800000000044, -4.764480000000005, -6.060480000000006, -7.3564800000000075], decreasingPairs=11, becameNegative=True。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：landed=True, playerY=0.93, groundY=0, colliderRadius=0.5。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=661, initialPenetration=False, sampledPoints=8, sampledPenetration=False, sampledTunnel=False。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAttached=True, anchorObjectId='landmark-needle', anchor={'x': -4.730513864311914, 'y': 10.215508451538817, 'z': -67}。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAnchorMatch=True, anchorObjectId='landmark-needle', buildingFound=True, geometryCheck={'insideBounds': True, 'rayError': 1.4888583356622763e-14, 'rayT': 77.27759211363751}, anchor=(-4.730513864311914, 10.215508451538817, -67.0)。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeInvalidTargetGuard=True, exercisedInvalidClick=True, targetValidBeforeClick=False, stateAfterInvalidClick={'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, attempts=[{'attempt': 1, 'pre': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'early': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'after': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'contaminated': False, 'noAttachment': True}]。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeLine=True, lineVisibleAtAttach=True, playerEndpointInBody=False, anchorEndpointMatches=True, renderPatchEvidence=True, evidenceMode=frame-transition, fullAttachChange=True, fullReleaseChange=True。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：runtimeDistanceMatch=False, ropeLength=60.98746396120329, geometricDistanceAtClick=71.3087811308274。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeConstraint=True, distanceSamples=[44.567179444113314, 44.567179444113314, 44.567179444113314, 44.567179444113314, 44.567179444113314, 44.567179444113314, 44.567179444113314, 44.567179444113314], ropeLength=60.98746396120329, maxExcess=-16.420284517089975。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeSwingPhysics=True, preAttachHorizontalSpeed=9.286, earlyDirectionCos=0.9992513789310665, pathLength=15.638, radialAngleChange=0.0540, verticalVelocityRange=5.525077341306784, swingingStateSeen=True。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeRelease=True, webAfterMouseUp={'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeMomentumPreserved=True, preVelocity=(-2.043890364469734, -2.6204238422486394, -46.58450861460728), immediatePostVelocity=(-2.043890364469734, -6.508423842248643, -46.58450861460728), preHorizontalSpeed=46.629, postHorizontalSpeed=46.629, horizontalDelta=0.0, horizontalDirectionCos=0.9999999999999998。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeFreeFlight=True, postReleaseMove=11.708, verticalVelocity=[-7.804423842248644, -9.10042384224864, -10.396423842248636, -11.692423842248632, -12.988423842248627, 0.0], gravityDecrease=True。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeReattach=True, targetValid=True, reattached=True, anchorObjectId='landmark-needle', attempts=[{'attempt': 1, 'targetValid': True, 'confirmedTargetValid': True, 'attached': True, 'anchorObjectId': 'landmark-needle'}]。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=661, validUnique3DBuildings=661, WebGLContexts=1。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：bestRealMove=0.957, collisionClean=True, buildingCount=661, separatedLayout=True。"
+        },
+        {
+          "id": 33,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：视觉检查结论为不符合；当前画面中的所有建筑均为造型高度统一的方正高层楼宇，仅高度存在普通差异，不存在轮廓、造型上和普通建筑区分度明显的专属风格化可辨识地标。",
+          "image": "ut_images/bad_1_r33_2.png"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查结论为符合；该截图为低多边形风格的通用城市场景，所有建筑、植被、场景道具均属于无专属标识的抽象通用设计，不存在明确匹配受保护游戏资产的专属复刻内容，也未出现受保护品牌、游戏相关的专属可读文字、徽标、特定角色符号。",
+          "image": "ut_images/bad_1_r34_3.png"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：capturedAirborne=True, groundY=0.93, playerY=2.2954280000000002, renderedPlayerRegionChanged=True, movementState=jumping。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeVisibleSwingFeedback=True, reusedRenderedWeb=True, pathLength=15.638, radialAngleChange=0.0540, swingingStateSeen=True。"
+        }
+      ],
+      "func_score": {
+        "项目使用 React 19 作为应用运行框架。": 1,
+        "项目使用 Vite 驱动的 TypeScript 构建链。": 1,
+        "项目具有可用的 Tailwind CSS 配置并在应用样式中实际接入 Tailwind。": 1,
+        "执行 npm run build 能成功生成可加载的生产构建。": 1,
+        "核心游戏可在本地离线运行，不依赖任何跨源运行时资源或服务。": 1,
+        "页面存在可见且具有非零尺寸的主 WebGL 游戏画布。": 1,
+        "主游戏场景使用 WebGL 渲染真实三维世界。": 1,
+        "第三人称相机会随玩家位置变化持续跟随。": 1,
+        "鼠标水平移动会真实改变渲染相机的 yaw。": 1,
+        "鼠标垂直移动会真实改变渲染相机的 pitch。": 1,
+        "按住 W 会使玩家沿当前相机水平前方产生真实位移。": 1,
+        "按住 S 会使玩家沿当前相机水平后方产生真实位移。": 1,
+        "按住 A 会使玩家沿当前相机水平左方产生真实位移。": 1,
+        "按住 D 会使玩家沿当前相机水平右方产生真实位移。": 1,
+        "玩家在地面按 Space 能执行跳跃。": 1,
+        "玩家离地后会持续受到向下重力影响。": 1,
+        "玩家落地时不会持续穿过地面。": 1,
+        "玩家碰撞体不会进入或高速穿过真实建筑碰撞体。": 1,
+        "主鼠标键瞄准有效建筑时能够建立真实蛛丝连接。": 1,
+        "蛛丝锚点对应被命中的真实建筑表面。": 1,
+        "当前瞄准方向没有有效建筑目标时不会建立蛛丝连接。": 1,
+        "蛛丝连接期间画面中存在连接玩家与锚点的可见蛛丝。": 1,
+        "建立蛛丝连接时记录的绳长是正的有限真实距离。": 0,
+        "蛛丝连接期间玩家到锚点的距离受到当前绳长约束。": 1,
+        "摆荡轨迹由进入连接时的已有速度、重力和锚点共同形成。": 1,
+        "松开主鼠标键会解除当前蛛丝连接。": 1,
+        "解除蛛丝连接时玩家会保留解除瞬间的真实速度。": 1,
+        "解除蛛丝后玩家会继续沿已有速度飞行并继续受重力影响。": 1,
+        "解除一次蛛丝后可以通过正常鼠标操作再次连接有效建筑。": 1,
+        "城市场景包含多个具有非退化三维边界的真实建筑。": 1,
+        "城市建筑之间存在可供玩家移动或摆荡穿行的开放空间。": 1,
+        "玩家跳跃时具有可见的跳跃或腾空姿态变化。": 1,
+        "玩家摆荡时具有可见的摆荡动态反馈。": 1
+      },
+      "vlm_score": {
+        "正常游玩画面采用第三人称构图且玩家角色在相机前方可见。": 1,
+        "城市画面包含从普通建筑中可辨识的风格化地标。": 0,
+        "城市地标画面不出现可直接识别的受保护游戏品牌、徽标、角色符号或一对一复刻的标志性资产。": 1
+      }
+    },
+    "bad_2": {
+      "repo": "bad_2",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：package react='^19.0.0'；sourceReactMount=True；productionBuildLoaded=True；runtimeReactMarker=True；runtimeRootChildren=1。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：vite='latest', typescript='latest', build='vite build', viteConfig=True, tsconfig=True, tsSources=3。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：tailwind='^3.4.17', cssHasTailwindDirectives=True, importedTailwindCss=['src/index.css'], tailwindConfig=True, postcssConfig=True。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：buildAttempted=True, buildSucceeded=True, infrastructureOnly=False, buildContract=True, command='npm run build', outputDir='dist'。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：完整核心游玩流程后观察到跨源运行时请求 0 个：[]。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvasCount=1, visible=True, box={'x': 0, 'y': 0, 'width': 1280, 'height': 800}, observedWebGLContexts=1。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：renderer='webgl', cameraMode='third-person', buildings=147, 3DBuilding=True, elapsedAdvanced=True, canvasChanged=True。"
+        },
+        {
+          "id": 8,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：视觉检查结论为符合；画面中心清晰呈现了处于相机前方的红蓝色卡通风格玩家代理角色，并非第一人称仅显示自身视野场景的状态，符合第三人称3D游戏视角的特征。",
+          "image": "ut_images/bad_2_r8_1.png"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerMove=0.880, cameraMove=0.368, cameraTargetToPlayer=1.280。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：yaw -0.0->-0.02453030617402655, canvasChanged=True。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：pitch 0.07833948670545925->0.059100321749568675, canvasChanged=True。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.880, directionDot=1.000。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.880, directionDot=1.000。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.880, directionDot=1.000。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.880, directionDot=1.000。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：groundedBefore=True, startY=0.0, maxY=2.635312499999995, jumpingStateSeen=True, verticalVelocities=[7.874999999999993, 6.599999999999991, 5.324999999999989, 4.0499999999999865, 2.774999999999987, 1.4999999999999876, 0.22499999999998768, -1.0500000000000123]。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：verticalVelocitySamples=[7.874999999999993, 6.599999999999991, 5.324999999999989, 4.0499999999999865, 2.774999999999987, 1.4999999999999876, 0.22499999999998768, -1.0500000000000123, -2.3250000000000117, -3.600000000000011, -4.875000000000012, -6.150000000000015], decreasingPairs=11, becameNegative=True。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：landed=True, playerY=0.0, groundY=0, colliderRadius=0.58。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=147, initialPenetration=False, sampledPoints=8, sampledPenetration=False, sampledTunnel=False。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAttached=True, anchorObjectId='landmark-sol-needle', anchor={'x': 0, 'y': 7.952001797186938, 'z': -73}。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAnchorMatch=True, anchorObjectId='landmark-sol-needle', buildingFound=True, geometryCheck={'insideBounds': True, 'rayError': 2.6362595803518882e-14, 'rayT': 91.58397213815412}, anchor=(0.0, 7.952001797186938, -73.0)。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeInvalidTargetGuard=True, exercisedInvalidClick=True, targetValidBeforeClick=False, stateAfterInvalidClick={'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, attempts=[{'attempt': 1, 'pre': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'early': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'after': {'attached': False, 'targetValid': False, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'contaminated': False, 'noAttachment': True}]。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeLine=True, lineVisibleAtAttach=True, playerEndpointInBody=True, anchorEndpointMatches=True, renderPatchEvidence=True, evidenceMode=frame-transition, fullAttachChange=True, fullReleaseChange=True。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeDistanceMatch=True, ropeLength=85.25061317948659, geometricDistanceAtClick=85.37115632684416。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeConstraint=True, distanceSamples=[85.37115632684416, 85.37115632684416, 85.37115632684416, 85.37115632684416, 85.37115632684416, 85.37115632684416, 85.37115632684416, 85.37115632684416], ropeLength=85.25061317948659, maxExcess=0.12054314735756577。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeSwingPhysics=True, preAttachHorizontalSpeed=11.360, earlyDirectionCos=1.0, pathLength=4.536, radialAngleChange=0.0237, verticalVelocityRange=8.925000000000004, swingingStateSeen=True。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeRelease=True, webAfterMouseUp={'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：runtimeMomentumPreserved=False, preVelocity=(0.0, -8.700000000000019, -12.35849500615106), immediatePostVelocity=(0.0, -5.6250000000000115, -6.17924750307553), preHorizontalSpeed=12.358, postHorizontalSpeed=6.179, horizontalDelta=6.17924750307553, horizontalDirectionCos=1.0。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeFreeFlight=True, postReleaseMove=1.137, verticalVelocity=[-6.900000000000014, -8.175000000000015, 0.0, 0.0, 0.0, 0.0], gravityDecrease=True。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeReattach=True, targetValid=True, reattached=True, anchorObjectId='landmark-sol-needle', attempts=[{'attempt': 1, 'targetValid': True, 'confirmedTargetValid': True, 'attached': True, 'anchorObjectId': 'landmark-sol-needle'}]。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=147, validUnique3DBuildings=147, WebGLContexts=1。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：bestRealMove=0.880, collisionClean=True, buildingCount=147, separatedLayout=True。"
+        },
+        {
+          "id": 33,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：视觉检查结论为不符合；当前场景中的所有高楼均为造型统一的方正类摩天楼，仅外立面窗格的色彩有区分，不存在在轮廓、高度或造型上和普通建筑差异显著、可明确辨识的风格化地标。",
+          "image": "ut_images/bad_2_r33_2.png"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：视觉检查结论为不符合；画面中心的可操控角色，其无脸部的圆润红身、深蓝色无下肢的下半段的造型特征，高度匹配知名游戏《Among Us》的标志性船员角色，属于明确的受保护游戏角色复刻信号。",
+          "image": "ut_images/bad_2_r34_3.png"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：capturedAirborne=True, groundY=0.0, playerY=1.808749999999999, renderedPlayerRegionChanged=True, movementState=jumping。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeVisibleSwingFeedback=True, reusedRenderedWeb=True, pathLength=4.536, radialAngleChange=0.0237, swingingStateSeen=True。"
+        }
+      ],
+      "func_score": {
+        "项目使用 React 19 作为应用运行框架。": 1,
+        "项目使用 Vite 驱动的 TypeScript 构建链。": 1,
+        "项目具有可用的 Tailwind CSS 配置并在应用样式中实际接入 Tailwind。": 1,
+        "执行 npm run build 能成功生成可加载的生产构建。": 1,
+        "核心游戏可在本地离线运行，不依赖任何跨源运行时资源或服务。": 1,
+        "页面存在可见且具有非零尺寸的主 WebGL 游戏画布。": 1,
+        "主游戏场景使用 WebGL 渲染真实三维世界。": 1,
+        "第三人称相机会随玩家位置变化持续跟随。": 1,
+        "鼠标水平移动会真实改变渲染相机的 yaw。": 1,
+        "鼠标垂直移动会真实改变渲染相机的 pitch。": 1,
+        "按住 W 会使玩家沿当前相机水平前方产生真实位移。": 1,
+        "按住 S 会使玩家沿当前相机水平后方产生真实位移。": 1,
+        "按住 A 会使玩家沿当前相机水平左方产生真实位移。": 1,
+        "按住 D 会使玩家沿当前相机水平右方产生真实位移。": 1,
+        "玩家在地面按 Space 能执行跳跃。": 1,
+        "玩家离地后会持续受到向下重力影响。": 1,
+        "玩家落地时不会持续穿过地面。": 1,
+        "玩家碰撞体不会进入或高速穿过真实建筑碰撞体。": 1,
+        "主鼠标键瞄准有效建筑时能够建立真实蛛丝连接。": 1,
+        "蛛丝锚点对应被命中的真实建筑表面。": 1,
+        "当前瞄准方向没有有效建筑目标时不会建立蛛丝连接。": 1,
+        "蛛丝连接期间画面中存在连接玩家与锚点的可见蛛丝。": 1,
+        "建立蛛丝连接时记录的绳长是正的有限真实距离。": 1,
+        "蛛丝连接期间玩家到锚点的距离受到当前绳长约束。": 1,
+        "摆荡轨迹由进入连接时的已有速度、重力和锚点共同形成。": 1,
+        "松开主鼠标键会解除当前蛛丝连接。": 1,
+        "解除蛛丝连接时玩家会保留解除瞬间的真实速度。": 0,
+        "解除蛛丝后玩家会继续沿已有速度飞行并继续受重力影响。": 1,
+        "解除一次蛛丝后可以通过正常鼠标操作再次连接有效建筑。": 1,
+        "城市场景包含多个具有非退化三维边界的真实建筑。": 1,
+        "城市建筑之间存在可供玩家移动或摆荡穿行的开放空间。": 1,
+        "玩家跳跃时具有可见的跳跃或腾空姿态变化。": 1,
+        "玩家摆荡时具有可见的摆荡动态反馈。": 1
+      },
+      "vlm_score": {
+        "正常游玩画面采用第三人称构图且玩家角色在相机前方可见。": 1,
+        "城市画面包含从普通建筑中可辨识的风格化地标。": 0,
+        "城市地标画面不出现可直接识别的受保护游戏品牌、徽标、角色符号或一对一复刻的标志性资产。": 0
+      }
+    },
+    "bad_3": {
+      "repo": "bad_3",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：package react='^19.0.0'；sourceReactMount=True；productionBuildLoaded=True；runtimeReactMarker=True；runtimeRootChildren=1。"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：vite='^6.1.0', typescript='^5.8.2', build='tsc -b && vite build', viteConfig=True, tsconfig=True, tsSources=4。"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：tailwind='3.4.17', cssHasTailwindDirectives=True, importedTailwindCss=['src/index.css'], tailwindConfig=True, postcssConfig=True。"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：buildAttempted=True, buildSucceeded=True, infrastructureOnly=False, buildContract=True, command='npm run build', outputDir='dist'。"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：完整核心游玩流程后观察到跨源运行时请求 0 个：[]。"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：canvasCount=1, visible=True, box={'x': 0, 'y': 0, 'width': 1280, 'height': 800}, observedWebGLContexts=1。"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：renderer='webgl', cameraMode='third-person', buildings=36, 3DBuilding=True, elapsedAdvanced=True, canvasChanged=True。"
+        },
+        {
+          "id": 8,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：视觉检查结论为不符合；该截图属于第一人称游戏视角，画面内不存在位于相机前方的完整可见玩家角色/玩家代理，仅右下角露出极少量玩家自身的局部边缘，不符合第三人称3D游戏视角的呈现要求。",
+          "image": "ut_images/bad_3_r8_1.png"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：playerMove=0.852, cameraMove=0.057, cameraTargetToPlayer=2.321。"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：yaw -0.08224620832294478->-0.12791843267962041, canvasChanged=True。"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：pitch 0.5614338983369731->0.5777319754800105, canvasChanged=True。"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.307, directionDot=0.978。"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：horizontalMove=0.000, directionDot=0.978。"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.307, directionDot=0.978。"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：horizontalMove=0.307, directionDot=0.978。"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：groundedBefore=True, startY=0.93, maxY=2.239330833333333, jumpingStateSeen=True, verticalVelocities=[5.2136000000000005, 3.7136000000000005, 2.4636000000000005, 1.2136000000000005, -0.31389999999999957, -1.7013999999999998, -3.366399999999999, -4.753899999999999]。"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：verticalVelocitySamples=[5.2136000000000005, 3.7136000000000005, 2.4636000000000005, 1.2136000000000005, -0.31389999999999957, -1.7013999999999998, -3.366399999999999, -4.753899999999999, -6.141399999999998, -7.806399999999997, 0.0, 0.0], decreasingPairs=9, becameNegative=True。"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：landed=True, playerY=0.93, groundY=0, colliderRadius=0.54。"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=36, initialPenetration=False, sampledPoints=8, sampledPenetration=False, sampledTunnel=False。"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeAttached=True, anchorObjectId='building-3-2', anchor={'x': 11.80508329163436, 'y': 34.12860063555216, 'z': -4.47825813293457}。"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：runtimeAnchorMatch=False, anchorObjectId='building-3-2', buildingFound=True, geometryCheck={'insideBounds': False, 'rayError': 1.4228670922771647, 'rayT': 33.471339877516556}, anchor=(11.80508329163436, 34.12860063555216, -4.47825813293457)。"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeInvalidTargetGuard=False, exercisedInvalidClick=False, targetValidBeforeClick=True, stateAfterInvalidClick={}, attempts=[{'attempt': 1, 'pre': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'outcome': 'no-invalid-direction'}, {'attempt': 2, 'pre': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'outcome': 'no-invalid-direction'}, {'attempt': 3, 'pre': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'outcome': 'no-invalid-direction'}, {'attempt': 4, 'pre': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'outcome': 'no-invalid-direction'}, {'attempt': 5, 'pre': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'outcome': 'no-invalid-direction'}, {'attempt': 6, 'pre': {'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}, 'outcome': 'no-invalid-direction'}]。"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeLine=True, lineVisibleAtAttach=True, playerEndpointInBody=True, anchorEndpointMatches=True, renderPatchEvidence=True, evidenceMode=frame-transition, fullAttachChange=True, fullReleaseChange=True。"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeDistanceMatch=True, ropeLength=34.96861718937874, geometricDistanceAtClick=34.53643814446411。"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeConstraint=True, distanceSamples=[34.53486121200401, 34.53482556216047, 34.53478991383855, 34.534754267038146, 34.534721862176205, 34.534686218280264, 34.53465057590557, 34.534614935052055], ropeLength=34.96861718937874, maxExcess=-0.43375597737473015。"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeSwingPhysics=True, preAttachHorizontalSpeed=13.602, earlyDirectionCos=0.9999999947126974, pathLength=5.193, radialAngleChange=0.7458, verticalVelocityRange=8.742388132742681, swingingStateSeen=True。"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeRelease=True, webAfterMouseUp={'attached': False, 'targetValid': True, 'anchor': None, 'anchorObjectId': None, 'ropeLength': None, 'distanceToAnchor': None, 'lineVisible': False, 'playerEndpoint': None, 'anchorEndpoint': None}。"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：runtimeMomentumPreserved=False, preVelocity=(-0.00015758241483831932, 0.0, -1.514618392212032), immediatePostVelocity=(-0.0, 0.0, -0.0), preHorizontalSpeed=1.515, postHorizontalSpeed=0.000, horizontalDelta=1.5146184004095482, horizontalDirectionCos=None。"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：runtimeFreeFlight=False, postReleaseMove=0.000, verticalVelocity=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0], gravityDecrease=False。"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeReattach=True, targetValid=True, reattached=True, anchorObjectId='building-3-2', attempts=[{'attempt': 1, 'targetValid': True, 'confirmedTargetValid': True, 'attached': True, 'anchorObjectId': 'building-3-2'}]。"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：reportedBuildings=36, validUnique3DBuildings=36, WebGLContexts=1。"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：bestRealMove=0.225, collisionClean=True, buildingCount=36, separatedLayout=True。"
+        },
+        {
+          "id": 33,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：视觉检查结论为不符合；画面中所有可见建筑均为造型高度统一的方正点阵外立面摩天楼，不存在轮廓、高度或造型明显区别于普通建筑的可辨识风格化地标。",
+          "image": "ut_images/bad_3_r33_2.png"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 0,
+          "reason": "未通过：视觉检查结论为不符合；该截图存在清晰可识别的专属游戏名称“NEON THREAD”，同时布满该游戏独有的定制风格HUD交互界面、专属操作提示文字，属于明确的受保护游戏资产内容。",
+          "image": "ut_images/bad_3_r34_3.png"
+        },
+        {
+          "id": 35,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：capturedAirborne=True, groundY=0.93, playerY=2.1512299999999995, renderedPlayerRegionChanged=True, movementState=jumping。"
+        },
+        {
+          "id": 36,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：runtimeVisibleSwingFeedback=True, reusedRenderedWeb=True, pathLength=5.193, radialAngleChange=0.7458, swingingStateSeen=True。"
+        }
+      ],
+      "func_score": {
+        "项目使用 React 19 作为应用运行框架。": 1,
+        "项目使用 Vite 驱动的 TypeScript 构建链。": 1,
+        "项目具有可用的 Tailwind CSS 配置并在应用样式中实际接入 Tailwind。": 1,
+        "执行 npm run build 能成功生成可加载的生产构建。": 1,
+        "核心游戏可在本地离线运行，不依赖任何跨源运行时资源或服务。": 1,
+        "页面存在可见且具有非零尺寸的主 WebGL 游戏画布。": 1,
+        "主游戏场景使用 WebGL 渲染真实三维世界。": 1,
+        "第三人称相机会随玩家位置变化持续跟随。": 1,
+        "鼠标水平移动会真实改变渲染相机的 yaw。": 1,
+        "鼠标垂直移动会真实改变渲染相机的 pitch。": 1,
+        "按住 W 会使玩家沿当前相机水平前方产生真实位移。": 1,
+        "按住 S 会使玩家沿当前相机水平后方产生真实位移。": 0,
+        "按住 A 会使玩家沿当前相机水平左方产生真实位移。": 1,
+        "按住 D 会使玩家沿当前相机水平右方产生真实位移。": 1,
+        "玩家在地面按 Space 能执行跳跃。": 1,
+        "玩家离地后会持续受到向下重力影响。": 1,
+        "玩家落地时不会持续穿过地面。": 1,
+        "玩家碰撞体不会进入或高速穿过真实建筑碰撞体。": 1,
+        "主鼠标键瞄准有效建筑时能够建立真实蛛丝连接。": 1,
+        "蛛丝锚点对应被命中的真实建筑表面。": 0,
+        "当前瞄准方向没有有效建筑目标时不会建立蛛丝连接。": 1,
+        "蛛丝连接期间画面中存在连接玩家与锚点的可见蛛丝。": 1,
+        "建立蛛丝连接时记录的绳长是正的有限真实距离。": 1,
+        "蛛丝连接期间玩家到锚点的距离受到当前绳长约束。": 1,
+        "摆荡轨迹由进入连接时的已有速度、重力和锚点共同形成。": 1,
+        "松开主鼠标键会解除当前蛛丝连接。": 1,
+        "解除蛛丝连接时玩家会保留解除瞬间的真实速度。": 0,
+        "解除蛛丝后玩家会继续沿已有速度飞行并继续受重力影响。": 0,
+        "解除一次蛛丝后可以通过正常鼠标操作再次连接有效建筑。": 1,
+        "城市场景包含多个具有非退化三维边界的真实建筑。": 1,
+        "城市建筑之间存在可供玩家移动或摆荡穿行的开放空间。": 1,
+        "玩家跳跃时具有可见的跳跃或腾空姿态变化。": 1,
+        "玩家摆荡时具有可见的摆荡动态反馈。": 1
+      },
+      "vlm_score": {
+        "正常游玩画面采用第三人称构图且玩家角色在相机前方可见。": 0,
+        "城市画面包含从普通建筑中可辨识的风格化地标。": 0,
+        "城市地标画面不出现可直接识别的受保护游戏品牌、徽标、角色符号或一对一复刻的标志性资产。": 0
+      }
+    }
+  }
+}

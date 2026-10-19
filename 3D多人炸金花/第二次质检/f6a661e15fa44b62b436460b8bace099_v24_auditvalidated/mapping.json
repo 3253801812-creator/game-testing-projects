@@ -1,0 +1,334 @@
+{
+  "prompt_id": "f6a661e15fa44b62b436460b8bace099",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "window.__zjh.getState()",
+    "window.__scene.getState()",
+    "#root",
+    "[data-testid=\"game-canvas\"]",
+    "[data-testid=\"deal-btn\"]",
+    "[data-testid=\"peek-btn\"]",
+    "[data-testid=\"call-btn\"]",
+    "[data-testid=\"raise-btn\"]",
+    "[data-testid=\"fold-btn\"]",
+    "[data-testid=\"compare-btn\"]",
+    "[data-testid=\"player-hand\"]",
+    "[data-testid=\"player-hand-type\"]",
+    "[data-testid=\"current-bet\"]",
+    "[data-testid=\"pot\"]",
+    "[data-testid=\"player-chips\"]",
+    "[data-testid=\"computer-chips\"]",
+    "[data-testid=\"player-score\"]",
+    "[data-testid=\"computer-score\"]",
+    "[data-testid=\"turn\"]",
+    "[data-testid=\"game-status\"]"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "Vite 生产构建能够加载为可交互页面且不存在阻止游戏运行的致命脚本错误。",
+      "kind": "state",
+      "how": "执行 npm run build 后加载实际生产构建，检查 #root、Three.js Canvas、两个只读状态 Hook 与 ready 状态；不得以独立 standalone 页面替代 React/Vite 生产应用。"
+    },
+    {
+      "id": 2,
+      "text": "主游戏场景实际使用 Three.js r128 的 WebGLRenderer 持续渲染。",
+      "kind": "state",
+      "how": "运行后交叉读取 scene 状态与真实 canvas WebGL 上下文，确认 threeRevision 为 128、renderer 为 WebGLRenderer，并在短时间窗口内观察到真实 WebGL draw 调用增长。仅自报版本或用 2D Canvas/DOM 伪装不通过。"
+    },
+    {
+      "id": 3,
+      "text": "工程采用 React 19 + TypeScript + Vite + Tailwind CSS，并使用 Three.js r128，且不依赖外部 3D 模型。",
+      "kind": "state",
+      "how": "静态核对 package.json 与项目源码：确认 React/ReactDOM 19、Three 0.128.0、Vite、TypeScript、Tailwind 均声明，build 脚本实际调用 Vite，项目存在 TypeScript 源码、React createRoot 挂载和 Tailwind 入口；兼容 Vite/Tailwind 的不同合法配置方式，不要求特定 config/plugin 文件名。构建后同时确认没有运行时外部 3D 模型请求。"
+    },
+    {
+      "id": 4,
+      "text": "Three.js 画布在窗口尺寸变化后会同步更新绘制尺寸和透视相机宽高比。",
+      "kind": "state",
+      "how": "记录初始 canvas CSS/绘制缓冲区与相机参数，改变视口后等待可观察 resize；确认新尺寸与 viewport 匹配且相机 aspect 同步变化，不能只改 CSS 而不更新渲染尺寸。"
+    },
+    {
+      "id": 5,
+      "text": "正常可玩状态下主渲染循环达到接近当前浏览器基线的 60FPS 目标。",
+      "kind": "state",
+      "how": "在同一 BrowserContext 中采样空白页浏览器帧基线，再由预注入 WebGL instrumentation 记录真实 clear/draw 时间戳并按调用簇还原渲染帧；通过线为实际 WebGL 帧率至少达到同机空白页 RAF 基线的 80%（正常 60Hz 环境即逼近 60FPS），同时要求至少 8 个真实帧标记、最长帧间隔不超过 max(90ms, 空白页最大间隔×1.8)，且超过 max(34ms, 两倍基线帧时长) 的长帧占比不高于 35%。不能用项目自报 FPS，也不要求产品必须采用某一种 RAF 组织方式。"
+    },
+    {
+      "id": 6,
+      "text": "活动场景使用透视相机观察牌桌。",
+      "kind": "state",
+      "how": "读取 window.__scene.getState().camera 的 PerspectiveCamera 参数，并优先与评估侧 WebGL instrumentation 观测到的实际上传透视投影矩阵交叉验证。若宿主/驱动导致矩阵 hook 漏采，可用生产入口可达源码中实际创建 PerspectiveCamera + 当前真实 WebGL 持续绘制作为补充交叉证据；只自报 camera.type 或只出现源码字符串都不足以通过。"
+    },
+    {
+      "id": 7,
+      "text": "活动场景包含实际参与牌桌照明的环境光。",
+      "kind": "state",
+      "how": "读取 ambientLight 的存在/强度，同时要求真实 WebGL 绘制持续发生；优先追踪包含环境光路径的 shader 被 attach 到 program 且实际 useProgram。若宿主/驱动导致 shader instrumentation 漏采，可用生产入口可达源码中实际创建 AmbientLight 且活动场景使用受光材质、再与运行时 ambientLight 状态及真实 WebGL 绘制交叉补证。单独源码字符串或纯自报状态不能通过。"
+    },
+    {
+      "id": 8,
+      "text": "OrbitControls 能轻量微调视角，操作后仍保持真人下方、电脑上方和中央牌桌可玩构图。",
+      "kind": "state",
+      "how": "对 canvas 做真实轨道拖拽，比较相机前后位置/朝向；应有有限变化，并验证 Orbit target 仍靠近运行时 table/deck 中心，而不是假设世界原点；随后真人操作控件仍可见、可点击且未被 Canvas 遮挡。"
+    },
+    {
+      "id": 9,
+      "text": "牌桌使用接近 #006400 的绿色绒布外观并具有粗糙材质属性。",
+      "kind": "state",
+      "how": "读取桌面运行时颜色/roughness，并对 Canvas 中央桌面区域做像素采样确认深绿色；优先追踪 roughness shader 所属 program 实际 useProgram。若 shader instrumentation 漏采，可用生产入口可达的 MeshStandard/Physical 粗糙材质实现与运行时 roughness、真实深绿像素和 WebGL 绘制交叉补证。roughness 只要求为正，不附加 Prompt 未规定的固定数值阈值。"
+    },
+    {
+      "id": 10,
+      "text": "牌堆位于牌桌中央，真人区域在画面下方，电脑区域在画面上方对坐。",
+      "kind": "state",
+      "how": "从 scene 卡牌/牌堆世界坐标与相机矩阵独立投影到 canvas；确认 deck 处于中部，player 手牌投影在下半区，computer 手牌投影在上半区，不能只相信 owner 字段。"
+    },
+    {
+      "id": 11,
+      "text": "运行中的 3D 扑克牌与真实 rank/suit 一致，由 Three.js 场景实时生成且不依赖外部 3D 模型。",
+      "kind": "state",
+      "how": "真实 Deal 后交叉核对 6 张业务牌与 __scene.cards 的 id/rank/suit/owner/三维 transform，并由评估器预注入 WebGL instrumentation 确认真实 Buffer/Texture 创建和至少一种程序化纹理上传来源（Canvas、OffscreenCanvas、ImageData、DataTexture/typed-array 等均可），同时 performance resource 不得加载 .glb/.gltf/.obj/.fbx 外部模型。不得强制某个 Three.js 纹理类或固定上传次数。"
+    },
+    {
+      "id": 12,
+      "text": "每局使用一副无大小王的 52 张标准牌，实际发出的 6 张牌合法且不重复。",
+      "kind": "state",
+      "how": "真实发起一局后读取双方实际 card id/rank/suit；验证 rank/suit 合法、总计 6 张、ID 和牌面组合唯一，并与 scene 中同 ID 卡牌对应。"
+    },
+    {
+      "id": 13,
+      "text": "发牌完成后真人与电脑双方都恰好获得 3 张牌，电脑手牌保持隐藏，真人在看牌前保持未看牌状态。",
+      "kind": "state",
+      "how": "点击真实发牌按钮并等待 dealing 结束；确认双方 cards 长度均为 3，电脑 faceUp 全为 false，真人 looked=false 且牌面仍处于隐藏状态；同时确认 round/turn 进入正常行动阶段。"
+    },
+    {
+      "id": 14,
+      "text": "发牌动画中每张牌会从中央牌堆沿多帧路径平滑飞入对应玩家区域。",
+      "kind": "state",
+      "how": "点击真实 Deal 前后同时保存 Canvas，并高频采集 scene.cards；双方 6 张牌都必须出现多帧中间位置、起点接近 deck、连续轨迹并最终到达对应上下牌区，同时对应牌区 Canvas 必须发生真实像素变化；再检查实际生产源码存在 Three.js lerp/lerpVectors 或等价线性插值实现，避免仅凭状态自报或单帧瞬移通过。"
+    },
+    {
+      "id": 15,
+      "text": "底部界面提供发牌、看牌、跟注、加注、弃牌和比牌六类真人操作控件，且不存在要求用户替电脑行动的控件。",
+      "kind": "dom",
+      "how": "检查发牌、看牌、跟注、加注、弃牌、比牌六个稳定 data-testid 控件均真实可见，并由各阶段 disabled/can* 状态进一步验证可用性；同时扫描实际可见按钮，不得出现要求用户手动驱动电脑核心行动的控件。"
+    },
+    {
+      "id": 16,
+      "text": "真人操作权限会随牌局阶段和当前行动方正确启用或禁用。",
+      "kind": "state",
+      "how": "在 waiting、player_turn、computer_turn、round_over 等真实阶段读取 can* 与按钮 disabled 状态；可用动作必须与阶段一致，非真人回合的下注/弃牌/比牌不得生效。"
+    },
+    {
+      "id": 17,
+      "text": "看牌只翻开真人自己的 3 张牌并显示真实牌型，不会改变牌、筹码、奖池或行动归属。",
+      "kind": "state",
+      "how": "在真人可看牌时记录手牌 ID、双方筹码、pot、currentBet、turn，点击 peek；确认 player.looked=true、真人 3 张 faceUp、牌 ID 不变，电脑仍隐藏，筹码/奖池/当前注额不变，且 handType 与验证器独立计算一致。"
+    },
+    {
+      "id": 18,
+      "text": "看牌过程包含真实的多帧翻转与扇形展开动画。",
+      "kind": "state",
+      "how": "点击真实 Peek 后连续采集真人三张牌 rotation/position，并对真人牌区做前后 Canvas 局部对比；三张牌都必须出现显著多帧翻转，并真实过渡到扇形/弧形展开，且渲染区域确实变化。"
+    },
+    {
+      "id": 19,
+      "text": "当前真人牌型显示与三张真实牌按炸金花规则独立计算的结果一致。",
+      "kind": "state",
+      "how": "从真实 player.cards 独立计算豹子/同花顺/金花/顺子/对子/单张；看牌后核对 player.handType 与 player-hand-type DOM 文本，项目不得提供 expectedStrength 之类测试答案字段。"
+    },
+    {
+      "id": 20,
+      "text": "牌型判定实现覆盖豹子、同花顺、金花、顺子、对子和单张六种类型。",
+      "kind": "state",
+      "how": "执行评估侧固定牌组规则探针：从项目源码中定位真正进入 Prompt 规定的 player/computer.handType 核心状态路径的 evaluator，实际执行六类固定牌组并与测试侧独立规则逐类核对；同时用真实 Deal 后玩家手牌的独立计算结果与 getState().player.handType 交叉验证。候选函数若只在死分支、额外 audit 子树、无效调用或调用后丢弃返回值的旁路中出现不得作为证据。 固定牌探针会在评估侧临时暴露模块内部 module-local / class method evaluator 供执行，不要求产品把规则函数 export 或增加测试 API。"
+    },
+    {
+      "id": 21,
+      "text": "不同牌型比较严格遵循 豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。",
+      "kind": "state",
+      "how": "执行评估侧固定牌组比较探针，要求实际参与 Prompt 规定的真实 winner 核心状态路径的 comparator（或真实 evaluator 的比较方法）对六类牌型顺序全部正确；再用一次真实 Compare 的双方三张牌、测试侧独立比较结果、筹码结算和最终 winner 交叉验证。额外 diagnostic/audit winner 不作为真实胜负证据。 不要求规则/比较函数采用特定 export 组织方式。"
+    },
+    {
+      "id": 22,
+      "text": "相同牌型时按真实点数结构正确比较大小，且不使用花色决定胜负。",
+      "kind": "state",
+      "how": "对真实 player/computer.handType 与 showdown winner 核心数据路径所使用的规则实现，固定执行豹子、同花顺、金花、顺子、对子、单张六类同型高低牌，并验证同点数不同花色平局；固定执行结果必须来自实际参与这些核心状态路径的函数，不接受注释、字符串、死 helper、额外 audit 状态或调用后丢弃返回值的旁路。 不要求规则/比较函数采用特定 export 组织方式。"
+    },
+    {
+      "id": 23,
+      "text": "顺子边界按 A-2-3 最小、Q-K-A 最大处理。",
+      "kind": "state",
+      "how": "对实际参与 player/computer.handType 或 showdown winner 核心状态路径的规则实现固定执行 A23、234、JQK、QKA、KA2：要求 A23 为最小顺子、QKA 为最大顺子、KA2 非顺子；再以真实牌局的独立牌型/比较结果交叉验证。 不要求规则/比较函数采用特定 export 组织方式。"
+    },
+    {
+      "id": 24,
+      "text": "新一局开始时双方投入相同正数基础注，筹码真实扣除并形成对应初始奖池。",
+      "kind": "state",
+      "how": "发牌前记录双方 chips，发牌完成后记录 chips/roundBet/pot；两方扣款应相同且为正，roundBet 与扣款一致，pot 应等于双方实际投入总和，不能只修改显示数字。"
+    },
+    {
+      "id": 25,
+      "text": "真人跟注会补齐当前需要承担的下注，并把同额筹码真实移入奖池。",
+      "kind": "state",
+      "how": "在 canCall=true 的真人回合记录 player.chips、player.roundBet、computer.roundBet、pot，点击 call；独立计算需要补齐的差额，确认真人筹码减少与 pot 增加相同，roundBet 达到应承担值。"
+    },
+    {
+      "id": 26,
+      "text": "真人加注会把有效注额提高到更高合法值，并把新增投入真实计入筹码和奖池。",
+      "kind": "state",
+      "how": "在 canRaise=true 时记录 currentBet、player.roundBet、chips、pot，点击 raise；确认新 currentBet 严格提高、真人新增投入为正，chips 下降值与 pot 增长值一致，且 player.roundBet 与新下注状态相符。"
+    },
+    {
+      "id": 27,
+      "text": "真人弃牌会立即结束当前局，由电脑获得奖池，并且结算只发生一次。",
+      "kind": "state",
+      "how": "在 canFold=true 时记录 pot、双方 chips、score，点击 fold；等待 round_over，确认 winner=computer、outcome=fold、奖池被结算且电脑筹码获得对应价值。重复点击或后续等待不得再次增加电脑筹码/得分。"
+    },
+    {
+      "id": 28,
+      "text": "真人发起比牌后，胜负由双方真实三张牌按独立炸金花比较器决定。",
+      "kind": "state",
+      "how": "在 canCompare=true 时记录双方真实 cards、score、筹码和 pot，点击 compare；验证器独立计算两手牌及 tie-break。非平局核对 winner 与整池 payout；平局只要求不得按花色制造胜方、winner 为空、score 不增加且总筹码价值守恒，不额外规定奖池必须均分还是按实现的中性规则处理。"
+    },
+    {
+      "id": 29,
+      "text": "比牌时双方 3 张牌会移动至牌桌中央并翻至可见后再完成结算展示。",
+      "kind": "state",
+      "how": "在真实 Compare 中从点击前开始连续采样 6 张牌的 Three.js transform，要求全部多帧移向桌面中央、最终 owner 进入 compare、全部翻至可见，并确认中央区域真实像素发生变化。"
+    },
+    {
+      "id": 30,
+      "text": "真人完成一个会把行动权交给电脑的有效下注动作后，电脑会无需用户点击而自动执行合法行动。",
+      "kind": "state",
+      "how": "在 player_turn 执行一次真实 Call（或其它实际结束真人行动的下注动作），停止用户输入；等待状态自动进入 computer_turn 并再次回到 player_turn 或 round_over，期间不得点击任何电脑按钮。看牌属于本地信息揭示，不额外要求它把行动权交给电脑。"
+    },
+    {
+      "id": 31,
+      "text": "电脑决策会同时参考真实牌力和当前下注情况，而不是所有局固定执行同一种动作。",
+      "kind": "state",
+      "how": "仅通过真实浏览器牌局验证电脑决策。优先在 Deal 前临时替换页面内 Math.random 以重放同一手牌，不写 localStorage、不暴露固定评测 key；若实现使用 crypto 或自定义随机源而无法重放，则自动退化为多局纯观察：按实际 currentBet 配对相近下注压力下的不同独立牌力、并配对相近牌力下的不同真实下注压力。至少观察到牌力和下注压力两个因素分别对应合法决策变化，且动作与筹码/奖池变化一致。"
+    },
+    {
+      "id": 32,
+      "text": "电脑下注类自动行动会按实际投入同步更新电脑筹码、roundBet 与奖池。",
+      "kind": "state",
+      "how": "跨真实电脑回合采样，必须至少实际观察到一次电脑跟注或加注；对该下注行动记录前后 computer.chips、computer.roundBet 与 pot，并要求三者增量精确一致。电脑仅弃牌/比牌的观察不能让本项空通过。"
+    },
+    {
+      "id": 33,
+      "text": "当前行动方在真人与电脑之间正确流转，并与界面显示一致。",
+      "kind": "state",
+      "how": "跨至少一次真人有效动作和一次电脑自动动作采样 turn/phase；确认 turn 只在合法阶段为 player/computer，DOM 当前行动方文本与真实状态一致，不出现双方同时可操作。"
+    },
+    {
+      "id": 34,
+      "text": "非真人回合或本局已结束时点击下注、弃牌、比牌不会改变筹码、奖池、牌或计分。",
+      "kind": "state",
+      "how": "在 computer_turn 与 round_over 两类真实阶段尝试触发真人操作：computer_turn 将强制点击与前后 getState 放在同一个浏览器任务内，隔离电脑定时自动行动；round_over 则等待足够异步窗口后比较 cards/chips/pot/score。非法输入不得产生业务副作用。"
+    },
+    {
+      "id": 35,
+      "text": "真人操作具备重复输入保护，同一次行动不会被快速连点处理两次。",
+      "kind": "state",
+      "how": "在 player_turn 对 Fold 执行真实快速双击，按双击前 pot/chips/score 独立计算唯一一次弃牌结算并确认之后再次点击仍不改变状态；同时复用真实 Call 后同步进入 computer_turn 的边界，强制触发重复/非法真人动作并要求完整状态保持不变，从两个独立动作边界证明重复输入不会被处理两次。"
+    },
+    {
+      "id": 36,
+      "text": "任一正常结算前后双方筹码与未结算奖池满足总价值守恒，且不出现负筹码。",
+      "kind": "state",
+      "how": "分别对 Fold 和 Compare 两条正常结算路径计算 player.chips+computer.chips+pot 的结算前后总值；两条路径都必须守恒且双方 chips 非负，平局分池也不得破坏总值。"
+    },
+    {
+      "id": 37,
+      "text": "计分系统在每局结算时只给获胜方增加一次，并与 winner 一致。",
+      "kind": "state",
+      "how": "分别验证一次真实 Fold 结算和一次真实 Compare 结算：非平局 winner 的 score 恰好 +1、另一方不变；平局双方 score 均不变；结算后等待或重复输入不得再次增加。"
+    },
+    {
+      "id": 38,
+      "text": "开始下一局会保留累计筹码和计分，并重置本局手牌、看牌、弃牌、胜负与下注状态。",
+      "kind": "state",
+      "how": "完成一局后记录结算 chips/score，点击 Deal 开始下一局；确认 round 增加、score 保留，结算筹码仅扣除新一局基础注，双方各有 3 张当前有效且本局内唯一的牌，并重置 looked/folded/winner/outcome；同时明确核对双方 roundBet 为本局新基础注、pot 等于双方 roundBet 之和、currentBet 与当前有效注额一致。"
+    },
+    {
+      "id": 39,
+      "text": "界面实时显示当前注额、奖池、双方剩余筹码和累计得分，并与真实状态一致。",
+      "kind": "dom",
+      "how": "在等待、发牌后、一次下注后和结算后分别解析 current-bet/pot/player-chips/computer-chips/player-score/computer-score 的数字，逐项与 __zjh.getState() 同步。"
+    },
+    {
+      "id": 40,
+      "text": "真人手牌和牌型显示遵循看牌状态：未看牌时不泄露牌面，看牌后显示真实三张牌与牌型；电脑牌在比牌前保持隐藏。",
+      "kind": "dom",
+      "how": "未看牌时扫描 player-hand/player-hand-type 与完整可见 DOM：不得出现真人真实 rank+suit，也不得提前显示其真实牌型；compare 前电脑真实 rank+suit 不得出现在普通可见 DOM。Peek 后 player-hand 必须包含真人三张真实牌面，player-hand-type 必须等于独立 evaluator 结果，同时电脑仍保持隐藏。"
+    },
+    {
+      "id": 41,
+      "text": "界面实时显示当前行动方和游戏状态，并能区分等待、弃牌结算、比牌结算和胜利/淘汰结果。",
+      "kind": "dom",
+      "how": "真实采集 waiting、player_turn、computer_turn、fold 结算、comparing 和自然淘汰时的 turn/game-status DOM；将各时刻 DOM 文本直接与同一时刻公开 state 的 phase/turn/outcome 交叉验证，要求等待、真人/电脑行动、弃牌/胜利、比牌、淘汰等运行时显示具有对应语义且阶段间真实变化，不依赖源码状态词表。"
+    },
+    {
+      "id": 42,
+      "text": "真人或电脑发生下注时，可观察到筹码从对应玩家区域沿多帧路径飞入中央奖池。",
+      "kind": "state",
+      "how": "在真实 Call/Raise 中从点击前启动页面内 rAF 采样 scene.chips，并覆盖随后电脑自动下注窗口；分别至少观察到一枚真人筹码和一枚电脑筹码从各自区域出现连续多个中间位置并最终进入中央 pot 区，同时真人 Call/Raise 的筹码、roundBet 与 pot 数值增量必须守恒。采样数量按真实宿主帧率判断多帧连续轨迹，不设置与功能无关的固定总帧数门槛；不得用单帧瞬移、仅数值变化或只证明一方动画让本项通过。"
+    },
+    {
+      "id": 43,
+      "text": "胜利结算和淘汰终局都会产生明确的颜色视觉反馈。",
+      "kind": "state",
+      "how": "在真实 fold 结算和自然淘汰前后读取 game-status/root 的 computedStyle；要求对应真实 winner/phase 出现时，实际渲染的文字颜色、背景色、边框色或阴影颜色相对结算前确实变化。任何源码颜色字符串、class 名、filter 或未渲染样式均不参与评分。"
+    },
+    {
+      "id": 44,
+      "text": "筹码耗尽时不会继续产生负筹码，并进入可观察的淘汰或最终胜利状态。",
+      "kind": "state",
+      "how": "通过正常 UI 自然跨局到达真实淘汰边界，逐步验证筹码非负、phase=eliminated、outcome=elimination、winner 有效且终局后 Deal 无效；结构补证只用于确认真实可达结算同时覆盖双方筹码耗尽，可接受一个合并条件、两个独立对称分支，或‘一处对称耗尽检测 + 另一处可达 winner 选择’的分层实现，不绑定 winner 与 phase 必须写在同一 AST 代码块。"
+    },
+    {
+      "id": 45,
+      "text": "重复多局后主 RAF、关键事件监听器和 WebGL 资源不会持续无界累积。",
+      "kind": "state",
+      "how": "评估侧在页面脚本前独立包装 requestAnimationFrame、事件监听与 WebGL create/delete；预热后覆盖 Fold、Peek+Fold、下注后结算和真实 Compare/showdown 路径并逐局取样。对 once listener 不替换原 callback、也不计入长期活跃监听器，避免改变浏览器原生去重语义；AbortSignal 自动解绑会更新持久监听计数。允许一次性缓存，但 RAF、活跃监听器和 WebGL 净资源不得持续正向增长。"
+    },
+    {
+      "id": 46,
+      "text": "整体画面呈现绿色绒布牌桌，中央牌堆、上方电脑和下方真人的空间层次清晰。",
+      "kind": "vlm",
+      "how": "在完成发牌后的真实游戏截图中，仅判断视觉：是否能清楚看到绿色牌桌、中央牌堆、上下对坐的两方牌区，主要元素没有严重遮挡或错位。"
+    },
+    {
+      "id": 47,
+      "text": "底部操作区具有玻璃态层次，六类核心按钮标签完整可读；悬停核心按钮时按钮位置或阴影相对未悬停状态发生可见变化，且不会遮挡相邻按钮或状态信息。",
+      "kind": "vlm",
+      "how": "在真人行动阶段先把鼠标移出操作区截取未 hover 图，再真实 hover 一个可用核心按钮并截取 hover 图，将 BEFORE/AFTER 并排交给 VLM；仅判断玻璃态、六类标签可读，以及同一按钮在 AFTER 相比 BEFORE 是否出现抬升/阴影变化且不遮挡其它控件。"
+    },
+    {
+      "id": 48,
+      "text": "3D 扑克牌牌面能清楚识别花色与点数，并具有轻微弯曲的实体感。",
+      "kind": "vlm",
+      "how": "在看牌或比牌后截图；仅判断可见牌面是否有可辨识的 rank/suit 纹理、卡片具有三维厚度/轻微曲面感，而不是纯文字列表或完全平直的 2D 方块。"
+    },
+    {
+      "id": 49,
+      "text": "在看牌后的典型可玩画面中，牌面、双方筹码、奖池、当前行动/状态和底部操作区均保持可辨认，不存在导致关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。",
+      "kind": "vlm",
+      "how": "选择包含已发牌并已看牌或比牌后的真实状态截图；仅判断可见牌面、双方筹码、奖池、当前行动/状态和底部操作区是否均可辨认，并确认不存在让关键内容不可读的严重遮挡、裁切、过暗、过曝或错位。"
+    },
+    {
+      "id": 50,
+      "text": "公开只读状态接口不得改变游戏或场景，也不得暴露可控制发牌、牌、筹码、行动、结算或动画的测试能力。",
+      "kind": "state",
+      "how": "调用 Prompt 声明的 window.__zjh.getState() 与 window.__scene.getState()，分别在初始等待态和真实发牌后的真人行动态验证连续读取与返回快照隔离；递归检查公开对象、自定义 prototype、函数属性与 getter 返回对象不得存在 setter。额外公开函数以多组 0–4 参数主动调用，但先用同等待时长的无调用 control 记录自然状态/场景/UI 漂移，只把超出自然漂移的业务、场景或 UI 变化归因于该函数。每轮主动探测后重新加载页面，避免污染后续测试。"
+    },
+    {
+      "id": 51,
+      "text": "电脑手牌在比牌/结算揭示后，其 handType 与真实三张牌的独立牌型判定一致。",
+      "kind": "state",
+      "how": "在真实 Compare 进入结算后读取 computer.cards 与 computer.handType，使用测试侧独立 evaluator 计算三张牌牌型并要求完全一致；compare 前仍按 R40 保持隐藏。"
+    }
+  ]
+}

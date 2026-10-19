@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#041208"/><title>Royal Felt Private Table · 炸金花</title><style>/* Minimal standalone layout utilities required by repo/4's existing JSX.
+   The Vite build normally gets these from Tailwind; standalone play.html
+   needs local equivalents so direct opening keeps the original layout. */
+.relative{position:relative}
+.absolute{position:absolute}
+.inset-0{inset:0}
+.inset-x-0{left:0;right:0}
+.top-0{top:0}
+.bottom-0{bottom:0}
+.left-3{left:.75rem}
+.left-1\/2{left:50%}
+.top-\[16\.5\%\]{top:16.5%}
+.top-\[40\%\]{top:40%}
+.bottom-\[28\%\]{bottom:28%}
+.bottom-\[15\.2\%\]{bottom:15.2%}
+.z-10{z-index:10}
+.z-20{z-index:20}
+.z-30{z-index:30}
+.z-40{z-index:40}
+.z-\[5\]{z-index:5}
+.mx-auto{margin-left:auto;margin-right:auto}
+.h-full{height:100%}
+.w-full{width:100%}
+.max-w-\[760px\]{max-width:760px}
+.overflow-hidden{overflow:hidden}
+.-translate-x-1\/2{transform:translateX(-50%)}
+.flex{display:flex}
+.grid{display:grid}
+.hidden{display:none}
+.items-start{align-items:flex-start}
+.justify-between{justify-content:space-between}
+.justify-center{justify-content:center}
+.place-items-center{place-items:center}
+.gap-3{gap:.75rem}
+.p-2\.5{padding:.625rem}
+.p-3\.5{padding:.875rem}
+.px-3{padding-left:.75rem;padding-right:.75rem}
+.px-4{padding-left:1rem;padding-right:1rem}
+.text-center{text-align:center}
+.text-white{color:#fff}
+.bg-\[\#020b07\]{background-color:#020b07}
+.bg-black\/35{background-color:rgb(0 0 0 / .35)}
+.pointer-events-none{pointer-events:none}
+.backdrop-blur-\[3px\]{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+@media(min-width:640px){
+  .sm\:block{display:block}
+  .sm\:p-5{padding:1.25rem}
+  .sm\:p-7{padding:1.75rem}
+  .sm\:top-\[17\.5\%\]{top:17.5%}
+  .sm\:bottom-\[25\.5\%\]{bottom:25.5%}
+  .sm\:bottom-\[15\.7\%\]{bottom:15.7%}
+}
+@media(min-width:768px){
+  .md\:left-6{left:1.5rem}
+}
+
+
+
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f8fafc;
+  background: #020906;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; width: 100%; min-width: 320px; height: 100%; overflow: hidden; }
+body { overscroll-behavior: none; background: #020906; }
+button { font: inherit; }
+button:focus-visible { outline: 2px solid rgba(250, 215, 126, .88); outline-offset: 4px; }
+canvas[data-testid="game-canvas"] { touch-action: none; }
+
+.game-shell { isolation: isolate; }
+.scene-vignette {
+  background:
+    radial-gradient(ellipse at 50% 44%, transparent 34%, rgba(0, 5, 3, .08) 57%, rgba(0, 3, 2, .57) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, .32), transparent 23%, transparent 72%, rgba(0, 0, 0, .45));
+}
+.scene-grain {
+  opacity: .038;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+.table-glow {
+  background: radial-gradient(ellipse at 50% 49%, rgba(76, 170, 105, .035), transparent 45%);
+  mix-blend-mode: screen;
+}
+
+.glass-panel {
+  background: linear-gradient(145deg, rgba(17, 28, 25, .80), rgba(3, 9, 7, .64));
+  border: 1px solid rgba(244, 232, 202, .12);
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, .38),
+    inset 0 1px 0 rgba(255, 255, 255, .075),
+    inset 0 -1px 0 rgba(0, 0, 0, .18);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+
+.brand-lockup { text-shadow: 0 2px 20px rgba(0, 0, 0, .4); }
+.brand-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(244, 213, 143, .7);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .28em;
+}
+.brand-diamond { color: #d9b967; font-size: 7px; }
+.brand-title {
+  margin: 4px 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 3.1vw, 40px);
+  line-height: .98;
+  font-weight: 600;
+  letter-spacing: .055em;
+  color: rgba(255, 252, 244, .97);
+}
+.brand-caption {
+  margin-top: 7px;
+  color: rgba(255, 255, 255, .36);
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+
+.meter-card { position: relative; overflow: hidden; }
+.meter-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 12%, rgba(255,255,255,.052) 46%, transparent 72%);
+  transform: translateX(-88%);
+  animation: glass-sheen 10s ease-in-out infinite;
+}
+.balance-panel {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 218px;
+  border-radius: 18px;
+  padding: 11px 16px;
+}
+.balance-item { min-width: 72px; text-align: right; }
+.balance-label { color: rgba(255,255,255,.38); font-size: 8px; font-weight: 650; letter-spacing: .15em; text-transform: uppercase; }
+.balance-value { margin-top: 2px; color: rgba(255,255,255,.9); font-size: 18px; font-weight: 690; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.balance-gold { color: #f2d58f; text-shadow: 0 0 20px rgba(216, 178, 92, .13); }
+.balance-divider { width: 1px; height: 30px; background: linear-gradient(180deg, transparent, rgba(255,255,255,.12), transparent); }
+
+.hand-owner {
+  color: rgba(255,255,255,.39);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 16px rgba(0,0,0,.7);
+}
+.hand-score {
+  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, .62);
+}
+.computer-score-display { color: rgba(255,255,255,.84); font-size: clamp(23px, 3vw, 31px); }
+.player-score { color: #fffdf7; font-size: clamp(30px, 4vw, 42px); font-weight: 600; }
+.soft-tag {
+  border: 1px solid rgba(143, 220, 176, .13);
+  border-radius: 999px;
+  padding: 4px 6px 3px;
+  background: rgba(77, 163, 112, .08);
+  color: rgba(191, 238, 208, .56);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-shadow: none;
+}
+.soft-tag.neutral { border-color: rgba(255,255,255,.1); background: rgba(0,0,0,.14); color: rgba(255,255,255,.44); }
+
+.score-card { min-width: 116px; border-radius: 16px; padding: 11px 12px; }
+.score-heading { color: rgba(255,255,255,.26); font-size: 8px; font-weight: 700; letter-spacing: .22em; }
+.score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+.score-grid > div { display: grid; gap: 2px; text-align: center; }
+.score-name { color: rgba(255,255,255,.35); font-size: 9px; }
+.score-grid b { color: rgba(255,255,255,.76); font-size: 13px; font-weight: 650; font-variant-numeric: tabular-nums; }
+
+.status-capsule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(88vw, 430px);
+  min-height: 46px;
+  border: 1px solid rgba(255,255,255,.095);
+  border-radius: 999px;
+  padding: 7px 17px 7px 12px;
+  background: linear-gradient(180deg, rgba(3, 12, 9, .67), rgba(1, 7, 5, .56));
+  box-shadow: 0 12px 35px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.05);
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.status-orb {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(226, 197, 125, .24);
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #ead49e, #9b7431 60%, #3d2c12 100%);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.22), 0 0 18px rgba(207,171,86,.08);
+}
+.status-copy { display: grid; min-width: 0; text-align: left; }
+.status-copy strong { overflow: hidden; color: rgba(255,255,255,.88); font-size: 11px; font-weight: 680; letter-spacing: .08em; text-overflow: ellipsis; white-space: nowrap; }
+.status-copy small { margin-top: 1px; overflow: hidden; color: rgba(255,255,255,.37); font-size: 9px; letter-spacing: .01em; text-overflow: ellipsis; white-space: nowrap; }
+.status-capsule.is-win { border-color: rgba(74,222,128,.18); box-shadow: 0 12px 38px rgba(0,0,0,.3), 0 0 35px rgba(34,197,94,.06); }
+.status-capsule.is-win .status-orb { border-color: rgba(110,231,183,.35); background: radial-gradient(circle at 38% 34%, #bcf7d3, #23824d 58%, #0a3420 100%); }
+.status-capsule.is-win strong { color: #c9f7d8; }
+.status-capsule.is-loss { border-color: rgba(251,113,133,.18); box-shadow: 0 12px 38px rgba(0,0,0,.3), 0 0 35px rgba(244,63,94,.05); }
+.status-capsule.is-loss .status-orb { border-color: rgba(253,164,175,.32); background: radial-gradient(circle at 38% 34%, #ffd0d6, #a83346 58%, #45121d 100%); }
+.status-capsule.is-loss strong { color: #ffd2d8; }
+.status-capsule.is-push { border-color: rgba(250,204,21,.14); }
+
+.control-dock {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) 112px;
+  align-items: center;
+  gap: 14px;
+  min-height: 82px;
+  border-radius: 28px;
+  padding: 11px 13px;
+  box-shadow:
+    0 28px 78px rgba(0,0,0,.46),
+    0 2px 12px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.085);
+}
+.dock-meta { min-width: 0; padding: 0 4px; }
+.dock-meta-right { text-align: right; }
+.dock-label { color: rgba(255,255,255,.27); font-size: 7px; font-weight: 750; letter-spacing: .19em; text-transform: uppercase; }
+.deck-readout { margin-top: 4px; color: rgba(255,255,255,.35); font-size: 9px; font-variant-numeric: tabular-nums; }
+.deck-count { color: rgba(255,255,255,.72); font-size: 12px; font-weight: 650; }
+.deck-meter { height: 2px; margin-top: 5px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.08); }
+.deck-meter span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, rgba(210,177,94,.45), rgba(239,211,140,.88)); transition: width .32s ease; }
+.rule-main { margin-top: 4px; color: rgba(255,255,255,.58); font-size: 10px; font-weight: 580; white-space: nowrap; }
+.rule-sub { margin-top: 2px; color: rgba(255,255,255,.27); font-family: Georgia, serif; font-size: 8px; white-space: nowrap; }
+
+.action-cluster { display: grid; grid-template-columns: 1.16fr 1fr 1fr; gap: 8px; min-width: 0; }
+.game-button {
+  --lift: 0px;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 56px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.115);
+  border-radius: 17px;
+  padding: 8px 10px;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.037));
+  box-shadow: inset 0 1px rgba(255,255,255,.09), 0 7px 19px rgba(0,0,0,.18);
+  transform: translateY(var(--lift)) translateZ(0);
+  transition:
+    transform .16s cubic-bezier(.2,.8,.2,1),
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease,
+    opacity .18s ease,
+    filter .18s ease;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.game-button::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(circle at 50% 120%, rgba(255,255,255,.13), transparent 58%);
+  opacity: 0;
+  transform: translateY(16%);
+  transition: opacity .18s ease, transform .2s ease;
+}
+.game-button:hover:not(:disabled) {
+  --lift: -3px;
+  border-color: rgba(255,255,255,.24);
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.052));
+  box-shadow: inset 0 1px rgba(255,255,255,.13), 0 12px 26px rgba(0,0,0,.25);
+}
+.game-button:hover:not(:disabled)::before { opacity: 1; transform: translateY(0); }
+.game-button:active:not(:disabled) {
+  --lift: 1px;
+  transform: translateY(var(--lift)) scale(.975) translateZ(0);
+  transition-duration: .055s;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,.17), 0 4px 12px rgba(0,0,0,.2);
+}
+.game-button:disabled {
+  cursor: not-allowed;
+  opacity: .28;
+  filter: saturate(.5);
+  box-shadow: inset 0 1px rgba(255,255,255,.04);
+}
+.game-button.primary {
+  border-color: rgba(239, 209, 130, .28);
+  background: linear-gradient(180deg, rgba(181,132,39,.44), rgba(91,61,16,.33));
+  box-shadow: inset 0 1px rgba(255,239,191,.15), 0 9px 24px rgba(66,43,7,.24);
+}
+.game-button.primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 16%;
+  right: 16%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,240,190,.46), transparent);
+}
+.game-button.primary:hover:not(:disabled) {
+  border-color: rgba(250,222,147,.48);
+  background: linear-gradient(180deg, rgba(203,153,54,.53), rgba(105,69,17,.38));
+  box-shadow: inset 0 1px rgba(255,241,198,.18), 0 14px 29px rgba(77,49,7,.31), 0 0 28px rgba(196,147,50,.07);
+}
+.button-suit { width: 19px; color: #f2d58f; font-family: Georgia, serif; font-size: 17px; text-align: center; text-shadow: 0 0 16px rgba(232,194,102,.12); }
+.button-suit.muted { color: rgba(255,255,255,.38); font-family: Inter, ui-sans-serif, sans-serif; font-size: 10px; font-weight: 700; }
+.button-copy { display: grid; min-width: 0; text-align: left; }
+.button-copy strong { color: rgba(255,255,255,.94); font-size: 13px; font-weight: 650; line-height: 1.15; white-space: nowrap; }
+.button-copy small { margin-top: 2px; color: rgba(255,255,255,.29); font-size: 7px; font-weight: 700; letter-spacing: .13em; }
+.game-button.primary .button-copy small { color: rgba(255,235,184,.43); }
+.keycap {
+  display: inline-grid;
+  min-width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.105);
+  border-bottom-color: rgba(255,255,255,.16);
+  border-radius: 5px;
+  background: rgba(0,0,0,.13);
+  color: rgba(255,255,255,.31);
+  box-shadow: inset 0 1px rgba(255,255,255,.045);
+  font-size: 8px;
+  line-height: 1;
+}
+
+.feedback-flash { animation: feedback-in .9s ease-out both; }
+.feedback-flash.win { background: radial-gradient(ellipse at 50% 52%, rgba(16,185,129,.12), transparent 58%); }
+.feedback-flash.loss { background: radial-gradient(ellipse at 50% 52%, rgba(244,63,94,.105), transparent 58%); }
+.feedback-flash.push { background: radial-gradient(ellipse at 50% 52%, rgba(250,204,21,.075), transparent 58%); }
+
+.game-over-card { width: min(92vw, 350px); border-radius: 28px; padding: 27px 28px 25px; text-align: center; }
+.game-over-mark {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 15px;
+  place-items: center;
+  border: 1px solid rgba(239,209,130,.25);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(241,216,151,.16), rgba(130,91,27,.08));
+  color: #ead296;
+  font-family: Georgia, serif;
+  font-size: 22px;
+}
+.game-over-kicker { color: rgba(229,201,135,.5); font-size: 8px; font-weight: 750; letter-spacing: .25em; }
+.game-over-title { margin-top: 6px; color: #fff8e9; font-family: Georgia, serif; font-size: 27px; }
+.game-over-copy { margin-top: 8px; color: rgba(255,255,255,.44); font-size: 12px; line-height: 1.6; }
+
+@keyframes feedback-in {
+  0% { opacity: 0; transform: scale(.985); }
+  22% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.01); }
+}
+@keyframes glass-sheen {
+  0%, 74%, 100% { transform: translateX(-88%); }
+  86% { transform: translateX(92%); }
+}
+
+@media (max-width: 820px) {
+  .control-dock { grid-template-columns: 1fr; max-width: 590px; min-height: 0; padding: 10px; border-radius: 23px; }
+  .dock-meta { display: none; }
+  .action-cluster { gap: 7px; }
+  .game-button { min-height: 54px; border-radius: 15px; }
+}
+
+@media (max-width: 560px) {
+  .brand-caption { display: none; }
+  .brand-eyebrow { font-size: 7px; letter-spacing: .22em; }
+  .balance-panel { min-width: 178px; gap: 12px; border-radius: 15px; padding: 9px 11px; }
+  .balance-item { min-width: 58px; }
+  .balance-label { font-size: 7px; letter-spacing: .1em; }
+  .balance-value { font-size: 15px; }
+  .balance-divider { height: 25px; }
+  .status-capsule { min-height: 42px; padding: 6px 13px 6px 8px; }
+  .status-orb { width: 22px; height: 22px; }
+  .status-copy strong { font-size: 10px; }
+  .status-copy small { max-width: 270px; font-size: 8px; }
+  .action-cluster { grid-template-columns: 1.12fr 1fr 1fr; gap: 5px; }
+  .game-button { min-height: 51px; gap: 5px; padding: 7px 8px; }
+  .button-suit { display: none; }
+  .button-copy strong { font-size: 12px; }
+  .button-copy small { font-size: 6px; }
+  .keycap { display: none; }
+}
+
+@media (max-width: 390px) {
+  .balance-panel { min-width: 163px; padding-inline: 9px; }
+  .brand-title { font-size: 20px; }
+  .status-copy small { max-width: 230px; }
+  .game-button { min-height: 48px; padding-inline: 6px; }
+  .button-copy strong { font-size: 11px; }
+}
+
+@media (max-height: 660px) {
+  .brand-caption { display: none; }
+  .control-dock { padding-block: 8px; }
+  .game-button { min-height: 48px; }
+  .status-capsule { min-height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meter-card::after { animation: none; }
+  .game-button, .deck-meter span, .status-capsule { transition-duration: .01ms; }
+  .feedback-flash { animation-duration: .01ms; }
+}
+
+/* 炸金花玩法适配：只扩展原控制台容纳 6 个动作，不改变原视觉体系。 */
+[data-testid="game-canvas"]{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+[data-testid="game-status"][data-tone="win"]{--zjh-tone:#5fd28b}[data-testid="game-status"][data-tone="loss"]{--zjh-tone:#e76c78}[data-testid="game-status"][data-tone="compare"]{--zjh-tone:#d7b764}[data-testid="game-status"][data-tone="eliminated"]{--zjh-tone:#f0c66b}
+[data-testid="game-status"][data-tone]:before{background:var(--zjh-tone,currentColor)!important}
+.zjh-actions button{transition:transform .18s ease,filter .18s ease,opacity .18s ease}.zjh-actions button:hover:not(:disabled){transform:translateY(-4px)}
+.zjh-hidden-meta{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+#stage{position:absolute;inset:0}.action-cluster{display:grid!important;grid-template-columns:repeat(6,minmax(72px,1fr))!important;gap:6px!important}.control-dock{max-width:1040px!important}.game-button{min-width:0!important;padding:10px 8px!important}.soft-tag[data-testid="player-hand-type"]{display:block;margin-top:5px}.status-capsule[data-tone="win"]{border-color:rgba(94,211,138,.35)}.status-capsule[data-tone="loss"]{border-color:rgba(237,108,121,.35)}
+
+/* 极简 Royal Felt 只给原细线状态条轻量着色，不增加新面板。 */
+[data-testid="game-status"][data-tone="win"]{color:#9ad6ae!important;background:rgba(14,79,45,.14)!important;filter:drop-shadow(0 0 7px rgba(89,180,119,.14))}
+[data-testid="game-status"][data-tone="loss"]{color:#dfa0a0!important;background:rgba(86,31,32,.13)!important}
+[data-testid="game-status"][data-tone="compare"]{color:#d9bd73!important;background:rgba(91,70,22,.12)!important}
+[data-testid="game-status"][data-tone="eliminated"]{color:#e8b968!important;background:rgba(92,53,13,.14)!important}
+
+/* DISTINCTIVE PASS 2026-08: Royal Felt Minimal / compact floating glass controls */
+.game-shell{background:#010805}
+.scene-vignette{background:radial-gradient(ellipse at 50% 44%,transparent 38%,rgba(0,4,3,.18) 72%,rgba(0,2,1,.72) 100%)}
+.brand-lockup{padding-left:4px}.brand-title{font-size:clamp(29px,3.2vw,48px);font-weight:520;letter-spacing:.02em}.brand-caption{letter-spacing:.18em}
+.balance-panel{border-radius:999px;padding:9px 15px;background:rgba(7,20,15,.62);border-color:rgba(255,255,255,.075);box-shadow:none}
+.score-card{border-radius:14px;background:rgba(5,16,12,.52);border-color:rgba(255,255,255,.07);box-shadow:none}
+.status-capsule{border-radius:999px;padding:8px 13px;background:rgba(5,17,12,.58);backdrop-filter:blur(18px);box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.control-dock{max-width:870px!important;min-height:64px!important;padding:7px 9px!important;border-radius:999px!important;background:rgba(5,17,12,.72)!important;border-color:rgba(255,255,255,.08)!important;box-shadow:0 18px 60px rgba(0,0,0,.30)!important;grid-template-columns:116px 1fr 126px!important}
+.action-cluster{gap:5px!important}.game-button{min-width:0!important;min-height:48px!important;padding:7px 9px!important;border-radius:999px!important;border-color:rgba(255,255,255,.07)!important;background:rgba(255,255,255,.035)!important}
+.game-button:hover:not(:disabled){--lift:-4px;background:rgba(255,255,255,.075)!important;border-color:rgba(213,185,103,.24)!important}
+.game-button.primary{background:linear-gradient(180deg,rgba(207,158,58,.62),rgba(105,69,17,.50))!important;border-color:rgba(239,211,140,.30)!important}
+.button-suit{font-size:13px!important}.button-copy strong{font-size:11px!important}.button-copy small{font-size:6px!important;letter-spacing:.13em!important}
+.dock-label{font-size:6px!important}.rule-main,.deck-count{font-size:14px!important}.rule-sub{font-size:6px!important}
+@media(max-width:900px){.control-dock{border-radius:22px!important;grid-template-columns:1fr!important}.action-cluster{display:grid!important;grid-template-columns:repeat(3,1fr)!important}.dock-meta{display:none!important}.game-button{border-radius:14px!important}}
+</style></head><body><main id="root" class="game-shell relative h-full w-full overflow-hidden bg-[#020b07] text-white"><div id="stage" class="absolute inset-0"></div><div class="scene-vignette pointer-events-none absolute inset-0"></div><div class="scene-grain pointer-events-none absolute inset-0"></div><div class="table-glow pointer-events-none absolute inset-0"></div><header class="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-3 p-3.5 sm:p-7"><div class="brand-lockup"><div class="brand-eyebrow"><span class="brand-diamond">◆</span> ROYAL FELT</div><h1 class="brand-title">炸金花</h1><div class="brand-caption">PRIVATE TABLE · THREE.JS R128</div></div><div class="glass-panel balance-panel meter-card"><div class="balance-item"><div class="balance-label">真人筹码</div><div data-testid="player-chips" class="balance-value balance-gold">1000</div></div><div class="balance-divider"></div><div class="balance-item"><div class="balance-label">电脑筹码</div><div data-testid="computer-chips" class="balance-value">1000</div></div></div></header><section class="pointer-events-none absolute left-1/2 top-[16.5%] z-10 -translate-x-1/2 text-center sm:top-[17.5%]"><div class="hand-owner">Computer</div><div class="hand-score computer-score-display"><span>•••</span><small id="computer-note">三张暗牌 · 电脑</small></div></section><section class="pointer-events-none absolute bottom-[28%] left-1/2 z-10 -translate-x-1/2 text-center sm:bottom-[25.5%]"><div class="hand-owner">Player</div><div class="hand-score player-score"><span data-testid="player-hand">未发牌</span><span class="soft-tag" data-testid="player-hand-type" id="player-note">未看牌</span></div></section><aside class="pointer-events-none absolute left-3 top-[40%] z-10 hidden sm:block md:left-6"><div class="score-card glass-panel"><div class="score-heading">SESSION</div><div class="score-grid"><div><span class="score-name">你</span><b data-testid="player-score">0</b></div><div><span class="score-name">电脑</span><b data-testid="computer-score">0</b></div><div><span class="score-name">池</span><b data-testid="pot">0</b></div></div></div></aside><div class="pointer-events-none absolute inset-x-0 bottom-[15.2%] z-20 flex justify-center px-3 sm:bottom-[15.7%]"><div data-testid="game-status" class="status-capsule"><span class="status-orb"></span><span class="status-copy"><strong data-zjh-status-title>等待</strong><small data-zjh-status-sub>点击发牌开始</small></span></div></div><div class="absolute inset-x-0 bottom-0 z-30 p-2.5 sm:p-5"><div class="control-dock glass-panel mx-auto max-w-[980px]"><div class="dock-meta dock-meta-left"><div class="dock-label">当前注额</div><div class="deck-readout"><span class="deck-count" data-testid="current-bet">0</span></div><div class="deck-meter"><span style="width:66%"></span></div></div><div class="action-cluster zjh-actions"><button data-testid="deal-btn" class="game-button primary"><span class="button-suit">♠</span><span class="button-copy"><strong>发牌</strong><small>DEAL</small></span></button><button data-testid="peek-btn" class="game-button" disabled><span class="button-suit muted">◉</span><span class="button-copy"><strong>看牌</strong><small>PEEK</small></span></button><button data-testid="call-btn" class="game-button" disabled><span class="button-suit muted">＝</span><span class="button-copy"><strong>跟注</strong><small>CALL</small></span></button><button data-testid="raise-btn" class="game-button" disabled><span class="button-suit muted">＋</span><span class="button-copy"><strong>加注</strong><small>RAISE</small></span></button><button data-testid="fold-btn" class="game-button" disabled><span class="button-suit muted">×</span><span class="button-copy"><strong>弃牌</strong><small>FOLD</small></span></button><button data-testid="compare-btn" class="game-button" disabled><span class="button-suit muted">◆</span><span class="button-copy"><strong>比牌</strong><small>COMPARE</small></span></button></div><div class="dock-meta dock-meta-right"><div class="dock-label">TURN</div><div class="rule-main" data-testid="turn">等待</div><div class="rule-sub">豹子 ＞ 同花顺 ＞ 金花</div></div></div></div></main><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script><script>(()=>{
+'use strict';
+// 六类牌型：豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。Q-K-A 为最大顺子。
+const SUITS=['S','H','D','C'], SUIT_SYMBOL={S:'♠',H:'♥',D:'♦',C:'♣'}, RANKS=['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+const RANK_VALUE={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,J:11,Q:12,K:13,A:14};
+const TYPE_NAME={6:'豹子',5:'同花顺',4:'金花',3:'顺子',2:'对子',1:'单张'};
+const STARTING_CHIPS=1000, ANTE=20, RAISE_STEP=20, TABLE_COLOR='#006400';
+const CARD_W=1.24,CARD_H=1.78,CARD_BEND=.045;
+// player zone position z=+3.05; computer zone position z=-3.05，中央 deck position z=0。
+const POS={deck:{x:0,y:.45,z:0},player:[[-1.34,.47,2.85],[0,.49,3.05],[1.34,.47,2.85]],computer:[[-1.34,.47,-2.85],[0,.49,-3.05],[1.34,.47,-2.85]]};
+let deckSerial=0, chipSerial=0, settled=false, actionLock=false;
+
+function freshSide(chips){return{chips,roundBet:0,looked:false,folded:false,handType:null,cards:[]}}
+const game={ready:false,phase:'waiting',turn:null,round:0,pot:0,currentBet:0,winner:null,outcome:null,score:{player:0,computer:0},player:freshSide(STARTING_CHIPS),computer:freshSide(STARTING_CHIPS)};
+function cloneCard(c){return{id:c.id,rank:c.rank,suit:c.suit,faceUp:!!c.faceUp}}
+function publicState(){
+ const playerTurn=game.ready&&game.phase==='player_turn'&&game.turn==='player'&&!actionLock;
+ return{ready:game.ready,phase:game.phase,turn:game.turn,round:game.round,pot:game.pot,currentBet:game.currentBet,winner:game.winner,outcome:game.outcome,score:{...game.score},
+ canDeal:game.ready&&!actionLock&&(game.phase==='waiting'||game.phase==='round_over'),canPeek:playerTurn&&!game.player.looked,canCall:playerTurn&&Math.max(0,game.currentBet-game.player.roundBet)>0&&game.player.chips>=Math.max(0,game.currentBet-game.player.roundBet),canRaise:playerTurn&&game.player.chips>=Math.max(0,game.currentBet+RAISE_STEP-game.player.roundBet),canFold:playerTurn,canCompare:playerTurn,
+ player:{chips:game.player.chips,roundBet:game.player.roundBet,looked:game.player.looked,folded:game.player.folded,handType:game.player.looked?game.player.handType:null,cards:game.player.cards.map(cloneCard)},
+ computer:{chips:game.computer.chips,roundBet:game.computer.roundBet,looked:game.computer.looked,folded:game.computer.folded,handType:(game.phase==='comparing'||game.phase==='round_over'||game.phase==='eliminated')?game.computer.handType:null,cards:game.computer.cards.map(cloneCard)}};
+}
+window.__zjh={getState:publicState};
+
+function makeDeck(){const d=[];const batch=++deckSerial;for(const suit of SUITS)for(const rank of RANKS)d.push({id:`zjh-${batch}-${suit}-${rank}`,rank,suit,faceUp:false});for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]}return d}
+function evaluateHand(cards){
+ const vals=cards.map(c=>RANK_VALUE[c.rank]), suits=cards.map(c=>c.suit), counts={}; vals.forEach(v=>counts[v]=(counts[v]||0)+1);
+ const unique=[...new Set(vals)].sort((a,b)=>a-b), flush=new Set(suits).size===1; let straight=false, straightHigh=0;
+ if(unique.length===3&&unique[2]-unique[1]===1&&unique[1]-unique[0]===1){straight=true;straightHigh=unique[2]}
+ let category,key;
+ if(Object.keys(counts).length===1){category=6;key=[vals[0]]}
+ else if(flush&&straight){category=5;key=[straightHigh]}
+ else if(flush){category=4;key=[...vals].sort((a,b)=>b-a)}
+ else if(straight){category=3;key=[straightHigh]}
+ else if(Object.values(counts).includes(2)){const pair=Number(Object.keys(counts).find(k=>counts[k]===2));const kicker=Number(Object.keys(counts).find(k=>counts[k]===1));category=2;key=[pair,kicker]}
+ else{category=1;key=[...vals].sort((a,b)=>b-a)}
+ return{category,key,name:TYPE_NAME[category],strength:category*20+key[0]};
+}
+function compareHands(a,b){const A=evaluateHand(a),B=evaluateHand(b);if(A.category!==B.category)return A.category>B.category?1:-1;for(let i=0;i<Math.max(A.key.length,B.key.length);i++){const x=A.key[i]||0,y=B.key[i]||0;if(x!==y)return x>y?1:-1}return 0}
+
+const root=document.getElementById('root'),stage=document.getElementById('stage');
+const scene=new THREE.Scene();scene.background=new THREE.Color('#020906');scene.fog=new THREE.FogExp2('#03120c',.032);
+const camera=new THREE.PerspectiveCamera(38,innerWidth/innerHeight,.1,100);camera.position.set(0,9.45,10.9);
+const renderer=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,.72));renderer.setSize(innerWidth,innerHeight);renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;renderer.shadowMap.enabled=false;renderer.domElement.dataset.testid='game-canvas';stage.appendChild(renderer.domElement);
+const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.target.set(0,.2,.1);controls.enableDamping=true;controls.dampingFactor=.055;controls.enablePan=false;controls.minDistance=10;controls.maxDistance=16;controls.minPolarAngle=.55;controls.maxPolarAngle=1.08;controls.update();
+const ambient=new THREE.AmbientLight(0xfff6df,.7);scene.add(ambient);const key=new THREE.DirectionalLight(0xffefd1,1.08);key.position.set(-4,8,5);key.castShadow=true;scene.add(key);const fill=new THREE.DirectionalLight(0xbfeee4,.27);fill.position.set(5,3,-4);scene.add(fill);const accent=new THREE.PointLight(0x2dd4bf,.72,22,2);accent.position.set(3,4,-2);scene.add(accent);
+function roundedShape(w,h,r){const s=new THREE.Shape();const x=-w/2,z=-h/2;s.moveTo(x+r,z);s.lineTo(x+w-r,z);s.quadraticCurveTo(x+w,z,x+w,z+r);s.lineTo(x+w,z+h-r);s.quadraticCurveTo(x+w,z+h,x+w-r,z+h);s.lineTo(x+r,z+h);s.quadraticCurveTo(x,z+h,x,z+h-r);s.lineTo(x,z+r);s.quadraticCurveTo(x,z,x+r,z);return s}
+const railGeo=new THREE.ExtrudeGeometry(roundedShape(14.55,9,1.2),{depth:.28,bevelEnabled:true,bevelSize:.16,bevelThickness:.12,bevelSegments:2});railGeo.rotateX(Math.PI/2);const rail=new THREE.Mesh(railGeo,new THREE.MeshStandardMaterial({color:'#2c1a12',roughness:.48,metalness:.10}));rail.position.y=-.16;scene.add(rail);
+const tableGeo=new THREE.ExtrudeGeometry(roundedShape(13.72,8.18,.94),{depth:.16,bevelEnabled:true,bevelSize:.08,bevelThickness:.07,bevelSegments:2});tableGeo.rotateX(Math.PI/2);const tableMat=new THREE.MeshStandardMaterial({color:0x006400,roughness:.94,metalness:0,emissive:'#000000'});const table=new THREE.Mesh(tableGeo,tableMat);table.position.y=.16;scene.add(table);
+const gold=0xd8bb73;for(const z of [-2.7,2.7]){const r=new THREE.Mesh(new THREE.RingGeometry(2.6,2.63,64,1,0,Math.PI),new THREE.MeshBasicMaterial({color:gold,transparent:true,opacity:.12,side:THREE.DoubleSide}));r.rotation.x=-Math.PI/2;r.rotation.z=z<0?0:Math.PI;r.position.set(0,.35,z);scene.add(r)}
+const decor=new THREE.Group();decor.position.set(-4.7,.42,2.9);for(let s=0;s<3;s++)for(let i=0;i<4;i++){const ch=new THREE.Mesh(new THREE.CylinderGeometry(.28,.28,.055,32),new THREE.MeshStandardMaterial({color:['#e8e6dd','#d5cf94','#56677c'][s],roughness:.46,metalness:s===1?.12:.03}));ch.position.set(s*.48,i*.06,s*.04);decor.add(ch)}scene.add(decor);
+const sideTray=new THREE.Group();sideTray.position.set(4.7,.44,-1.8);for(let i=0;i<3;i++){const ch=new THREE.Mesh(new THREE.CylinderGeometry(.25,.25,.06,30),new THREE.MeshStandardMaterial({color:i===1?'#d8bb73':'#526b63',roughness:.55,metalness:.16}));ch.position.set(i*.32,0,0);sideTray.add(ch)}scene.add(sideTray);
+const deckLabelCanvas=document.createElement('canvas');deckLabelCanvas.width=360;deckLabelCanvas.height=72;const deckLabelCtx=deckLabelCanvas.getContext('2d');deckLabelCtx.font='600 24px Arial';deckLabelCtx.textAlign='center';deckLabelCtx.fillStyle='rgba(216,187,115,.78)';deckLabelCtx.fillText('DECK · 牌堆',180,42);const deckLabelTexture=new THREE.CanvasTexture(deckLabelCanvas);const deckLabel=new THREE.Sprite(new THREE.SpriteMaterial({map:deckLabelTexture,transparent:true,depthWrite:false}));deckLabel.scale.set(2.1,.42,1);deckLabel.position.set(0,.72,.95);scene.add(deckLabel);
+const centerDeckRing=new THREE.Mesh(new THREE.RingGeometry(1.05,1.10,48),new THREE.MeshBasicMaterial({color:0xd8bb73,transparent:true,opacity:.42,side:THREE.DoubleSide}));centerDeckRing.rotation.x=-Math.PI/2;centerDeckRing.position.set(0,.36,0);scene.add(centerDeckRing);const deckGroup=new THREE.Group();deckGroup.position.set(0,.40,0);scene.add(deckGroup);const backTexture=createBackTexture();const deckBase=new THREE.Mesh(new THREE.BoxGeometry(CARD_W*1.12,.17,CARD_H*1.12),new THREE.MeshStandardMaterial({color:'#183b3a',roughness:.58,metalness:.08}));deckBase.position.y=.02;deckGroup.add(deckBase);for(let i=0;i<10;i++){const g=new THREE.PlaneGeometry(CARD_W,CARD_H,12,3);bendGeometry(g,.024);const d=new THREE.Mesh(g,new THREE.MeshStandardMaterial({map:backTexture,roughness:.58,side:THREE.DoubleSide}));d.rotation.x=-Math.PI/2;d.rotation.z=(i%2?1:-1)*.014;d.position.set((i%3-1)*.012,.11+i*.014,(i%2?1:-1)*.012);deckGroup.add(d)}
+function bendGeometry(geometry,amount=CARD_BEND){const p=geometry.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i);const z=Math.sin((x/CARD_W+.5)*Math.PI)*amount;p.setZ(i,z)}p.needsUpdate=true;geometry.computeVertexNormals()}
+function createBackTexture(){const c=document.createElement('canvas');c.width=360;c.height=520;const x=c.getContext('2d');x.fillStyle='#12364b';x.fillRect(0,0,360,520);x.strokeStyle='#d4bb73';x.lineWidth=7;x.strokeRect(16,16,328,488);x.strokeStyle='rgba(212,187,115,.45)';x.lineWidth=2;for(let i=0;i<8;i++)x.strokeRect(26+i*3,26+i*3,308-i*6,468-i*6);x.beginPath();x.arc(180,260,62,0,Math.PI*2);x.stroke();x.fillStyle='#d4bb73';x.font='bold 36px Georgia';x.textAlign='center';x.fillText('RF',180,272);return new THREE.CanvasTexture(c)}
+function createTexture(rank,suit){const c=document.createElement('canvas');c.width=420;c.height=600;const x=c.getContext('2d');x.fillStyle='#eee8d9';x.fillRect(0,0,420,600);x.strokeStyle='#c8ba91';x.lineWidth=3;x.strokeRect(10,10,400,580);const red=suit==='H'||suit==='D';x.fillStyle=red?'#b55248':'#102124';x.font='bold 58px Georgia';x.fillText(rank,25,72);x.font='48px Georgia';x.fillText(SUIT_SYMBOL[suit],27,126);x.textAlign='center';if(['J','Q','K'].includes(rank)){x.fillStyle=red?'#b55248':'#2e4b50';x.fillRect(125,182,170,230);x.fillStyle='#efe9db';x.font='bold 112px Georgia';x.fillText(rank,210,338)}else{x.font='122px Georgia';x.fillText(SUIT_SYMBOL[suit],210,352)}const t=new THREE.CanvasTexture(c);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t}
+const sceneCards=new Map(), sceneChips=[];
+function createCardEntity(card,owner,index){const group=new THREE.Group();const geo=new THREE.PlaneGeometry(CARD_W,CARD_H,12,3);bendGeometry(geo);const frontTex=createTexture(card.rank,card.suit);const fm=new THREE.MeshStandardMaterial({map:frontTex,roughness:.55,metalness:.015,side:THREE.DoubleSide});const bm=new THREE.MeshStandardMaterial({map:backTexture,roughness:.62,metalness:.02,side:THREE.DoubleSide});const front=new THREE.Mesh(geo,fm);front.position.z=.016;const back=new THREE.Mesh(geo.clone(),bm);back.rotation.y=Math.PI;back.position.z=-.016;group.add(front,back);group.position.set(POS.deck.x+.03,POS.deck.y,POS.deck.z);group.rotation.x=Math.PI/2;group.castShadow=true;scene.add(group);const e={id:card.id,owner,rank:card.rank,suit:card.suit,faceUp:false,group,front,back,frontTex,geos:[geo,back.geometry],mats:[fm,bm]};sceneCards.set(card.id,e);return e}
+function disposeRoundObjects(){for(const e of sceneCards.values()){scene.remove(e.group);e.geos.forEach(g=>g.dispose());e.mats.forEach(m=>m.dispose());e.frontTex.dispose()}sceneCards.clear();for(const ch of sceneChips.splice(0)){scene.remove(ch.mesh);ch.mesh.geometry.dispose();ch.mesh.material.dispose()}}
+const animations=[];
+function animate(duration,update,delay=0){return new Promise(resolve=>animations.push({start:performance.now()+delay,duration,update,resolve}))}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function lerp3(a,b,t){return{x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t}}
+function moveEntity(e,target,duration=560,delay=0,arc=.6){const from={x:e.group.position.x,y:e.group.position.y,z:e.group.position.z};return animate(duration,t=>{const q=ease(t),p=lerp3(from,target,q);e.group.position.set(p.x,p.y+Math.sin(Math.PI*q)*arc,p.z)},delay)}
+function chipFlight(owner,amount){const color=owner==='player'?'#d2c98e':'#587089';const end={x:(Math.random()-.5)*.7,y:.44,z:(Math.random()-.5)*.48};const mesh=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.075,32),new THREE.MeshStandardMaterial({color,roughness:.44,metalness:.18}));mesh.position.set(end.x,end.y,end.z);scene.add(mesh);const rec={id:`chip-${++chipSerial}`,owner:'pot',position:end,mesh,amount};sceneChips.push(rec);return rec}
+
+function updateButtons(){const s=publicState();for(const k of ['deal','peek','call','raise','fold','compare']){const b=document.querySelector(`[data-testid="${k}-btn"]`);const prop=k==='deal'?'canDeal':'can'+k[0].toUpperCase()+k.slice(1);b.disabled=!s[prop]}}
+function fmtCard(c){return `${c.rank}${SUIT_SYMBOL[c.suit]}`}
+function statusCopy(){if(game.phase==='eliminated')return['最终胜利 / 淘汰',game.winner==='player'?'电脑筹码不足，你赢下牌桌':'你的筹码不足，电脑赢下牌桌','eliminated'];if(game.phase==='round_over'){const who=game.winner==='player'?'真人胜利':game.winner==='computer'?'电脑胜利':'平分奖池';const why=game.outcome==='fold'?'弃牌结算':game.outcome==='compare'?'比牌结算':'胜利';return[who,why,game.winner==='player'?'win':game.winner==='computer'?'loss':'compare']}if(game.phase==='comparing')return['比牌','双方移牌至中央并翻牌','compare'];if(game.phase==='computer_turn')return['电脑行动','电脑正在根据牌力与下注决策',''];if(game.phase==='player_turn')return['轮到你','看牌、跟注、加注、弃牌或比牌',''];if(game.phase==='dealing')return['发牌中','三张暗牌正在入位',''];return['等待','点击发牌开始 1v1 对局','']}
+function paint(){const q=s=>document.querySelector(`[data-testid="${s}"]`),txt=(id,v)=>{const e=q(id);if(e)e.textContent=String(v)};txt('player-chips',game.player.chips);txt('computer-chips',game.computer.chips);txt('player-score',game.score.player);txt('computer-score',game.score.computer);txt('current-bet',game.currentBet);txt('pot',game.pot);txt('turn',game.turn==='player'?'真人玩家':game.turn==='computer'?'电脑玩家':'等待');txt('player-hand',game.player.cards.length?(game.player.looked?game.player.cards.map(fmtCard).join('  '):'•••  •••  •••'):'未发牌');txt('player-hand-type',game.player.looked?(game.player.handType||'计算中'):'未看牌');const [a,b,c]=statusCopy(),st=q('game-status');if(st){st.dataset.tone='normal';const title=st.querySelector('[data-zjh-status-title]');const sub=st.querySelector('[data-zjh-status-sub]');if(title)title.textContent=a;else st.textContent=a;if(sub)sub.textContent=b}const pn=document.getElementById('player-note'),cn=document.getElementById('computer-note');if(pn)pn.textContent=game.player.looked?`${game.player.handType} · 已看牌`:(game.player.cards.length?'三张暗牌 · 未看':'等待发牌');if(cn)cn.textContent=(game.phase==='round_over'||game.phase==='eliminated')?`${game.computer.handType||'暗牌'} · 本局结束`:'三张暗牌 · 自动决策';root.dataset.winner=game.winner||'';root.dataset.phase=game.phase;updateButtons()}
+function winnerColor(winner){return winner==='player'?'#3adf8b':winner==='computer'?'#ff6677':'#e7c46d'}
+
+async function dealRound(){if(!publicState().canDeal)return;if(game.player.chips<ANTE||game.computer.chips<ANTE){game.phase='eliminated';game.turn=null;game.winner=game.player.chips>=game.computer.chips?'player':'computer';game.outcome='elimination';paint();return}actionLock=true;settled=false;disposeRoundObjects();game.round++;game.phase='dealing';game.turn=null;game.pot=0;game.currentBet=ANTE*2;game.winner=null;game.outcome=null;for(const side of [game.player,game.computer]){side.roundBet=0;side.looked=false;side.folded=false;side.handType=null;side.cards=[]}game.player.chips-=ANTE;game.computer.chips-=ANTE;game.player.roundBet=ANTE;game.computer.roundBet=ANTE;game.pot=ANTE*2;const deck=makeDeck();const jobs=[];for(let i=0;i<3;i++){for(const owner of ['player','computer']){const card=deck.pop();game[owner].cards.push(card);const e=createCardEntity(card,owner,i);const a=POS[owner][i],target={x:a[0],y:a[1],z:a[2]};jobs.push(moveEntity(e,target,800,220+i*120+(owner==='computer'?18:0),.72))}}paint();await Promise.all(jobs);game.phase='player_turn';game.turn='player';actionLock=false;paint()}
+async function peek(){if(!publicState().canPeek)return;actionLock=true;game.player.handType=evaluateHand(game.player.cards).name;const jobs=game.player.cards.map((c,i)=>{const e=sceneCards.get(c.id);const startX=e.group.position.x,startZ=e.group.position.z,startRot=e.group.rotation.x;const tx=(-1.22+i*1.22),tz=3.15+Math.abs(i-1)*.18;return animate(620,t=>{const q=ease(t);e.group.position.x=startX+(tx-startX)*q;e.group.position.z=startZ+(tz-startZ)*q;e.group.rotation.x=startRot+(-Math.PI/2-startRot)*q;e.group.rotation.z=(i-1)*-.12*q;if(t>.48){c.faceUp=true;e.faceUp=true}})});paint();await Promise.all(jobs);game.player.cards.forEach(c=>c.faceUp=true);game.player.looked=true;actionLock=false;paint()}
+function amountDue(side,target=game.currentBet){return Math.max(0,target-game[side].roundBet)}
+function commitStake(side,amount){amount=Math.max(0,Math.min(amount,game[side].chips));game[side].chips-=amount;game[side].roundBet+=amount;game.pot+=amount;if(amount>0)chipFlight(side,amount);return amount}
+function computerDecision(){const hand=evaluateHand(game.computer.cards);const strength=hand.strength;const risk=game.currentBet/Math.max(1,game.computer.chips);const reward=game.pot/Math.max(1,game.currentBet);const enough=game.computer.chips>=amountDue('computer'); // Minimal: conservative, low-noise
+ if(!enough)return'fold';if(strength>=118&&game.pot>240)return'compare';if(strength<40&&risk>.07)return'fold';if(strength>94&&risk<.08&&reward>2.2&&game.computer.chips>=amountDue('computer',game.currentBet+RAISE_STEP))return'raise';return'call'}
+async function computerAction(){if(game.phase!=='computer_turn'||settled)return;const action=computerDecision();await wait(120);if(action==='fold'){game.computer.folded=true;await settle('player','fold');return}if(action==='compare'){await compareRound(true);return}if(action==='raise'){game.currentBet+=RAISE_STEP;commitStake('computer',amountDue('computer'))}else commitStake('computer',amountDue('computer'));paint();await wait(390);if(!settled){game.phase='player_turn';game.turn='player';actionLock=false;paint()}}
+async function playerCall(){if(!publicState().canCall)return;actionLock=true;commitStake('player',amountDue('player'));game.phase='computer_turn';game.turn='computer';paint();computerAction()}
+async function playerRaise(){if(!publicState().canRaise)return;actionLock=true;game.currentBet+=RAISE_STEP;commitStake('player',amountDue('player'));game.phase='computer_turn';game.turn='computer';paint();computerAction()}
+async function playerFold(){if(!publicState().canFold)return;actionLock=true;game.player.folded=true;await settle('computer','fold')}
+async function settle(winner,outcome){if(settled)return;settled=true;actionLock=true;game.winner=winner;game.outcome=outcome;game.turn=null;if(winner==='player'){game.player.chips+=game.pot;game.score.player++}else if(winner==='computer'){game.computer.chips+=game.pot;game.score.computer++}else{const half=game.pot/2;game.player.chips+=half;game.computer.chips+=game.pot-half}game.pot=0;game.currentBet=0;const eliminated=game.player.chips<ANTE||game.computer.chips<ANTE;game.phase=eliminated?'eliminated':'round_over';if(eliminated){game.outcome='elimination';game.winner=game.player.chips>=ANTE?'player':'computer'}actionLock=false;paint()}
+async function compareRound(fromComputer=false){if(!fromComputer&&!publicState().canCompare)return;if(settled)return;actionLock=true;game.phase='comparing';game.turn=null;game.player.handType=evaluateHand(game.player.cards).name;game.computer.handType=evaluateHand(game.computer.cards).name;const all=[...game.player.cards.map((c,i)=>['player',c,i]),...game.computer.cards.map((c,i)=>['computer',c,i])];paint();const jobs=all.map(([owner,c,i])=>{const e=sceneCards.get(c.id),sx=e.group.position.x,sy=e.group.position.y,sz=e.group.position.z,sr=e.group.rotation.x;const tx=-2.05+(owner==='player'?i:i+3)*.82,tz=owner==='player'?.55:-.55;return animate(760,t=>{const q=ease(t);e.group.position.set(sx+(tx-sx)*q,sy+Math.sin(Math.PI*q)*.75,sz+(tz-sz)*q);e.group.rotation.x=sr+(-Math.PI/2-sr)*q;e.group.rotation.z=(owner==='player'?.04:-.04)*(i-1)*q;if(t>.40){c.faceUp=true;e.faceUp=true;e.owner='compare'}})});await Promise.all(jobs);const result=compareHands(game.player.cards,game.computer.cards);await wait(120);await settle(result>0?'player':result<0?'computer':null,'compare')}
+
+document.querySelector('[data-testid="deal-btn"]').addEventListener('click',dealRound);document.querySelector('[data-testid="peek-btn"]').addEventListener('click',peek);document.querySelector('[data-testid="call-btn"]').addEventListener('click',playerCall);document.querySelector('[data-testid="raise-btn"]').addEventListener('click',playerRaise);document.querySelector('[data-testid="fold-btn"]').addEventListener('click',playerFold);document.querySelector('[data-testid="compare-btn"]').addEventListener('click',()=>compareRound(false));
+function onResize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio,.72));renderer.setSize(innerWidth,innerHeight)}window.addEventListener('resize',onResize);
+window.__scene={getState:()=>({ready:game.ready,threeRevision:String(THREE.REVISION),renderer:{ready:!!renderer,type:'WebGLRenderer'},canvas:{width:renderer.domElement.width,height:renderer.domElement.height},camera:{type:'PerspectiveCamera',fov:camera.fov,near:camera.near,far:camera.far,aspect:camera.aspect,position:{x:camera.position.x,y:camera.position.y,z:camera.position.z},target:{x:controls.target.x,y:controls.target.y,z:controls.target.z}},ambientLight:{exists:!!ambient,intensity:ambient.intensity},orbitControls:{enabled:controls.enabled,target:{x:controls.target.x,y:controls.target.y,z:controls.target.z}},table:{color:TABLE_COLOR,roughness:tableMat.roughness,position:{x:table.position.x,y:table.position.y,z:table.position.z}},deck:{count:Math.max(0,52-game.player.cards.length-game.computer.cards.length),position:{x:POS.deck.x,y:POS.deck.y,z:POS.deck.z}},cards:[...sceneCards.values()].map(e=>({id:e.id,owner:e.owner,rank:e.rank,suit:e.suit,faceUp:e.faceUp,position:{x:e.group.position.x,y:e.group.position.y,z:e.group.position.z},rotation:{x:e.group.rotation.x,y:e.group.rotation.y,z:e.group.rotation.z}})),chips:sceneChips.map(c=>({id:c.id,owner:c.owner,position:{x:c.mesh.position.x,y:c.mesh.position.y,z:c.mesh.position.z}}))})};
+function frame(now){for(let i=animations.length-1;i>=0;i--){const a=animations[i];if(now<a.start)continue;const t=Math.min(1,(now-a.start)/a.duration);a.update(t);if(t>=1){animations.splice(i,1);a.resolve()}}controls.update();renderer.render(scene,camera);requestAnimationFrame(frame)}
+game.ready=true;paint();requestAnimationFrame(frame);
+
+})();</script></body></html>

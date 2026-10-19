@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  @apply bg-slate-950 text-white;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+canvas {
+  display: block;
+}
+
+.range-accent {
+  accent-color: #22c55e;
+}
+
+.panel-glass {
+  @apply rounded-2xl border border-white/10 bg-slate-900/75 shadow-2xl shadow-black/30 backdrop-blur-md;
+}
+
+.badge {
+  @apply rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-slate-100;
+}

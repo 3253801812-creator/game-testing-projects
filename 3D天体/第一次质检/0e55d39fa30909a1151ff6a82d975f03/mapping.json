@@ -1,0 +1,322 @@
+{
+  "prompt_id": "0e55d39fa30909a1151ff6a82d975f03",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "window.__game.getState()",
+    "window.__universe.getState()",
+    "window.__spawner.getState()",
+    "window.__selection.getState()",
+    "window.__settings.getState()",
+    "window.__camera.getState()",
+    "window.__renderer.getState()",
+    "id=mainMenu",
+    "data-testid=play-btn",
+    "id=scenarioSelect",
+    "data-testid=solar-system-btn",
+    "data-testid=custom-sandbox-btn",
+    "id=gameScreen",
+    "data-testid=space-canvas",
+    "id=sandboxToolbar",
+    "data-testid=spawn-object-btn",
+    "data-testid=spawn-object-select",
+    "data-testid=spawn-star-btn",
+    "data-testid=object-settings-btn",
+    "id=objectSettingsPanel",
+    "data-testid=selected-object-name",
+    "data-testid=temperature-slider",
+    "data-testid=rotation-speed-slider",
+    "data-testid=orbital-velocity-slider",
+    "data-testid=object-settings-close",
+    "data-testid=menu-btn"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "应用完成初始化并显示可操作主菜单",
+      "kind": "dom",
+      "how": "加载应用后读取真实 DOM 与 window.__game；确认主菜单可见、Play 可点击、状态为 menu，且无页面初始化错误。"
+    },
+    {
+      "id": 2,
+      "text": "主菜单整体呈现 sleek、dark sci-fi 的视觉风格，并保持清晰层级与显著 Play 入口",
+      "kind": "vlm",
+      "how": "在真实主菜单状态截图，交给 VLM 仅判断 dark sci-fi 风格、视觉层级和主操作显著性。"
+    },
+    {
+      "id": 3,
+      "text": "Play可进入包含两个场景的选择界面",
+      "kind": "dom",
+      "how": "从主菜单真实点击 Play，核对 scenario_select 状态、选择界面可见以及 Solar System/Custom Sandbox 两个按钮可操作。"
+    },
+    {
+      "id": 4,
+      "text": "场景启动后进入 playing 状态并提供真实可交互的 WebGL 画布",
+      "kind": "dom",
+      "how": "真实进入 Solar System；交叉核对 playing/scenario 状态、Canvas 尺寸、WebGL 上下文、renderer 实时状态和画布可交互性。"
+    },
+    {
+      "id": 5,
+      "text": "Solar System生成太阳、地球、火星和木星",
+      "kind": "state",
+      "how": "进入 Solar System 后按 preset/bodyType/parent 识别 Sun、Earth、Mars、Jupiter，核对 game/universe/renderer 计数与真实对象 UUID；再用公开相机矩阵独立投影各天体位置，并从浏览器实际截图局部确认四个报告对象确实可见。"
+    },
+    {
+      "id": 6,
+      "text": "Solar System中的太阳、地球、火星和木星均使用真实三维几何",
+      "kind": "state",
+      "how": "在 Solar System 中交叉核对四个预置天体的真实 Mesh/Group、geometryType、顶点数以及 renderer drawCalls/triangles。"
+    },
+    {
+      "id": 7,
+      "text": "预置行星持续执行实际公转运动",
+      "kind": "state",
+      "how": "记录 Earth、Mars、Jupiter 的真实位置、父星距离与屏幕投影，采集对应局部画面；推进真实时间后再次读取并投影，要求世界位置和屏幕位置均发生运动、轨道距离保持有界，且前后目标局部均存在真实渲染信号。"
+    },
+    {
+      "id": 8,
+      "text": "Custom Sandbox以无物理天体的空场景启动",
+      "kind": "state",
+      "how": "从场景选择真实进入 Custom Sandbox，核对 playing/custom_sandbox 且 universe/renderer 中物理天体数为 0。"
+    },
+    {
+      "id": 9,
+      "text": "Custom Sandbox 底部工具栏容器可见且可操作",
+      "kind": "dom",
+      "how": "进入 Custom Sandbox 后通过真实 DOM 核对底部 sandboxToolbar 可见且未被禁用或遮挡；只验证工具栏容器本身。"
+    },
+    {
+      "id": 10,
+      "text": "Spawn Object 与 Spawn Star 会分别进入 planet 与 star 生成模式",
+      "kind": "state",
+      "how": "通过真实工具按钮分别触发 Spawn Object 与 Spawn Star，读取真实 spawner/game 状态，要求 pendingPlacement 与 spawnMode 分别进入 planet、star；不在本项验证放置副作用。"
+    },
+    {
+      "id": 11,
+      "text": "Earth与Mars可在鼠标交点生成",
+      "kind": "state",
+      "how": "分别选择 Earth、Mars，通过真实 Canvas 点击交点放置；核对 placement 记录、物理位置与对应 Three.js 对象世界坐标一致。"
+    },
+    {
+      "id": 12,
+      "text": "程序化行星连续生成时尺度具有随机变化",
+      "kind": "state",
+      "how": "连续通过真实交互生成多颗 Procedural Planet，比较真实 radius/scale，要求至少出现可观察的尺度差异。"
+    },
+    {
+      "id": 13,
+      "text": "Spawn Star可在鼠标交点生成恒星",
+      "kind": "state",
+      "how": "通过 Spawn Star 后点击真实 Canvas 交点；核对新增 bodyType=star、placement 记录和渲染对象世界坐标。"
+    },
+    {
+      "id": 14,
+      "text": "点击可见天体能够选择真实场景对象",
+      "kind": "state",
+      "how": "投影真实可见天体到屏幕并点击；核对 selection、settings 与选中对象 ID/mesh UUID 对应同一个真实场景对象。"
+    },
+    {
+      "id": 15,
+      "text": "设置侧栏与当前选中天体实时同步",
+      "kind": "state",
+      "how": "选择天体并打开设置侧栏；核对侧栏可见、selectedObjectId 与温度/自转/轨道等显示值来自当前选中对象。"
+    },
+    {
+      "id": 16,
+      "text": "平均温度可编辑并按对象持久保存",
+      "kind": "state",
+      "how": "记录选中对象温度，通过真实 range 输入修改，再切换对象并返回；要求该对象保存新值且其他对象不被覆盖。"
+    },
+    {
+      "id": 17,
+      "text": "自转速度设置因果性改变真实网格旋转",
+      "kind": "state",
+      "how": "记录真实 mesh rotation，使用设置滑杆改变 Rotation Speed，推进相同真实时间并比较旋转增量，验证因果变化。"
+    },
+    {
+      "id": 18,
+      "text": "轨道速度设置因果性改变实际轨道运动",
+      "kind": "state",
+      "how": "记录真实轨道位置/速度，使用 Orbital Velocity 控件改变值并推进真实时间，要求实际轨道运动响应设置变化。"
+    },
+    {
+      "id": 19,
+      "text": "自定义行星能受已生成恒星作用形成有界轨道",
+      "kind": "state",
+      "how": "在 Custom Sandbox 先生成恒星再生成行星；跨多个真实时间采样距离/速度，要求行星关联父星且轨道保持有界。"
+    },
+    {
+      "id": 20,
+      "text": "物理状态、对象计数和渲染对象保持一致",
+      "kind": "state",
+      "how": "通过正常界面重新进入一个独立、非空的 Solar System 作为初始条件；同一时刻交叉核对 universe bodies、game 计数、renderer sceneBodyMeshCount、对象 UUID/变换与父星距离，并用世界坐标投影后的真实截图局部确认每个报告天体存在于画面。"
+    },
+    {
+      "id": 21,
+      "text": "OrbitControls滚轮缩放改变真实相机距离",
+      "kind": "state",
+      "how": "记录真实相机位置与 OrbitControls target，向 Canvas 发送滚轮，核对相机到 target 的距离发生真实变化。"
+    },
+    {
+      "id": 22,
+      "text": "OrbitControls拖拽环绕改变真实三维视角",
+      "kind": "state",
+      "how": "记录相机矩阵/位置和目标对象屏幕投影，真实拖拽 Canvas 后再次读取，要求视角角度或投影发生变化。"
+    },
+    {
+      "id": 23,
+      "text": "代表性中等天体负载下主渲染与物理循环持续推进",
+      "kind": "state",
+      "how": "建立独立的 4–16 天体代表性场景负载，记录评估侧 RAF/WebGL 资源、renderer 与 physics 基线；推进真实墙钟时间后要求 RAF、物理步进和渲染继续推进、关键数值有限、画面仍有目标渲染信号且资源未出现持续无界增长。"
+    },
+    {
+      "id": 24,
+      "text": "返回菜单与场景重载能够清理旧世界状态",
+      "kind": "state",
+      "how": "在已生成/选择对象和已武装模式的场景返回菜单，再重新进入场景；核对旧 bodies、selection、spawnMode 和旧世界引用均被清理。"
+    },
+    {
+      "id": 25,
+      "text": "全部公开 getState 接口返回值均可 JSON 序列化",
+      "kind": "state",
+      "how": "逐一调用七个批准的只读 getState 接口并实际执行 JSON.stringify；以“公开状态快照可序列化”这一单一契约为判定目标。"
+    },
+    {
+      "id": 26,
+      "text": "重复读取公开状态接口不会改变游戏状态",
+      "kind": "state",
+      "how": "对七个公开接口进行连续多次读取；读取前后交叉核对游戏/宇宙关键字段，要求读取本身不改变状态。"
+    },
+    {
+      "id": 27,
+      "text": "天体 ID 与对应渲染对象 UUID 在各自生命周期内唯一且稳定",
+      "kind": "state",
+      "how": "复用前述真实放置流程已生成的多个对象，在对象生命周期内跨帧读取 body id 与 mesh UUID；要求 ID/UUID 唯一且同一对象映射保持稳定。"
+    },
+    {
+      "id": 28,
+      "text": "使用 OrbitControls 拖拽环绕时不会误触发天体放置",
+      "kind": "state",
+      "how": "先武装生成模式并记录 placement/body 计数，再执行 OrbitControls 拖拽；要求相机变化但 placement/body 不增加。"
+    },
+    {
+      "id": 29,
+      "text": "浏览器视口尺寸变化后 Canvas、WebGLRenderer 与相机投影保持一致",
+      "kind": "state",
+      "how": "记录 viewport、Canvas、renderer 与 camera projection，真实调整浏览器 viewport 后等待 resize；核对尺寸和投影矩阵同步更新。"
+    },
+    {
+      "id": 30,
+      "text": "重复进入和离开场景后单次用户操作只产生一次副作用",
+      "kind": "state",
+      "how": "重复进入/退出场景后记录计数，对单次 Spawn/点击操作核对 placement/body 仅增加一次，用于发现重复监听器。"
+    },
+    {
+      "id": 31,
+      "text": "设置面板修改只作用于当前选中的天体",
+      "kind": "state",
+      "how": "生成并选择两个对象，修改当前对象设置；同时记录另一对象前后快照，要求只有当前 selectedObjectId 对应对象变化。"
+    },
+    {
+      "id": 32,
+      "text": "全部公开状态接口返回值符合已声明的数据结构契约",
+      "kind": "state",
+      "how": "对七个公开接口逐一核对批准的根字段和字段类型；相机接口按其声明的数据结构额外核对四个 Matrix4 快照均为长度 16 数组。"
+    },
+    {
+      "id": 33,
+      "text": "Earth、Mars与Jupiter三个预置行星的生产外观可区分",
+      "kind": "state",
+      "how": "读取 Earth、Mars、Jupiter 的真实 material/appearance/geometry 特征，并使用公开相机矩阵把三个真实天体世界坐标投影到画布；从 Playwright 实际视口截图采样对应局部像素。要求三个生产签名可区分、三个投影点均有真实渲染信号，且代表色两两存在可量化差异。"
+    },
+    {
+      "id": 34,
+      "text": "Solar System中的太阳具有实际发光机制",
+      "kind": "state",
+      "how": "读取 Solar System Sun 的真实材质/灯光/halo 等 appearance 证据，同时把 Sun 的真实世界坐标投影到画布并采样 Playwright 实际视口截图局部像素；要求至少存在一种生产发光机制，且对应屏幕区域具有可量化亮度/渲染信号。"
+    },
+    {
+      "id": 35,
+      "text": "预置行星持续具有实际自转",
+      "kind": "state",
+      "how": "记录 Earth、Mars、Jupiter 的真实 mesh rotation 与非零 Rotation Speed，并确认对应世界坐标投影处存在真实渲染对象；推进真实时间后要求三个可见目标的自转角均持续变化。"
+    },
+    {
+      "id": 36,
+      "text": "程序化行星连续生成时颜色具有随机变化，并呈现明显霓虹色（HSV 饱和度与明度均不低于 0.55）",
+      "kind": "state",
+      "how": "连续真实生成 Procedural Planet，读取生产材质颜色；要求至少出现多个不同颜色，且每个观测颜色按 HSV 计算的 saturation 与 value 均 >= 0.55。"
+    },
+    {
+      "id": 37,
+      "text": "程序化行星的生产表面具有真实起伏",
+      "kind": "state",
+      "how": "检查真实 Procedural Planet 的 production geometry/material，要求存在 displaced geometry、displacement/normal/bump map 或 shader noise 等实际表面起伏机制。"
+    },
+    {
+      "id": 38,
+      "text": "Spawn Star 生成恒星的质量高于同场景所有普通行星",
+      "kind": "state",
+      "how": "在已有普通行星的同一场景生成恒星，比较真实 mass；要求该恒星质量严格高于当前所有普通行星。"
+    },
+    {
+      "id": 39,
+      "text": "Spawn Star生成恒星具有实际发光机制",
+      "kind": "state",
+      "how": "读取 Spawn Star 生成恒星的真实 material/light/halo appearance，同时将该恒星的真实世界坐标投影到画布并采样 Playwright 实际视口截图局部像素；要求存在生产发光机制，且对应屏幕区域具有可量化亮度/渲染信号。"
+    },
+    {
+      "id": 40,
+      "text": "Solar System 三维场景中行星与太阳可清晰辨识，天体间具有可感知的深度层次与合理的相对大小关系",
+      "kind": "vlm",
+      "how": "进入真实 Solar System 并截图，交给 VLM 仅判断行星/太阳可辨识性、构图清晰度和空间层次等整体视觉质量。"
+    },
+    {
+      "id": 41,
+      "text": "React 19 应用通过真实 #root 挂载并驱动可交互界面",
+      "kind": "dom",
+      "how": "静态核对 package.json 中 React/ReactDOM 19 与 src/main.tsx 的 createRoot 入口，再在真实浏览器加载后确认 #root 已挂载生产 UI 且 Play 控件可交互。"
+    },
+    {
+      "id": 42,
+      "text": "TypeScript 是生产应用的真实源码语言并与当前运行产物保持同源",
+      "kind": "state",
+      "how": "核对 TypeScript 依赖、tsconfig 与 src/main.tsx/.tsx 源码，并要求当前真实浏览器运行目标是由这些 canonical src 文件哈希生成的生产产物或成功的生产构建，防止只放置空配置文件。"
+    },
+    {
+      "id": 43,
+      "text": "Vite 是项目的真实生产构建工具，且 npm run build 成功完成",
+      "kind": "state",
+      "how": "核对 Vite 依赖、vite.config.ts 与 package.json build 脚本；批量验收必须以项目目录触发真实生产构建，并仅在 npm run build 成功、产出可运行的生产 index.html 且浏览器实际运行该 production build 时通过。生成式 play.html 不能替代生产构建成功。"
+    },
+    {
+      "id": 44,
+      "text": "Tailwind CSS 已接入生产样式链并用于实际页面样式",
+      "kind": "dom",
+      "how": "核对 tailwindcss 依赖、Tailwind/PostCSS 配置与 src/index.css 的 @tailwind 指令，同时在真实页面确认生产样式表已生效且主界面具有非默认计算样式。"
+    },
+    {
+      "id": 45,
+      "text": "Three.js 与 OrbitControls 在生产运行时真实驱动 WebGL 三维场景和相机交互",
+      "kind": "state",
+      "how": "核对 Three.js/OrbitControls 生产模块依赖与导入，并在真实浏览器中交叉确认 WebGLRenderer 正在运行、场景存在真实绘制调用且 OrbitControls 处于启用状态。"
+    },
+    {
+      "id": 46,
+      "text": "Object Settings 控件在 Custom Sandbox 中可见",
+      "kind": "dom",
+      "how": "进入 Custom Sandbox 后通过真实 DOM 核对 data-testid=object-settings-btn 可见。"
+    },
+    {
+      "id": 47,
+      "text": "与底部工具栏交互不会误生成天体",
+      "kind": "state",
+      "how": "先武装生成模式并记录 bodyCount 与 placementCount，再真实点击工具栏非画布区域；要求工具栏交互本身不增加物理天体或 placement 次数。"
+    },
+    {
+      "id": 48,
+      "text": "代表性中等天体负载下生产渲染循环满足 60 FPS 的 16.67ms 帧预算",
+      "kind": "state",
+      "how": "在 4–16 个真实可见天体且渲染对象计数一致的代表性负载下，先确认真实 requestAnimationFrame 循环持续推进；再由页面脚本执行前注入的评估侧观察器临时接管同一生产 RAF 回调，以 16.67ms 时间步驱动连续 60 个真实生产帧，并在每帧后调用 WebGL finish 强制完成实际绘制。60 帧总墙钟耗时必须不超过 1 秒、平均单帧不超过 16.67ms；阈值始终按 60 FPS，不因 CI、Headless 或软件渲染降低。"
+    }
+  ]
+}

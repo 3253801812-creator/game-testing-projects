@@ -1,0 +1,21 @@
+{
+  "name": "battleship-bad1",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/chartroom-build.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "^3.4.17",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}

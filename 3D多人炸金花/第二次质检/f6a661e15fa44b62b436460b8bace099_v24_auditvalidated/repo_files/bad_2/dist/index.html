@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#041208"/><title>Private Table No.03 · 炸金花</title><style>:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f3efe5;
+  background: #030705;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --gold: #d9bd78;
+  --gold-bright: #f5e5b8;
+  --gold-deep: #9d7c3f;
+  --felt: #006400;
+  --panel: rgba(5, 13, 9, .72);
+  --line: rgba(255, 255, 255, .10);
+  --muted: rgba(239, 239, 229, .52);
+  --muted-2: rgba(239, 239, 229, .30);
+  --danger: #f08b8b;
+  --push: #9fc7e8;
+  --success: #f0d488;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  min-width: 320px;
+  background: #030705;
+  overscroll-behavior: none;
+}
+
+button { font: inherit; }
+button, canvas { -webkit-tap-highlight-color: transparent; }
+
+.game-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  background:
+    radial-gradient(circle at 50% 11%, rgba(42, 96, 60, .19), transparent 34%),
+    radial-gradient(circle at 18% 48%, rgba(31, 105, 59, .09), transparent 31%),
+    radial-gradient(circle at 82% 42%, rgba(179, 137, 63, .07), transparent 27%),
+    linear-gradient(180deg, #07100b 0%, #030605 100%);
+}
+
+.game-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 4, .78) 0%, transparent 15%, transparent 61%, rgba(2, 5, 3, .86) 100%),
+    radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,.32) 100%);
+}
+
+.game-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: inset 0 0 170px 50px rgba(0,0,0,.52);
+  transition: box-shadow .45s ease;
+}
+
+.game-shell.tone-win::after { box-shadow: inset 0 0 180px 50px rgba(185, 143, 57, .10), inset 0 0 170px 50px rgba(0,0,0,.50); }
+.game-shell.tone-loss::after { box-shadow: inset 0 0 180px 50px rgba(156, 36, 43, .10), inset 0 0 170px 50px rgba(0,0,0,.50); }
+.game-shell.tone-push::after { box-shadow: inset 0 0 180px 50px rgba(69, 116, 156, .10), inset 0 0 170px 50px rgba(0,0,0,.50); }
+
+.ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: 32vw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .11;
+  pointer-events: none;
+  will-change: transform;
+  animation: ambientFloat 8s ease-in-out infinite alternate;
+}
+.ambient-glow-left { left: -10vw; top: 12vh; background: #29a75b; }
+.ambient-glow-right { right: -10vw; top: 18vh; background: #c49b49; opacity: .075; animation-delay: -3s; }
+
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  opacity: .038;
+  pointer-events: none;
+  background-image:
+    repeating-radial-gradient(circle at 15% 30%, rgba(255,255,255,.7) 0 .55px, transparent .75px 3px),
+    repeating-radial-gradient(circle at 74% 68%, rgba(255,255,255,.45) 0 .45px, transparent .65px 4px);
+  background-size: 7px 7px, 11px 11px;
+  mix-blend-mode: soft-light;
+}
+
+.scene-viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.scene-viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  touch-action: none;
+}
+
+.topbar {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 27px 36px;
+  pointer-events: none;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217,189,120,.13), transparent);
+}
+
+.brand-lockup { display: flex; align-items: center; gap: 15px; }
+.brand-copy { display: grid; gap: 2px; }
+.brand-mark {
+  position: relative;
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  transform: rotate(45deg);
+  border: 1px solid rgba(217,189,120,.62);
+  background: linear-gradient(145deg, rgba(31, 46, 35, .76), rgba(8, 16, 11, .66));
+  box-shadow:
+    inset 0 0 0 4px rgba(217,189,120,.045),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 15px 38px rgba(0,0,0,.30);
+}
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(217,189,120,.10);
+}
+.brand-mark span {
+  transform: rotate(-45deg);
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold-bright);
+  text-shadow: 0 2px 16px rgba(235, 206, 134, .22);
+}
+
+.eyebrow-row { display: flex; align-items: center; gap: 9px; }
+.eyebrow {
+  margin: 0;
+  color: rgba(226,207,163,.57);
+  font-size: 8px;
+  letter-spacing: .27em;
+  font-weight: 700;
+}
+.live-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px 3px 5px;
+  border: 1px solid rgba(180, 216, 188, .10);
+  border-radius: 999px;
+  color: rgba(200, 229, 207, .54);
+  background: rgba(36, 87, 51, .13);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+.live-chip i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #71bc81;
+  box-shadow: 0 0 8px rgba(113,188,129,.8);
+}
+.brand-lockup h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 2.1vw, 30px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: .18em;
+  color: #f2e7cd;
+  text-shadow: 0 4px 30px rgba(230,197,117,.14);
+}
+
+.scoreboard {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255,255,255,.085);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(13,24,17,.52), rgba(6,13,9,.38));
+  backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 14px 36px rgba(0,0,0,.17);
+}
+.scoreboard > i { width: 1px; height: 20px; background: linear-gradient(transparent, rgba(255,255,255,.14), transparent); }
+.scoreboard span {
+  min-width: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.scoreboard small {
+  color: rgba(255,255,255,.33);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: .15em;
+}
+.scoreboard b {
+  min-width: 14px;
+  color: #e8d4a4;
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.score-push b { color: rgba(196, 211, 205, .72); }
+
+.side-readout {
+  position: absolute;
+  z-index: 9;
+  top: 43%;
+  display: grid;
+  width: 126px;
+  gap: 2px;
+  padding: 12px 14px 11px;
+  border-top: 1px solid rgba(255,255,255,.038);
+  border-bottom: 1px solid rgba(255,255,255,.025);
+  border-left: 1px solid rgba(217,189,120,.24);
+  background: linear-gradient(90deg, rgba(5,13,8,.48), rgba(5,13,8,.08), transparent);
+  backdrop-filter: blur(5px);
+  pointer-events: none;
+  text-shadow: 0 2px 18px rgba(0,0,0,.78);
+  opacity: .74;
+  transition: opacity .3s ease, border-color .3s ease, transform .3s ease;
+}
+.side-readout-left { left: 28px; }
+.side-readout-right {
+  right: 28px;
+  text-align: right;
+  border-left: 0;
+  border-right: 1px solid rgba(217,189,120,.24);
+  background: linear-gradient(270deg, rgba(5,13,8,.48), rgba(5,13,8,.08), transparent);
+}
+.side-readout.is-active {
+  opacity: 1;
+  border-color: rgba(231,204,138,.50);
+  transform: translateY(-2px);
+}
+.readout-label { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.side-readout-right .readout-label { flex-direction: row-reverse; }
+.readout-label span { font-size: 8px; letter-spacing: .12em; color: var(--muted); }
+.readout-label i { font-style: normal; font-size: 6px; letter-spacing: .10em; color: rgba(255,255,255,.22); }
+.readout-value-row { min-height: 34px; display: flex; align-items: baseline; gap: 7px; }
+.side-readout-right .readout-value-row { justify-content: flex-end; }
+.side-readout strong {
+  font-family: Georgia, serif;
+  font-size: 29px;
+  line-height: 1.05;
+  color: #f3e5c2;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.side-readout em {
+  font-style: normal;
+  color: rgba(217,189,120,.68);
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+.side-readout > small { font-size: 6px; letter-spacing: .18em; color: rgba(217,189,120,.47); }
+
+.control-dock {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  bottom: calc(42px + env(safe-area-inset-bottom, 0px));
+  width: min(1010px, calc(100vw - 42px));
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.018) 43%, rgba(255,255,255,.052)),
+    rgba(4,11,7,.72);
+  backdrop-filter: blur(24px) saturate(132%);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.51),
+    0 5px 18px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.control-dock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(217,189,120,.025);
+}
+
+.dock-highlight {
+  position: absolute;
+  z-index: 2;
+  left: 16%;
+  right: 16%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,224,174,.38), transparent);
+  pointer-events: none;
+}
+
+.status-strip {
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  background: linear-gradient(180deg, rgba(255,255,255,.018), rgba(0,0,0,.05));
+}
+.status-copy { min-width: 0; display: flex; align-items: center; gap: 10px; }
+.status-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.24);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.02);
+  transition: background .25s ease, box-shadow .25s ease;
+}
+.status-dot.active {
+  background: #dfc47d;
+  box-shadow: 0 0 0 4px rgba(214,189,122,.09), 0 0 18px rgba(214,189,122,.62);
+  animation: statusPulse 1.65s ease-in-out infinite;
+}
+.status-text-wrap { min-width: 0; display: grid; gap: 1px; }
+.status-text-wrap > small {
+  color: rgba(255,255,255,.23);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+.status-copy p {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  letter-spacing: .065em;
+  color: rgba(246,243,232,.70);
+  transition: color .25s ease, text-shadow .25s ease;
+}
+.status-copy p.status-win { color: var(--success); text-shadow: 0 0 18px rgba(226,190,102,.13); }
+.status-copy p.status-loss { color: var(--danger); text-shadow: 0 0 18px rgba(213,69,69,.12); }
+.status-copy p.status-push { color: var(--push); }
+
+.table-meta { display: flex; align-items: center; gap: 18px; flex: none; }
+.table-meta span { color: rgba(255,255,255,.34); font-size: 8px; letter-spacing: .1em; }
+.table-meta b { color: rgba(239,222,181,.82); font-weight: 650; font-variant-numeric: tabular-nums; }
+.shoe-meter { min-width: 97px; display: grid; gap: 4px; }
+.shoe-meter > span { display: flex; justify-content: space-between; }
+.shoe-meter > i {
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+}
+.shoe-meter > i > em {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(129,163,119,.52), rgba(222,196,128,.84));
+  transition: width .35s ease;
+}
+
+.control-row {
+  display: flex;
+  align-items: stretch;
+  gap: 11px;
+  padding: 11px;
+}
+
+.bankroll-card {
+  width: 188px;
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 11px 14px;
+  border: 1px solid rgba(217,189,120,.135);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(217,189,120,.08), transparent 42%),
+    rgba(217,189,120,.035);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+.bankroll-copy { display: grid; gap: 3px; }
+.bankroll-copy span { font-size: 8px; color: rgba(255,255,255,.46); letter-spacing: .12em; }
+.bankroll-copy small { font-size: 6px; color: rgba(217,189,120,.38); letter-spacing: .16em; }
+.bankroll-card > strong {
+  grid-row: 1;
+  grid-column: 2;
+  font-family: Georgia, serif;
+  color: #f1dfb2;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .025em;
+  font-variant-numeric: tabular-nums;
+}
+.wager-pill {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,.055);
+  color: rgba(255,255,255,.31);
+  font-size: 7px;
+  letter-spacing: .10em;
+}
+.wager-pill i {
+  width: 6px;
+  height: 6px;
+  border: 1px solid rgba(217,189,120,.48);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(217,189,120,.12);
+}
+.wager-pill b { margin-left: auto; color: rgba(235,214,164,.75); font-weight: 600; }
+
+.action-cluster {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  width: 100%;
+}
+
+.action-btn {
+  position: relative;
+  min-width: 0;
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: 29px 1fr auto;
+  align-items: center;
+  gap: 9px;
+  overflow: hidden;
+  padding: 9px 10px 9px 11px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  color: rgba(255,255,255,.77);
+  background: linear-gradient(180deg, rgba(255,255,255,.047), rgba(255,255,255,.025));
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+  transform: translate3d(0,0,0);
+  transition:
+    transform .16s cubic-bezier(.2,.8,.2,1),
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease,
+    opacity .18s ease,
+    filter .18s ease;
+}
+.action-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,.075) 43%, transparent 68%);
+  transform: translateX(-125%);
+  transition: transform .42s ease;
+}
+.action-btn::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217,189,120,.28), transparent);
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+.action-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: rgba(217,189,120,.34);
+  background: linear-gradient(180deg, rgba(255,255,255,.078), rgba(255,255,255,.038));
+  box-shadow: 0 13px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.075);
+}
+.action-btn:hover:not(:disabled)::before { transform: translateX(125%); }
+.action-btn:hover:not(:disabled)::after { opacity: 1; }
+.action-btn:active:not(:disabled), .action-btn.is-pressed:not(:disabled) {
+  transform: translateY(0) scale(.985);
+  box-shadow: 0 3px 10px rgba(0,0,0,.20), inset 0 1px 4px rgba(0,0,0,.17);
+}
+.action-btn:focus-visible {
+  outline: 2px solid rgba(240,220,165,.84);
+  outline-offset: 2px;
+  border-color: rgba(240,220,165,.58);
+}
+.action-btn:disabled {
+  cursor: not-allowed;
+  opacity: .25;
+  filter: saturate(.55) brightness(.78);
+}
+.action-btn.action-recommended:not(:disabled) {
+  border-color: rgba(217,189,120,.33);
+  background:
+    radial-gradient(circle at 26% 0%, rgba(242,215,151,.10), transparent 45%),
+    linear-gradient(180deg, rgba(217,189,120,.11), rgba(217,189,120,.035));
+  color: #f6e6bd;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 0 0 1px rgba(217,189,120,.02);
+}
+.action-raise:not(:disabled) { border-color: rgba(160, 187, 185, .18); }
+
+.button-icon {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(217,189,120,.12);
+  border-radius: 9px;
+  background: rgba(217,189,120,.035);
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: rgba(225,198,132,.82);
+  text-align: center;
+  transition: transform .18s ease, background .18s ease;
+}
+.action-btn:hover:not(:disabled) .button-icon { transform: translateY(-1px) rotate(-2deg); background: rgba(217,189,120,.07); }
+.button-icon-raise { font-size: 12px; font-weight: 700; }
+.button-copy { min-width: 0; display: grid; gap: 2px; text-align: left; }
+.action-btn b { font-size: 11px; font-weight: 650; letter-spacing: .08em; }
+.action-btn small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 6px; color: rgba(255,255,255,.31); letter-spacing: .13em; }
+.action-btn kbd {
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.10);
+  border-bottom-color: rgba(255,255,255,.15);
+  border-radius: 5px;
+  color: rgba(255,255,255,.27);
+  background: rgba(0,0,0,.12);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.035);
+  font-family: inherit;
+  font-size: 6px;
+  font-weight: 700;
+}
+
+.phase-player_turn .action-peek.action-recommended:not(:disabled) {
+  box-shadow: 0 0 0 1px rgba(217,189,120,.025), 0 9px 26px rgba(0,0,0,.13), inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.micro-footer {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: calc(15px + env(safe-area-inset-bottom, 0px));
+  width: min(930px, calc(100vw - 54px));
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  color: rgba(255,255,255,.18);
+  font-size: 6px;
+  letter-spacing: .18em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.micro-footer span + span::before { content: "•"; margin-right: 25px; color: rgba(217,189,120,.27); }
+
+@keyframes statusPulse {
+  0%, 100% { transform: scale(1); opacity: .72; }
+  50% { transform: scale(1.18); opacity: 1; }
+}
+
+@keyframes ambientFloat {
+  from { transform: translate3d(0, -1.5vh, 0) scale(.98); }
+  to { transform: translate3d(1vw, 1.5vh, 0) scale(1.04); }
+}
+
+@media (max-width: 900px) {
+  .topbar { padding: 20px 22px; }
+  .topbar::after { left: 20px; right: 20px; }
+  .scoreboard { gap: 9px; }
+  .scoreboard span { min-width: 43px; }
+  .side-readout { top: 39%; width: 108px; }
+  .side-readout-left { left: 16px; }
+  .side-readout-right { right: 16px; }
+  .control-dock { bottom: calc(34px + env(safe-area-inset-bottom, 0px)); width: calc(100vw - 22px); border-radius: 18px; }
+  .control-row { flex-direction: column; }
+  .bankroll-card {
+    width: 100%;
+    grid-template-columns: 1fr auto auto;
+    gap: 8px 14px;
+    padding: 9px 13px;
+  }
+  .bankroll-card > strong { grid-row: 1; grid-column: 2; }
+  .wager-pill { grid-column: 3; border-top: 0; padding-top: 0; min-width: 112px; }
+  .action-btn { min-height: 60px; }
+  .micro-footer { bottom: calc(9px + env(safe-area-inset-bottom, 0px)); gap: 11px; }
+  .micro-footer span:nth-child(2) { display: none; }
+  .micro-footer span + span::before { margin-right: 11px; }
+}
+
+@media (max-width: 650px) {
+  .topbar { padding: 16px 15px; }
+  .topbar::after { left: 14px; right: 14px; }
+  .brand-mark { width: 41px; height: 41px; }
+  .brand-lockup { gap: 11px; }
+  .brand-lockup h1 { font-size: 19px; letter-spacing: .15em; }
+  .eyebrow { font-size: 6px; letter-spacing: .19em; }
+  .live-chip { display: none; }
+  .scoreboard { padding: 6px 8px; gap: 6px; }
+  .scoreboard span { min-width: 29px; display: grid; gap: 0; text-align: center; }
+  .scoreboard small { display: none; }
+  .scoreboard b { font-size: 13px; }
+  .scoreboard > i { height: 14px; }
+
+  .side-readout { top: 27%; width: 88px; padding: 9px 10px 8px; }
+  .side-readout-left { left: 10px; }
+  .side-readout-right { right: 10px; }
+  .readout-label i { display: none; }
+  .side-readout-right .readout-label { flex-direction: row; justify-content: flex-end; }
+  .side-readout strong { font-size: 24px; }
+
+  .control-dock { bottom: calc(29px + env(safe-area-inset-bottom, 0px)); }
+  .status-strip { min-height: 43px; padding: 0 11px; gap: 8px; }
+  .status-text-wrap > small { display: none; }
+  .status-copy p { max-width: 53vw; font-size: 9px; letter-spacing: .035em; }
+  .shoe-meter { display: none; }
+  .bet-meta { white-space: nowrap; }
+  .control-row { padding: 8px; gap: 7px; }
+  .bankroll-card { padding: 7px 10px; grid-template-columns: 1fr auto; }
+  .bankroll-card > strong { font-size: 19px; }
+  .wager-pill { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,.05); padding-top: 5px; min-width: 0; }
+  .action-cluster { gap: 5px; }
+  .action-btn {
+    min-height: 56px;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 2px;
+    padding: 7px 4px;
+    border-radius: 11px;
+  }
+  .button-icon, .action-btn kbd { display: none; }
+  .button-copy { text-align: center; }
+  .action-btn b { font-size: 10px; }
+  .action-btn small { font-size: 5px; }
+  .micro-footer { width: calc(100vw - 22px); font-size: 5px; letter-spacing: .11em; }
+}
+
+@media (max-height: 720px) and (min-width: 700px) {
+  .topbar { padding-top: 16px; }
+  .control-dock {
+    bottom: calc(25px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%) scale(.93);
+    transform-origin: bottom center;
+  }
+  .micro-footer { bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .side-readout { top: 35%; }
+}
+
+@media (hover: none) {
+  .action-btn:hover:not(:disabled) { transform: none; }
+  .action-btn:hover:not(:disabled)::before { transform: translateX(-125%); }
+  .action-btn:hover:not(:disabled)::after { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-glow, .status-dot.active { animation: none; }
+  .action-btn, .action-btn::before, .action-btn::after, .side-readout, .shoe-meter > i > em { transition-duration: .01ms; }
+}
+
+.scene-viewport canvas { cursor: grab; }
+.scene-viewport canvas:active { cursor: grabbing; }
+
+/* 炸金花玩法适配：只扩展原控制台容纳 6 个动作，不改变原视觉体系。 */
+[data-testid="game-canvas"]{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+[data-testid="game-status"][data-tone="win"]{--zjh-tone:#5fd28b}[data-testid="game-status"][data-tone="loss"]{--zjh-tone:#e76c78}[data-testid="game-status"][data-tone="compare"]{--zjh-tone:#d7b764}[data-testid="game-status"][data-tone="eliminated"]{--zjh-tone:#f0c66b}
+[data-testid="game-status"][data-tone]:before{background:var(--zjh-tone,currentColor)!important}
+.zjh-actions button{transition:transform .18s ease,filter .18s ease,opacity .18s ease}.zjh-actions button:hover:not(:disabled){transform:translateY(-4px)}
+.zjh-hidden-meta{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+#stage{position:absolute;inset:0}.action-cluster{grid-template-columns:repeat(6,minmax(76px,1fr))!important}.control-dock{max-width:1120px!important}.control-row{grid-template-columns:190px 1fr!important}.side-readout-right .readout-value-row strong{font-size:24px!important}.status-text-wrap p small{display:block;font-size:9px;opacity:.5;margin-top:2px}
+
+/* Private Table No.03 沿用仪表盘式绿/琥珀状态读数。 */
+[data-testid="game-status"][data-tone="win"]{color:#8fd2a5!important;background:rgba(9,78,43,.22)!important;filter:drop-shadow(0 0 9px rgba(91,189,126,.18))}
+[data-testid="game-status"][data-tone="loss"]{color:#e39e96!important;background:rgba(96,31,30,.20)!important}
+[data-testid="game-status"][data-tone="compare"]{color:#d9bb67!important;background:rgba(100,74,18,.17)!important}
+[data-testid="game-status"][data-tone="eliminated"]{color:#edbd64!important;background:rgba(107,61,10,.20)!important}
+
+/* DISTINCTIVE PASS 2026-08: Private Table No.03 / brighter telemetry suite */
+:root{--panel:rgba(236,235,216,.13);--line:rgba(247,240,213,.20);--muted:rgba(247,244,225,.72);--muted-2:rgba(247,244,225,.48)}
+html,body{background:#07140f!important}
+.game-shell{background:radial-gradient(circle at 34% 30%,rgba(51,126,75,.13),transparent 35%),radial-gradient(circle at 72% 24%,rgba(198,157,81,.10),transparent 30%),linear-gradient(180deg,#0d2418 0%,#081711 68%,#050d09 100%)!important}
+.game-shell::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 34% 34%,rgba(78,170,105,.07),transparent 35%),radial-gradient(circle at 72% 26%,rgba(222,184,100,.08),transparent 31%),linear-gradient(180deg,rgba(2,6,4,.48) 0%,rgba(2,6,4,.06) 16%,rgba(2,6,4,.02) 64%,rgba(2,5,3,.48) 100%)}
+.scene-viewport{filter:brightness(1.06) saturate(1.03)}
+.ambient-glow-left{opacity:.20!important}.ambient-glow-right{opacity:.15!important}
+.masthead{top:18px;left:24px;right:24px;padding:13px 16px;border:1px solid rgba(245,229,179,.22);border-radius:20px;background:linear-gradient(135deg,rgba(227,223,191,.12),rgba(20,52,34,.34));backdrop-filter:blur(16px);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.brand-mark,.brand-gem{box-shadow:0 0 0 1px rgba(245,229,179,.22),0 12px 30px rgba(0,0,0,.18)}
+.scoreboard{background:rgba(236,232,199,.10);border-color:rgba(245,229,179,.17)}
+.control-dock{border-color:rgba(245,229,179,.28);background:linear-gradient(145deg,rgba(232,229,198,.17),rgba(29,72,47,.48) 42%,rgba(9,32,20,.76));box-shadow:0 22px 56px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.12)}
+.status-strip{background:rgba(236,229,196,.07);border-bottom-color:rgba(245,229,179,.14)}
+.bankroll-card{background:linear-gradient(145deg,rgba(245,236,200,.12),rgba(11,39,24,.23));border-color:rgba(245,229,179,.16)}
+.action-btn{border-radius:14px;border-color:rgba(245,229,179,.18);background:linear-gradient(180deg,rgba(247,241,212,.10),rgba(10,41,25,.24));box-shadow:inset 0 1px rgba(255,255,255,.06)}
+.action-btn:hover:not(:disabled){transform:translateY(-3px);background:linear-gradient(180deg,rgba(247,241,212,.18),rgba(15,61,36,.28));border-color:rgba(245,229,179,.45)}
+.action-btn.action-recommended{background:linear-gradient(180deg,#f0d995,#bd9548);color:#21180b;border-color:#f5e5b8}
+.micro-footer{color:rgba(245,238,211,.50)}
+@media(min-width:1120px){
+  .control-dock{left:50%;right:auto;bottom:20px;top:auto;transform:translateX(-50%);width:min(1160px,calc(100% - 54px));max-width:none;height:auto;display:block;border-radius:26px;padding:10px 12px 12px;overflow:hidden}
+  .status-strip{border:0;border-radius:17px;padding:10px 14px;background:rgba(240,233,200,.075);margin-bottom:9px}
+  .control-row{display:grid!important;grid-template-columns:270px 1fr;align-items:stretch;gap:10px;padding:0}
+  .bankroll-card{width:100%;min-height:64px;border-radius:17px;padding:10px 14px}
+  .action-cluster{display:grid!important;grid-template-columns:repeat(6,1fr);gap:7px;width:100%}
+  .action-btn{min-width:0!important;width:100%;min-height:64px;padding:8px 9px;justify-content:center;gap:7px}
+  .button-icon{font-size:17px}.button-copy b{font-size:13px}.button-copy small{font-size:7px;letter-spacing:.16em}
+  .micro-footer{left:28px;right:28px;bottom:4px;justify-content:center;gap:32px}
+}
+@media(max-width:1119px){.control-dock{border-radius:22px}.action-cluster{grid-template-columns:repeat(6,1fr)}}
+
+/* Boot state: keep the HUD visible while Three.js loads. */
+.boot-panel{position:absolute;z-index:8;left:50%;top:48%;transform:translate(-50%,-50%);min-width:min(430px,calc(100vw - 40px));padding:18px 22px;border:1px solid rgba(245,229,179,.24);border-radius:18px;background:linear-gradient(145deg,rgba(4,10,7,.92),rgba(10,31,20,.88));box-shadow:0 20px 60px rgba(0,0,0,.34);backdrop-filter:blur(14px);text-align:center;color:#f3efe5;pointer-events:none}
+.boot-panel strong{display:block;font:600 14px/1.2 Georgia,serif;letter-spacing:.16em;color:#efd997}
+.boot-panel small{display:block;margin-top:7px;font-size:11px;letter-spacing:.08em;color:rgba(239,239,229,.58)}
+.boot-panel[data-tone="error"]{border-color:rgba(240,139,139,.36);background:linear-gradient(145deg,rgba(40,10,10,.92),rgba(18,18,14,.9))}
+.boot-panel[data-tone="error"] strong{color:#f0a29b}
+
+
+/* Bad2 first-frame table underlay: keeps Private Table No.03 legible before/under WebGL. */
+.scene-viewport{perspective:1200px;overflow:hidden}
+.scene-viewport canvas{position:absolute!important;inset:0;z-index:2;background:transparent!important}
+.table-fallback{
+  position:absolute;z-index:1;left:50%;top:47%;width:min(76vw,1160px);height:min(48vh,520px);
+  transform:translate(-50%,-50%) perspective(1200px) rotateX(8deg);
+  border:14px solid #5a3825;border-radius:68px;
+  background:
+    radial-gradient(ellipse at 50% 44%,rgba(38,132,68,.28),transparent 48%),
+    linear-gradient(135deg,rgba(255,255,255,.035),transparent 30%,rgba(0,0,0,.12) 72%),
+    #006400;
+  box-shadow:
+    0 0 0 3px rgba(205,171,101,.92),
+    0 0 0 8px rgba(77,48,31,.92),
+    0 34px 90px rgba(0,0,0,.46),
+    inset 0 0 0 2px rgba(246,222,160,.18),
+    inset 0 0 90px rgba(0,0,0,.24);
+  pointer-events:none;
+}
+.table-fallback::before{
+  content:"";position:absolute;inset:22px;border-radius:48px;border:1px solid rgba(228,196,119,.28);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.035);
+}
+.table-fallback::after{
+  content:"PRIVATE TABLE · NO.03";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:rgba(237,214,156,.11);font:600 22px/1 Georgia,serif;letter-spacing:.34em;white-space:nowrap;
+}
+.fallback-felt-inset{position:absolute;inset:34px;border-radius:40px;background:radial-gradient(circle at 50% 52%,rgba(255,255,255,.025),transparent 58%);border:1px solid rgba(0,0,0,.22)}
+.fallback-seat{position:absolute;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:999px;border:1px solid rgba(232,205,139,.16);background:rgba(1,18,8,.34);color:rgba(241,223,174,.42);font-size:9px;font-weight:700;letter-spacing:.22em;white-space:nowrap}
+.fallback-seat-computer{top:44px}.fallback-seat-player{bottom:44px}
+.fallback-center-mark{position:absolute;left:50%;top:50%;width:88px;height:88px;transform:translate(-50%,-50%);display:grid;place-content:center;text-align:center;border-radius:50%;border:1px solid rgba(228,196,119,.32);box-shadow:0 0 0 8px rgba(0,0,0,.06),inset 0 0 24px rgba(0,0,0,.14);color:rgba(239,218,165,.58)}
+.fallback-center-mark small{font-size:7px;letter-spacing:.28em}.fallback-center-mark b{margin-top:4px;font:600 13px Georgia,serif;letter-spacing:.15em}
+.fallback-deck{position:absolute;left:50%;top:50%;width:60px;height:84px;transform:translate(-50%,-50%) scale(.72);filter:drop-shadow(0 12px 14px rgba(0,0,0,.30))}
+.fallback-deck i{position:absolute;inset:0;border:1px solid rgba(246,234,201,.76);border-radius:5px;background:repeating-linear-gradient(45deg,#6e8794 0 4px,#5b7482 4px 8px);box-shadow:inset 0 0 0 4px rgba(244,238,217,.18)}
+.fallback-deck i:nth-child(1){transform:translate(-5px,5px)}.fallback-deck i:nth-child(2){transform:translate(-3px,3px)}.fallback-deck i:nth-child(3){transform:translate(-1px,1px)}
+@media(max-width:900px){.table-fallback{width:86vw;height:43vh;top:46%;border-width:10px;border-radius:42px}.table-fallback::before{inset:16px;border-radius:30px}.fallback-seat{font-size:7px}.fallback-deck{left:50%;transform:translate(-50%,-50%) scale(.66)}}
+</style></head><body><main id="root" class="game-shell"><div class="ambient-glow ambient-glow-left"></div><div class="ambient-glow ambient-glow-right"></div><div class="grain-overlay"></div><header class="topbar masthead"><div class="brand-lockup identity"><div class="brand-mark brand-gem"><span>3</span></div><div class="brand-copy"><div class="eyebrow-row"><p class="eyebrow">PRIVATE TABLE · NO. 03</p><span class="live-chip"><i></i> LIVE</span></div><h1>炸金花</h1></div></div><div class="scoreboard"><span class="score-side"><small>PLAYER</small><b data-testid="player-score">0</b></span><i></i><span class="score-push"><small>POT</small><b data-testid="pot">0</b></span><i></i><span class="score-side score-side-computer"><small>COMPUTER</small><b data-testid="computer-score">0</b></span></div></header><section id="stage" class="scene-viewport"><div class="table-fallback" aria-hidden="true"><div class="fallback-felt-inset"></div><div class="fallback-seat fallback-seat-computer">COMPUTER</div><div class="fallback-seat fallback-seat-player">PLAYER HAND</div><div class="fallback-center-mark"><small>POT</small><b>NO.03</b></div><div class="fallback-deck"><i></i><i></i><i></i><i></i></div></div></section><div class="boot-panel" data-zjh-boot data-tone="loading"><strong>PRIVATE TABLE · NO.03</strong><small>正在加载 Three.js r128 与牌桌场景…</small></div>
+<aside class="side-readout side-readout-left"><div class="readout-label"><span>电脑手牌</span><i>3 CARDS</i></div><div class="readout-value-row"><strong>•••</strong></div><small id="computer-note">HIDDEN</small></aside><aside class="side-readout side-readout-right"><div class="readout-label"><span>玩家手牌</span><i>3 CARDS</i></div><div class="readout-value-row"><strong data-testid="player-hand">未发牌</strong></div><small data-testid="player-hand-type" id="player-note">未看牌</small></aside>
+<section class="control-dock"><div class="dock-highlight"></div><div class="status-strip"><div class="status-copy"><span class="status-dot active"></span><div class="status-text-wrap"><small>ROUND STATUS</small><p data-testid="game-status"><span data-zjh-status-title>等待</span><small data-zjh-status-sub>点击发牌开始</small></p></div></div><div class="table-meta"><div class="shoe-meter"><span>当前行动 <b data-testid="turn">等待</b></span><i><em style="width:100%"></em></i></div><span class="bet-meta">下注 <b data-testid="current-bet">0</b></span></div></div><div class="control-row"><div class="bankroll-card"><div class="bankroll-copy"><span>真人筹码</span><small>TABLE CREDIT</small></div><strong data-testid="player-chips">1000</strong><div class="wager-pill"><i></i> 电脑 <b data-testid="computer-chips">1000</b></div></div><div class="action-cluster zjh-actions"><button data-testid="deal-btn" class="action-btn action-deal action-recommended"><span class="button-icon">◆</span><span class="button-copy"><b>发牌</b><small>DEAL</small></span><kbd>D</kbd></button><button data-testid="peek-btn" class="action-btn action-peek" disabled><span class="button-icon">◉</span><span class="button-copy"><b>看牌</b><small>PEEK</small></span><kbd>P</kbd></button><button data-testid="call-btn" class="action-btn action-call" disabled><span class="button-icon">＝</span><span class="button-copy"><b>跟注</b><small>CALL</small></span><kbd>C</kbd></button><button data-testid="raise-btn" class="action-btn action-raise" disabled><span class="button-icon">＋</span><span class="button-copy"><b>加注</b><small>RAISE</small></span><kbd>R</kbd></button><button data-testid="fold-btn" class="action-btn" disabled><span class="button-icon">■</span><span class="button-copy"><b>弃牌</b><small>FOLD</small></span><kbd>F</kbd></button><button data-testid="compare-btn" class="action-btn" disabled><span class="button-icon">◇</span><span class="button-copy"><b>比牌</b><small>COMPARE</small></span><kbd>B</kbd></button></div></div></section><footer class="micro-footer"><span>LEOPARD · STRAIGHT FLUSH · FLUSH</span><span>STANDARD STRAIGHTS · Q-K-A HIGH</span><span>拖动视角 · 滚轮微调</span></footer></main><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script><script>
+(()=>{
+'use strict';
+// 六类牌型：豹子 > 同花顺 > 金花 > 顺子 > 对子 > 单张。
+const SUITS=['S','H','D','C'], SUIT_SYMBOL={S:'♠',H:'♥',D:'♦',C:'♣'}, RANKS=['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+const RANK_VALUE={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,J:11,Q:12,K:13,A:14};
+const TYPE_NAME={6:'豹子',5:'同花顺',4:'金花',3:'顺子',2:'对子',1:'单张'};
+const STARTING_CHIPS=1000, ANTE=20, RAISE_STEP=20, TABLE_COLOR='#006400';
+const CARD_W=1.24,CARD_H=1.78,CARD_BEND=.045;
+// player zone position z=+3.05; computer zone position z=-3.05，中央 deck position z=0。
+const POS={deck:{x:0,y:.80,z:0},player:[[-1.48,.83,3.45],[0,.85,3.62],[1.48,.83,3.45]],computer:[[-1.48,.83,-3.45],[0,.85,-3.62],[1.48,.83,-3.45]]};
+let deckSerial=0, chipSerial=0, settled=false, actionLock=false;
+
+function freshSide(chips){return{chips,roundBet:0,looked:false,folded:false,handType:null,cards:[]}}
+const game={ready:false,phase:'waiting',turn:null,round:0,pot:0,currentBet:0,winner:null,outcome:null,score:{player:0,computer:0},player:freshSide(STARTING_CHIPS),computer:freshSide(STARTING_CHIPS)};
+function cloneCard(c){return{id:c.id,rank:c.rank,suit:c.suit,faceUp:!!c.faceUp}}
+function publicState(){
+ const playerTurn=game.ready&&game.phase==='player_turn'&&game.turn==='player'&&!actionLock;
+ return{ready:game.ready,phase:game.phase,turn:game.turn,round:game.round,pot:game.pot,currentBet:game.currentBet,winner:game.winner,outcome:game.outcome,score:{...game.score},
+ canDeal:game.ready&&!actionLock&&(game.phase==='waiting'||game.phase==='round_over'),canPeek:playerTurn&&!game.player.looked,canCall:playerTurn&&Math.max(0,game.currentBet-game.player.roundBet)>0&&game.player.chips>=Math.max(0,game.currentBet-game.player.roundBet),canRaise:playerTurn&&game.player.chips>=Math.max(0,game.currentBet+RAISE_STEP-game.player.roundBet),canFold:playerTurn,canCompare:playerTurn,
+ player:{chips:game.player.chips,roundBet:game.player.roundBet,looked:game.player.looked,folded:game.player.folded,handType:game.player.looked?game.player.handType:null,cards:game.player.cards.map(cloneCard)},
+ computer:{chips:game.computer.chips,roundBet:game.computer.roundBet,looked:game.computer.looked,folded:game.computer.folded,handType:(game.phase==='comparing'||game.phase==='round_over'||game.phase==='eliminated')?game.computer.handType:null,cards:game.computer.cards.map(cloneCard)}};
+}
+window.__zjh={getState:publicState};
+
+function makeDeck(){const d=[];const batch=++deckSerial;for(const suit of SUITS)for(const rank of RANKS)d.push({id:`zjh-${batch}-${suit}-${rank}`,rank,suit,faceUp:false});for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]}return d}
+function evaluateHand(cards){
+ const vals=cards.map(c=>RANK_VALUE[c.rank]), suits=cards.map(c=>c.suit), counts={}; vals.forEach(v=>counts[v]=(counts[v]||0)+1);
+ const unique=[...new Set(vals)].sort((a,b)=>a-b), flush=new Set(suits).size===1; let straight=false, straightHigh=0;
+ if(unique.length===3&&unique[2]-unique[1]===1&&unique[1]-unique[0]===1){straight=true;straightHigh=unique[2]}
+ let category,key;
+ if(Object.keys(counts).length===1){category=6;key=[vals[0]]}
+ else if(flush&&straight){category=5;key=[straightHigh]}
+ else if(flush){category=4;key=[...vals].sort((a,b)=>b-a)}
+ else if(straight){category=3;key=[straightHigh]}
+ else if(Object.values(counts).includes(2)){const pair=Number(Object.keys(counts).find(k=>counts[k]===2));const kicker=Number(Object.keys(counts).find(k=>counts[k]===1));category=2;key=[pair,kicker]}
+ else{category=1;key=[...vals].sort((a,b)=>b-a)}
+ return{category,key,name:TYPE_NAME[category],strength:category*20+key[0]};
+}
+function compareHands(a,b){const A=evaluateHand(a),B=evaluateHand(b);if(A.category!==B.category)return A.category>B.category?1:-1;for(let i=0;i<Math.max(A.key.length,B.key.length);i++){const x=A.key[i]||0,y=B.key[i]||0;if(x!==y)return x>y?1:-1}return 0}
+
+const root=document.getElementById('root'),stage=document.getElementById('stage');
+const scene=new THREE.Scene();scene.background=null;scene.fog=new THREE.FogExp2('#020705',.012);
+const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,100);camera.position.set(0,18.2,22.8);
+const renderer=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'high-performance'});renderer.setClearColor(0x000000,0);renderer.setPixelRatio(Math.min(devicePixelRatio,.72));renderer.setSize(innerWidth,innerHeight);renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.96;renderer.shadowMap.enabled=false;renderer.domElement.dataset.testid='game-canvas';stage.appendChild(renderer.domElement);
+const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.target.set(0,.45,0);controls.enableDamping=true;controls.dampingFactor=.055;controls.enablePan=false;controls.minDistance=20;controls.maxDistance=30;controls.minPolarAngle=.55;controls.maxPolarAngle=1.1;controls.minAzimuthAngle=-.32;controls.maxAzimuthAngle=.32;controls.update();
+const ambient=new THREE.AmbientLight('#e8eee7',.92);scene.add(ambient);const key=new THREE.DirectionalLight('#fff3dc',1.75);key.position.set(-6,12,6);key.castShadow=true;scene.add(key);const rim=new THREE.PointLight('#7dbb91',2.4,28,2);rim.position.set(7,6,-5);scene.add(rim);const fill=new THREE.PointLight('#e6b978',3.2,24,2);fill.position.set(-8,5,4);scene.add(fill);
+const apron=new THREE.Mesh(new THREE.BoxGeometry(23.2,.52,14.5),new THREE.MeshStandardMaterial({color:'#573a27',roughness:.52,metalness:.05}));apron.position.y=-.39;scene.add(apron);
+const tableMat=new THREE.MeshStandardMaterial({color:0x006400,roughness:.91,metalness:0,emissive:'#000000'});const table=new THREE.Mesh(new THREE.BoxGeometry(22,.75,13.3),tableMat);table.receiveShadow=true;scene.add(table);const rail=new THREE.Mesh(new THREE.BoxGeometry(22.7,.26,14),new THREE.MeshStandardMaterial({color:'#8e784f',roughness:.31,metalness:.24}));rail.position.y=.47;scene.add(rail);const inner=new THREE.Mesh(new THREE.BoxGeometry(21.45,.11,12.65),tableMat);inner.position.y=.64;scene.add(inner);
+function zone(x,z,label){const geo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-4.8+x,.715,-1.9+z),new THREE.Vector3(4.8+x,.715,-1.9+z),new THREE.Vector3(4.8+x,.715,1.9+z),new THREE.Vector3(-4.8+x,.715,1.9+z),new THREE.Vector3(-4.8+x,.715,-1.9+z)]);scene.add(new THREE.Line(geo,new THREE.LineBasicMaterial({color:0xd9bd78,transparent:true,opacity:.20})));const c=document.createElement('canvas');c.width=512;c.height=100;const q=c.getContext('2d');q.fillStyle='rgba(230,210,145,.40)';q.font='600 26px Georgia';q.textAlign='center';q.fillText(label,256,54);const t=new THREE.CanvasTexture(c),m=new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false}),p=new THREE.Mesh(new THREE.PlaneGeometry(3,.58),m);p.rotation.x=-Math.PI/2;p.position.set(x,.72,z);scene.add(p)}zone(0,-3.2,'COMPUTER');zone(0,3.2,'PLAYER HAND');
+const pedestal=new THREE.Mesh(new THREE.BoxGeometry(2.4,.42,3.1),new THREE.MeshStandardMaterial({color:'#58684d',roughness:.42,metalness:.12}));pedestal.position.set(6.8,.58,-2.7);scene.add(pedestal);const sideTray=new THREE.Mesh(new THREE.BoxGeometry(1.55,.12,.78),new THREE.MeshStandardMaterial({color:'#9a7a43',roughness:.46,metalness:.28}));sideTray.position.set(6.8,.83,-2.7);scene.add(sideTray);
+const potRing=new THREE.Mesh(new THREE.TorusGeometry(1.12,.045,12,72),new THREE.MeshStandardMaterial({color:'#c9a861',roughness:.38,metalness:.52,transparent:true,opacity:.72}));potRing.rotation.x=Math.PI/2;potRing.position.y=.73;scene.add(potRing);
+const deckGroup=new THREE.Group();deckGroup.position.set(0,.78,0);scene.add(deckGroup);const backTexture=createBackTexture();for(let i=0;i<8;i++){const g=new THREE.PlaneGeometry(CARD_W,CARD_H,8,2);bendGeometry(g,.02);const d=new THREE.Mesh(g,new THREE.MeshStandardMaterial({map:backTexture,roughness:.62,side:THREE.DoubleSide}));d.rotation.x=-Math.PI/2;d.position.y=i*.012;deckGroup.add(d)}
+function bendGeometry(geometry,amount=CARD_BEND){const p=geometry.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i);const z=Math.sin((x/CARD_W+.5)*Math.PI)*amount;p.setZ(i,z)}p.needsUpdate=true;geometry.computeVertexNormals()}
+function createBackTexture(){const c=document.createElement('canvas');c.width=360;c.height=520;const x=c.getContext('2d');x.fillStyle='#7894a2';x.fillRect(0,0,360,520);x.strokeStyle='#e9e5d9';x.lineWidth=8;x.strokeRect(15,15,330,490);x.fillStyle='rgba(255,255,255,.42)';for(let y=34;y<490;y+=14)for(let q=34;q<330;q+=14){x.beginPath();x.arc(q,y,1.6,0,Math.PI*2);x.fill()}x.fillStyle='#d6b66a';x.font='bold 32px Georgia';x.textAlign='center';x.fillText('NO.03',180,270);return new THREE.CanvasTexture(c)}
+function createTexture(rank,suit){const c=document.createElement('canvas');c.width=420;c.height=600;const x=c.getContext('2d');x.fillStyle='#f1eee6';x.fillRect(0,0,420,600);x.strokeStyle='#c7b982';x.lineWidth=3;x.strokeRect(12,12,396,576);const red=suit==='H'||suit==='D';x.fillStyle=red?'#c55255':'#384744';x.font='bold 54px Georgia';x.fillText(rank,25,70);x.font='46px Georgia';x.fillText(SUIT_SYMBOL[suit],26,120);x.textAlign='center';x.font='138px Georgia';x.fillText(SUIT_SYMBOL[suit],210,360);const t=new THREE.CanvasTexture(c);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t}
+const sceneCards=new Map(), sceneChips=[];
+function createCardEntity(card,owner,index){const group=new THREE.Group();const geo=new THREE.PlaneGeometry(CARD_W,CARD_H,12,3);bendGeometry(geo);const frontTex=createTexture(card.rank,card.suit);const fm=new THREE.MeshStandardMaterial({map:frontTex,roughness:.55,metalness:.015,side:THREE.DoubleSide});const bm=new THREE.MeshStandardMaterial({map:backTexture,roughness:.62,metalness:.02,side:THREE.DoubleSide});const front=new THREE.Mesh(geo,fm);front.position.z=.016;const back=new THREE.Mesh(geo.clone(),bm);back.rotation.y=Math.PI;back.position.z=-.016;group.add(front,back);group.position.set(POS.deck.x+.03,POS.deck.y,POS.deck.z);group.rotation.x=Math.PI/2;group.castShadow=true;scene.add(group);const e={id:card.id,owner,rank:card.rank,suit:card.suit,faceUp:false,group,front,back,frontTex,geos:[geo,back.geometry],mats:[fm,bm]};sceneCards.set(card.id,e);return e}
+function disposeRoundObjects(){for(const e of sceneCards.values()){scene.remove(e.group);e.geos.forEach(g=>g.dispose());e.mats.forEach(m=>m.dispose());e.frontTex.dispose()}sceneCards.clear();for(const ch of sceneChips.splice(0)){scene.remove(ch.mesh);ch.mesh.geometry.dispose();ch.mesh.material.dispose()}}
+const animations=[];
+function animate(duration,update,delay=0){return new Promise(resolve=>animations.push({start:performance.now()+delay,duration,update,resolve}))}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function lerp3(a,b,t){return{x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t}}
+function moveEntity(e,target,duration=560,delay=0,arc=.6){const from={x:e.group.position.x,y:e.group.position.y,z:e.group.position.z};return animate(duration,t=>{const q=ease(t),p=lerp3(from,target,q);e.group.position.set(p.x,p.y+Math.sin(Math.PI*q)*arc,p.z)},delay)}
+function chipFlight(owner,amount){const color=owner==='player'?'#d7b96c':'#b8c3bd',start=owner==='player'?{x:7.2,y:.74,z:3.5}:{x:-7.2,y:.74,z:-3.5};const mesh=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.085,32),new THREE.MeshStandardMaterial({color,roughness:.4,metalness:.42}));mesh.position.set(start.x,start.y,start.z);scene.add(mesh);const rec={id:`chip-${++chipSerial}`,owner,position:start,mesh,amount};sceneChips.push(rec);const end={x:(Math.random()-.5)*.9,y:.78,z:(Math.random()-.5)*.6};animate(520,t=>{const q=ease(t),p=lerp3(start,end,q);p.y+=Math.sin(Math.PI*q)*1.15;mesh.position.set(p.x,p.y,p.z);rec.position={...p};if(t>.96)rec.owner='pot'});return rec}
+
+function updateButtons(){const s=publicState();for(const k of ['deal','peek','call','raise','fold','compare']){const b=document.querySelector(`[data-testid="${k}-btn"]`);const prop=k==='deal'?'canDeal':'can'+k[0].toUpperCase()+k.slice(1);b.disabled=!s[prop]}}
+function fmtCard(c){return `${c.rank}${SUIT_SYMBOL[c.suit]}`}
+function statusCopy(){if(game.phase==='eliminated')return['最终胜利 / 淘汰',game.winner==='player'?'电脑筹码不足，你赢下牌桌':'你的筹码不足，电脑赢下牌桌','eliminated'];if(game.phase==='round_over'){const who=game.winner==='player'?'真人胜利':game.winner==='computer'?'电脑胜利':'平分奖池';const why=game.outcome==='fold'?'弃牌结算':game.outcome==='compare'?'比牌结算':'胜利';return[who,why,game.winner==='player'?'win':game.winner==='computer'?'loss':'compare']}if(game.phase==='comparing')return['比牌','双方移牌至中央并翻牌','compare'];if(game.phase==='computer_turn')return['电脑行动','电脑正在根据牌力与下注决策',''];if(game.phase==='player_turn')return['轮到你','看牌、跟注、加注、弃牌或比牌',''];if(game.phase==='dealing')return['发牌中','三张暗牌正在入位',''];return['等待','点击发牌开始 1v1 对局','']}
+function paint(){const q=s=>document.querySelector(`[data-testid="${s}"]`),txt=(id,v)=>{const e=q(id);if(e)e.textContent=String(v)};txt('player-chips',game.player.chips);txt('computer-chips',game.computer.chips);txt('player-score',game.score.player);txt('computer-score',game.score.computer);txt('current-bet',game.currentBet);txt('pot',game.pot);txt('turn',game.turn==='player'?'真人玩家':game.turn==='computer'?'电脑玩家':'等待');txt('player-hand',game.player.cards.length?(game.player.looked?game.player.cards.map(fmtCard).join('  '):'•••  •••  •••'):'未发牌');txt('player-hand-type',game.player.looked?(game.player.handType||'计算中'):'未看牌');const [a,b,c]=statusCopy(),st=q('game-status');if(st){st.dataset.tone='normal';const title=st.querySelector('[data-zjh-status-title]');const sub=st.querySelector('[data-zjh-status-sub]');if(title)title.textContent=a;else st.textContent=a;if(sub)sub.textContent=b}const pn=document.getElementById('player-note'),cn=document.getElementById('computer-note');if(pn)pn.textContent=game.player.looked?`${game.player.handType} · 已看牌`:(game.player.cards.length?'三张暗牌 · 未看':'等待发牌');if(cn)cn.textContent=(game.phase==='round_over'||game.phase==='eliminated')?`${game.computer.handType||'暗牌'} · 本局结束`:'三张暗牌 · 自动决策';root.dataset.winner=game.winner||'';root.dataset.phase=game.phase;updateButtons()}
+function winnerColor(winner){return winner==='player'?'#3adf8b':winner==='computer'?'#ff6677':'#e7c46d'}
+
+async function dealRound(){if(!publicState().canDeal)return;if(game.player.chips<ANTE||game.computer.chips<ANTE){game.phase='eliminated';game.turn=null;game.winner=game.player.chips>=game.computer.chips?'player':'computer';game.outcome='elimination';paint();return}actionLock=true;settled=false;disposeRoundObjects();game.round++;game.phase='dealing';game.turn=null;game.pot=0;game.currentBet=ANTE*2;game.winner=null;game.outcome=null;for(const side of [game.player,game.computer]){side.roundBet=0;side.looked=false;side.folded=false;side.handType=null;side.cards=[]}game.player.chips-=ANTE;game.computer.chips-=ANTE;game.player.roundBet=ANTE;game.computer.roundBet=ANTE;game.pot=ANTE*2;const deck=makeDeck();const jobs=[];for(let i=0;i<3;i++){for(const owner of ['player','computer']){const card=deck.pop();game[owner].cards.push(card);const e=createCardEntity(card,owner,i);const a=POS[owner][i],target={x:a[0],y:a[1],z:a[2]};jobs.push(moveEntity(e,target,800,220+i*120+(owner==='computer'?18:0),.72))}}paint();await Promise.all(jobs);game.phase='player_turn';game.turn='player';actionLock=false;paint()}
+async function peek(){if(!publicState().canPeek)return;actionLock=true;game.player.handType=evaluateHand(game.player.cards).name;game.player.cards.forEach((c,i)=>{const e=sceneCards.get(c.id);e.group.position.x=-1.22+i*1.22;e.group.position.z=3.15+Math.abs(i-1)*.18;e.group.rotation.x=-Math.PI/2;e.group.rotation.z=(i-1)*-.12;c.faceUp=true;e.faceUp=true});game.player.looked=true;actionLock=false;paint()}
+function amountDue(side,target=game.currentBet){return Math.max(0,target-game[side].roundBet)}
+function commitStake(side,amount){amount=Math.max(0,Math.min(amount,game[side].chips));game[side].chips-=amount;game[side].roundBet+=amount;game.pot+=amount;if(amount>0)chipFlight(side,amount);return amount}
+function computerDecision(){const hand=evaluateHand(game.computer.cards);const strength=hand.strength;const exposure=game.currentBet/Math.max(1,game.computer.chips);const leverage=game.pot/Math.max(1,game.computer.chips);const bankroll=game.computer.chips;const due=amountDue('computer'); // Private Table: analytical / aggressive
+ if(bankroll<due)return'fold';if(strength>=108&&leverage>.20)return'compare';if(strength<30&&exposure>.09)return'fold';if(strength>=78&&bankroll>=amountDue('computer',game.currentBet+RAISE_STEP)&&game.currentBet<120)return'raise';if(strength<48&&leverage>.55)return'fold';return'call'}
+async function computerAction(){if(game.phase!=='computer_turn'||settled)return;const action=computerDecision();await wait(120);if(action==='fold'){game.computer.folded=true;await settle('player','fold');return}if(action==='compare'){await compareRound(true);return}if(action==='raise'){game.currentBet+=RAISE_STEP;commitStake('computer',amountDue('computer'))}else commitStake('computer',amountDue('computer'));paint();await wait(390);if(!settled){game.phase='player_turn';game.turn='player';actionLock=false;paint()}}
+async function playerCall(){if(!publicState().canCall)return;actionLock=true;commitStake('player',amountDue('player'));game.phase='computer_turn';game.turn='computer';paint();computerAction()}
+async function playerRaise(){if(!publicState().canRaise)return;actionLock=true;game.currentBet+=RAISE_STEP;commitStake('player',amountDue('player'));game.phase='computer_turn';game.turn='computer';paint();computerAction()}
+async function playerFold(){if(!publicState().canFold)return;actionLock=true;game.player.folded=true;await settle('computer','fold')}
+async function settle(winner,outcome){if(settled)return;settled=true;actionLock=true;game.winner=winner;game.outcome=outcome;game.turn=null;if(winner==='player'){game.player.chips+=game.pot;game.score.player++}else if(winner==='computer'){game.computer.chips+=game.pot;game.score.computer++}else{const half=game.pot/2;game.player.chips+=half;game.computer.chips+=game.pot-half}game.pot=0;game.currentBet=0;const eliminated=game.player.chips<ANTE||game.computer.chips<ANTE;game.phase=eliminated?'eliminated':'round_over';if(eliminated){game.outcome='elimination';game.winner=game.player.chips>=ANTE?'player':'computer'}actionLock=false;paint()}
+async function compareRound(fromComputer=false){if(!fromComputer&&!publicState().canCompare)return;if(settled)return;actionLock=true;game.phase='comparing';game.turn=null;game.player.handType=evaluateHand(game.player.cards).name;game.computer.handType=evaluateHand(game.computer.cards).name;const all=[...game.player.cards.map((c,i)=>['player',c,i]),...game.computer.cards.map((c,i)=>['computer',c,i])];paint();const jobs=all.map(([owner,c,i])=>{const e=sceneCards.get(c.id),sx=e.group.position.x,sy=e.group.position.y,sz=e.group.position.z,sr=e.group.rotation.x;const tx=-2.05+(owner==='player'?i:i+3)*.82,tz=owner==='player'?.55:-.55;return animate(760,t=>{const q=ease(t);e.group.position.set(sx+(tx-sx)*q,sy+Math.sin(Math.PI*q)*.75,sz+(tz-sz)*q);e.group.rotation.x=sr+(-Math.PI/2-sr)*q;e.group.rotation.z=(owner==='player'?.04:-.04)*(i-1)*q;if(t>.40){c.faceUp=true;e.faceUp=true;e.owner='compare'}})});await Promise.all(jobs);const result=compareHands(game.player.cards,game.computer.cards);await wait(120);await settle(result>0?'player':result<0?'computer':null,'compare')}
+
+document.querySelector('[data-testid="deal-btn"]').addEventListener('click',dealRound);document.querySelector('[data-testid="peek-btn"]').addEventListener('click',peek);document.querySelector('[data-testid="call-btn"]').addEventListener('click',playerCall);document.querySelector('[data-testid="raise-btn"]').addEventListener('click',playerRaise);document.querySelector('[data-testid="fold-btn"]').addEventListener('click',playerFold);document.querySelector('[data-testid="compare-btn"]').addEventListener('click',()=>compareRound(false));
+function onResize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio,.72));renderer.setSize(innerWidth,innerHeight)}window.addEventListener('resize',onResize);
+window.__scene={getState:()=>({ready:game.ready,threeRevision:String(THREE.REVISION),renderer:{ready:!!renderer,type:'WebGLRenderer'},canvas:{width:renderer.domElement.width,height:renderer.domElement.height},camera:{type:'PerspectiveCamera',fov:camera.fov,near:camera.near,far:camera.far,aspect:camera.aspect,position:{x:camera.position.x,y:camera.position.y,z:camera.position.z},target:{x:controls.target.x,y:controls.target.y,z:controls.target.z}},ambientLight:{exists:!!ambient,intensity:ambient.intensity},orbitControls:{enabled:controls.enabled,target:{x:controls.target.x,y:controls.target.y,z:controls.target.z}},table:{color:TABLE_COLOR,roughness:tableMat.roughness,position:{x:table.position.x,y:table.position.y,z:table.position.z}},deck:{count:Math.max(0,52-game.player.cards.length-game.computer.cards.length),position:{x:POS.deck.x,y:POS.deck.y,z:POS.deck.z}},cards:[...sceneCards.values()].map(e=>({id:e.id,owner:e.owner,rank:e.rank,suit:e.suit,faceUp:e.faceUp,position:{x:e.group.position.x,y:e.group.position.y,z:e.group.position.z},rotation:{x:e.group.rotation.x,y:e.group.rotation.y,z:e.group.rotation.z}})),chips:sceneChips.map(c=>({id:c.id,owner:c.owner,position:{x:c.mesh.position.x,y:c.mesh.position.y,z:c.mesh.position.z}}))})};
+function frame(now){for(let i=animations.length-1;i>=0;i--){const a=animations[i];if(now<a.start)continue;const t=Math.min(1,(now-a.start)/a.duration);a.update(t);if(t>=1){animations.splice(i,1);a.resolve()}}controls.update();renderer.render(scene,camera);requestAnimationFrame(frame)}
+game.ready=true;paint();requestAnimationFrame(frame);
+
+})();
+const __boot=document.querySelector('[data-zjh-boot]');if(__boot)__boot.remove();
+</script></body></html>

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "skipLibCheck": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": ".build-js",
+    "rootDir": "src",
+    "jsx": "react",
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": false,
+    "noEmitOnError": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
+}

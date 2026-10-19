@@ -1,0 +1,296 @@
+{
+  "prompt_id": "637208a978d84175a1c36ceb2f3fc0f2",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "window.__contract.getState()",
+    "window.__game.getState()",
+    "window.__ball.getState()",
+    "window.__shot.getState()",
+    "window.__course.getState()",
+    "window.__multiplayer.getState()",
+    "window.__powerups.getState()",
+    "window.__camera.getState()",
+    "window.__leaderboard.getState()",
+    "window.__performance.getState()",
+    "window.__THREE_SCENE__",
+    "window.__THREE_RENDERER__",
+    "[id=\"menu\"]",
+    "[id=\"levelSelect\"]",
+    "[id=\"gameScreen\"]",
+    "[id=\"multiplayerLobby\"]",
+    "[id=\"leaderboardScreen\"]",
+    "[id=\"resultScreen\"]",
+    "[data-testid=\"start-btn\"]",
+    "[data-testid=\"level-forest\"]",
+    "[data-testid=\"level-desert\"]",
+    "[data-testid=\"level-snow\"]",
+    "[data-testid=\"multiplayer-btn\"]",
+    "[data-testid=\"local-start-btn\"]",
+    "[data-testid=\"local-exit-btn\"]",
+    "[data-testid=\"leaderboard-btn\"]",
+    "[data-testid=\"shot-power\"]",
+    "[data-testid=\"stroke-count\"]",
+    "[data-testid=\"current-player\"]",
+    "[data-testid=\"powerup-status\"]",
+    "[data-testid=\"powerup-hio\"]",
+    "[data-testid=\"zoom-in\"]",
+    "[data-testid=\"zoom-out\"]",
+    "[data-testid=\"surface-friction\"]",
+    "[data-testid=\"aim-feedback\"]",
+    "[data-testid=\"result-next\"]"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "应用可启动并持续使用真实 Three.js 三维渲染",
+      "kind": "state",
+      "how": "加载页面并连续采样渲染帧；核对公开契约、真实 Three.js Scene/WebGLRenderer、透视相机、可见网格与灯光，并确认 renderFrame 持续递增。"
+    },
+    {
+      "id": 2,
+      "text": "主菜单和核心入口可正常导航",
+      "kind": "dom",
+      "how": "开始游戏、多人模式和排行榜入口为真实可见控件，点击后进入对应页面，返回流程不会卡死。"
+    },
+    {
+      "id": 3,
+      "text": "森林、沙漠、冰雪三关均可独立进入",
+      "kind": "dom",
+      "how": "通过真实主菜单“开始游戏”进入关卡选择页，依次点击森林、沙漠、冰雪三个固定入口；每次核对 gameState=playing、course.levelId 与所选关卡一致且 theme 为非空实时字段。theme 是自由字符串，不强制固定英文值或三关字符串互异；主题视觉语义由 R35 独立验证。"
+    },
+    {
+      "id": 4,
+      "text": "森林关卡主题清晰且可玩",
+      "kind": "state",
+      "how": "进入森林关卡后核对 course.levelId/theme、出生点、球洞和可玩表面来自森林关卡，并通过真实画布拖拽完成至少一次有效击球；独立遍历 Three.js 场景确认球场、球体与球洞真实存在。若存在可玩区域实体障碍，其模型/碰撞一致性由 R12 验证，不把“必须有障碍”作为本关通过前提。"
+    },
+    {
+      "id": 5,
+      "text": "沙漠关卡主题清晰且可玩",
+      "kind": "state",
+      "how": "进入沙漠关卡后核对 course.levelId/theme、出生点、球洞和可玩表面来自沙漠关卡，并通过真实画布拖拽完成至少一次有效击球；确认与森林关在布局、表面、材质或场景语言上存在真实差异，不强制必须配置实体障碍。"
+    },
+    {
+      "id": 6,
+      "text": "冰雪关卡主题清晰且可玩",
+      "kind": "state",
+      "how": "进入冰雪关卡后核对 course.levelId/theme、出生点、球洞和可玩表面来自冰雪关卡，并通过真实画布拖拽完成至少一次有效击球；确认与另外两关在布局、表面、材质或场景语言上存在真实差异，不强制必须配置实体障碍。"
+    },
+    {
+      "id": 7,
+      "text": "真实拖拽瞄准、可见反馈与出球方向一致",
+      "kind": "state",
+      "how": "通过真实 Canvas 指针按下、拖动和松开；核对拖动期间 dragging、power、direction 与可见瞄准反馈同步变化，松开后只增加一杆，真实球初速度方向与瞄准方向一致。"
+    },
+    {
+      "id": 8,
+      "text": "击球力度和方向对球运动具有真实因果",
+      "kind": "state",
+      "how": "使用多组真实拖拽方向和力度；分别比较球初速度方向、速度大小与随后位移，较大力度应产生更大的真实速度和位移。"
+    },
+    {
+      "id": 9,
+      "text": "击球权限和计杆边界正确",
+      "kind": "state",
+      "how": "只有有效冲量计一杆；零力度、取消拖动、点击 HUD、球仍在运动或非当前玩家操作不计杆且不改变球速。"
+    },
+    {
+      "id": 10,
+      "text": "球物理连续、有限且具有稳定时间步",
+      "kind": "state",
+      "how": "通过真实画布击球后连续采样球的位置、速度与 __performance 的 fixedStep/simulationTick/renderFrame；球的位置应随有限速度连续变化，所有数值保持有限，运行帧与模拟 tick 前进，低速后能稳定停止，不允许瞬移、NaN 或 Infinity。"
+    },
+    {
+      "id": 11,
+      "text": "草地、沙坑和冰面摩擦差异真实生效",
+      "kind": "state",
+      "how": "通过真实 Canvas 击球和连续速度采样，验证沙坑相对普通草地/球道具有明显更高的实际减速；冰雪关若包含冰面，则冰面应具有明显更低的实际减速。friction/currentSurface 必须与真实运动一致，并在 surface-friction HUD 中显示实时摩擦值。不规定 3.5 倍、1/8 等唯一数值倍率。"
+    },
+    {
+      "id": 12,
+      "text": "可见实体障碍与物理体积保持一致（若存在）",
+      "kind": "state",
+      "how": "遍历三关公开 course 与真实 Three.js 场景；若可玩区域声明了 solid obstacle，则至少验证一个真实可见模型与其空间对应，并通过真实高力度击球观察实际碰撞/反弹且球状态有限。若三关均未声明可玩区实体障碍，则本项不强制凭空增加障碍。"
+    },
+    {
+      "id": 13,
+      "text": "球真实进入球洞后只触发一次结算",
+      "kind": "state",
+      "how": "只使用真实 Canvas 击球尝试进入公开球洞；只有取得“球确实到达洞口/触发完赛”的直接证据后才判断入洞逻辑与重复结算。若评估侧未能把球实际送入洞口，只记录证据不足，不把自动寻路失败当作产品入洞逻辑失败。"
+    },
+    {
+      "id": 14,
+      "text": "本地多人平局结果正确",
+      "kind": "state",
+      "how": "通过真实本地多人流程形成两名玩家相同最少总杆数；核对 winnerId 为空、tiedPlayerIds 与并列玩家集合一致，并在可见结果界面中清楚展示并列玩家、杆数以及可继续操作。只验证 Prompt 明确要求的平局语义，不额外要求专用排行榜页面或重开行为。"
+    },
+    {
+      "id": 15,
+      "text": "结算界面完成信息与继续操作正确",
+      "kind": "state",
+      "how": "真实完赛后检查结算界面可见，能读到本洞杆数或本次得分，并提供 prompt 明确声明的 result-next 继续入口；点击后应离开已完成洞的结算态并回到可继续游玩的合法页面/状态。若产品直接进入下一洞，再核对新洞 currentHoleStrokes 正确初始化。不额外要求第二个入口、固定下一页或结果页必须展示相对标准杆。"
+    },
+    {
+      "id": 16,
+      "text": "至少一种可拾取道具的拾取、库存和场景对象保持一致",
+      "kind": "state",
+      "how": "从当前关卡真实道具中选择至少一种 active、非放置型可拾取道具；拾取前必须有与其 powerupId 对应的真实 Three.js 可见对象。通过真实击球拾取后，该对象应从场景消失或明确失活、对应类型库存增加，item 变为 collected/inactive；再次经过原位置不得重复增加同一物品库存。"
+    },
+    {
+      "id": 17,
+      "text": "反弹垫具有清晰且有界的物理效果",
+      "kind": "state",
+      "how": "球真实接触反弹垫后必须产生新的、有限且与接触相关的反弹、改向或冲量效果；lastTriggeredId 与实体一致，持续接触不得重复无限增速。若公开 direction，则效果应与其语义一致；direction 缺失本身不是失败。"
+    },
+    {
+      "id": 18,
+      "text": "一杆入洞道具拾取后可启用并在合法击球后消耗",
+      "kind": "state",
+      "how": "通过真实击球拾取一杆入洞道具，再点击可见道具控件启用；启用前库存不应减少，下一次合法击球触发后库存只减少一次，并产生朝向球洞的技能效果。"
+    },
+    {
+      "id": 19,
+      "text": "加速带真实接触后沿其方向产生稳定有界的加速效果",
+      "kind": "state",
+      "how": "选择当前关卡真实存在且 active 的加速带，核对其状态坐标与 Three.js 可见模型一致；通过真实击球接触后，lastTriggeredId 对应该道具，球速度沿道具方向获得有限增量。"
+    },
+    {
+      "id": 20,
+      "text": "真实透视相机完成跟随与缩放",
+      "kind": "state",
+      "how": "核对 renderer.render 实际使用 PerspectiveCamera；点击缩放控件后真实相机距离随 __camera 同步变化，再通过真实击球移动球，确认相机 target 与真实球位置同步并继续朝向目标。"
+    },
+    {
+      "id": 21,
+      "text": "核心 HUD 与操作控件清晰可见",
+      "kind": "dom",
+      "how": "在真实游戏状态检查 prompt 明确声明的击球力度、当前杆数、当前玩家、道具状态、相机缩放等核心 HUD/控件均真实可见且具有非零边界框。响应式窄屏与键盘聚焦不作为本项目额外硬门槛。"
+    },
+    {
+      "id": 22,
+      "text": "球运动状态具有正确生命周期",
+      "kind": "state",
+      "how": "从静止状态真实击球；等待 moving=true/速度上升，再等待球停稳。moving、sleeping、airborne、speed 等只读状态应随真实物理过程一致切换且最终恢复稳定，不要求额外的 physics-motion / physics-contact 调试型可见 DOM。"
+    },
+    {
+      "id": 23,
+      "text": "本地多人至少支持 2 人并可在同一设备开局",
+      "kind": "state",
+      "how": "通过真实多人入口至少启动 2 人本地比赛；若存在人数控件则用真实控件选择 2 人，否则允许产品固定为 2 人。核对 playerCount、唯一玩家 ID、currentPlayerId 与可见当前玩家 HUD 一致；3/4 人等更高人数不是本 rubric 的硬性要求。"
+    },
+    {
+      "id": 24,
+      "text": "本地多人玩家成绩、球位与道具状态相互隔离",
+      "kind": "state",
+      "how": "在至少 2 人的真实本地比赛中，让当前玩家产生有效击球并推进到另一名玩家可操作的阶段；核对只修改实际操作玩家的杆数/球位快照，其他玩家成绩不被串改。若多人模式允许使用道具，再核对库存与 armed 状态不会跨玩家共享；不强制每杆轮换或每玩家独立复制场上道具实例。"
+    },
+    {
+      "id": 25,
+      "text": "本地多人唯一胜者按最少总杆正确确定",
+      "kind": "state",
+      "how": "通过真实本地多人流程形成唯一最低总杆玩家；核对 winnerId 等于该玩家、tiedPlayerIds 为空，并产生可见结果界面。平局与“可继续操作”由 R14 按 Prompt 的平局要求独立验证，不把重复结算或重开等未在 Prompt 中声明的行为绑入本项。"
+    },
+    {
+      "id": 26,
+      "text": "单关排行榜不会记录未完赛击球",
+      "kind": "state",
+      "how": "记录某关卡排行榜基线，只进行真实击球但不完成球洞；核对该关卡排行榜记录完全不变。最佳成绩、排序和持久化由 R32 独立验证。"
+    },
+    {
+      "id": 27,
+      "text": "总排行榜按三关最佳总杆数少杆优先并持久化",
+      "kind": "state",
+      "how": "通过真实流程形成三关最佳成绩，核对 totalStrokes 等于三关最佳之和且更差单关成绩不覆盖；总榜按 totalStrokes 从少到多排序，平杆只要求采用稳定、一致的次级顺序，刷新后保持，不规定 achievedAt→playerId 的唯一 tie-breaker。"
+    },
+    {
+      "id": 28,
+      "text": "公开只读状态接口、DOM 契约与 Three.js 运行对象严格完整",
+      "kind": "state",
+      "how": "逐一检查 prompt 声明的十个 getState 接口、两项 Three.js 运行对象和固定 DOM/data-testid；状态必须可 JSON 序列化且数值有限，Three.js Scene/Renderer 必须对应当前真实渲染。"
+    },
+    {
+      "id": 29,
+      "text": "核心重复状态在接口、DOM 与 Three.js 场景中实时一致",
+      "kind": "state",
+      "how": "核对 game/course/ball/shot 的核心重复字段：关卡 ID、杆数、球位置、球洞位置；通过一次真实击球后等待状态收敛，再比较 game/shot/可见杆数 HUD 以及真实 Three.js 球位置。相机和道具的专项一致性分别由其独立 Rubric 验证，不在本项重复捆绑。"
+    },
+    {
+      "id": 30,
+      "text": "所有公开 getState 接口均为只读独立快照且读取无副作用",
+      "kind": "state",
+      "how": "连续读取 prompt 声明的十个 getState 接口，修改第一次返回的嵌套字段后再次读取；新快照不得继承污染值，单纯读取不得改变杆数、积分、库存、回合、排行榜或 revision。"
+    },
+    {
+      "id": 31,
+      "text": "反复切关后运行时循环、监听器与 WebGL 资源保持有界",
+      "kind": "state",
+      "how": "评估侧独立包装 requestAnimationFrame 和事件监听器，并记录 Three.js renderer.info.memory；反复切换三关并回到同一关卡，核对活跃 RAF、监听器净增量、场景对象以及几何/纹理资源没有持续增长。只验证运行时资源稳定，不额外加入 Prompt 未声明的响应式 viewport 硬门槛。"
+    },
+    {
+      "id": 32,
+      "text": "单关排行榜只保留最佳成绩并保持稳定排序与持久化",
+      "kind": "state",
+      "how": "通过真实流程在同一关卡依次形成较差、较好、再次较差的合法完赛成绩；核对同一玩家只保留最佳杆数，更差成绩不覆盖，榜单按 strokes 少杆优先且 rank/展示顺序自洽，刷新后最佳成绩和顺序保持稳定。若评估侧无法取得合法完赛输入，应明确标记为前置证据不足，而不是伪装成该排行榜逻辑的直接失败。"
+    },
+    {
+      "id": 33,
+      "text": "结算积分始终为正且同关少杆成绩积分更高",
+      "kind": "state",
+      "how": "分别通过真实流程以不同杆数完成同一关卡；核对两次积分均为正有限数，较少杆数对应的积分严格更高，并与结算界面显示一致。"
+    },
+    {
+      "id": 34,
+      "text": "3D 球场、球体、球洞与实体障碍视觉清晰",
+      "kind": "vlm",
+      "how": "进入真实关卡后截图，VLM 检查画面是否实质呈现透视 3D 迷你高尔夫场景：地面/球道、高尔夫球、球洞/旗杆、光照深度及至少一个三维场景物体或障碍。允许轻微 HUD 遮挡和局部裁切，但纯 2D、空白或仅 UI 不通过。"
+    },
+    {
+      "id": 35,
+      "text": "森林、沙漠、冰雪三关视觉与模型语言明显不同",
+      "kind": "vlm",
+      "how": "分别进入森林、沙漠、冰雪三关并生成一张三栏对比图交给 VLM；只判断三关是否具有可辨识、明显不同且与主题名称相符的整体视觉/材质/布局语言。不得强制森林必须有树、沙漠必须有沙丘或冰雪必须出现某一种具体资产。"
+    },
+    {
+      "id": 36,
+      "text": "道具实体模型与方向标识可辨识",
+      "kind": "vlm",
+      "how": "在包含道具的真实关卡截图，VLM 检查至少一种反弹垫或加速带等道具具有可辨识的体积/接地关系以及颜色、形状或方向提示；允许道具占画面比例较小或被 HUD 轻微遮挡。"
+    },
+    {
+      "id": 37,
+      "text": "结算界面完成信息与继续入口清晰",
+      "kind": "vlm",
+      "how": "真实完成球洞后截图；VLM 只检查结算界面是否清楚传达已完成本洞以及杆数或得分信息，并具有 prompt 明确声明的可继续操作入口。不得额外要求第二个入口或结果页必须展示相对标准杆。"
+    },
+    {
+      "id": 38,
+      "text": "项目实际使用 React 19 作为前端运行框架",
+      "kind": "state",
+      "how": "从被测源码读取 package.json 和 React 入口；确认 react/react-dom 主版本为 19，并存在 createRoot 渲染 React 应用的源码。"
+    },
+    {
+      "id": 39,
+      "text": "项目实际使用 TypeScript 源码与 TypeScript 配置",
+      "kind": "state",
+      "how": "检查 tsconfig.json 及 src 下 .ts/.tsx 源码存在，React 入口和主要应用逻辑由 TypeScript/TSX 文件实现。"
+    },
+    {
+      "id": 40,
+      "text": "项目使用 Vite 作为构建工具",
+      "kind": "state",
+      "how": "检查 package.json 的 build/dev 脚本及 vite 配置，确认构建命令实际调用 Vite。"
+    },
+    {
+      "id": 41,
+      "text": "项目实际接入并使用 Tailwind CSS 进行可见样式开发",
+      "kind": "state",
+      "how": "检查 Tailwind/PostCSS 配置、CSS 中的 @tailwind 指令，并确认可见 React 源码至少使用一个 Tailwind utility class。"
+    },
+    {
+      "id": 42,
+      "text": "当前源码执行 npm run build 成功",
+      "kind": "state",
+      "how": "批量 runner 对每个 repo 的当前源码重新安装所需依赖并执行 npm run build；只有本轮命令退出码为 0 且生成新的 dist/index.html 才通过。"
+    }
+  ]
+}

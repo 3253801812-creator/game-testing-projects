@@ -1,0 +1,50 @@
+{
+  "brand": "TRANSIT / METRICS",
+  "kicker": "Urban mobility proving ground",
+  "subtitle": "A segmented smart-bus prototype running through a precise metropolitan test corridor with instrumentation-first presentation.",
+  "vehicleId": "TML-A9",
+  "busType": "Articulated Smart Bus",
+  "routeName": "Grid A · Exchange · Hub",
+  "capacity": 52,
+  "environment": "Instrumented smart-city corridor",
+  "weather": "Dry controlled haze",
+  "timeOfDay": "11:30",
+  "trafficDensity": 0.82,
+  "sceneType": "lab-city",
+  "layout": "lab-grid",
+  "defaultCamera": "cinematic",
+  "defaultQuality": "cinematic",
+  "roadCurve": 0.7,
+  "roadPhase": 320,
+  "cameraSide": -1,
+  "bus": {
+    "width": 2.5,
+    "length": 10.2,
+    "style": "articulated"
+  },
+  "palette": {
+    "sky": "#a9bec7",
+    "ground": "#879399",
+    "road": "#323940",
+    "edge": "#b7ff3c",
+    "bus": "#d8e0e3",
+    "accent": "#b7ff3c",
+    "glass": "#253741",
+    "trafficA": "#5271ff",
+    "trafficB": "#ff6b6b",
+    "foliage": "#668276",
+    "building": "#77848c",
+    "building2": "#505f68",
+    "mountain": "#74838b",
+    "water": "#6296aa",
+    "stop": "#b7ff3c",
+    "served": "#64748b"
+  },
+  "css": ":root{--bg:#11181c;--sky:#a9bec7;--text:#edf5f7;--muted:#b9c7cc;--accent:#b7ff3c;--accent-glow:rgba(183,255,60,.25);--button-text:#18210b;--line:rgba(183,255,60,.22);--glass:rgba(14,23,27,.65);--glass-strong:rgba(17,27,31,.95);--panel:rgba(13,21,25,.82);--landing-a:rgba(13,20,23,.95);--atmo-top:rgba(183,255,60,.08);--atmo-bottom:rgba(54,93,107,.12)} .sim-shell[data-layout=\"lab-grid\"]{background-image:linear-gradient(rgba(183,255,60,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(183,255,60,.04) 1px,transparent 1px);background-size:28px 28px}.sim-shell[data-layout=\"lab-grid\"] .landing h1{font-family:monospace;letter-spacing:-.05em}.sim-shell[data-layout=\"lab-grid\"] .control-card{border-left:4px solid var(--accent);border-radius:0}.sim-shell[data-layout=\"lab-grid\"] .hud-brand,.sim-shell[data-layout=\"lab-grid\"] .speed,.sim-shell[data-layout=\"lab-grid\"] .metric{border-radius:0}",
+  "defects": {
+    "allowDoorsWhileMoving": false,
+    "fuelDrainMultiplier": 1,
+    "autoAdvanceAtStop": false,
+    "reportedSpeedBias": 8
+  }
+}

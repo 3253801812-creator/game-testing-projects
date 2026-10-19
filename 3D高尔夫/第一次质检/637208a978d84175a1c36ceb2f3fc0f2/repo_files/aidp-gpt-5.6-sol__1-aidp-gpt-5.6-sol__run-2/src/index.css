@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{font-family:'Noto Sans SC',system-ui,sans-serif;color-scheme:dark;background:#07130f;font-synthesis:none}*{box-sizing:border-box}html,body,#root{width:100%;height:100%;margin:0;overflow:hidden}button{font:inherit}.font-display{font-family:'Noto Serif SC',serif}canvas{touch-action:none}
+@layer components{
+  .primary-btn{@apply flex w-full items-center justify-center gap-3 rounded-xl bg-emerald-300 px-6 py-4 text-sm font-bold text-emerald-950 shadow-[0_10px_35px_rgba(110,231,183,.18)] transition hover:bg-emerald-200 active:scale-[.98]}.primary-btn svg,.secondary-btn svg,.ghost-btn svg{@apply h-5 w-5}
+  .secondary-btn{@apply flex w-full items-center justify-center gap-3 rounded-xl border border-white/15 bg-white/10 px-6 py-4 text-sm font-semibold text-white backdrop-blur-md transition hover:border-white/30 hover:bg-white/15 active:scale-[.98]}
+  .ghost-btn{@apply flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 text-sm font-semibold text-white/50 transition hover:text-white}
+  .glass-panel{@apply rounded-[28px] border border-white/10 bg-[#0a1b15]/85 shadow-[0_30px_100px_rgba(0,0,0,.45)] backdrop-blur-2xl}
+  .round-btn{@apply flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white/75 backdrop-blur-xl transition hover:border-emerald-200/50 hover:bg-emerald-300/15 hover:text-emerald-200}.round-btn svg{@apply h-5 w-5}
+  .icon-label{@apply flex items-center gap-1 text-xs font-semibold text-white/45 transition hover:text-white}.icon-label svg{@apply h-5 w-5}
+  .hud-card{@apply rounded-xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-xl}.hud-card p{@apply text-sm font-semibold}.hud-card>span{@apply mb-1 block text-[9px] font-bold uppercase tracking-[.18em] text-white/40}
+  .hud-stat{@apply flex min-w-[64px] flex-col items-center rounded-xl border border-white/10 bg-black/40 px-3 py-2 backdrop-blur-xl}.hud-stat span{@apply text-[8px] font-bold tracking-widest text-white/40}.hud-stat b{@apply font-display text-xl text-white}
+  .power-btn{@apply flex min-w-[145px] items-center gap-3 rounded-xl border border-white/15 bg-black/45 px-3 py-2 text-left backdrop-blur-xl transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40}.power-btn>span:first-child{@apply flex h-8 w-8 items-center justify-center rounded-lg bg-yellow-300/15}.power-btn b{@apply block text-[11px]}.power-btn small{@apply block text-[9px] text-white/45}
+  .board-row{@apply grid grid-cols-[.6fr_1.4fr_1.4fr_.8fr] items-center border-t border-white/[.06] px-4 py-4 text-sm}.board-row>b{@apply text-emerald-300}.board-row strong{@apply font-semibold}
+}
+@media(max-width:640px){.power-btn{min-width:0}.power-btn>span:nth-child(2){display:none}.hud-card{padding:.55rem .75rem}.board-row{font-size:.7rem;padding:.8rem .5rem}.board-row,.board-row+div{grid-template-columns:.5fr 1.2fr 1.3fr .8fr}}

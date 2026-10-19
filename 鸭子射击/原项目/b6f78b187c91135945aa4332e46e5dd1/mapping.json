@@ -1,0 +1,183 @@
+{
+  "prompt_id": "b6f78b187c91135945aa4332e46e5dd1",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "id=game",
+    "data-testid=game-canvas",
+    "data-testid=move-btn",
+    "data-testid=shoot-btn",
+    "data-testid=rank-btn",
+    "id=rankPanel",
+    "data-testid=current-rank",
+    "data-testid=kills-progress",
+    "data-testid=rank-item",
+    "data-rank-id=bronze",
+    "data-rank-id=silver",
+    "data-rank-id=gold",
+    "data-testid=game-start-btn",
+    "window.__game.getState()",
+    "window.__scene.getState()",
+    "window.__player.getState()",
+    "window.__combat.getState()",
+    "window.__bots.getState()",
+    "window.__ranking.getState()"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "游戏页面加载后存在可见的游戏视口，并进入可交互的运行状态。",
+      "kind": "state",
+      "how": "加载页面并在存在开始界面时通过真实开始按钮进入游戏；核对主游戏根节点、可见主 Canvas 与实时 ready 状态均有效。"
+    },
+    {
+      "id": 2,
+      "text": "游戏世界是真实实时渲染的 3D 场景。",
+      "kind": "state",
+      "how": "确认主 Canvas 具有真实 WebGL/WebGL2 上下文和有效绘制尺寸，并核对真实 3D 相机的视图矩阵、投影矩阵以及玩家/Bot 的三维位置；后续移动画面变化作为交叉证据。"
+    },
+    {
+      "id": 3,
+      "text": "页面提供一个真实可见且可操作的玩家移动按钮。",
+      "kind": "dom",
+      "how": "检查唯一的屏幕移动按钮真实可见、未禁用且具有可点击区域，不接受隐藏替代控件。"
+    },
+    {
+      "id": 4,
+      "text": "通过页面提供的移动按钮可以真实改变玩家在 3D 世界中的位置。",
+      "kind": "state",
+      "how": "记录玩家真实三维坐标和 Canvas 渲染证据，通过真实指针按下/释放移动按钮，再核对玩家产生有效位移、移动状态发生过变化且渲染画面随之更新。"
+    },
+    {
+      "id": 5,
+      "text": "页面提供一个真实可见且可操作的射击按钮。",
+      "kind": "dom",
+      "how": "检查唯一的屏幕射击按钮真实可见、未禁用且具有可点击区域。"
+    },
+    {
+      "id": 6,
+      "text": "玩家操作射击按钮后会真实产生一次玩家武器射击。",
+      "kind": "state",
+      "how": "记录射击前的真实战斗事件，通过真实点击射击按钮产生新事件；要求出现新的 player-owned shot/projectile，并结合 Canvas 变化确认不是只修改按钮或计数。"
+    },
+    {
+      "id": 7,
+      "text": "玩家射出的彩弹会作为真实战斗对象在 3D 世界中产生并运动。",
+      "kind": "state",
+      "how": "绑定一次真实玩家射击的 projectile/shot ID，连续读取其真实空间位置或真实完成轨迹，独立计算起点到后续位置的位移，确认弹丸确实在三维世界中运动。"
+    },
+    {
+      "id": 8,
+      "text": "游戏中存在真实参与战斗的敌方 Bot，而不是纯装饰对象。",
+      "kind": "state",
+      "how": "读取真实 Bot 实体，要求存在至少一个存活 Bot、稳定唯一 ID、有限三维坐标，并在后续自主射击或被玩家击杀链路中实际参与战斗。"
+    },
+    {
+      "id": 9,
+      "text": "敌方 Bot 会在实际游戏过程中自主发起对玩家的射击。",
+      "kind": "state",
+      "how": "不执行任何 Bot 控制操作，记录已有射击事件并等待真实 AI 更新；必须观察到新的 bot-owned 射击事件，且对应真实存活 Bot。"
+    },
+    {
+      "id": 10,
+      "text": "Bot 射出的攻击真实朝向玩家，而不是随机射击或只播放射击效果。",
+      "kind": "state",
+      "how": "对真实 Bot 射击事件使用其 origin/direction 与玩家真实位置独立计算方向点积，确认攻击方向具有明确指向玩家的分量。"
+    },
+    {
+      "id": 11,
+      "text": "玩家真实射击可以命中并淘汰敌方 Bot。",
+      "kind": "state",
+      "how": "通过真实射击按钮持续进行正常战斗，绑定 player shot、hit 与 kill 的 ID 链路，确认同一真实 Bot 被命中后进入淘汰/移除状态。"
+    },
+    {
+      "id": 12,
+      "text": "每个真实 Bot 淘汰只会为玩家结算一次击杀。",
+      "kind": "state",
+      "how": "记录击杀前后的真实 kills 和 recentKills，按唯一 botId 统计新增玩家击杀；要求 kills 的增量与唯一真实淘汰数量一致，且同一 botId 不重复结算。"
+    },
+    {
+      "id": 13,
+      "text": "正常游戏持续提供足够的 Bot 击杀机会，使 Bronze、Silver、Gold 的晋级路径真实可达。",
+      "kind": "state",
+      "how": "只使用真实射击操作推进当前局，持续观察实际击杀和段位，确认能够先到达 Silver 再到达 Gold；若 Bot 数量耗尽或系统停滞导致 Gold 不可达则失败。"
+    },
+    {
+      "id": 14,
+      "text": "页面存在真实可见且可操作的段位入口按钮。",
+      "kind": "dom",
+      "how": "检查唯一的段位按钮真实可见、未禁用且具有可点击区域。"
+    },
+    {
+      "id": 15,
+      "text": "操作段位入口后能够真实打开段位界面。",
+      "kind": "dom",
+      "how": "记录段位面板初始可见性，通过真实点击段位按钮后确认 rankPanel 变为可见。"
+    },
+    {
+      "id": 16,
+      "text": "段位界面包含至少 Bronze、Silver 和 Gold 三个不同层级。",
+      "kind": "dom",
+      "how": "打开段位面板后检查三个稳定 rank ID 的可见段位项均存在；显示名称允许合理本地化。"
+    },
+    {
+      "id": 17,
+      "text": "段位系统明确保持 Bronze、Silver、Gold 的递增层级和击杀门槛。",
+      "kind": "state",
+      "how": "读取真实段位表，确认三个稳定 ID 都存在，index 按 Bronze<Silver<Gold 递增，累计 killsRequired 也严格递增。"
+    },
+    {
+      "id": 18,
+      "text": "段位界面能够明确标识玩家当前所属段位。",
+      "kind": "dom",
+      "how": "打开段位面板并核对 current-rank 元素的 data-rank-id 与实时 currentRank.id 一致。"
+    },
+    {
+      "id": 19,
+      "text": "段位界面能够向玩家展示当前击杀进度和下一段位所需的击杀要求。",
+      "kind": "state",
+      "how": "在尚有下一段位时打开面板，读取可见进度文本；确认其中包含当前真实 kills 和下一段位真实 killsRequired，并与 ranking/game 状态一致。"
+    },
+    {
+      "id": 20,
+      "text": "玩家未达到下一段位规定的击杀条件前不会提前晋级。",
+      "kind": "state",
+      "how": "从初始 Bronze 读取真实下一段位阈值，在达到阈值前逐次通过真实击杀推进，并在每次未达阈值时确认 currentRank 仍保持 Bronze。"
+    },
+    {
+      "id": 21,
+      "text": "玩家通过真实击杀达到规定条件后会晋升到相邻的下一段位。",
+      "kind": "state",
+      "how": "通过真实战斗使 kills 达到 nextRank.killsRequired，确认 currentRank.index 只增加 1 且变为原 nextRank；击杀来源同时由真实 kill 事件链验证。"
+    },
+    {
+      "id": 22,
+      "text": "晋级完成后，当前段位及段位界面中的状态会同步更新。",
+      "kind": "state",
+      "how": "发生真实晋级后重新打开段位面板，核对 current-rank 的 rank ID 与实时 currentRank 一致，并确认 game/ranking 的 kills 同步。"
+    },
+    {
+      "id": 23,
+      "text": "玩家每次提高段位后，Bot 的实际战斗行为都会产生可观察的难度提升。",
+      "kind": "state",
+      "how": "分别在 Bronze、Silver、Gold 真实运行阶段采集 Bot AI 参数和实际射击/移动时序；每次晋级后至少一个真实应用参数必须朝更难方向变化，并由对应的真实射击频率、瞄准方向精度或移动速度证据交叉验证。"
+    },
+    {
+      "id": 24,
+      "text": "游戏的可见角色与武器设计明确体现鸭子和彩弹/颜料枪主题。",
+      "kind": "vlm",
+      "how": "在真实游戏状态截图中判断玩家身份是否明显具有鸭子特征，并能看出彩弹、颜料或喷漆武器主题；不限定具体镜头和美术风格。"
+    },
+    {
+      "id": 25,
+      "text": "游戏世界具有清晰的森林环境，并存在明显可见的树木和自然场景元素。",
+      "kind": "vlm",
+      "how": "在真实游戏状态截图中判断主要 3D 世界是否呈现森林主题，且树木和自然环境元素明显可见。"
+    },
+    {
+      "id": 26,
+      "text": "游戏整体视觉与段位界面具有完整、协调的设计：3D 场景、HUD、控制按钮、段位面板的排版清晰可读，不存在严重默认样式、遮挡或不可读问题。",
+      "kind": "vlm",
+      "how": "打开真实段位界面后截图，判断 3D 场景、HUD、控制按钮、段位面板、排版与可读性是否具有明显完成度，且不存在严重默认样式、遮挡或不可读问题。"
+    }
+  ]
+}

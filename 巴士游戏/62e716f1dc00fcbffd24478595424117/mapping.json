@@ -1,0 +1,213 @@
+{
+  "prompt_id": "62e716f1dc00fcbffd24478595424117",
+  "game_type": "3d",
+  "exposed_hooks": [
+    "window.__bus.getState()",
+    "window.__game.getState()",
+    "window.__vehicle.getState()",
+    "window.__route.getState()",
+    "window.__passengers.getState()",
+    "window.__traffic.getState()",
+    "window.__world.getState()",
+    "window.__camera.getState()",
+    "window.__input.getState()",
+    "window.__renderer.getState()",
+    "window.__performance.getState()",
+    "window.__settings.getState()"
+  ],
+  "rubrics": [
+    {
+      "id": 1,
+      "text": "The first viewport presents a product-specific bus simulator identity and a clear control to begin driving.",
+      "kind": "dom",
+      "how": "Load the root route, verify the branded first viewport, and activate the primary drive control."
+    },
+    {
+      "id": 2,
+      "text": "The product explains driving, passenger-stop, door, camera, pause, and reset controls in player-facing language.",
+      "kind": "dom",
+      "how": "Inspect the first viewport/control guide and verify all requested control groups are explained without evaluator-only language."
+    },
+    {
+      "id": 3,
+      "text": "Active play uses a live WebGL renderer with a perspective 3D road scene and advancing frames.",
+      "kind": "state",
+      "how": "Begin driving, confirm a WebGL context exists, the renderer reports healthy frame growth, and the canvas occupies the gameplay scene."
+    },
+    {
+      "id": 4,
+      "text": "A fresh route contains one controllable bus in a ready driving state with valid position, heading, fuel, and passenger capacity.",
+      "kind": "state",
+      "how": "Reset/start, read the live vehicle/passenger state, and cross-check that the visible bus has initialized with plausible production values."
+    },
+    {
+      "id": 5,
+      "text": "Throttle input accelerates the bus forward and increases odometer distance.",
+      "kind": "state",
+      "how": "From a fresh route hold the production throttle input, then compare speed, forward position, and odometer before/after."
+    },
+    {
+      "id": 6,
+      "text": "While moving forward, A steers the bus left and D steers it right relative to the road, with corresponding heading and lateral-position changes.",
+      "kind": "state",
+      "how": "From fresh route states, drive forward and separately hold A then D through the real keyboard path; compare road-relative lateral offset and heading to verify left/right semantics."
+    },
+    {
+      "id": 7,
+      "text": "Brake input reduces forward speed and sustained braking from near rest can engage reverse motion.",
+      "kind": "state",
+      "how": "Accelerate, apply the production brake/reverse input until speed falls, continue from near rest, and verify reverse gear/negative motion becomes possible."
+    },
+    {
+      "id": 8,
+      "text": "The parking brake prevents meaningful acceleration until released.",
+      "kind": "state",
+      "how": "Toggle the parking brake through the documented keyboard control, apply throttle, verify the bus stays nearly stationary, then release it."
+    },
+    {
+      "id": 9,
+      "text": "The camera control cycles through distinct supported driving views with different live camera transforms.",
+      "kind": "state",
+      "how": "Use the camera key more than once and compare camera mode, position, target, and visible composition."
+    },
+    {
+      "id": 10,
+      "text": "Headlights, turn indicators, and horn react to real controls and provide immediate visible or state feedback.",
+      "kind": "state",
+      "how": "Use the documented production keys for lights, indicator, and horn; compare live vehicle state and visible HUD feedback."
+    },
+    {
+      "id": 11,
+      "text": "The route contains exactly three ordered passenger stops with a live next-stop distance and visible stop markers.",
+      "kind": "state",
+      "how": "Read the route/world snapshots at route start and cross-check stop count, ordering, next-stop distance, and marker presence."
+    },
+    {
+      "id": 12,
+      "text": "Stopping in the passenger zone, becoming nearly stationary, and opening the doors boards waiting passengers.",
+      "kind": "state",
+      "how": "Drive to the next real stop, brake to a safe speed, open the doors, wait through boarding, then compare onboard/boarded counts."
+    },
+    {
+      "id": 13,
+      "text": "Passenger doors cannot be opened while the bus is moving at an unsafe speed, and closed doors do not board passengers.",
+      "kind": "state",
+      "how": "While moving attempt the door control and verify it remains closed; at a stop wait with doors closed and confirm passengers do not board."
+    },
+    {
+      "id": 14,
+      "text": "A completed stop advances route progress exactly once and does not repeatedly advance while remaining at the same stop.",
+      "kind": "state",
+      "how": "Complete one real boarding stop, record currentStopIndex/progress, remain stopped, and verify the same stop is not counted twice."
+    },
+    {
+      "id": 15,
+      "text": "Completing a passenger stop increases fare earnings and gives clear passenger-service feedback.",
+      "kind": "dom",
+      "how": "Complete a real stop, compare earnings/score before and after, and verify the visible status message acknowledges boarding/service."
+    },
+    {
+      "id": 16,
+      "text": "Fuel decreases as the bus travels under engine power.",
+      "kind": "state",
+      "how": "Record fuel on a fresh route, drive forward through real throttle input, and verify fuel decreases while distance increases."
+    },
+    {
+      "id": 17,
+      "text": "Road traffic moves independently during active play and freezes while the simulation is paused.",
+      "kind": "state",
+      "how": "Observe traffic vehicle positions during active play, pause, compare again across a wait, then resume."
+    },
+    {
+      "id": 18,
+      "text": "The world exposes a coherent Indonesia-inspired road environment, weather/time state, road bounds, and nearby route-marker state.",
+      "kind": "state",
+      "how": "Cross-check the world snapshot against route state and visible scene semantics during active play."
+    },
+    {
+      "id": 19,
+      "text": "Pause freezes elapsed simulation time and bus/traffic movement, and resume continues the simulation.",
+      "kind": "state",
+      "how": "Pause through the production control, compare elapsed/bus/traffic across a wait, resume, and confirm progression restarts."
+    },
+    {
+      "id": 20,
+      "text": "Reset restores the initial route, bus position, fuel, passengers, earnings, and stop progress.",
+      "kind": "state",
+      "how": "After driving and/or servicing a stop, activate the visible reset control and verify the production state returns to a fresh route."
+    },
+    {
+      "id": 21,
+      "text": "Losing page focus clears held driving inputs so the bus does not remain stuck accelerating or steering.",
+      "kind": "state",
+      "how": "Hold a driving input, dispatch a normal blur/focus transition, and verify the input snapshot clears the held control."
+    },
+    {
+      "id": 22,
+      "text": "Narrow-screen touch controls drive the same production throttle and steering state used by keyboard play.",
+      "kind": "state",
+      "how": "Use a mobile viewport and the visible touch driving controls, then verify live throttle/steering and vehicle motion respond through the normal path."
+    },
+    {
+      "id": 23,
+      "text": "Changing the graphics-quality setting propagates to renderer/settings state without resetting route gameplay progress.",
+      "kind": "state",
+      "how": "Change the visible quality control, compare settings/renderer values, and verify route progress and passenger state are preserved."
+    },
+    {
+      "id": 24,
+      "text": "All documented observation hooks return fresh, serializable snapshots that do not share mutable result objects.",
+      "kind": "state",
+      "how": "Read every documented getState hook twice, mutate one returned snapshot locally, and verify later snapshots remain production-derived and unaffected."
+    },
+    {
+      "id": 25,
+      "text": "Cross-hook values stay consistent with the visible and independently observed production behavior.",
+      "kind": "state",
+      "how": "Read related hooks in one page evaluation after real inputs and cross-check phase, speed, position, doors, route, passengers, camera, render and settings values."
+    },
+    {
+      "id": 26,
+      "text": "The renderer reports context health honestly, keeps frame/draw-call counters advancing while healthy, and exposes the active production lighting/fog state.",
+      "kind": "state",
+      "how": "Observe live renderer snapshots before/after fresh frames and standard context-loss/restoration events; verify frame/draw-call progression, honest context health, and enabled production dynamic-lighting/fog flags."
+    },
+    {
+      "id": 27,
+      "text": "Performance telemetry reflects a stable live simulation with advancing tick/frame counters, pause-aware elapsed time, and bounded timing state.",
+      "kind": "state",
+      "how": "Compare performance snapshots during active play and pause; verify simulation progress advances while playing, pauses cleanly, rendering remains live, and any reported step/accumulator diagnostics are finite and bounded without requiring a specific fixed-step coefficient."
+    },
+    {
+      "id": 28,
+      "text": "The gameplay view presents a polished, detailed 3D bus with readable body, windows, wheels, lighting details, and road contact.",
+      "kind": "vlm",
+      "how": "Inspect a clear exterior gameplay screenshot and judge the bus model and its physical placement on the road."
+    },
+    {
+      "id": 29,
+      "text": "A cockpit-oriented camera view provides a clearly different first-person driving composition with visible dashboard/windshield treatment.",
+      "kind": "vlm",
+      "how": "Switch to the cockpit-oriented production camera and inspect the resulting screenshot."
+    },
+    {
+      "id": 30,
+      "text": "The driving HUD clearly communicates speed, fuel, passengers, next stop, route progress, and immediate status feedback without obscuring the road.",
+      "kind": "vlm",
+      "how": "Inspect a normal gameplay screenshot and judge information hierarchy, readability, and road visibility."
+    },
+    {
+      "id": 31,
+      "text": "The home and driving interfaces remain readable and usable at mobile width with visible touch controls.",
+      "kind": "vlm",
+      "how": "Capture the product at a narrow viewport during driving and inspect layout, canvas size, HUD clipping, and touch-control visibility."
+    },
+    {
+      "id": 32,
+      "text": "Solid driving-world collisions prevent the bus from passing through road-edge barriers or continuing through solid roadside geometry.",
+      "kind": "state",
+      "how": "Drive and steer hard toward a road edge through the real keyboard path, then verify the production vehicle is constrained inside the solid corridor and reports physical contact rather than clipping through."
+    }
+  ],
+  "id": "62e716f1dc00fcbffd24478595424117"
+}

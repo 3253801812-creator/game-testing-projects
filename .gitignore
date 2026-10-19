@@ -1,0 +1,22 @@
+# Local credentials and environments
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+*.pem
+*.key
+
+# Dependencies and caches
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+Thumbs.db
+
+# Original archives may contain credentials; publish reviewed extracted files only
+*.zip
+*.log
+
+# Keep existing dist/ and screenshots: some archived samples rely on them.

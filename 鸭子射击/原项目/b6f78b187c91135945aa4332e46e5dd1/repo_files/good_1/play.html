@@ -1,0 +1,879 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/><meta name="theme-color" content="#051319"/><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦆</text></svg>"><title>Pine Ring Paint Rush</title><style>
+:root {
+  font-family: "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  color: #ecfffa;
+  background: #051319;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+}
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+button { font: inherit; }
+button:focus-visible { outline: 3px solid #b8ffe7; outline-offset: 3px; }
+
+.game-shell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 420px;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(circle at 58% 30%, #123c42 0%, #071d27 42%, #031017 100%);
+}
+.arena-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sky-haze {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(98,218,201,.05), transparent 38%, rgba(1,11,15,.2));
+  box-shadow: inset 0 0 120px rgba(0,0,0,.42);
+}
+.brand-bar {
+  position: absolute; top: 20px; left: 22px; right: 22px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; pointer-events: none;
+}
+.brand-mark {
+  display: flex; align-items: center; gap: 11px; padding: 9px 13px 9px 9px;
+  background: rgba(4,20,25,.76); border: 1px solid rgba(144,255,225,.18); border-radius: 18px;
+  backdrop-filter: blur(12px); box-shadow: 0 16px 40px rgba(0,0,0,.22);
+}
+.brand-mark > span { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; background: #d1ff54; color: #082018; font-size: 23px; }
+.brand-mark b { display: block; font-size: 14px; line-height: 1; letter-spacing: .16em; }
+.brand-mark small { display: block; margin-top: 5px; color: #7be2c7; font-size: 9px; letter-spacing: .22em; }
+.mission-pill {
+  margin-top: 5px; padding: 9px 13px; border-radius: 999px; background: rgba(4,20,25,.72);
+  border: 1px solid rgba(144,255,225,.15); color: #a9d8cc; font-size: 10px; letter-spacing: .18em;
+  backdrop-filter: blur(10px);
+}
+.mission-pill i { display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #72ffc8; box-shadow: 0 0 12px #72ffc8; }
+
+.left-hud { position: absolute; left: 22px; top: 102px; width: 164px; display: grid; gap: 8px; pointer-events: none; }
+.stat-tile, .objective-card {
+  background: linear-gradient(135deg, rgba(5,24,30,.89), rgba(5,27,31,.66));
+  border: 1px solid rgba(134,245,217,.15); border-radius: 14px; backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.18);
+}
+.stat-tile { padding: 10px 12px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.stat-tile small, .objective-card small { color: #6da99a; font-size: 9px; letter-spacing: .18em; }
+.stat-tile b { font-size: 18px; letter-spacing: .05em; }
+.stat-tile.rank-bronze b { color: #f0ad72; }
+.stat-tile.rank-silver b { color: #d9f3ef; }
+.stat-tile.rank-gold b { color: #ffe875; text-shadow: 0 0 14px rgba(255,232,117,.35); }
+.objective-card { padding: 12px; }
+.objective-card strong { display: block; margin: 5px 0 8px; font-size: 12px; color: #ecfffa; }
+.objective-card span { font-size: 9px; letter-spacing: .11em; color: #baf848; }
+
+.arena-label {
+  position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); text-align: center; pointer-events: none;
+  background: rgba(5,22,27,.58); border: 1px solid rgba(145,255,226,.12); border-radius: 14px; padding: 8px 13px; backdrop-filter: blur(9px);
+}
+.arena-label span { display: block; font-size: 8px; letter-spacing: .22em; color: #69c7b0; }
+.arena-label b { display: block; margin-top: 2px; font-size: 10px; color: #d5eee8; font-weight: 600; }
+.reticle { position: absolute; left: 55%; top: 48%; width: 38px; height: 38px; transform: translate(-50%,-50%); opacity: .65; pointer-events: none; }
+.reticle::before { content: ""; position: absolute; inset: 9px; border: 1px solid rgba(199,255,239,.65); border-radius: 50%; }
+.reticle i:first-child, .reticle i:last-child { position: absolute; background: #b4ffe9; box-shadow: 0 0 9px rgba(180,255,233,.5); }
+.reticle i:first-child { left: 18px; top: 0; width: 1px; height: 38px; }
+.reticle i:last-child { left: 0; top: 18px; width: 38px; height: 1px; }
+
+.control-cluster {
+  position: absolute; right: 24px; bottom: 22px; display: grid;
+  grid-template-columns: 86px 70px 96px; align-items: end; gap: 10px;
+}
+.control {
+  border: 0; color: #eafff8; cursor: pointer; user-select: none; touch-action: none;
+  min-height: 74px; border-radius: 22px; padding: 10px 8px; display: grid; place-items: center;
+  grid-template-rows: 24px 18px 12px; transition: transform .12s ease, filter .12s ease;
+  box-shadow: 0 16px 34px rgba(0,0,0,.32), inset 0 0 0 1px rgba(255,255,255,.11);
+}
+.control:active { transform: scale(.95); filter: brightness(1.18); }
+.control span { font-size: 23px; line-height: 1; }
+.control b { font-size: 11px; letter-spacing: .12em; }
+.control small { font-size: 8px; letter-spacing: .13em; opacity: .75; }
+.move-control { background: linear-gradient(145deg, #183e42, #0b282e); border: 1px solid rgba(128,252,218,.22); }
+.move-control.keyboard-active { transform: translateY(2px); filter: brightness(1.16); box-shadow: inset 0 0 22px rgba(147,255,216,.16), 0 7px 20px rgba(0,0,0,.3); }
+.move-control span { color: #93ffd8; }
+.rank-control { min-height: 64px; border-radius: 19px; background: linear-gradient(145deg, #253741, #16252e); }
+.rank-control span { color: #dcf9f2; font-size: 18px; }
+.shoot-control { min-height: 88px; background: radial-gradient(circle at 35% 30%, #42ffc4, #0c9d84 50%, #086660 100%); color: #02241e; box-shadow: 0 18px 38px rgba(15,218,173,.25), inset 0 0 0 1px rgba(224,255,244,.28); }
+.shoot-control span { width: 31px; height: 31px; border-radius: 50%; display: grid; place-items: center; background: rgba(229,255,247,.77); font-size: 14px; }
+.shoot-control small { color: #063f35; opacity: .85; }
+
+.duck-tag {
+  position: absolute; right: 25px; top: 92px; display: flex; align-items: center; gap: 9px; padding: 8px 11px;
+  background: rgba(5,23,28,.70); border: 1px solid rgba(135,245,216,.13); border-radius: 14px; backdrop-filter: blur(10px); pointer-events: none;
+}
+.duck-tag > span { font-size: 21px; }
+.duck-tag b { display: block; font-size: 11px; }
+.duck-tag small { display: block; margin-top: 2px; color: #76c7b4; font-size: 8px; letter-spacing: .08em; }
+
+.rank-panel {
+  position: absolute; left: 22px; top: 88px; width: min(360px, calc(100vw - 44px)); max-height: calc(100vh - 176px); overflow: auto;
+  z-index: 9; padding: 18px; border-radius: 24px; color: #edfff9;
+  background: linear-gradient(160deg, rgba(6,29,35,.98), rgba(7,18,30,.97));
+  border: 1px solid rgba(131,255,221,.22); box-shadow: 0 28px 80px rgba(0,0,0,.52); backdrop-filter: blur(18px);
+}
+.rank-panel[hidden] { display: none; }
+.rank-topline { display: flex; justify-content: space-between; align-items: center; color: #70c6b2; font-size: 9px; letter-spacing: .18em; }
+.rank-topline button { width: 31px; height: 31px; border-radius: 10px; border: 1px solid rgba(135,245,217,.17); background: #0b2a30; color: #dffff7; cursor: pointer; font-size: 20px; }
+.rank-panel h2 { margin: 5px 0 14px; font-size: 26px; letter-spacing: -.035em; }
+.current-card { padding: 14px 15px; border-radius: 17px; background: linear-gradient(135deg, rgba(46,255,191,.13), rgba(46,255,191,.035)); border: 1px solid rgba(93,255,210,.16); }
+.current-card small { color: #6eb9a9; font-size: 8px; letter-spacing: .16em; }
+.current-card strong { display: block; margin: 2px 0; font-size: 25px; color: #c8ff62; }
+.current-card p { margin: 2px 0 0; color: #b2d7cf; font-size: 10px; }
+.rank-list { display: grid; gap: 7px; margin-top: 12px; }
+.rank-row { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; min-height: 56px; padding: 8px 10px; border-radius: 14px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.055); }
+.rank-row.active { background: rgba(189,255,85,.09); border-color: rgba(189,255,85,.24); }
+.rank-gem { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: #102f35; color: #a9ffdf; }
+.rank-row b { display: block; font-size: 12px; }
+.rank-row small { display: block; margin-top: 2px; color: #6ea698; font-size: 8px; }
+.rank-row em { color: #7cb4a8; font-size: 8px; font-style: normal; letter-spacing: .08em; }
+.rank-note { margin: 12px 2px 0; color: #6f998f; font-size: 9px; line-height: 1.45; }
+
+@media (max-width: 700px) {
+  .brand-bar { top: 10px; left: 10px; right: 10px; }
+  .mission-pill, .arena-label, .duck-tag { display: none; }
+  .left-hud { left: 10px; top: 76px; width: 140px; gap: 5px; }
+  .objective-card { display: none; }
+  .stat-tile { padding: 7px 9px; border-radius: 11px; }
+  .stat-tile b { font-size: 14px; }
+  .control-cluster { right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); grid-template-columns: 72px 58px 80px; gap: 6px; }
+  .control { min-height: 64px; border-radius: 18px; padding: 7px 5px; }
+  .shoot-control { min-height: 76px; }
+  .rank-control { min-height: 56px; }
+  .rank-panel { left: 10px; top: 68px; width: calc(100vw - 20px); max-height: calc(100vh - 150px); }
+}
+@media (max-height: 500px) {
+  .brand-bar { top: 8px; }
+  .brand-mark { padding: 6px 9px 6px 6px; }
+  .brand-mark > span { width: 31px; height: 31px; font-size: 18px; }
+  .left-hud { top: 62px; }
+  .objective-card, .duck-tag, .arena-label { display: none; }
+  .control-cluster { bottom: 8px; }
+  .control { min-height: 58px; grid-template-rows: 19px 15px 10px; }
+  .shoot-control { min-height: 68px; }
+  .rank-panel { top: 52px; max-height: calc(100vh - 116px); }
+}</style></head><body><div id="root"></div><script>const RANKS = [
+    { id: 'bronze', name: 'Bronze', index: 0, killsRequired: 0 },
+    { id: 'silver', name: 'Silver', index: 1, killsRequired: 2 },
+    { id: 'gold', name: 'Gold', index: 2, killsRequired: 5 }
+];
+const AI = [
+    { rankIndex: 0, fireCooldownMs: 1750, aimErrorDeg: 12, moveSpeed: 0.78 },
+    { rankIndex: 1, fireCooldownMs: 1180, aimErrorDeg: 7, moveSpeed: 1.08 },
+    { rankIndex: 2, fireCooldownMs: 780, aimErrorDeg: 3.5, moveSpeed: 1.42 }
+];
+const copyV3 = (v) => ({ x: v.x, y: v.y, z: v.z });
+const length3 = (v) => Math.hypot(v.x, v.y, v.z) || 1;
+const unit3 = (v) => { const n = length3(v); return { x: v.x / n, y: v.y / n, z: v.z / n }; };
+const sub3 = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+const add3 = (a, b) => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });
+const mul3 = (a, s) => ({ x: a.x * s, y: a.y * s, z: a.z * s });
+const distXZ = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
+const moveToward = (current, target, maxDelta) => current < target ? Math.min(target, current + maxDelta) : Math.max(target, current - maxDelta);
+const lerp3 = (a, b, t) => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, z: a.z + (b.z - a.z) * t });
+const identity4 = () => [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+function multiply4(a, b) {
+    const out = new Array(16).fill(0);
+    for (let col = 0; col < 4; col++) {
+        for (let row = 0; row < 4; row++) {
+            out[col * 4 + row] =
+                a[0 * 4 + row] * b[col * 4 + 0] +
+                    a[1 * 4 + row] * b[col * 4 + 1] +
+                    a[2 * 4 + row] * b[col * 4 + 2] +
+                    a[3 * 4 + row] * b[col * 4 + 3];
+        }
+    }
+    return out;
+}
+function perspective4(fov, aspect, near, far) {
+    const f = 1 / Math.tan(fov / 2), nf = 1 / (near - far);
+    return [f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0];
+}
+function lookAt4(eye, center) {
+    const z = unit3(sub3(eye, center));
+    const x = unit3({ x: z.z, y: 0, z: -z.x });
+    const y = { x: z.y * x.z - z.z * x.y, y: z.z * x.x - z.x * x.z, z: z.x * x.y - z.y * x.x };
+    return [
+        x.x, y.x, z.x, 0,
+        x.y, y.y, z.y, 0,
+        x.z, y.z, z.z, 0,
+        -(x.x * eye.x + x.y * eye.y + x.z * eye.z),
+        -(y.x * eye.x + y.y * eye.y + y.z * eye.z),
+        -(z.x * eye.x + z.y * eye.y + z.z * eye.z),
+        1
+    ];
+}
+function model4(pos, scale, yaw = 0) {
+    const c = Math.cos(yaw), s = Math.sin(yaw);
+    return [
+        c * scale.x, 0, -s * scale.x, 0,
+        0, scale.y, 0, 0,
+        s * scale.z, 0, c * scale.z, 0,
+        pos.x, pos.y, pos.z, 1
+    ];
+}
+function cubeVertices() {
+    return new Float32Array([
+        -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1,
+        -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1,
+        -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1,
+        1, -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1,
+        -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1,
+        -1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1
+    ]);
+}
+function sphereVertices(latBands = 7, lonBands = 10) {
+    const data = [];
+    const point = (lat, lon) => {
+        const p = lat * Math.PI / latBands;
+        const t = lon * Math.PI * 2 / lonBands;
+        return [Math.sin(p) * Math.cos(t), Math.cos(p), Math.sin(p) * Math.sin(t)];
+    };
+    for (let lat = 0; lat < latBands; lat++) {
+        for (let lon = 0; lon < lonBands; lon++) {
+            const a = point(lat, lon), b = point(lat + 1, lon), c = point(lat + 1, lon + 1), d = point(lat, lon + 1);
+            data.push(...a, ...b, ...c, ...a, ...c, ...d);
+        }
+    }
+    return new Float32Array(data);
+}
+function coneVertices(sides = 11) {
+    const data = [];
+    for (let i = 0; i < sides; i++) {
+        const a = i * Math.PI * 2 / sides, b = (i + 1) * Math.PI * 2 / sides;
+        data.push(0, 1, 0, Math.cos(a), -1, Math.sin(a), Math.cos(b), -1, Math.sin(b));
+        data.push(0, -1, 0, Math.cos(b), -1, Math.sin(b), Math.cos(a), -1, Math.sin(a));
+    }
+    return new Float32Array(data);
+}
+function cylinderVertices(sides = 14) {
+    const data = [];
+    for (let i = 0; i < sides; i++) {
+        const a = i * Math.PI * 2 / sides, b = (i + 1) * Math.PI * 2 / sides;
+        const ax = Math.cos(a), az = Math.sin(a), bx = Math.cos(b), bz = Math.sin(b);
+        data.push(ax, -1, az, bx, -1, bz, bx, 1, bz, ax, -1, az, bx, 1, bz, ax, 1, az);
+        data.push(0, 1, 0, ax, 1, az, bx, 1, bz);
+    }
+    return new Float32Array(data);
+}
+class PineRingEngine {
+    constructor(canvas, onHud) {
+        this.startedAt = performance.now();
+        this.previous = performance.now();
+        this.raf = 0;
+        this.ready = false;
+        this.moving = false;
+        this.pulseMove = 0;
+        this.keyboardOrbit = 0;
+        this.keyboardRadial = 0;
+        this.orbitVelocity = 0;
+        this.radialVelocity = 0;
+        this.radiusOffset = 0;
+        this.phase = 2.35;
+        this.kills = 0;
+        this.rankIndex = 0;
+        this.botSerial = 0;
+        this.shotSerial = 0;
+        this.playerCooldown = 0;
+        this.camera = { x: 12.8, y: 13.8, z: 14.6 };
+        this.cameraTarget = { x: 0, y: 0.4, z: 0 };
+        this.view = identity4();
+        this.projection = identity4();
+        this.bots = [];
+        this.projectiles = [];
+        this.shots = [];
+        this.hits = [];
+        this.recentKills = [];
+        this.splats = [];
+        this.player = { id: 'pine-player-duck', position: { x: -3.6, y: 0.58, z: 3.6 }, forward: { x: -0.7, y: 0, z: -0.7 }, isMoving: false };
+        this.resizeHandler = () => this.resize();
+        this.blurHandler = () => { this.setMoving(false); this.setKeyboardMotion(0, 0); };
+        this.frame = (now) => {
+            const rawDt = Math.max(0.001, (now - this.previous) / 1000);
+            const dt = Math.min(0.045, rawDt);
+            const movementDt = Math.min(0.11, rawDt);
+            this.previous = now;
+            this.update(dt, movementDt);
+            this.render();
+            this.raf = requestAnimationFrame(this.frame);
+        };
+        this.canvas = canvas;
+        this.onHud = onHud;
+        const ctx = canvas.getContext('webgl', { antialias: true, alpha: false, depth: true });
+        if (!ctx)
+            throw new Error('Pine Ring requires WebGL');
+        this.gl = ctx;
+        this.program = this.makeProgram();
+        const p = ctx.getAttribLocation(this.program, 'a_position');
+        const m = ctx.getUniformLocation(this.program, 'u_mvp');
+        const c = ctx.getUniformLocation(this.program, 'u_color');
+        if (p < 0 || !m || !c)
+            throw new Error('Shader locations unavailable');
+        this.aPosition = p;
+        this.uMvp = m;
+        this.uColor = c;
+        this.meshes = {
+            cube: this.makeMesh(cubeVertices()),
+            sphere: this.makeMesh(sphereVertices()),
+            cone: this.makeMesh(coneVertices()),
+            cylinder: this.makeMesh(cylinderVertices())
+        };
+        for (let i = 0; i < 5; i++)
+            this.spawnBot();
+        window.addEventListener('resize', this.resizeHandler);
+        window.addEventListener('blur', this.blurHandler);
+        document.addEventListener('visibilitychange', this.blurHandler);
+        this.installReadOnlyHooks();
+        this.resize();
+        this.render();
+        this.ready = true;
+        this.emitHud();
+        this.raf = requestAnimationFrame(this.frame);
+    }
+    destroy() {
+        cancelAnimationFrame(this.raf);
+        window.removeEventListener('resize', this.resizeHandler);
+        window.removeEventListener('blur', this.blurHandler);
+        document.removeEventListener('visibilitychange', this.blurHandler);
+    }
+    setMoving(active) {
+        const starting = active && !this.moving && this.keyboardOrbit === 0 && this.keyboardRadial === 0;
+        this.moving = active;
+        if (starting) {
+            this.player.isMoving = true;
+            this.applyPlayerMotion(0.045, 0);
+        }
+        if (!active && Math.abs(this.orbitVelocity) < 0.03 && Math.abs(this.radialVelocity) < 0.03)
+            this.player.isMoving = false;
+    }
+    tapMove() {
+        this.pulseMove = Math.max(this.pulseMove, 0.13);
+    }
+    setKeyboardMotion(orbit, radial) {
+        const nextOrbit = Math.max(-1, Math.min(1, orbit));
+        const nextRadial = Math.max(-1, Math.min(1, radial));
+        const starting = this.keyboardOrbit === 0 && this.keyboardRadial === 0 && (nextOrbit !== 0 || nextRadial !== 0);
+        this.keyboardOrbit = nextOrbit;
+        this.keyboardRadial = nextRadial;
+        if (starting) {
+            this.player.isMoving = true;
+            this.applyPlayerMotion(nextOrbit * 0.045, nextRadial * 0.035);
+        }
+        if (this.keyboardOrbit === 0 && this.keyboardRadial === 0 && !this.moving && Math.abs(this.orbitVelocity) < 0.03 && Math.abs(this.radialVelocity) < 0.03)
+            this.player.isMoving = false;
+    }
+    applyPlayerMotion(orbitDelta, radialDelta) {
+        this.phase += orbitDelta;
+        this.radiusOffset = Math.max(-1.45, Math.min(1.05, this.radiusOffset + radialDelta));
+        const radius = 5.15 + this.radiusOffset;
+        const next = { x: Math.cos(this.phase) * radius, y: 0.58, z: Math.sin(this.phase) * radius };
+        const delta = sub3(next, this.player.position);
+        this.player.position = next;
+        if (Math.hypot(delta.x, delta.z) > 0.0001) {
+            const desiredForward = unit3({ x: delta.x, y: 0, z: delta.z });
+            this.player.forward = unit3(lerp3(this.player.forward, desiredForward, 0.72));
+        }
+    }
+    shoot() {
+        if (!this.ready || this.playerCooldown > 0)
+            return;
+        const target = this.nearestBot();
+        if (!target)
+            return;
+        const origin = add3(this.player.position, { x: 0, y: 0.72, z: 0 });
+        const aimPoint = add3(target.position, { x: 0, y: 0.38, z: 0 });
+        const direction = unit3(sub3(aimPoint, origin));
+        this.player.forward = unit3({ x: direction.x, y: 0, z: direction.z });
+        this.spawnProjectile('player', this.player.id, origin, direction, 13.8, target.id);
+        this.playerCooldown = 110;
+    }
+    update(dt, movementDt) {
+        this.playerCooldown = Math.max(0, this.playerCooldown - dt * 1000);
+        const heldOrbit = this.moving ? 1 : this.keyboardOrbit;
+        const tapOrbit = heldOrbit === 0 && this.pulseMove > 0 ? 1 : 0;
+        const orbitIntent = Math.max(-1, Math.min(1, heldOrbit + tapOrbit));
+        const radialIntent = this.keyboardRadial;
+        // Pine Ring deliberately feels like skating on damp forest turf: inputs ramp in
+        // quickly, but release brakes hard enough that the duck never drifts away from
+        // the player's command. Radial lane changes are softer than forward orbiting.
+        const orbitTarget = orbitIntent * 1.82;
+        const radialTarget = radialIntent * 1.72;
+        const orbitAccel = orbitIntent === 0 ? 16.0 : 9.2;
+        const radialAccel = radialIntent === 0 ? 14.0 : 7.2;
+        this.orbitVelocity = moveToward(this.orbitVelocity, orbitTarget, orbitAccel * movementDt);
+        this.radialVelocity = moveToward(this.radialVelocity, radialTarget, radialAccel * movementDt);
+        if (this.pulseMove > 0)
+            this.pulseMove = Math.max(0, this.pulseMove - movementDt);
+        const movingNow = Math.abs(this.orbitVelocity) > 0.018 || Math.abs(this.radialVelocity) > 0.018;
+        if (movingNow) {
+            this.applyPlayerMotion(this.orbitVelocity * movementDt, this.radialVelocity * movementDt);
+            this.player.isMoving = true;
+        }
+        else {
+            this.orbitVelocity = 0;
+            this.radialVelocity = 0;
+            this.player.isMoving = false;
+        }
+        const profile = AI[this.rankIndex];
+        for (const bot of this.bots) {
+            if (!bot.alive)
+                continue;
+            const toward = sub3(this.player.position, bot.position);
+            const flat = unit3({ x: toward.x, y: 0, z: toward.z });
+            const d = distXZ(bot.position, this.player.position);
+            const tangent = { x: -flat.z * bot.orbitSign, y: 0, z: flat.x * bot.orbitSign };
+            const seek = d > 3.15 ? 0.86 : d < 2.1 ? -0.38 : 0.18;
+            bot.position.x += (flat.x * seek + tangent.x * 0.46) * profile.moveSpeed * dt;
+            bot.position.z += (flat.z * seek + tangent.z * 0.46) * profile.moveSpeed * dt;
+            const radial = Math.hypot(bot.position.x, bot.position.z) || 1;
+            if (radial > 7.2) {
+                bot.position.x *= 7.2 / radial;
+                bot.position.z *= 7.2 / radial;
+            }
+            bot.fireLeft -= dt * 1000;
+            if (bot.fireLeft <= 0) {
+                this.botFire(bot);
+                bot.fireLeft = profile.fireCooldownMs * (0.82 + Math.random() * 0.32);
+            }
+        }
+        for (let i = this.projectiles.length - 1; i >= 0; i--) {
+            const orb = this.projectiles[i];
+            orb.age += dt;
+            if (orb.ownerType === 'player' && orb.targetId && orb.age < 1.15) {
+                const quarry = this.bots.find(b => b.id === orb.targetId && b.alive);
+                if (quarry) {
+                    const desired = unit3(sub3(add3(quarry.position, { x: 0, y: 0.36, z: 0 }), orb.position));
+                    const bend = Math.min(0.18, 0.05 + orb.age * 0.10);
+                    orb.direction = unit3(add3(mul3(orb.direction, 1 - bend), mul3(desired, bend)));
+                    orb.record.direction = copyV3(orb.direction);
+                }
+            }
+            orb.position = add3(orb.position, mul3(orb.direction, orb.speed * dt));
+            orb.record.lastPosition = copyV3(orb.position);
+            let remove = orb.age > 2.4 || orb.position.y < -0.3 || orb.position.y > 12;
+            if (!remove && orb.ownerType === 'player') {
+                for (const bot of this.bots) {
+                    if (bot.alive && distXZ(orb.position, bot.position) < 0.82 && Math.abs(orb.position.y - (bot.position.y + 0.32)) < 1.0) {
+                        this.eliminateBot(bot, orb.record);
+                        remove = true;
+                        break;
+                    }
+                }
+            }
+            else if (!remove && distXZ(orb.position, this.player.position) < 0.67 && Math.abs(orb.position.y - 0.8) < 1.0) {
+                orb.record.hitEntityId = this.player.id;
+                this.hits.push({ shotId: orb.id, attackerType: 'bot', attackerId: orb.ownerId, targetId: this.player.id, happenedAt: performance.now() });
+                this.splats.push({ x: this.player.position.x, z: this.player.position.z, life: 0.9, color: [0.98, 0.25, 0.55] });
+                remove = true;
+            }
+            if (remove)
+                this.projectiles.splice(i, 1);
+        }
+        for (let i = this.splats.length - 1; i >= 0; i--) {
+            this.splats[i].life -= dt;
+            if (this.splats[i].life <= 0)
+                this.splats.splice(i, 1);
+        }
+        if (this.shots.length > 260)
+            this.shots.splice(0, this.shots.length - 260);
+        if (this.hits.length > 180)
+            this.hits.splice(0, this.hits.length - 180);
+        if (this.recentKills.length > 120)
+            this.recentKills.splice(0, this.recentKills.length - 120);
+    }
+    nearestBot() {
+        let best = null, score = Infinity;
+        for (const bot of this.bots) {
+            if (!bot.alive)
+                continue;
+            const d = distXZ(this.player.position, bot.position);
+            if (d < score) {
+                score = d;
+                best = bot;
+            }
+        }
+        return best;
+    }
+    spawnBot() {
+        const id = `pine-rival-${++this.botSerial}`;
+        const angle = (this.botSerial * 2.399963 + 0.6) % (Math.PI * 2);
+        const radius = 2.35 + (this.botSerial % 4) * 0.62;
+        const profile = AI[this.rankIndex];
+        this.bots.push({
+            id,
+            alive: true,
+            position: { x: Math.cos(angle) * radius, y: 0.58, z: Math.sin(angle) * radius },
+            targetPlayer: true,
+            fireLeft: 260 + Math.random() * Math.min(620, profile.fireCooldownMs * 0.55),
+            orbitSign: this.botSerial % 2 === 0 ? 1 : -1
+        });
+    }
+    botFire(bot) {
+        const profile = AI[this.rankIndex];
+        const origin = add3(bot.position, { x: 0, y: 0.7, z: 0 });
+        const toPlayer = unit3(sub3(add3(this.player.position, { x: 0, y: 0.35, z: 0 }), origin));
+        const jitter = (Math.random() - 0.5) * profile.aimErrorDeg * Math.PI / 180;
+        const c = Math.cos(jitter), s = Math.sin(jitter);
+        const direction = unit3({ x: toPlayer.x * c - toPlayer.z * s, y: toPlayer.y, z: toPlayer.x * s + toPlayer.z * c });
+        this.spawnProjectile('bot', bot.id, origin, direction, 8.6 + this.rankIndex * 0.7, null);
+    }
+    spawnProjectile(ownerType, ownerId, origin, direction, speed, targetId) {
+        const id = `pine-shot-${++this.shotSerial}`;
+        const record = { id, ownerType, ownerId, spawnedAt: performance.now(), origin: copyV3(origin), direction: copyV3(direction), lastPosition: copyV3(origin), hitEntityId: null };
+        this.shots.push(record);
+        this.projectiles.push({ id, ownerType, ownerId, position: copyV3(origin), direction: copyV3(direction), speed, age: 0, targetId, record });
+    }
+    eliminateBot(bot, shot) {
+        if (!bot.alive)
+            return;
+        bot.alive = false;
+        shot.hitEntityId = bot.id;
+        const now = performance.now();
+        this.hits.push({ shotId: shot.id, attackerType: 'player', attackerId: this.player.id, targetId: bot.id, happenedAt: now });
+        this.recentKills.push({ botId: bot.id, sourceShotId: shot.id, creditedTo: 'player', happenedAt: now });
+        this.splats.push({ x: bot.position.x, z: bot.position.z, life: 1.55, color: [0.18, 0.96, 0.78] });
+        this.kills += 1;
+        const next = RANKS[this.rankIndex + 1];
+        if (next && this.kills >= next.killsRequired)
+            this.rankIndex += 1;
+        const deadIndex = this.bots.indexOf(bot);
+        window.setTimeout(() => {
+            if (deadIndex >= 0) {
+                const currentIndex = this.bots.indexOf(bot);
+                if (currentIndex >= 0)
+                    this.bots.splice(currentIndex, 1);
+            }
+            this.spawnBot();
+        }, 360);
+        this.emitHud();
+    }
+    emitHud() {
+        const current = RANKS[this.rankIndex];
+        const next = RANKS[this.rankIndex + 1] ?? null;
+        this.onHud({ kills: this.kills, rank: current, next, killsToNext: next ? Math.max(0, next.killsRequired - this.kills) : 0 });
+    }
+    makeProgram() {
+        const gl = this.gl;
+        const vs = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vs, 'attribute vec3 a_position; uniform mat4 u_mvp; void main(){ gl_Position=u_mvp*vec4(a_position,1.0); }');
+        gl.compileShader(vs);
+        if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS))
+            throw new Error(gl.getShaderInfoLog(vs) || 'vertex shader failed');
+        const fs = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fs, 'precision mediump float; uniform vec3 u_color; void main(){ gl_FragColor=vec4(u_color,1.0); }');
+        gl.compileShader(fs);
+        if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS))
+            throw new Error(gl.getShaderInfoLog(fs) || 'fragment shader failed');
+        const program = gl.createProgram();
+        gl.attachShader(program, vs);
+        gl.attachShader(program, fs);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+            throw new Error(gl.getProgramInfoLog(program) || 'shader program failed');
+        return program;
+    }
+    makeMesh(vertices) {
+        const gl = this.gl;
+        const buffer = gl.createBuffer();
+        if (!buffer)
+            throw new Error('Unable to allocate mesh buffer');
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+        return { buffer, count: vertices.length / 3 };
+    }
+    resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.65);
+        const w = Math.max(1, Math.floor(this.canvas.clientWidth * dpr));
+        const h = Math.max(1, Math.floor(this.canvas.clientHeight * dpr));
+        if (this.canvas.width !== w || this.canvas.height !== h) {
+            this.canvas.width = w;
+            this.canvas.height = h;
+        }
+        this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    }
+    draw(meshName, pos, scale, color, yaw = 0) {
+        const gl = this.gl, mesh = this.meshes[meshName];
+        const model = model4(pos, scale, yaw);
+        const mvp = multiply4(this.projection, multiply4(this.view, model));
+        gl.bindBuffer(gl.ARRAY_BUFFER, mesh.buffer);
+        gl.vertexAttribPointer(this.aPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(this.aPosition);
+        gl.uniformMatrix4fv(this.uMvp, false, new Float32Array(mvp));
+        gl.uniform3fv(this.uColor, new Float32Array(color));
+        gl.drawArrays(gl.TRIANGLES, 0, mesh.count);
+    }
+    drawDuck(position, forward, enemy) {
+        const yaw = Math.atan2(forward.x, forward.z);
+        const body = enemy ? [0.52, 0.44, 0.92] : [0.98, 0.83, 0.20];
+        const wing = enemy ? [0.31, 0.25, 0.72] : [0.90, 0.62, 0.08];
+        this.draw('sphere', add3(position, { x: 0, y: 0.28, z: 0 }), { x: 0.55, y: 0.38, z: 0.68 }, body, yaw);
+        this.draw('sphere', add3(position, { x: 0, y: 0.82, z: -0.13 }), { x: 0.34, y: 0.33, z: 0.34 }, body, yaw);
+        const beakOffset = { x: Math.sin(yaw) * 0.38, y: 0.80, z: Math.cos(yaw) * 0.38 };
+        this.draw('sphere', add3(position, beakOffset), { x: 0.31, y: 0.10, z: 0.19 }, [1.0, 0.43, 0.08], yaw);
+        this.draw('sphere', add3(position, { x: Math.cos(yaw) * 0.38, y: 0.30, z: -Math.sin(yaw) * 0.38 }), { x: 0.20, y: 0.23, z: 0.38 }, wing, yaw);
+        const gunSide = enemy ? -1 : 1;
+        this.draw('cube', add3(position, { x: Math.cos(yaw) * 0.43 * gunSide, y: 0.43, z: -Math.sin(yaw) * 0.43 * gunSide }), { x: 0.09, y: 0.10, z: 0.47 }, enemy ? [0.95, 0.25, 0.57] : [0.12, 0.91, 0.82], yaw);
+        this.draw('sphere', add3(position, { x: Math.cos(yaw) * 0.44 * gunSide, y: 0.58, z: -Math.sin(yaw) * 0.44 * gunSide }), { x: 0.14, y: 0.17, z: 0.14 }, enemy ? [0.98, 0.46, 0.67] : [0.18, 0.55, 1.0], yaw);
+    }
+    render() {
+        this.resize();
+        const gl = this.gl;
+        gl.useProgram(this.program);
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+        gl.clearColor(0.025, 0.075, 0.095, 1);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        // A restrained chase camera makes movement legible without turning the ring
+        // arena into a generic third-person corridor. It follows position and heading
+        // with damping instead of snapping every frame.
+        const speedFeel = Math.min(1, Math.abs(this.orbitVelocity) / 1.82);
+        const desiredTarget = add3(this.player.position, mul3(this.player.forward, 1.35 + speedFeel * 0.85));
+        desiredTarget.y = 0.55;
+        const desiredCamera = add3(add3(this.player.position, mul3(this.player.forward, -8.4 - speedFeel * 0.7)), { x: 0, y: 8.7, z: 0 });
+        this.camera = lerp3(this.camera, desiredCamera, 0.075);
+        this.cameraTarget = lerp3(this.cameraTarget, desiredTarget, 0.11);
+        this.view = lookAt4(this.camera, this.cameraTarget);
+        this.projection = perspective4(0.82, this.canvas.width / Math.max(1, this.canvas.height), 0.1, 90);
+        this.draw('cylinder', { x: 0, y: -0.38, z: 0 }, { x: 10.4, y: 0.30, z: 10.4 }, [0.055, 0.24, 0.22]);
+        this.draw('cylinder', { x: 0, y: -0.06, z: 0 }, { x: 7.25, y: 0.08, z: 7.25 }, [0.11, 0.34, 0.25]);
+        this.draw('cylinder', { x: 0, y: 0.0, z: 0 }, { x: 4.05, y: 0.035, z: 4.05 }, [0.14, 0.39, 0.28]);
+        for (let i = 0; i < 28; i++) {
+            const a = i / 28 * Math.PI * 2, r = 5.18;
+            this.draw('cube', { x: Math.cos(a) * r, y: 0.03, z: Math.sin(a) * r }, { x: 0.29, y: 0.035, z: 0.62 }, i % 2 ? [0.28, 0.42, 0.32] : [0.22, 0.36, 0.29], -a);
+        }
+        for (let i = 0; i < 34; i++) {
+            const a = i / 34 * Math.PI * 2 + (i % 3) * 0.08, r = 8.0 + (i % 4) * 0.48;
+            const x = Math.cos(a) * r, z = Math.sin(a) * r, h = 1.45 + (i % 5) * 0.23;
+            this.draw('cylinder', { x, y: h * 0.38, z }, { x: 0.16, y: h * 0.38, z: 0.16 }, [0.27, 0.15, 0.09]);
+            this.draw('cone', { x, y: h * 0.85, z }, { x: 0.75, y: 0.78, z: 0.75 }, i % 2 ? [0.04, 0.38, 0.30] : [0.06, 0.46, 0.36]);
+            this.draw('cone', { x, y: h * 1.15, z }, { x: 0.58, y: 0.68, z: 0.58 }, [0.08, 0.52, 0.40]);
+        }
+        for (let i = 0; i < 10; i++) {
+            const a = i / 10 * Math.PI * 2 + 0.32, r = 3.1;
+            this.draw('sphere', { x: Math.cos(a) * r, y: 0.13, z: Math.sin(a) * r }, { x: 0.28, y: 0.13, z: 0.34 }, [0.28, 0.39, 0.45]);
+        }
+        for (const splat of this.splats) {
+            const s = 0.3 + (1.6 - splat.life) * 0.16;
+            this.draw('sphere', { x: splat.x, y: 0.06, z: splat.z }, { x: s, y: 0.035, z: s * 0.85 }, splat.color);
+        }
+        for (const bot of this.bots) {
+            if (!bot.alive)
+                continue;
+            const toward = unit3({ x: this.player.position.x - bot.position.x, y: 0, z: this.player.position.z - bot.position.z });
+            this.drawDuck(bot.position, toward, true);
+        }
+        this.drawDuck(this.player.position, this.player.forward, false);
+        for (const projectile of this.projectiles) {
+            this.draw('sphere', projectile.position, { x: 0.11, y: 0.11, z: 0.11 }, projectile.ownerType === 'player' ? [0.12, 1.0, 0.78] : [1.0, 0.18, 0.52]);
+        }
+    }
+    rankingState() {
+        const currentRank = RANKS[this.rankIndex];
+        const nextRank = RANKS[this.rankIndex + 1] ?? null;
+        return {
+            ranks: RANKS.map(r => ({ ...r })),
+            currentRank: { ...currentRank },
+            nextRank: nextRank ? { ...nextRank } : null,
+            kills: this.kills,
+            killsToNext: nextRank ? Math.max(0, nextRank.killsRequired - this.kills) : 0
+        };
+    }
+    installReadOnlyHooks() {
+        const self = this;
+        window.__game = { getState() { return { ready: self.ready, elapsedTime: (performance.now() - self.startedAt) / 1000, kills: self.kills }; } };
+        window.__scene = { getState() {
+                return {
+                    renderer: { type: 'webgl', width: self.canvas.width, height: self.canvas.height },
+                    camera: { position: copyV3(self.camera), forward: unit3(sub3(self.cameraTarget, self.camera)), viewMatrix: self.view.slice(), projectionMatrix: self.projection.slice() }
+                };
+            } };
+        window.__player = { getState() { return { id: self.player.id, position: copyV3(self.player.position), forward: copyV3(self.player.forward), isMoving: self.player.isMoving }; } };
+        window.__combat = { getState() {
+                return {
+                    activeProjectiles: self.projectiles.map(p => ({ id: p.id, ownerType: p.ownerType, ownerId: p.ownerId, position: copyV3(p.position), direction: copyV3(p.direction) })),
+                    recentShots: self.shots.map(s => ({ ...s, origin: copyV3(s.origin), direction: copyV3(s.direction), lastPosition: copyV3(s.lastPosition) })),
+                    recentHits: self.hits.map(h => ({ ...h })),
+                    recentKills: self.recentKills.map(k => ({ ...k }))
+                };
+            } };
+        window.__bots = { getState() {
+                return {
+                    bots: self.bots.filter(b => b.alive).map(b => ({ id: b.id, alive: b.alive, position: copyV3(b.position), targetPlayer: b.targetPlayer })),
+                    difficultyProfile: { ...AI[self.rankIndex] }
+                };
+            } };
+        window.__ranking = { getState() { return self.rankingState(); } };
+    }
+}
+function mountPineRing(host) {
+    host.innerHTML = `
+    <main id="game" class="game-shell">
+      <canvas data-testid="game-canvas" class="arena-canvas"></canvas>
+      <div class="sky-haze" aria-hidden="true"></div>
+      <header class="brand-bar">
+        <div class="brand-mark"><span>🦆</span><div><b>PINE RING</b><small>PAINT RUSH</small></div></div>
+        <div class="mission-pill"><i></i> CLEARING 07 · LIVE</div>
+      </header>
+      <section class="left-hud">
+        <div class="stat-tile"><small>KILLS</small><b data-ui="kills">00</b></div>
+        <div class="stat-tile rank-bronze" data-ui="rank-tile"><small>RANK</small><b data-ui="rank-name">BRONZE</b></div>
+        <div class="objective-card"><small>OBJECTIVE</small><strong>Paint the rival flock</strong><span data-ui="objective">2 KILLS TO SILVER</span></div>
+      </section>
+      <div class="arena-label"><span>RING ROUTE</span><b>W/S orbit · A/D change lane · tap MOVE for a quick step</b></div>
+      <div class="reticle" aria-hidden="true"><i></i><i></i></div>
+      <section class="control-cluster" aria-label="Game controls">
+        <button type="button" data-testid="move-btn" class="control move-control"><span>↻</span><b>MOVE</b><small>ORBIT</small></button>
+        <button type="button" data-testid="rank-btn" class="control rank-control"><span>✦</span><b>RANK</b><small data-ui="rank-button-small">Bronze</small></button>
+        <button type="button" data-testid="shoot-btn" class="control shoot-control"><span>●</span><b>SHOOT</b><small>PAINT</small></button>
+      </section>
+      <div class="duck-tag"><span>🦆</span><div><b>Scout Quill</b><small>mint paint launcher</small></div></div>
+      <aside id="rankPanel" class="rank-panel" hidden aria-hidden="true">
+        <div class="rank-topline"><span>PINE RING LEAGUE</span><button type="button" data-ui="rank-close" aria-label="Close ranks">×</button></div>
+        <h2>Paint Circuit</h2>
+        <div class="current-card">
+          <small>CURRENT RANK</small>
+          <strong data-testid="current-rank" data-rank-id="bronze">Bronze</strong>
+          <p data-testid="kills-progress">0 / 2 kills · 2 to Silver</p>
+        </div>
+        <div class="rank-list" data-ui="rank-list"></div>
+        <p class="rank-note">Each promotion tightens aim, speeds pursuit and shortens rival fire cooldown.</p>
+      </aside>
+    </main>`;
+    const canvas = host.querySelector('[data-testid="game-canvas"]');
+    const moveButton = host.querySelector('[data-testid="move-btn"]');
+    const shootButton = host.querySelector('[data-testid="shoot-btn"]');
+    const rankButton = host.querySelector('[data-testid="rank-btn"]');
+    const panel = host.querySelector('#rankPanel');
+    const closeButton = host.querySelector('[data-ui="rank-close"]');
+    if (!canvas || !moveButton || !shootButton || !rankButton || !panel || !closeButton) {
+        throw new Error('Pine Ring UI failed to mount');
+    }
+    const updateHud = (hud) => {
+        const killsEl = host.querySelector('[data-ui="kills"]');
+        const rankEl = host.querySelector('[data-ui="rank-name"]');
+        const rankTile = host.querySelector('[data-ui="rank-tile"]');
+        const smallRank = host.querySelector('[data-ui="rank-button-small"]');
+        const objective = host.querySelector('[data-ui="objective"]');
+        const current = host.querySelector('[data-testid="current-rank"]');
+        const progress = host.querySelector('[data-testid="kills-progress"]');
+        const rankList = host.querySelector('[data-ui="rank-list"]');
+        if (killsEl)
+            killsEl.textContent = hud.kills.toString().padStart(2, '0');
+        if (rankEl)
+            rankEl.textContent = hud.rank.name.toUpperCase();
+        if (rankTile)
+            rankTile.className = `stat-tile rank-${hud.rank.id}`;
+        if (smallRank)
+            smallRank.textContent = hud.rank.name;
+        if (objective)
+            objective.textContent = hud.next ? `${hud.killsToNext} KILLS TO ${hud.next.name.toUpperCase()}` : 'GOLD CIRCUIT CLEARED';
+        if (current) {
+            current.textContent = hud.rank.name;
+            current.dataset.rankId = hud.rank.id;
+        }
+        if (progress)
+            progress.textContent = hud.next
+                ? `${hud.kills} / ${hud.next.killsRequired} kills · ${hud.killsToNext} to ${hud.next.name}`
+                : `${hud.kills} kills · top rank`;
+        if (rankList) {
+            rankList.innerHTML = RANKS.map((rank) => `
+        <div data-testid="rank-item" data-rank-id="${rank.id}" class="rank-row ${rank.id === hud.rank.id ? 'active' : ''}">
+          <span class="rank-gem">${rank.id === 'bronze' ? '◆' : rank.id === 'silver' ? '◇' : '✦'}</span>
+          <div><b>${rank.name}</b><small>${rank.killsRequired} cumulative kills</small></div>
+          <em>AI ${rank.index + 1}</em>
+        </div>`).join('');
+        }
+    };
+    const engine = new PineRingEngine(canvas, updateHud);
+    const orbitKeys = { forward: false, back: false, inward: false, outward: false };
+    const syncKeyboard = () => engine.setKeyboardMotion((orbitKeys.forward ? 1 : 0) - (orbitKeys.back ? 1 : 0), (orbitKeys.outward ? 1 : 0) - (orbitKeys.inward ? 1 : 0));
+    const handleOrbitKey = (event, down) => {
+        if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey)
+            return;
+        const target = event.target;
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable))
+            return;
+        let handled = true;
+        switch (event.code) {
+            case 'KeyW':
+            case 'ArrowUp':
+                orbitKeys.forward = down;
+                break;
+            case 'KeyS':
+            case 'ArrowDown':
+                orbitKeys.back = down;
+                break;
+            case 'KeyA':
+            case 'ArrowLeft':
+                orbitKeys.inward = down;
+                break;
+            case 'KeyD':
+            case 'ArrowRight':
+                orbitKeys.outward = down;
+                break;
+            default: handled = false;
+        }
+        if (!handled)
+            return;
+        event.preventDefault();
+        syncKeyboard();
+        if (orbitKeys.forward || orbitKeys.back || orbitKeys.inward || orbitKeys.outward)
+            moveButton.classList.add('keyboard-active');
+        else
+            moveButton.classList.remove('keyboard-active');
+    };
+    const onKeyDown = (event) => handleOrbitKey(event, true);
+    const onKeyUp = (event) => handleOrbitKey(event, false);
+    const resetOrbitKeys = () => { orbitKeys.forward = orbitKeys.back = orbitKeys.inward = orbitKeys.outward = false; syncKeyboard(); moveButton.classList.remove('keyboard-active'); };
+    const onVisibility = () => { if (document.hidden)
+        resetOrbitKeys(); };
+    let pressStarted = 0;
+    const onMoveDown = (event) => {
+        event.preventDefault();
+        pressStarted = performance.now();
+        try {
+            moveButton.setPointerCapture(event.pointerId);
+        }
+        catch { /* optional */ }
+        engine.setMoving(true);
+    };
+    const stopMove = () => {
+        const elapsed = performance.now() - pressStarted;
+        engine.setMoving(false);
+        if (elapsed > 0 && elapsed < 170)
+            engine.tapMove();
+    };
+    const lostMove = () => engine.setMoving(false);
+    const shoot = () => engine.shoot();
+    const openRanks = () => { panel.hidden = false; panel.setAttribute('aria-hidden', 'false'); };
+    const closeRanks = () => { panel.hidden = true; panel.setAttribute('aria-hidden', 'true'); };
+    moveButton.addEventListener('pointerdown', onMoveDown);
+    moveButton.addEventListener('pointerup', stopMove);
+    window.addEventListener('keydown', onKeyDown, { passive: false });
+    window.addEventListener('keyup', onKeyUp, { passive: false });
+    window.addEventListener('blur', resetOrbitKeys);
+    document.addEventListener('visibilitychange', onVisibility);
+    moveButton.addEventListener('pointercancel', stopMove);
+    moveButton.addEventListener('lostpointercapture', lostMove);
+    shootButton.addEventListener('click', shoot);
+    rankButton.addEventListener('click', openRanks);
+    closeButton.addEventListener('click', closeRanks);
+    return {
+        destroy() {
+            moveButton.removeEventListener('pointerdown', onMoveDown);
+            moveButton.removeEventListener('pointerup', stopMove);
+            window.removeEventListener('keydown', onKeyDown);
+            window.removeEventListener('keyup', onKeyUp);
+            window.removeEventListener('blur', resetOrbitKeys);
+            document.removeEventListener('visibilitychange', onVisibility);
+            moveButton.removeEventListener('pointercancel', stopMove);
+            moveButton.removeEventListener('lostpointercapture', lostMove);
+            shootButton.removeEventListener('click', shoot);
+            rankButton.removeEventListener('click', openRanks);
+            closeButton.removeEventListener('click', closeRanks);
+            engine.destroy();
+            host.replaceChildren();
+        }
+    };
+}
+window.PineRingGame = { mount: mountPineRing };
+
+window.PineRingGame.mount(document.getElementById('root'));</script></body></html>

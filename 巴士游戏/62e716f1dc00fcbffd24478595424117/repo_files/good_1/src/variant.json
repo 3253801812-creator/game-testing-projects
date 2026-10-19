@@ -1,0 +1,50 @@
+{
+  "brand": "NUSANTARA / LUX",
+  "kicker": "Intercity coach simulation",
+  "subtitle": "A cinematic tropical coach route through dense roadside towns, rice-country edges and moving traffic.",
+  "vehicleId": "NLX-880",
+  "busType": "12m Luxury Coach",
+  "routeName": "Bandung \u00b7 Kota Lama \u00b7 Selatan",
+  "capacity": 42,
+  "environment": "Tropical intercity corridor",
+  "weather": "Sunbreak after rain",
+  "timeOfDay": "16:20",
+  "trafficDensity": 0.92,
+  "sceneType": "tropical",
+  "layout": "editorial-left",
+  "defaultCamera": "chase",
+  "defaultQuality": "cinematic",
+  "roadCurve": 2.4,
+  "roadPhase": 0,
+  "cameraSide": 1,
+  "bus": {
+    "width": 2.55,
+    "length": 8.9,
+    "style": "coach"
+  },
+  "palette": {
+    "sky": "#79a7b8",
+    "ground": "#4c7047",
+    "road": "#293238",
+    "edge": "#e6bd5c",
+    "bus": "#f0ede4",
+    "accent": "#f3a832",
+    "glass": "#173945",
+    "trafficA": "#d65a3a",
+    "trafficB": "#3f7e8f",
+    "foliage": "#2f754c",
+    "building": "#aa744f",
+    "building2": "#70838a",
+    "mountain": "#566f61",
+    "water": "#4f8fa6",
+    "stop": "#f59e0b",
+    "served": "#475569"
+  },
+  "css": ":root{--bg:#08141a;--sky:#7897a3;--text:#f8fafc;--muted:#cbd5e1;--accent:#ffb23f;--accent-glow:rgba(255,178,63,.28);--button-text:#171008;--line:rgba(255,255,255,.17);--glass:rgba(6,15,21,.58);--glass-strong:rgba(13,23,30,.92);--panel:rgba(7,17,23,.76);--landing-a:rgba(5,13,18,.96);--atmo-top:rgba(255,203,124,.16);--atmo-bottom:rgba(31,78,63,.18)} .sim-shell[data-layout=\"editorial-left\"] .landing{border-left:8px solid var(--accent)}",
+  "defects": {
+    "allowDoorsWhileMoving": false,
+    "fuelDrainMultiplier": 1,
+    "autoAdvanceAtStop": false,
+    "reportedSpeedBias": 0
+  }
+}

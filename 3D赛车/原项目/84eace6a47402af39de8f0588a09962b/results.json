@@ -1,0 +1,1446 @@
+{
+  "prompt_id": "84eace6a47402af39de8f0588a09962b",
+  "game_type": "3d",
+  "samples": {
+    "good_1": {
+      "repo": "good_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“应用初始状态显示可操作的主菜单”的要求。 观测记录：menu=True, start=True, garage=True, gameState=menu"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“主菜单入口能够进入对应功能界面并返回主菜单”的要求。 观测记录：time_trial_roundtrip=True, garage_roundtrip=True"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态”的要求。 观测记录：vehicles=2, cards=2, owned=1, purchasable=1, unique_ids=True"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择”的要求。 观测记录：locked_id='rock-bison', locked_rejected=True, owned_id='dune-scout', owned_selected=True"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的已拥有车辆会实际成为比赛中的玩家车辆”的要求。 观测记录：starter_loaded=True, second='rock-bison', second_loaded=True, visible=['rock-bison']"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆具有会造成实际驾驶差异的性能或物理参数”的要求。 观测记录：starter='dune-scout', second='rock-bison', actual_behavior_difference=True"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“地图选择界面提供至少两张可识别的不同地图”的要求。 观测记录：maps=2, cards=2, unique_ids=True"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的地图会实际成为本次计时赛场景”的要求。 观测记录：map1_loaded=True, map2_loaded=True"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同地图具有会改变驾驶路线的不同地形或赛道布局”的要求。 观测记录：early_visual_and_layout=True, later_layout_recheck=True, map1='red-canyon', map2='mesa-loop'"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛以单人模式运行”的要求。 观测记录：mode=time_trial, players=1, competitors=0, visibleVehicleIds=['dune-scout']"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“开始计时赛会创建完整且一致的比赛初始状态”的要求。 观测记录：raceId='dustline-1786612113289-66524', phase=running, elapsed=0.039500000002980415, checkpoint=0, speed=0, renderer=webgl"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆加速、制动和倒车”的要求。 观测记录：accelerated=9.910, before_brake=10.589, after_brake=3.429, reverse=-5.045"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆向左和向右转向”的要求。 观测记录：left_steering=-0.9994990729117973, right_steering=0.9999966517293242, neutral=0.036, forward_dot=0.2448"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆运动具有连续的速度变化和惯性，而不是按输入瞬移”的要求。 观测记录：speed_samples=[1.161, 2.935, 4.766, 6.675, 8.339, 9.91], step_distances=[0.421, 0.786, 1.257, 1.516, 1.839], coast=(10.547->10.589), coast_distance=5.106"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆与地形和实体障碍具有有效碰撞与接触约束”的要求。 观测记录：grounded=True, obstacles=5, collision=True, object='obstacle-0', distance=2.849490855073154, radius=1.6"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹”的要求。 观测记录：wheel_count=4, schema=True, independent=True, compression_states=[[0.97645, 0.93545, 0.93968, 0.8918], [0.98697, 0.94708, 0.95456, 0.90761], [1.0, 0.9642, 0.97788, 0.93263], [1.0, 0.98176, 1.0, 0.96349], [1.0, 0.98912, 1.0, 0.98808], [1.0, 0.97977, 1.0, 1.0]]"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂变化会真实影响车身的高度、俯仰或侧倾”的要求。 观测记录：compression_changed=True, coupled_pose=True, pitch=[-0.02439, -0.02428, -0.02386, -0.02279, -0.02094, -0.018, 0.04339, 0.00726], roll=[0.03696, 0.03692, 0.03679, 0.03647, 0.03593, 0.0351, 0.01878, -0.04412]"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“越野路面或地形坡度会真实改变车辆的抓地、速度或姿态”的要求。 观测记录：height_range=(-1.36206271990128, 9.703566916636445), surfaces=['hardpack', 'sand'], chassis_changed=True"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛摄像机以第三人称视角跟随玩家车辆”的要求。 观测记录：third_person_behind=True, camera_positions=9, distances=[8.1, 8.42, 8.86, 9.38, 9.86, 10.34]"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛界面持续显示可读的当前计时”的要求。 观测记录：visible=True, dom=('00:00.34'->'00:00.69', delta=0.3499999999999999), state=(0.340->0.690, delta=0.350)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时只在本次有效比赛期间累计，并在完赛后停止”的要求。 观测记录：running_increased=True, final=7.299599999997023, after_wait=7.299599999997023"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛只有在玩家完成有效路线并抵达终点后才会完成”的要求。 观测记录：negative_finish_blocked=True, declared=['cp-0', 'cp-1', 'cp-2', 'cp-3', 'cp-4'], passed=['cp-0', 'cp-1', 'cp-2', 'cp-3', 'cp-4'], completed=True, failure="
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“有效完赛后会显示与本场比赛一致的结果和最终用时”的要求。 观测记录：visible=True, result={'raceId': 'dustline-1786612135286-7658', 'vehicleId': 'dune-scout', 'mapId': 'red-canyon', 'finalTime': 7.299599999997023, 'reward': 320}, final_time=7.299599999997023, dom_time='00:07.30', vehicle_name='Dune Scout', map_name='Red Canyon Run', dom_consistent=True"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家完成有效计时赛后只获得一次正数金币奖励”的要求。 观测记录：before=850.0, after=1170.0, reward=320.0, delta=320.0, after_wait=1170.0"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“金币余额在用户界面和实时经济状态中保持一致”的要求。 观测记录：reward_sync=True, final_dom=500.0, final_game=500.0, final_garage=500.0"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够使用足够金币购买一辆未拥有的车辆”的要求。 观测记录：vehicle='rock-bison', cost=520.0, purchased=True, duplicate_protected=True, insufficient_exercised=True, isolated_spend_attempts=2"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买车辆在返回菜单和后续比赛中保持拥有并可使用”的要求。 观测记录：purchased_id='rock-bison', retained_and_selectable=True"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值”的要求。 观测记录：vehicle='dune-scout', upgrade='engine', level_after=1.0, transaction=True, stat_changed=True, insufficient_exercised=True"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆升级会实际改变后续比赛中的对应驾驶表现”的要求。 观测记录：applied_stat_differences={'power': (228.0, 253.08)}, directional_effects={'power': True}, baseline_response={'acceleration': 9.654888733424722, 'longitudinalAcceleration': 9.654888733424723, 'braking': 4.76450088140883, 'steering': 0.2913264995153826, 'grip': 0.043745080709050435, 'suspension': 0.10967343842844157, 'appliedStats': {'mass': 1420, 'power': 228, 'braking': 8, 'steering': 1.58, 'grip': 1.04, 'maxSpeed': 31, 'suspension': 7.2}, 'vehicleId': 'dune-scout'}, upgraded_response={'acceleration': 10.6140798509183, 'longitudinalAcceleration': 10.614079850918301, 'braking': 4.860478777860429, 'steering': 0.34254733476734167, 'grip': 0.04401923936026932, 'suspension': 0.10934148162801094, 'appliedStats': {'mass': 1420, 'power': 253.08, 'braking': 8, 'steering': 1.58, 'grip': 1.04, 'maxSpeed': 31, 'suspension': 7.2}, 'vehicleId': 'dune-scout'}"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买的升级在返回菜单和后续比赛中保持生效”的要求。 观测记录：upgrade='engine', expected_level=1.0, retained=True"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛”的要求。 观测记录：old_race='dustline-1786612113289-66524', new_race='dustline-1786612126735-94007', elapsed=0.015400000000001456, checkpoint=0, speed=0"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成”的要求。 观测记录：completed=True, reward=True, purchase=True, upgrade=True, purchase_retained=True, upgrade_retained=True, state=menu"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算”的要求。 观测记录：raf_active=(1->1), raf_max=(1->1), listener_growth={'keydown': 0.0, 'keyup': 0.0}, timer_growth=(timeouts:0.0, intervals:0.0), webgl_resource_growth=-1.0, webgl_contexts=1"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“实际比赛画面清楚呈现第三人称 3D 越野赛车环境”的要求。 观测记录：YES\n该画面为车辆后上方的第三人称3D视角，可以看到玩家的可驾驶车辆，拥有带坡度的非铺装沙地越野三维地形，也存在明确的可驾驶越野路线，满足要求。",
+          "image": "ut_images/good_1_r34_1_race.png"
+        },
+        {
+          "id": 35,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆在画面中具有可辨认的外观差异”的要求。 观测记录：YES\n画面中展示了Dune Scout和Rock Bison两辆参数、配色都不相同的可辨认的不同车辆。",
+          "image": "ut_images/good_1_r35_2_garage.png"
+        },
+        {
+          "id": 36,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读”的要求。 观测记录：YES\n所有关键界面都完整展示，各个界面的核心按钮、金币、计时和结果信息都清晰可读，不存在严重裁切、重叠、遮挡或与背景混淆的问题。",
+          "image": "ut_images/good_1_r36_3_ui-grid.png"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈”的要求。 观测记录：react19=True, ts=True, vite=True, tailwind=True, entry=True"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物”的要求。 观测记录：build_requested=True, build_succeeded=True, vite_build_script=True, served=dist, index=True, detail=npm/vite build succeeded"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点”的要求。 观测记录：source=missing_fixed_ids=[], runtime_ids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': True}, duplicate_ids=[]"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布”的要求。 观测记录：source=missing_testids=[], missing_stable_ids=[], runtime_testids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': True}"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__game.getState() 存在并符合规定的全局状态 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__world.getState() 存在并符合规定的地图与真实世界 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__race.getState() 存在并符合规定的单人计时赛 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 46,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__camera.getState() 存在并符合规定的第三人称摄像机 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 47,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 48,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“七组公开 getState() 接口均为只读，连续读取不会改变游戏状态”的要求。 观测记录：missing=[], same=True"
+        },
+        {
+          "id": 49,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“公开状态与当前真实 WebGL 场景、画布和用户界面相互一致”的要求。 观测记录：canvas=True, ids=('dune-scout', 'dune-scout', 'red-canyon', 'red-canyon'), wheels=4/4, frames=(98.0, 115.0, 98.0, 115.0), webgl=1"
+        }
+      ],
+      "func_score": {
+        "应用初始状态显示可操作的主菜单。": 1,
+        "主菜单入口能够进入对应功能界面并返回主菜单。": 1,
+        "车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态。": 1,
+        "未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择。": 1,
+        "玩家选择的已拥有车辆会实际成为比赛中的玩家车辆。": 1,
+        "不同车辆具有会造成实际驾驶差异的性能或物理参数。": 1,
+        "地图选择界面提供至少两张可识别的不同地图。": 1,
+        "玩家选择的地图会实际成为本次计时赛场景。": 1,
+        "不同地图具有会改变驾驶路线的不同地形或赛道布局。": 1,
+        "计时赛以单人模式运行。": 1,
+        "开始计时赛会创建完整且一致的比赛初始状态。": 1,
+        "玩家能够实际控制车辆加速、制动和倒车。": 1,
+        "玩家能够实际控制车辆向左和向右转向。": 1,
+        "车辆运动具有连续的速度变化和惯性，而不是按输入瞬移。": 1,
+        "车辆与地形和实体障碍具有有效碰撞与接触约束。": 1,
+        "悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹。": 1,
+        "悬挂变化会真实影响车身的高度、俯仰或侧倾。": 1,
+        "越野路面或地形坡度会真实改变车辆的抓地、速度或姿态。": 1,
+        "比赛摄像机以第三人称视角跟随玩家车辆。": 1,
+        "比赛界面持续显示可读的当前计时。": 1,
+        "计时只在本次有效比赛期间累计，并在完赛后停止。": 1,
+        "计时赛只有在玩家完成有效路线并抵达终点后才会完成。": 1,
+        "有效完赛后会显示与本场比赛一致的结果和最终用时。": 1,
+        "玩家完成有效计时赛后只获得一次正数金币奖励。": 1,
+        "金币余额在用户界面和实时经济状态中保持一致。": 1,
+        "玩家能够使用足够金币购买一辆未拥有的车辆。": 1,
+        "已购买车辆在返回菜单和后续比赛中保持拥有并可使用。": 1,
+        "玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值。": 1,
+        "车辆升级会实际改变后续比赛中的对应驾驶表现。": 1,
+        "已购买的升级在返回菜单和后续比赛中保持生效。": 1,
+        "玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛。": 1,
+        "从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成。": 1,
+        "多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算。": 1,
+        "项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈。": 1,
+        "项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物。": 1,
+        "页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点。": 1,
+        "页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布。": 1,
+        "window.__game.getState() 存在并符合规定的全局状态 schema。": 1,
+        "window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema。": 1,
+        "window.__world.getState() 存在并符合规定的地图与真实世界 schema。": 1,
+        "window.__race.getState() 存在并符合规定的单人计时赛 schema。": 1,
+        "window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema。": 1,
+        "window.__camera.getState() 存在并符合规定的第三人称摄像机 schema。": 1,
+        "window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema。": 1,
+        "七组公开 getState() 接口均为只读，连续读取不会改变游戏状态。": 1,
+        "公开状态与当前真实 WebGL 场景、画布和用户界面相互一致。": 1
+      },
+      "vlm_score": {
+        "实际比赛画面清楚呈现第三人称 3D 越野赛车环境。": 1,
+        "不同车辆在画面中具有可辨认的外观差异。": 1,
+        "菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读。": 1
+      }
+    },
+    "bad_1": {
+      "repo": "bad_1",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“应用初始状态显示可操作的主菜单”的要求。 观测记录：menu=True, start=True, garage=True, gameState=menu"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“主菜单入口能够进入对应功能界面并返回主菜单”的要求。 观测记录：time_trial_roundtrip=True, garage_roundtrip=True"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态”的要求。 观测记录：vehicles=2, cards=2, owned=1, purchasable=1, unique_ids=True"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择”的要求。 观测记录：locked_id='ironclad-v8', locked_rejected=True, owned_id='trailhawk-x1', owned_selected=True"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家选择的已拥有车辆会实际成为比赛中的玩家车辆”的要求。 观测记录：starter_loaded=True, second='ironclad-v8', second_loaded=False, visible=['trailhawk-x1']"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“不同车辆具有会造成实际驾驶差异的性能或物理参数”的要求。 观测记录：starter='trailhawk-x1', second='ironclad-v8', actual_behavior_difference=False"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“地图选择界面提供至少两张可识别的不同地图”的要求。 观测记录：maps=2, cards=2, unique_ids=True"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的地图会实际成为本次计时赛场景”的要求。 观测记录：map1_loaded=True, map2_loaded=True"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“不同地图具有会改变驾驶路线的不同地形或赛道布局”的要求。 观测记录：early_visual_and_layout=False, later_layout_recheck=False, map1='red-rock-run', map2='pine-mire-loop'"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛以单人模式运行”的要求。 观测记录：mode=time_trial, players=1, competitors=0, visibleVehicleIds=['trailhawk-x1']"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“开始计时赛会创建完整且一致的比赛初始状态”的要求。 观测记录：raceId='tt-1786612216431-1', phase=running, elapsed=0.08459999999403954, checkpoint=0, speed=0, renderer=webgl2"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆加速、制动和倒车”的要求。 观测记录：accelerated=7.408, before_brake=7.284, after_brake=-0.119, reverse=-1.205"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家能够实际控制车辆向左和向右转向”的要求。 观测记录：left_steering=-0.9997382184027493, right_steering=0.9999983421412847, neutral=0.466, forward_dot=-0.7555"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆运动具有连续的速度变化和惯性，而不是按输入瞬移”的要求。 观测记录：speed_samples=[0.819, 2.448, 3.937, 5.287, 6.437, 7.408], step_distances=[0.383, 0.671, 0.961, 1.164, 1.308], coast=(7.773->7.284), coast_distance=3.814"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆与地形和实体障碍具有有效碰撞与接触约束”的要求。 观测记录：grounded=True, obstacles=4, collision=True, object='rr-rock-a', distance=3.3200000000000016, radius=2.2"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹”的要求。 观测记录：wheel_count=4, schema=False, independent=True, compression_states=[[0.76702, 0.94425, 0.63115, 0.0], [0.80071, 1.0, 0.63329, 0.0], [0.86019, 1.0, 0.63586, 0.0], [0.94988, 1.0, 0.64255, 0.0], [1.0, 1.0, 0.6609, 0.0], [1.0, 1.0, 0.66755, 0.0]]"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂变化会真实影响车身的高度、俯仰或侧倾”的要求。 观测记录：compression_changed=True, coupled_pose=True, pitch=[-0.04669, -0.05129, -0.06138, -0.07753, -0.09723, -0.1181, -0.09176, 0.00568], roll=[0.03059, 0.03381, 0.04105, 0.05294, 0.06787, 0.08409, 0.14074, 0.0111]"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“越野路面或地形坡度会真实改变车辆的抓地、速度或姿态”的要求。 观测记录：height_range=(-3.55, 5.65), surfaces=['hardpack'], chassis_changed=True"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛摄像机以第三人称视角跟随玩家车辆”的要求。 观测记录：third_person_behind=True, camera_positions=9, distances=[7.51, 7.79, 8.13, 8.5, 8.84, 9.12]"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛界面持续显示可读的当前计时”的要求。 观测记录：visible=True, dom=('00:00.39'->'00:00.79', delta=0.4), state=(0.439->0.790, delta=0.351)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时只在本次有效比赛期间累计，并在完赛后停止”的要求。 观测记录：running_increased=True, final=14.95, after_wait=14.95"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛只有在玩家完成有效路线并抵达终点后才会完成”的要求。 观测记录：negative_finish_blocked=True, declared=['rr-cp-1', 'rr-cp-2', 'rr-cp-3'], passed=['rr-cp-1', 'rr-cp-2', 'rr-cp-3'], completed=True, failure="
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“有效完赛后会显示与本场比赛一致的结果和最终用时”的要求。 观测记录：visible=True, result={'raceId': 'tt-1786612246297-4', 'vehicleId': 'trailhawk-x1', 'mapId': 'red-rock-run', 'finalTime': 14.95, 'reward': 618}, final_time=14.95, dom_time='00:14.95', vehicle_name='Trailhawk X1', map_name='Red Rock Run', dom_consistent=True"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家完成有效计时赛后只获得一次正数金币奖励”的要求。 观测记录：before=1400.0, after=2018.0, reward=618.0, delta=618.0, after_wait=2018.0"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“金币余额在用户界面和实时经济状态中保持一致”的要求。 观测记录：reward_sync=True, final_dom=858.0, final_game=858.0, final_garage=858.0"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够使用足够金币购买一辆未拥有的车辆”的要求。 观测记录：vehicle='ironclad-v8', cost=900.0, purchased=True, duplicate_protected=True, insufficient_exercised=True, isolated_spend_attempts=2"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买车辆在返回菜单和后续比赛中保持拥有并可使用”的要求。 观测记录：purchased_id='ironclad-v8', retained_and_selectable=True"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值”的要求。 观测记录：vehicle='trailhawk-x1', upgrade='ecu', level_after=1.0, transaction=True, stat_changed=True, insufficient_exercised=True"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆升级会实际改变后续比赛中的对应驾驶表现”的要求。 观测记录：applied_stat_differences={'power': (11800.0, 13050.0)}, directional_effects={'power': True}, baseline_response={'acceleration': 7.6861726348249455, 'longitudinalAcceleration': 7.6861726348249455, 'braking': 6.2241509941609845, 'steering': 0.3989893600076161, 'grip': 0.21564388933729484, 'suspension': 1.0, 'appliedStats': {'mass': 1520, 'power': 11800, 'braking': 9.2, 'steering': 1.65, 'grip': 7.4, 'maxSpeed': 25.5, 'suspension': 0.56}, 'vehicleId': 'trailhawk-x1'}, upgraded_response={'acceleration': 8.100976907199119, 'longitudinalAcceleration': 8.100976907199119, 'braking': 6.13495274626544, 'steering': 0.5926408519494326, 'grip': 0.2396296549488142, 'suspension': 1.0, 'appliedStats': {'mass': 1520, 'power': 13050, 'braking': 9.2, 'steering': 1.65, 'grip': 7.4, 'maxSpeed': 25.5, 'suspension': 0.56}, 'vehicleId': 'trailhawk-x1'}"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买的升级在返回菜单和后续比赛中保持生效”的要求。 观测记录：upgrade='ecu', expected_level=1.0, retained=True"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛”的要求。 观测记录：old_race='tt-1786612216431-1', new_race='tt-1786612233315-3', elapsed=0, checkpoint=0, speed=0"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成”的要求。 观测记录：completed=True, reward=True, purchase=True, upgrade=True, purchase_retained=True, upgrade_retained=True, state=menu"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算”的要求。 观测记录：raf_active=(1->0), raf_max=(1->1), listener_growth={'keydown': 6.0, 'keyup': -1.0}, timer_growth=(timeouts:0.0, intervals:-1.0), webgl_resource_growth=-76.0, webgl_contexts=8"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“实际比赛画面清楚呈现第三人称 3D 越野赛车环境”的要求。 观测记录：YES\n该画面为车辆后上方的第三人称外部视角，可见玩家驾驶的车辆，存在非铺装的三维越野地形与标注了检查点的可驾驶比赛路线，符合要求。",
+          "image": "ut_images/bad_1_r34_1_race.png"
+        },
+        {
+          "id": 35,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆在画面中具有可辨认的外观差异”的要求。 观测记录：YES\n画面中展示了亮黄色和橙色两辆可明确区分的不同车辆，二者配色、参数均不相同，是可辨认的两辆不同车辆。",
+          "image": "ut_images/bad_1_r35_2_garage.png"
+        },
+        {
+          "id": 36,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读”的要求。 观测记录：YES\n所有关键界面都完整呈现，核心按钮、金币、计时和结果信息都清晰可读，不存在严重裁切、重叠、遮挡或与背景混淆的问题。",
+          "image": "ut_images/bad_1_r36_3_ui-grid.png"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈”的要求。 观测记录：react19=True, ts=True, vite=True, tailwind=True, entry=True"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物”的要求。 观测记录：build_requested=True, build_succeeded=True, vite_build_script=True, served=dist, index=True, detail=npm/vite build succeeded"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点”的要求。 观测记录：source=missing_fixed_ids=[], runtime_ids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': True}, duplicate_ids=[]"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布”的要求。 观测记录：source=missing_testids=[], missing_stable_ids=[], runtime_testids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': True}"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__game.getState() 存在并符合规定的全局状态 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__world.getState() 存在并符合规定的地图与真实世界 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__race.getState() 存在并符合规定的单人计时赛 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 46,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__camera.getState() 存在并符合规定的第三人称摄像机 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 47,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 48,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“七组公开 getState() 接口均为只读，连续读取不会改变游戏状态”的要求。 观测记录：missing=[], same=True"
+        },
+        {
+          "id": 49,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“公开状态与当前真实 WebGL 场景、画布和用户界面相互一致”的要求。 观测记录：canvas=True, ids=('trailhawk-x1', 'trailhawk-x1', 'red-rock-run', 'red-rock-run'), wheels=4/4, frames=(40.0, 46.0, 40.0, 46.0), webgl=1"
+        }
+      ],
+      "func_score": {
+        "应用初始状态显示可操作的主菜单。": 1,
+        "主菜单入口能够进入对应功能界面并返回主菜单。": 1,
+        "车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态。": 1,
+        "未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择。": 1,
+        "玩家选择的已拥有车辆会实际成为比赛中的玩家车辆。": 0,
+        "不同车辆具有会造成实际驾驶差异的性能或物理参数。": 0,
+        "地图选择界面提供至少两张可识别的不同地图。": 1,
+        "玩家选择的地图会实际成为本次计时赛场景。": 1,
+        "不同地图具有会改变驾驶路线的不同地形或赛道布局。": 0,
+        "计时赛以单人模式运行。": 1,
+        "开始计时赛会创建完整且一致的比赛初始状态。": 1,
+        "玩家能够实际控制车辆加速、制动和倒车。": 1,
+        "玩家能够实际控制车辆向左和向右转向。": 0,
+        "车辆运动具有连续的速度变化和惯性，而不是按输入瞬移。": 1,
+        "车辆与地形和实体障碍具有有效碰撞与接触约束。": 1,
+        "悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹。": 0,
+        "悬挂变化会真实影响车身的高度、俯仰或侧倾。": 1,
+        "越野路面或地形坡度会真实改变车辆的抓地、速度或姿态。": 1,
+        "比赛摄像机以第三人称视角跟随玩家车辆。": 1,
+        "比赛界面持续显示可读的当前计时。": 1,
+        "计时只在本次有效比赛期间累计，并在完赛后停止。": 1,
+        "计时赛只有在玩家完成有效路线并抵达终点后才会完成。": 1,
+        "有效完赛后会显示与本场比赛一致的结果和最终用时。": 1,
+        "玩家完成有效计时赛后只获得一次正数金币奖励。": 1,
+        "金币余额在用户界面和实时经济状态中保持一致。": 1,
+        "玩家能够使用足够金币购买一辆未拥有的车辆。": 1,
+        "已购买车辆在返回菜单和后续比赛中保持拥有并可使用。": 1,
+        "玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值。": 1,
+        "车辆升级会实际改变后续比赛中的对应驾驶表现。": 1,
+        "已购买的升级在返回菜单和后续比赛中保持生效。": 1,
+        "玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛。": 1,
+        "从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成。": 1,
+        "多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算。": 0,
+        "项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈。": 1,
+        "项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物。": 1,
+        "页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点。": 1,
+        "页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布。": 1,
+        "window.__game.getState() 存在并符合规定的全局状态 schema。": 1,
+        "window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema。": 1,
+        "window.__world.getState() 存在并符合规定的地图与真实世界 schema。": 1,
+        "window.__race.getState() 存在并符合规定的单人计时赛 schema。": 1,
+        "window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema。": 1,
+        "window.__camera.getState() 存在并符合规定的第三人称摄像机 schema。": 1,
+        "window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema。": 1,
+        "七组公开 getState() 接口均为只读，连续读取不会改变游戏状态。": 1,
+        "公开状态与当前真实 WebGL 场景、画布和用户界面相互一致。": 1
+      },
+      "vlm_score": {
+        "实际比赛画面清楚呈现第三人称 3D 越野赛车环境。": 1,
+        "不同车辆在画面中具有可辨认的外观差异。": 1,
+        "菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读。": 1
+      }
+    },
+    "bad_2": {
+      "repo": "bad_2",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“应用初始状态显示可操作的主菜单”的要求。 观测记录：menu=True, start=True, garage=True, gameState=menu"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“主菜单入口能够进入对应功能界面并返回主菜单”的要求。 观测记录：time_trial_roundtrip=True, garage_roundtrip=True"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态”的要求。 观测记录：vehicles=2, cards=0, owned=1, purchasable=1, unique_ids=True"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择”的要求。 观测记录：locked_id='baja-r', locked_rejected=True, owned_id='trailhawk', owned_selected=True"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的已拥有车辆会实际成为比赛中的玩家车辆”的要求。 观测记录：starter_loaded=True, second='baja-r', second_loaded=True, visible=['baja-r']"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆具有会造成实际驾驶差异的性能或物理参数”的要求。 观测记录：starter='trailhawk', second='baja-r', actual_behavior_difference=True"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“地图选择界面提供至少两张可识别的不同地图”的要求。 观测记录：maps=2, cards=2, unique_ids=True"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的地图会实际成为本次计时赛场景”的要求。 观测记录：map1_loaded=True, map2_loaded=True"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同地图具有会改变驾驶路线的不同地形或赛道布局”的要求。 观测记录：early_visual_and_layout=True, later_layout_recheck=True, map1='red-canyon', map2='pine-ridge'"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛以单人模式运行”的要求。 观测记录：mode=time_trial, players=1, competitors=0, visibleVehicleIds=['trailhawk']"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“开始计时赛会创建完整且一致的比赛初始状态”的要求。 观测记录：raceId='race-1786612333410-efxr89', phase=running, elapsed=0.13330000000000017, checkpoint=0, speed=0, renderer=webgl2"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆加速、制动和倒车”的要求。 观测记录：accelerated=12.970, before_brake=14.893, after_brake=5.696, reverse=-3.733"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆向左和向右转向”的要求。 观测记录：left_steering=-0.9928765532636523, right_steering=0.9998062475025435, neutral=0.000, forward_dot=0.4884"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆运动具有连续的速度变化和惯性，而不是按输入瞬移”的要求。 观测记录：speed_samples=[1.306, 3.072, 5.492, 7.512, 10.49, 12.97], step_distances=[0.326, 0.76, 0.918, 1.85, 1.987], coast=(14.517->14.893), coast_distance=6.617"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“车辆与地形和实体障碍具有有效碰撞与接触约束”的要求。 观测记录：grounded=False, obstacles=5, collision=False, object=None, distance=None, radius=1.2"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹”的要求。 观测记录：wheel_count=4, schema=True, independent=True, compression_states=[[0.51099, 0.43171, 0.56695, 0.49035], [0.5112, 0.43173, 0.56701, 0.49006], [0.51168, 0.43184, 0.5671, 0.48938], [0.51225, 0.43208, 0.5671, 0.48857], [0.51332, 0.43296, 0.56671, 0.48701], [0.51439, 0.43446, 0.56573, 0.48542]]"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂变化会真实影响车身的高度、俯仰或侧倾”的要求。 观测记录：compression_changed=True, coupled_pose=True, pitch=[0.02689, 0.02688, 0.02675, 0.02651, 0.02587, 0.02502, 0.00745, -0.01766], roll=[0.04525, 0.04541, 0.04567, 0.04593, 0.04636, 0.04658, 0.03619, 0.02327]"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“越野路面或地形坡度会真实改变车辆的抓地、速度或姿态”的要求。 观测记录：height_range=(-3.5, 3.3), surfaces=['dirt'], chassis_changed=True"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛摄像机以第三人称视角跟随玩家车辆”的要求。 观测记录：third_person_behind=True, camera_positions=9, distances=[8.58, 8.76, 9.1, 9.42, 9.92, 10.38]"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛界面持续显示可读的当前计时”的要求。 观测记录：visible=True, dom=('00:00.399'->'00:00.716', delta=0.31699999999999995), state=(0.417->0.783, delta=0.367)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时只在本次有效比赛期间累计，并在完赛后停止”的要求。 观测记录：running_increased=True, final=57.3643, after_wait=57.3643"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛只有在玩家完成有效路线并抵达终点后才会完成”的要求。 观测记录：negative_finish_blocked=True, declared=['rc-cp-1', 'rc-cp-2', 'rc-cp-3', 'rc-cp-4'], passed=['rc-cp-1', 'rc-cp-2', 'rc-cp-3', 'rc-cp-4'], completed=True, failure="
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“有效完赛后会显示与本场比赛一致的结果和最终用时”的要求。 观测记录：visible=True, result={'raceId': 'race-1786612367960-kx34nj', 'vehicleId': 'trailhawk', 'mapId': 'red-canyon', 'finalTime': 57.3643, 'reward': 206}, final_time=57.3643, dom_time='00:57.364', vehicle_name='Trailhawk XR', map_name='Red Canyon Run', dom_consistent=True"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家完成有效计时赛后只获得一次正数金币奖励”的要求。 观测记录：before=650.0, after=856.0, reward=206.0, delta=206.0, after_wait=856.0"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“金币余额在用户界面和实时经济状态中保持一致”的要求。 观测记录：reward_sync=True, final_dom=316.0, final_game=316.0, final_garage=316.0"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家能够使用足够金币购买一辆未拥有的车辆”的要求。 观测记录：vehicle='baja-r', cost=420.0, purchased=True, duplicate_protected=True, insufficient_exercised=False, isolated_spend_attempts=2"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买车辆在返回菜单和后续比赛中保持拥有并可使用”的要求。 观测记录：purchased_id='baja-r', retained_and_selectable=True"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值”的要求。 观测记录：vehicle='trailhawk', upgrade='engine', level_after=1.0, transaction=True, stat_changed=True, insufficient_exercised=False"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“车辆升级会实际改变后续比赛中的对应驾驶表现”的要求。 观测记录：applied_stat_differences={}, directional_effects={}, baseline_response={'acceleration': 14.15028961914414, 'longitudinalAcceleration': 14.150289619144138, 'braking': 6.215853199168222, 'steering': 0.21169893874952384, 'grip': 1.4315671110493823e-17, 'suspension': 0.13540560745877328, 'appliedStats': {'mass': 1650, 'power': 18, 'braking': 13, 'steering': 1.8, 'grip': 1, 'maxSpeed': 31, 'suspension': 1.05}, 'vehicleId': 'trailhawk'}, upgraded_response={'acceleration': 13.604424731016646, 'longitudinalAcceleration': 13.604424731016646, 'braking': 6.087268282700192, 'steering': 0.0004131868460806043, 'grip': 0.0, 'suspension': 0.13541053709108197, 'appliedStats': {'mass': 1650, 'power': 18, 'braking': 13, 'steering': 1.8, 'grip': 1, 'maxSpeed': 31, 'suspension': 1.05}, 'vehicleId': 'trailhawk'}"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买的升级在返回菜单和后续比赛中保持生效”的要求。 观测记录：upgrade='engine', expected_level=1.0, retained=True"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛”的要求。 观测记录：old_race='race-1786612333410-efxr89', new_race='race-1786612361927-nqm80l', elapsed=0, checkpoint=0, speed=0"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成”的要求。 观测记录：completed=True, reward=True, purchase=True, upgrade=True, purchase_retained=True, upgrade_retained=True, state=menu"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算”的要求。 观测记录：raf_active=(1->0), raf_max=(2->2), listener_growth={'keydown': 7.0, 'keyup': -1.0}, timer_growth=(timeouts:0.0, intervals:0.0), webgl_resource_growth=-126.0, webgl_contexts=8"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“实际比赛画面清楚呈现第三人称 3D 越野赛车环境”的要求。 观测记录：YES\n该画面是车辆后上方的第三人称3D视角，可见玩家驾驶车辆，存在非铺装的沙漠三维越野地形与可驾驶路线，符合要求。",
+          "image": "ut_images/bad_2_r34_1_race.png"
+        },
+        {
+          "id": 35,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆在画面中具有可辨认的外观差异”的要求。 观测记录：YES\n画面中展示了黄色的Trailhawk XR和红色的Baja R，两辆车的配色、车身轮廓细节都有明显区别，可以被辨认出是不同车辆。",
+          "image": "ut_images/bad_2_r35_2_garage.png"
+        },
+        {
+          "id": 36,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读”的要求。 观测记录：YES\n所有界面的核心按钮、金币、计时和结果信息都清晰可读，不存在严重裁切、重叠、遮挡或与背景混淆的问题，各个关键界面都完整展示。",
+          "image": "ut_images/bad_2_r36_3_ui-grid.png"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈”的要求。 观测记录：react19=True, ts=True, vite=True, tailwind=True, entry=True"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物”的要求。 观测记录：build_requested=True, build_succeeded=True, vite_build_script=True, served=dist, index=True, detail=npm/vite build succeeded"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点”的要求。 观测记录：source=missing_fixed_ids=[], runtime_ids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': True}, duplicate_ids=[]"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布”的要求。 观测记录：source=missing_testids=[], missing_stable_ids=[], runtime_testids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': True}"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__game.getState() 存在并符合规定的全局状态 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__world.getState() 存在并符合规定的地图与真实世界 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__race.getState() 存在并符合规定的单人计时赛 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 46,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__camera.getState() 存在并符合规定的第三人称摄像机 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 47,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 48,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“七组公开 getState() 接口均为只读，连续读取不会改变游戏状态”的要求。 观测记录：missing=[], same=True"
+        },
+        {
+          "id": 49,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“公开状态与当前真实 WebGL 场景、画布和用户界面相互一致”的要求。 观测记录：canvas=True, ids=('trailhawk', 'trailhawk', 'red-canyon', 'red-canyon'), wheels=4/4, frames=(10.0, 26.0, 10.0, 26.0), webgl=1"
+        }
+      ],
+      "func_score": {
+        "应用初始状态显示可操作的主菜单。": 1,
+        "主菜单入口能够进入对应功能界面并返回主菜单。": 1,
+        "车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态。": 0,
+        "未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择。": 1,
+        "玩家选择的已拥有车辆会实际成为比赛中的玩家车辆。": 1,
+        "不同车辆具有会造成实际驾驶差异的性能或物理参数。": 1,
+        "地图选择界面提供至少两张可识别的不同地图。": 1,
+        "玩家选择的地图会实际成为本次计时赛场景。": 1,
+        "不同地图具有会改变驾驶路线的不同地形或赛道布局。": 1,
+        "计时赛以单人模式运行。": 1,
+        "开始计时赛会创建完整且一致的比赛初始状态。": 1,
+        "玩家能够实际控制车辆加速、制动和倒车。": 1,
+        "玩家能够实际控制车辆向左和向右转向。": 1,
+        "车辆运动具有连续的速度变化和惯性，而不是按输入瞬移。": 1,
+        "车辆与地形和实体障碍具有有效碰撞与接触约束。": 0,
+        "悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹。": 1,
+        "悬挂变化会真实影响车身的高度、俯仰或侧倾。": 1,
+        "越野路面或地形坡度会真实改变车辆的抓地、速度或姿态。": 1,
+        "比赛摄像机以第三人称视角跟随玩家车辆。": 1,
+        "比赛界面持续显示可读的当前计时。": 1,
+        "计时只在本次有效比赛期间累计，并在完赛后停止。": 1,
+        "计时赛只有在玩家完成有效路线并抵达终点后才会完成。": 1,
+        "有效完赛后会显示与本场比赛一致的结果和最终用时。": 1,
+        "玩家完成有效计时赛后只获得一次正数金币奖励。": 1,
+        "金币余额在用户界面和实时经济状态中保持一致。": 1,
+        "玩家能够使用足够金币购买一辆未拥有的车辆。": 0,
+        "已购买车辆在返回菜单和后续比赛中保持拥有并可使用。": 1,
+        "玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值。": 0,
+        "车辆升级会实际改变后续比赛中的对应驾驶表现。": 0,
+        "已购买的升级在返回菜单和后续比赛中保持生效。": 1,
+        "玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛。": 0,
+        "从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成。": 1,
+        "多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算。": 0,
+        "项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈。": 1,
+        "项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物。": 1,
+        "页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点。": 1,
+        "页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布。": 1,
+        "window.__game.getState() 存在并符合规定的全局状态 schema。": 1,
+        "window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema。": 1,
+        "window.__world.getState() 存在并符合规定的地图与真实世界 schema。": 1,
+        "window.__race.getState() 存在并符合规定的单人计时赛 schema。": 1,
+        "window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema。": 1,
+        "window.__camera.getState() 存在并符合规定的第三人称摄像机 schema。": 1,
+        "window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema。": 1,
+        "七组公开 getState() 接口均为只读，连续读取不会改变游戏状态。": 1,
+        "公开状态与当前真实 WebGL 场景、画布和用户界面相互一致。": 1
+      },
+      "vlm_score": {
+        "实际比赛画面清楚呈现第三人称 3D 越野赛车环境。": 1,
+        "不同车辆在画面中具有可辨认的外观差异。": 1,
+        "菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读。": 1
+      }
+    },
+    "bad_3": {
+      "repo": "bad_3",
+      "layer1_pass": true,
+      "layer1_detail": {
+        "loadable": true,
+        "fatal_console_errors": []
+      },
+      "items": [
+        {
+          "id": 1,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“应用初始状态显示可操作的主菜单”的要求。 观测记录：menu=True, start=True, garage=True, gameState=menu"
+        },
+        {
+          "id": 2,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“主菜单入口能够进入对应功能界面并返回主菜单”的要求。 观测记录：time_trial_roundtrip=True, garage_roundtrip=True"
+        },
+        {
+          "id": 3,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态”的要求。 观测记录：vehicles=2, cards=2, owned=1, purchasable=1, unique_ids=True"
+        },
+        {
+          "id": 4,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择”的要求。 观测记录：locked_id='mudhorn-rs', locked_rejected=True, owned_id='trailfox-xr', owned_selected=True"
+        },
+        {
+          "id": 5,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的已拥有车辆会实际成为比赛中的玩家车辆”的要求。 观测记录：starter_loaded=True, second='mudhorn-rs', second_loaded=True, visible=['mudhorn-rs']"
+        },
+        {
+          "id": 6,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆具有会造成实际驾驶差异的性能或物理参数”的要求。 观测记录：starter='trailfox-xr', second='mudhorn-rs', actual_behavior_difference=True"
+        },
+        {
+          "id": 7,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“地图选择界面提供至少两张可识别的不同地图”的要求。 观测记录：maps=2, cards=2, unique_ids=True"
+        },
+        {
+          "id": 8,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家选择的地图会实际成为本次计时赛场景”的要求。 观测记录：map1_loaded=True, map2_loaded=True"
+        },
+        {
+          "id": 9,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同地图具有会改变驾驶路线的不同地形或赛道布局”的要求。 观测记录：early_visual_and_layout=True, later_layout_recheck=True, map1='red-ridge', map2='pine-run'"
+        },
+        {
+          "id": 10,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“计时赛以单人模式运行”的要求。 观测记录：mode=time_trial, players=1, competitors=0, visibleVehicleIds=['trailfox-xr']"
+        },
+        {
+          "id": 11,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“开始计时赛会创建完整且一致的比赛初始状态”的要求。 观测记录：raceId='tt-msraxuty-1', phase=running, elapsed=0.10009999999999945, checkpoint=0, speed=0, renderer=webgl2"
+        },
+        {
+          "id": 12,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆加速、制动和倒车”的要求。 观测记录：accelerated=3.192, before_brake=3.409, after_brake=-0.291, reverse=-0.956"
+        },
+        {
+          "id": 13,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够实际控制车辆向左和向右转向”的要求。 观测记录：left_steering=-0.9657979100049187, right_steering=0.8896212881109045, neutral=0.000, forward_dot=-0.1885"
+        },
+        {
+          "id": 14,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆运动具有连续的速度变化和惯性，而不是按输入瞬移”的要求。 观测记录：speed_samples=[0.488, 1.015, 1.594, 2.128, 2.66, 3.192], step_distances=[0.158, 0.291, 0.38, 0.486, 0.592], coast=(3.434->3.409), coast_distance=1.651"
+        },
+        {
+          "id": 15,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆与地形和实体障碍具有有效碰撞与接触约束”的要求。 观测记录：grounded=True, obstacles=5, collision=True, object='rr-rock-1', distance=3.858206378532133, radius=2.2"
+        },
+        {
+          "id": 16,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹”的要求。 观测记录：wheel_count=4, schema=True, independent=True, compression_states=[[0.0, 0.19219, 0.01372, 0.28657], [0.0, 0.19155, 0.01352, 0.28613], [0.0, 0.18936, 0.01269, 0.28456], [0.0, 0.18562, 0.01131, 0.2819], [0.0, 0.18026, 0.00955, 0.27818], [0.0, 0.17317, 0.00759, 0.27344]]"
+        },
+        {
+          "id": 17,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“悬挂变化会真实影响车身的高度、俯仰或侧倾”的要求。 观测记录：compression_changed=True, coupled_pose=True, pitch=[-0.03699, -0.04457, -0.04847, -0.05015, -0.05121, -0.05217, -0.05404, 0.0068], roll=[-0.08067, -0.08044, -0.07992, -0.07917, -0.07812, -0.07676, -0.0664, -0.15526]"
+        },
+        {
+          "id": 18,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“越野路面或地形坡度会真实改变车辆的抓地、速度或姿态”的要求。 观测记录：height_range=(-3.747232091254989, 6.2079535839333), surfaces=['sand'], chassis_changed=True"
+        },
+        {
+          "id": 19,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“比赛摄像机以第三人称视角跟随玩家车辆”的要求。 观测记录：third_person_behind=True, camera_positions=9, distances=[9.46, 9.57, 9.72, 9.87, 10.03, 10.19]"
+        },
+        {
+          "id": 20,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“比赛界面持续显示可读的当前计时”的要求。 观测记录：visible=True, dom=('00:00.000'->'00:00.000', delta=0.0), state=(0.400->0.750, delta=0.350)"
+        },
+        {
+          "id": 21,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“计时只在本次有效比赛期间累计，并在完赛后停止”的要求。 观测记录：running_increased=True, final=-1, after_wait=None"
+        },
+        {
+          "id": 22,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“计时赛只有在玩家完成有效路线并抵达终点后才会完成”的要求。 观测记录：negative_finish_blocked=True, declared=['rr-cp-1', 'rr-cp-2', 'rr-cp-3', 'rr-cp-4'], passed=['rr-cp-1', 'rr-cp-2', 'rr-cp-3'], completed=False, failure=checkpoint timeout: rr-cp-4"
+        },
+        {
+          "id": 23,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“有效完赛后会显示与本场比赛一致的结果和最终用时”的要求。 观测记录：visible=False, result={}, final_time=-1, dom_time='', vehicle_name='TRAILFOX XR', map_name='RED RIDGE', dom_consistent=False"
+        },
+        {
+          "id": 24,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家完成有效计时赛后只获得一次正数金币奖励”的要求。 观测记录：before=2400.0, after=2400.0, reward=0.0, delta=0.0, after_wait=2400.0"
+        },
+        {
+          "id": 25,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“金币余额在用户界面和实时经济状态中保持一致”的要求。 观测记录：reward_sync=True, final_dom=80.0, final_game=80.0, final_garage=80.0"
+        },
+        {
+          "id": 26,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够使用足够金币购买一辆未拥有的车辆”的要求。 观测记录：vehicle='mudhorn-rs', cost=1800.0, purchased=True, duplicate_protected=True, insufficient_exercised=True, isolated_spend_attempts=1"
+        },
+        {
+          "id": 27,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买车辆在返回菜单和后续比赛中保持拥有并可使用”的要求。 观测记录：purchased_id='mudhorn-rs', retained_and_selectable=True"
+        },
+        {
+          "id": 28,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值”的要求。 观测记录：vehicle='trailfox-xr', upgrade='long-travel', level_after=1.0, transaction=True, stat_changed=True, insufficient_exercised=True"
+        },
+        {
+          "id": 29,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“车辆升级会实际改变后续比赛中的对应驾驶表现”的要求。 观测记录：applied_stat_differences={'suspension': (0.78, 0.92)}, directional_effects={'suspension': True}, baseline_response={'acceleration': 2.7971611189214203, 'longitudinalAcceleration': 2.7971611189214203, 'braking': 2.7314537007173394, 'steering': 0.07687281973258653, 'grip': 0.13804815796522169, 'suspension': 0.28218131135594005, 'appliedStats': {'mass': 1420, 'power': 248, 'braking': 7.4, 'steering': 1.85, 'grip': 1.08, 'maxSpeed': 32, 'suspension': 0.78}, 'vehicleId': 'trailfox-xr'}, upgraded_response={'acceleration': 2.884094350789962, 'longitudinalAcceleration': 2.884094350789962, 'braking': 2.8173592166085117, 'steering': 0.08580283183361914, 'grip': 0.14607911210162536, 'suspension': 0.27126079334361874, 'appliedStats': {'mass': 1420, 'power': 248, 'braking': 7.4, 'steering': 1.85, 'grip': 1.08, 'maxSpeed': 32, 'suspension': 0.92}, 'vehicleId': 'trailfox-xr'}"
+        },
+        {
+          "id": 30,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“已购买的升级在返回菜单和后续比赛中保持生效”的要求。 观测记录：upgrade='long-travel', expected_level=1.0, retained=True"
+        },
+        {
+          "id": 31,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛”的要求。 观测记录：old_race='tt-msraxuty-1', new_race='tt-msray8ao-3', elapsed=0, checkpoint=0, speed=0"
+        },
+        {
+          "id": 32,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成”的要求。 观测记录：completed=False, reward=False, purchase=True, upgrade=True, purchase_retained=True, upgrade_retained=True, state=menu"
+        },
+        {
+          "id": 33,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算”的要求。 观测记录：raf_active=(1->0), raf_max=(1->1), listener_growth={'keydown': -2.0, 'keyup': -1.0}, timer_growth=(timeouts:0.0, intervals:0.0), webgl_resource_growth=-260.0, webgl_contexts=8"
+        },
+        {
+          "id": 34,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“实际比赛画面清楚呈现第三人称 3D 越野赛车环境”的要求。 观测记录：YES\n该画面从车辆后上方的第三人称外部视角呈现，能清晰看到玩家驾驶的车辆，拥有带高度起伏的非铺装三维越野地形，还有标注出的可驾驶路线，符合要求。",
+          "image": "ut_images/bad_3_r34_1_race.png"
+        },
+        {
+          "id": 35,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“不同车辆在画面中具有可辨认的外观差异”的要求。 观测记录：YES\n画面中展示了亮黄色的TRAILFOX XR和橙色的MUDHORN RS两辆车辆，二者车身配色、车身结构比例都有明显区别，是可辨认的不同车辆。",
+          "image": "ut_images/bad_3_r35_2_garage.png"
+        },
+        {
+          "id": 36,
+          "kind": "vlm",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读”的要求。 观测记录：YES\n已展示的主菜单、车库车辆选择、地图选择、比赛HUD的核心按钮、计时等信息都清晰可读，无严重裁切、重叠、遮挡或与背景混淆，仅缺失结果界面一个关键界面，不属于缺少多个关键界面。",
+          "image": "ut_images/bad_3_r36_3_ui-grid.png"
+        },
+        {
+          "id": 37,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈”的要求。 观测记录：react19=True, ts=True, vite=True, tailwind=True, entry=True"
+        },
+        {
+          "id": 38,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物”的要求。 观测记录：build_requested=True, build_succeeded=True, vite_build_script=True, served=dist, index=True, detail=npm/vite build succeeded"
+        },
+        {
+          "id": 39,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点”的要求。 观测记录：source=missing_fixed_ids=['id=\"result-screen\"'], runtime_ids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': False}, duplicate_ids=[]"
+        },
+        {
+          "id": 40,
+          "kind": "det",
+          "score": 0,
+          "reason": "未通过：实际操作与观测未满足“页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布”的要求。 观测记录：source=missing_testids=['result-retry-btn'], missing_stable_ids=[], runtime_testids={'menu': True, 'garage': True, 'vehicle_select': True, 'map_select': True, 'race': True, 'result': False}"
+        },
+        {
+          "id": 41,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__game.getState() 存在并符合规定的全局状态 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 42,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 43,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__world.getState() 存在并符合规定的地图与真实世界 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 44,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__race.getState() 存在并符合规定的单人计时赛 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 45,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 46,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__camera.getState() 存在并符合规定的第三人称摄像机 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 47,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema”的要求。 观测记录：schema_errors=[]"
+        },
+        {
+          "id": 48,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“七组公开 getState() 接口均为只读，连续读取不会改变游戏状态”的要求。 观测记录：missing=[], same=True"
+        },
+        {
+          "id": 49,
+          "kind": "det",
+          "score": 1,
+          "reason": "通过：实际操作与观测满足“公开状态与当前真实 WebGL 场景、画布和用户界面相互一致”的要求。 观测记录：canvas=True, ids=('trailfox-xr', 'trailfox-xr', 'red-ridge', 'red-ridge'), wheels=4/4, frames=(31.0, 34.0, 31.0, 34.0), webgl=1"
+        }
+      ],
+      "func_score": {
+        "应用初始状态显示可操作的主菜单。": 1,
+        "主菜单入口能够进入对应功能界面并返回主菜单。": 1,
+        "车辆界面提供至少两辆可识别的不同车辆，并显示其拥有或可购买状态。": 1,
+        "未拥有的车辆不能直接用于比赛，已拥有的车辆可以被选择。": 1,
+        "玩家选择的已拥有车辆会实际成为比赛中的玩家车辆。": 1,
+        "不同车辆具有会造成实际驾驶差异的性能或物理参数。": 1,
+        "地图选择界面提供至少两张可识别的不同地图。": 1,
+        "玩家选择的地图会实际成为本次计时赛场景。": 1,
+        "不同地图具有会改变驾驶路线的不同地形或赛道布局。": 1,
+        "计时赛以单人模式运行。": 1,
+        "开始计时赛会创建完整且一致的比赛初始状态。": 1,
+        "玩家能够实际控制车辆加速、制动和倒车。": 1,
+        "玩家能够实际控制车辆向左和向右转向。": 1,
+        "车辆运动具有连续的速度变化和惯性，而不是按输入瞬移。": 1,
+        "车辆与地形和实体障碍具有有效碰撞与接触约束。": 1,
+        "悬挂系统会根据各车轮与地形的真实接触独立压缩或回弹。": 1,
+        "悬挂变化会真实影响车身的高度、俯仰或侧倾。": 1,
+        "越野路面或地形坡度会真实改变车辆的抓地、速度或姿态。": 1,
+        "比赛摄像机以第三人称视角跟随玩家车辆。": 1,
+        "比赛界面持续显示可读的当前计时。": 0,
+        "计时只在本次有效比赛期间累计，并在完赛后停止。": 0,
+        "计时赛只有在玩家完成有效路线并抵达终点后才会完成。": 0,
+        "有效完赛后会显示与本场比赛一致的结果和最终用时。": 0,
+        "玩家完成有效计时赛后只获得一次正数金币奖励。": 0,
+        "金币余额在用户界面和实时经济状态中保持一致。": 1,
+        "玩家能够使用足够金币购买一辆未拥有的车辆。": 1,
+        "已购买车辆在返回菜单和后续比赛中保持拥有并可使用。": 1,
+        "玩家能够使用足够金币提升已拥有车辆的升级等级或性能数值。": 1,
+        "车辆升级会实际改变后续比赛中的对应驾驶表现。": 1,
+        "已购买的升级在返回菜单和后续比赛中保持生效。": 1,
+        "玩家能够在完成或退出一场比赛后开始一场状态干净的新计时赛。": 0,
+        "从主菜单到完赛、获得金币、购车或升级并再次参赛的完整循环可以通过正常界面完成。": 0,
+        "多次进入和退出比赛不会累积重复的主循环、输入处理或重复结算。": 1,
+        "项目使用指定的 React 19、TypeScript、Vite 和 Tailwind CSS 工程技术栈。": 1,
+        "项目的正式 npm build 流程实际成功并生成可运行的 Vite 构建产物。": 1,
+        "页面在各流程状态提供唯一且正确的固定界面 ID 与 React 根节点。": 0,
+        "页面提供提示词规定的真实 data-testid、稳定车辆/地图 ID 和可见比赛画布。": 0,
+        "window.__game.getState() 存在并符合规定的全局状态 schema。": 1,
+        "window.__garage.getState() 存在并符合规定的车辆、经济与升级 schema。": 1,
+        "window.__world.getState() 存在并符合规定的地图与真实世界 schema。": 1,
+        "window.__race.getState() 存在并符合规定的单人计时赛 schema。": 1,
+        "window.__vehicle.getState() 存在并符合规定的车辆物理与四轮悬挂 schema。": 1,
+        "window.__camera.getState() 存在并符合规定的第三人称摄像机 schema。": 1,
+        "window.__scene.getState() 存在并符合规定的真实 WebGL 场景摘要 schema。": 1,
+        "七组公开 getState() 接口均为只读，连续读取不会改变游戏状态。": 1,
+        "公开状态与当前真实 WebGL 场景、画布和用户界面相互一致。": 1
+      },
+      "vlm_score": {
+        "实际比赛画面清楚呈现第三人称 3D 越野赛车环境。": 1,
+        "不同车辆在画面中具有可辨认的外观差异。": 1,
+        "菜单、车库、地图选择、比赛 HUD 和结果界面的核心信息在对应状态下清晰可读。": 1
+      }
+    }
+  }
+}
